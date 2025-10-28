@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SRJahir Tech — Cloud · AI · Web Excellence</title>
 
+  <!-- Security: minimal CSP allowing EmailJS and cdn.jsdelivr -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://api.emailjs.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- EmailJS library (allowed by CSP above) -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js" defer></script>
+  <script> // init EmailJS must run after library loads; script.js will call emailjs.init
+    // left empty to keep CSP clean — actual init in script.js (deferred)
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <h1 class="brand">SRJahir<span>Tech</span></h1>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="hero">
+    <div class="hero-text">
+      <h2>Cloud · AI · Web Excellence</h2>
+      <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
+      <a href="#contact" class="btn">Get a Quote</a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="services">
+    <h3>Our Expertise</h3>
+    <div class="cards">
+      <article class="card"><h4>☁️ Cloud Engineering</h4><p>AWS, RDS, Aurora & scalable architecture.</p></article>
+      <article class="card"><h4>🤖 AI & Automation</h4><p>Smart systems powered by CloudAI.</p></article>
+      <article class="card"><h4>🌐 Web Development</h4><p>Responsive, high-performance solutions.</p></article>
+      <article class="card"><h4>🔐 Security & Optimization</h4><p>Reliability and data protection by design.</p></article>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <h3>Featured Projects</h3>
+    <div class="cards">
+      <article class="card">
+        <h4>CloudAI</h4>
+        <p>Smart AI assistant built for intelligent interaction.</p>
+        <a href="https://cloudai.srjahir.in" target="_blank" rel="noopener">Visit</a>
+      </article>
+      <article class="card">
+        <h4>Stocks.SRJahir.in</h4>
+        <p>Real-time market analytics platform for investors.</p>
+        <a href="https://stocks.srjahir.in" target="_blank" rel="noopener">Visit</a>
+      </article>
+      <article class="card">
+        <h4>Tools.SRJahir.in</h4>
+        <p>Developer utility hub for productivity and cloud testing.</p>
+        <a href="https://tools.srjahir.in" target="_blank" rel="noopener">Visit</a>
+      </article>
+      <article class="card">
+        <h4>Try Our AI</h4>
+        <p>Experience CloudAI in your browser — powered by SRJahir Tech.</p>
+        <a href="https://cloudai.srjahir.in" target="_blank" rel="noopener" class="highlight">Try Now</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <h3>Who We Are</h3>
+    <p><strong>SRJahir Tech</strong> is a modern technology firm founded by Suraj Ahir. We specialize in Cloud Engineering, Artificial Intelligence and high-end web solutions that help businesses scale securely and efficiently.</p>
+    <p class="focus">Focus Areas: Cloud Infrastructure · AI Systems · Web Platforms · Security Optimization</p>
+  </section>
+
+  <!-- Contact / Get a Quote -->
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <h3 id="contact-title">Get a Quote</h3>
+
+    <!-- Visible form -->
+    <form id="quote-form" autocomplete="off" novalidate>
+      <label class="sr-only" for="user_name">Your name</label>
+      <input id="user_name" name="user_name" type="text" placeholder="Your Name" required />
+
+      <label class="sr-only" for="user_email">Your email</label>
+      <input id="user_email" name="user_email" type="email" placeholder="Your Email" required />
+
+      <label class="sr-only" for="project_type">Project type</label>
+      <select id="project_type" name="project_type">
+        <option value="">Select project type</option>
+        <option>Cloud engineering</option>
+        <option>AI / Automation</option>
+        <option>Web development</option>
+        <option>Security / Optimization</option>
+      </select>
+
+      <label class="sr-only" for="message">Project details</label>
+      <textarea id="message" name="message" rows="5" placeholder="Project details…" required></textarea>
+
+      <!-- Honeypot for bots (hidden from users) -->
+      <input id="hp_field" name="hp_field" type="text" placeholder="Leave blank" style="display:none" autocomplete="off" />
+
+      <button id="send-btn" type="submit">Send Request</button>
+    </form>
+
+    <p class="status" id="form-status" aria-live="polite"></p>
+
+    <p class="alt-contact">Prefer email? <a href="mailto:surajmaitra1996@gmail.com" aria-label="Email SRJahir Tech">Contact us</a></p>
+    <p class="policy-note">By contacting us you agree to our <a href="privacy.html">Privacy Policy</a>.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 SRJahir Tech — Crafted with Excellence by Suraj Ahir</p>
+    <p>Empowering Cloud · Elevating Intelligence · <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+  </html>
