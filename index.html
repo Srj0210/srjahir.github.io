@@ -19,10 +19,13 @@
   <!-- Smooth Background -->
   <div class="background-waves"></div>
 
+  <!-- Top Logo -->
+  <img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
+
   <!-- Header -->
   <header class="nav">
     <h1>SRJahir<span>Tech</span></h1>
-    <nav>
+    <nav class="menu-bar">
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
@@ -33,7 +36,6 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <img src="logo.png" alt="SRJahir Tech Logo" class="hero-logo" />
       <div class="hero-text" data-aos="fade-in">
         <h2 class="typed-text"></h2>
         <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
@@ -46,7 +48,6 @@
   <section id="services" class="services" data-aos="fade-up">
     <h3>Our Expertise</h3>
     <div class="cards">
-
       <div class="card">
         <h4>☁️ Cloud Engineering</h4>
         <p>We design and manage robust cloud environments across <b>AWS</b>, <b>Azure</b>, and <b>Google Cloud</b>.  
@@ -79,7 +80,6 @@
         <h4>💡 Data & Analytics</h4>
         <p>Unlock insights with <b>AWS Athena</b>, <b>Redshift</b>, <b>BigQuery</b>, and <b>Power BI</b> — turning data into business decisions.</p>
       </div>
-
     </div>
   </section>
 
@@ -147,18 +147,20 @@
   <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 800, once: true });
-      new Typed(".typed-text", {
-        strings: [
-          "Cloud Architecture.",
-          "AI Automation.",
-          "Web & App Development.",
-          "Security. Reliability. Excellence."
-        ],
-        typeSpeed: 60,
-        backSpeed: 40,
-        loop: true
-      });
+      setTimeout(() => {
+        AOS.init({ duration: 700, once: true });
+        new Typed(".typed-text", {
+          strings: [
+            "Cloud Architecture.",
+            "AI Automation.",
+            "Web & App Development.",
+            "Security. Reliability. Excellence."
+          ],
+          typeSpeed: 60,
+          backSpeed: 40,
+          loop: true
+        });
+      }, 500);
     });
   </script>
 </body>
