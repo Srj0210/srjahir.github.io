@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Request Received — SRJahir Tech</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Minimal animation -->
+  <style>
+    body {
+      background: #0d1117;
+      color: #e8f1f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 3px solid #00c3c7;
+      position: relative;
+      margin-bottom: 20px;
+      animation: pop 0.6s ease forwards;
+    }
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      left: 25px;
+      top: 45px;
+      width: 25px;
+      height: 50px;
+      border-right: 4px solid #00c3c7;
+      border-bottom: 4px solid #00c3c7;
+      transform: rotate(45deg);
+      animation: draw 0.7s ease forwards;
+    }
+    @keyframes draw {
+      from { transform: rotate(45deg) scale(0); opacity: 0; }
+      to { transform: rotate(45deg) scale(1); opacity: 1; }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1 {
+      color: #00c3c7;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+    p {
+      color: #b7c3c4;
+      max-width: 500px;
+      margin: 0 auto 25px;
+    }
+    .btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btns a {
+      background: #00c3c7;
+      color: #001;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btns a:hover {
+      background: #00a3af;
+      transform: scale(1.05);
+    }
+    footer {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      color: #9ca8aa;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkmark"></div>
+  <h1>Thank You!</h1>
+  <p>Your request has been received successfully.  
+  Our team will get back to you soon to discuss your project in detail.</p>
+  <div class="btns">
+    <a href="index.html">⬅ Back to Home</a>
+    <a href="https://cloudai.srjahir.in" target="_blank">Try CloudAI ⚡</a>
+  </div>
+
+  <footer>
+    © 2025 SRJahir Tech — Trusted Partner in Cloud, AI & Web Solutions
+  </footer>
+</body>
+</html>
