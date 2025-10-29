@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — Page Not Found | SRJahir Tech</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      background: #0d1117;
+      color: #e8f1f2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+
+    .error-code {
+      font-size: 6rem;
+      font-weight: 700;
+      color: #00c3c7;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 0.7; transform: scale(1); }
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 0.5rem;
+      color: #00c3c7;
+    }
+
+    p {
+      color: #b6c1c3;
+      max-width: 500px;
+      margin: 0.5rem auto 2rem;
+    }
+
+    a.btn {
+      background: #00c3c7;
+      color: #001;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    a.btn:hover {
+      transform: scale(1.05);
+      background: #00a3af;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #8fa2a4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-code">404</div>
+  <h2>Page Not Found</h2>
+  <p>Sorry, the page you’re looking for doesn’t exist or has been moved.  
+  You’ll be redirected to our homepage shortly.</p>
+  <a href="index.html" class="btn">⬅ Go to Home</a>
+
+  <footer>
+    © 2025 SRJahir Tech — Cloud • AI • Web • Excellence
+  </footer>
+
+  <script>
+    // Auto redirect to home after 5 seconds
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 5000);
+  </script>
+</body>
+</html>
