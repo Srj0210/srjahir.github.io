@@ -11,7 +11,7 @@
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
-  
+
   <!-- Animation libraries -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -21,6 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
+  <!-- Navbar -->
   <header class="nav">
     <h1>SRJahir<span>Tech</span></h1>
     <nav>
@@ -31,9 +32,9 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-text">
+    <div class="hero-text" data-aos="fade-in">
       <h2>Cloud · AI · Web · Excellence</h2>
       <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
       <a href="#contact" class="btn">Get a Quote</a>
@@ -82,7 +83,7 @@
   <section id="about" class="about" data-aos="fade-up">
     <h3>Who We Are</h3>
     <p><strong>SRJahir Tech</strong> is a modern technology firm founded by Suraj Ahir. 
-      We specialize in Cloud Engineering, Artificial Intelligence and web solutions that help businesses scale securely and efficiently.</p>
+      We specialize in Cloud Engineering, Artificial Intelligence and Web Solutions that help businesses scale securely and efficiently.</p>
     <p class="focus">Focus Areas: Cloud · AI · Web · Security · Innovation</p>
   </section>
 
@@ -117,14 +118,17 @@
     </p>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
   <script>
-    AOS.init({ duration: 1000, once: true });
-    var typed = new Typed('.hero-text h2', {
-      strings: ['Cloud.', 'AI.', 'Web.', 'Excellence.'],
-      typeSpeed: 80,
-      backSpeed: 50,
-      loop: true
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 1000, once: true });
+      new Typed('.hero-text h2', {
+        strings: ['Cloud.', 'AI.', 'Web.', 'Excellence.'],
+        typeSpeed: 80,
+        backSpeed: 50,
+        loop: true
+      });
     });
   </script>
 </body>
