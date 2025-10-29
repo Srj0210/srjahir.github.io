@@ -1,6 +1,7 @@
+// Replace these with your real EmailJS credentials
 const EMAILJS_SERVICE_ID = "your_service_id";
 const EMAILJS_TEMPLATE_ID = "your_template_id";
-const EMAILJS_TEMPLATE_REPLY_ID = "your_reply_template_id"; // optional
+const EMAILJS_TEMPLATE_REPLY_ID = "your_reply_template_id"; // optional auto reply
 const EMAILJS_PUBLIC_KEY = "your_public_key";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     if (document.getElementById("hp_field").value.trim() !== "") {
       status.textContent = "Spam blocked.";
       return;
