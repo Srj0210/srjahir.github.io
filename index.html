@@ -34,11 +34,13 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="home">
     <div class="hero-content">
-      <div class="hero-text" data-aos="fade-in">
+      <div class="hero-text" data-aos="fade-up">
         <h2 class="typed-text"></h2>
-        <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
+        <p class="hero-desc">
+          Empowering businesses with intelligent, scalable and secure digital systems.
+        </p>
         <a href="#contact" class="btn">Get a Quote</a>
       </div>
     </div>
@@ -147,20 +149,18 @@
   <!-- Scripts -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        AOS.init({ duration: 700, once: true });
-        new Typed(".typed-text", {
-          strings: [
-            "Cloud Architecture.",
-            "AI Automation.",
-            "Web & App Development.",
-            "Security. Reliability. Excellence."
-          ],
-          typeSpeed: 60,
-          backSpeed: 40,
-          loop: true
-        });
-      }, 500);
+      AOS.init({ duration: 700, once: true });
+      new Typed(".typed-text", {
+        strings: [
+          "Cloud Architecture.",
+          "AI Automation.",
+          "Web & App Development.",
+          "Security. Reliability. Excellence."
+        ],
+        typeSpeed: 60,
+        backSpeed: 40,
+        loop: true
+      });
     });
   </script>
 </body>
