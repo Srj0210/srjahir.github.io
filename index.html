@@ -13,9 +13,6 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -120,10 +117,11 @@
   <!-- Contact -->
   <section id="contact" class="contact" data-aos="fade-up">
     <h3>Get a Quote</h3>
-    <form id="quote-form">
-      <input type="text" id="user_name" placeholder="Your Name" required />
-      <input type="email" id="user_email" placeholder="Your Email" required />
-      <select id="project_type" required>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="ad6cc950-ed4c-4c24">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <select name="project_type" required>
         <option value="">Select project type</option>
         <option>Cloud Engineering</option>
         <option>AI / Automation</option>
@@ -131,11 +129,10 @@
         <option>Security / Optimization</option>
         <option>Other / Custom Project</option>
       </select>
-      <textarea id="message" rows="5" placeholder="Project details…" required></textarea>
-      <input type="text" id="hp_field" style="display:none" />
+      <textarea name="message" rows="5" placeholder="Project details…" required></textarea>
+      <input type="hidden" name="redirect" value="https://srjahir.in/success.html">
       <button type="submit">Send Request</button>
     </form>
-    <p id="form-status"></p>
     <p class="policy-note">By contacting us, you agree to our <a href="privacy.html">Privacy Policy</a>.</p>
   </section>
 
@@ -150,7 +147,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="script.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       AOS.init({ duration: 800, once: true });
