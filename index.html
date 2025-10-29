@@ -4,20 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#0d1117" />
-  <meta name="color-scheme" content="dark" />
   <title>SRJahir Tech — Cloud · AI · Web Excellence</title>
 
-  <!-- Allow Screenshot & prevent accidental blocking -->
-  <meta name="referrer" content="strict-origin" />
-  <meta name="robots" content="index, follow" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-  <!-- Security Policy -->
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src * 'self' data: blob:; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; connect-src *; font-src *; img-src * data:;" />
-
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="logo.png" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- Animation libraries -->
@@ -30,7 +19,7 @@
 </head>
 
 <body>
-  <!-- Navbar -->
+  <!-- Header -->
   <header class="nav">
     <h1>SRJahir<span>Tech</span></h1>
     <nav>
@@ -43,26 +32,63 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-text" data-aos="fade-in">
-      <h2>Cloud · AI · Web · Excellence</h2>
-      <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
-      <a href="#contact" class="btn">Get a Quote</a>
+    <div class="hero-content">
+      <img src="logo.png" alt="SRJahir Tech Logo" class="hero-logo" />
+      <div class="hero-text" data-aos="fade-in">
+        <h2 class="typed-text"></h2>
+        <p>Empowering businesses with intelligent, scalable and secure digital systems.</p>
+        <a href="#contact" class="btn">Get a Quote</a>
+      </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section id="services" class="services" data-aos="fade-up" style="opacity:1;">
+  <section id="services" class="services" data-aos="fade-up">
     <h3>Our Expertise</h3>
     <div class="cards">
-      <div class="card"><h4>☁️ Cloud Engineering</h4><p>AWS, RDS, Aurora & scalable infrastructure.</p></div>
-      <div class="card"><h4>🤖 AI & Automation</h4><p>Smart systems powered by CloudAI.</p></div>
-      <div class="card"><h4>🌐 Web Development</h4><p>Responsive, high-performance solutions.</p></div>
-      <div class="card"><h4>🔐 Security & Optimization</h4><p>Reliability and data protection by design.</p></div>
+
+      <div class="card">
+        <h4>☁️ Cloud Engineering</h4>
+        <p>We design and manage robust cloud environments across <b>AWS</b>, <b>Microsoft Azure</b>, and <b>Google Cloud Platform</b>.  
+        From architecture setup to scaling, we handle RDS, EC2, S3, IAM, Lambda, VPC, and complete DevOps pipelines.  
+        Our goal: make your cloud fast, cost-efficient, and secure.</p>
+      </div>
+
+      <div class="card">
+        <h4>🤖 AI & Automation</h4>
+        <p>From intelligent bots to automated pipelines, we integrate <b>AI + Cloud</b> to streamline your workflow.  
+        Our proprietary <b>CloudAI</b> system learns and adapts to your business logic — improving performance and reducing manual effort through smart automation.</p>
+      </div>
+
+      <div class="card">
+        <h4>🌐 Web & App Development</h4>
+        <p>We build sleek, modern websites and mobile apps using <b>React</b>, <b>Next.js</b>, <b>Node.js</b>, and <b>Flutter</b>.  
+        Whether it’s a business portal, e-commerce platform, or portfolio — we deliver responsive, high-performance experiences integrated with real-time APIs and databases.</p>
+      </div>
+
+      <div class="card">
+        <h4>🔐 Security & Optimization</h4>
+        <p>We secure your systems from threats using <b>IAM best practices</b>, <b>SSL encryption</b>, <b>CloudFront CDN</b>, and <b>WAF rules</b>.  
+        Additionally, we perform code audits, performance tuning, and load optimization for speed and reliability.</p>
+      </div>
+
+      <div class="card">
+        <h4>🧠 Cloud Consulting & DevOps</h4>
+        <p>Get expert guidance in <b>CI/CD pipelines</b>, <b>Docker</b>, <b>Kubernetes</b>, and <b>Infrastructure as Code</b>.  
+        We help companies migrate to cloud, automate deployment, and maintain zero-downtime production environments — the modern DevOps way.</p>
+      </div>
+
+      <div class="card">
+        <h4>💡 Data & Analytics</h4>
+        <p>Leverage data-driven decision-making using <b>AWS Athena</b>, <b>Redshift</b>, <b>BigQuery</b>, and <b>Power BI</b>.  
+        We transform your data into actionable insights through modern data engineering and visualization practices.</p>
+      </div>
+
     </div>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="projects" data-aos="fade-up" style="opacity:1;">
+  <section id="projects" class="projects" data-aos="fade-up">
     <h3>Featured Projects</h3>
     <div class="cards">
       <div class="card">
@@ -80,16 +106,11 @@
         <p>Developer utility hub for productivity and testing.</p>
         <a href="https://tools.srjahir.in" target="_blank">Visit</a>
       </div>
-      <div class="card">
-        <h4>Try Our AI</h4>
-        <p>Experience CloudAI in your browser — powered by SRJahir Tech.</p>
-        <a href="https://cloudai.srjahir.in" target="_blank" class="highlight">Try Now</a>
-      </div>
     </div>
   </section>
 
   <!-- About -->
-  <section id="about" class="about" data-aos="fade-up" style="opacity:1;">
+  <section id="about" class="about" data-aos="fade-up">
     <h3>Who We Are</h3>
     <p><strong>SRJahir Tech</strong> is a modern technology firm founded by Suraj Ahir.
       We specialize in Cloud Engineering, Artificial Intelligence, and Web Solutions that help businesses scale securely and efficiently.</p>
@@ -97,12 +118,12 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact" data-aos="fade-up" style="opacity:1;">
+  <section id="contact" class="contact" data-aos="fade-up">
     <h3>Get a Quote</h3>
     <form id="quote-form">
       <input type="text" id="user_name" placeholder="Your Name" required />
       <input type="email" id="user_email" placeholder="Your Email" required />
-      <select id="project_type">
+      <select id="project_type" required>
         <option value="">Select project type</option>
         <option>Cloud Engineering</option>
         <option>AI / Automation</option>
@@ -122,9 +143,10 @@
   <footer>
     <p>© 2025 SRJahir Tech — Crafted with Excellence by Suraj Ahir</p>
     <p>Empowering Cloud · Elevating Intelligence</p>
-    <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy.
+    <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy.  
       <a href="mailto:surajmaitra1996@gmail.com?subject=Website Issue Report">Report an Issue</a>
     </p>
+    <img src="sanskrit.png" alt="Sanskrit Design" class="footer-art" />
   </footer>
 
   <!-- Scripts -->
@@ -132,10 +154,15 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       AOS.init({ duration: 800, once: true });
-      new Typed('.hero-text h2', {
-        strings: ['Cloud.', 'AI.', 'Web.', 'Excellence.'],
-        typeSpeed: 80,
-        backSpeed: 50,
+      new Typed(".typed-text", {
+        strings: [
+          "Cloud Architecture.",
+          "AI Automation.",
+          "Web & App Development.",
+          "Security. Reliability. Excellence."
+        ],
+        typeSpeed: 60,
+        backSpeed: 40,
         loop: true
       });
     });
