@@ -6,61 +6,53 @@
   <title>SRJahir Tech — Security. Reliability. Excellence.</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="logo.png" />
+  <!-- AOS Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
 <body>
   <!-- ===== Header ===== -->
   <header>
-    <h1 class="brand">SRJahir<span>Tech</span></h1>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="header-top">
+      <h1 class="brand">SRJahir<span>Tech</span></h1>
+    </div>
+    <div class="header-bottom">
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
   <!-- ===== Logo Section ===== -->
-  <section class="logo-section">
+  <section class="logo-section" data-aos="fade-down">
     <img src="logo.png" alt="SRJahir Tech Logo">
   </section>
 
   <!-- ===== Hero Section ===== -->
-  <section class="hero">
+  <section class="hero" data-aos="fade-up">
     <h2 class="fade-slide-text"></h2>
     <p>Empowering software solutions with strength, scalability & cutting-edge cloud technologies.</p>
     <a href="#services" class="btn">Explore Our Work</a>
   </section>
 
   <!-- ===== Services ===== -->
-  <section id="services" class="section">
+  <section id="services" class="section" data-aos="fade-up">
     <h2>Our Expertise</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Cloud Engineering</h3>
-        <p>Scalable AWS architectures, secure deployments, and cost-optimized solutions tailored for growth.</p>
-      </div>
-      <div class="card">
-        <h3>AI & Automation</h3>
-        <p>Custom AI pipelines and intelligent automation tools for next-gen business efficiency.</p>
-      </div>
-      <div class="card">
-        <h3>Web App Development</h3>
-        <p>Modern responsive apps built with React, Next.js, and secure API integration.</p>
-      </div>
-      <div class="card">
-        <h3>Security & Optimization</h3>
-        <p>Performance tuning & best practices for reliable, fast and protected deployments.</p>
-      </div>
-      <div class="card">
-        <h3>Data Analysis</h3>
-        <p>Cloud-based data visualization and insights for strategic decision making.</p>
-      </div>
+      <div class="card"><h3>Cloud Engineering</h3><p>Scalable AWS architectures, secure deployments, and cost-optimized solutions tailored for growth.</p></div>
+      <div class="card"><h3>AI & Automation</h3><p>Custom AI pipelines and intelligent automation tools for next-gen business efficiency.</p></div>
+      <div class="card"><h3>Web App Development</h3><p>Modern responsive apps built with React, Next.js, and secure API integration.</p></div>
+      <div class="card"><h3>Security & Optimization</h3><p>Performance tuning & best practices for reliable, fast and protected deployments.</p></div>
+      <div class="card"><h3>Data Analysis</h3><p>Cloud-based data visualization and insights for strategic decision making.</p></div>
     </div>
   </section>
 
   <!-- ===== Projects ===== -->
-  <section id="projects" class="section">
+  <section id="projects" class="section" data-aos="fade-up">
     <h2>Featured Projects</h2>
     <div class="grid">
       <div class="card"><h3>Cloud AI</h3><p>Smart AI assistant built for efficient automation.</p></div>
@@ -70,7 +62,7 @@
   </section>
 
   <!-- ===== About ===== -->
-  <section id="about" class="section">
+  <section id="about" class="section" data-aos="fade-up">
     <h2>Who We Are</h2>
     <p>SRJahir Tech is driven by innovation and a commitment to excellence. 
        Our mission is to deliver reliable, secure, and scalable tech solutions 
@@ -78,7 +70,7 @@
   </section>
 
   <!-- ===== Contact ===== -->
-  <section id="contact" class="section contact">
+  <section id="contact" class="section contact" data-aos="fade-up">
     <h2>Get in Touch</h2>
     <form action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="ad6cc950-ed4c-4c24-9146-f0690ba431fb" />
@@ -90,13 +82,14 @@
   </section>
 
   <!-- ===== Footer ===== -->
-  <footer>
+  <footer data-aos="fade-up">
     <img src="sanskrit.png" alt="Sanskrit Symbol" class="footer-image">
     <p>© 2025 SRJahir Tech. All rights reserved.</p>
   </footer>
 
   <!-- ===== Smooth Fade Animation ===== -->
   <script>
+    // Hero fade text animation
     const lines = [
       "Security.",
       "Reliability.",
@@ -104,10 +97,8 @@
       "AI Automation.",
       "Excellence."
     ];
-
     const textEl = document.querySelector(".fade-slide-text");
     let i = 0;
-
     function fadeSlide() {
       textEl.classList.remove("visible");
       setTimeout(() => {
@@ -116,9 +107,15 @@
         i = (i + 1) % lines.length;
       }, 400);
     }
-
     fadeSlide();
     setInterval(fadeSlide, 3000);
+
+    // AOS scroll animations
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out-cubic'
+    });
   </script>
 </body>
 </html>
