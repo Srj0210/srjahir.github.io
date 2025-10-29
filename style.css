@@ -20,26 +20,26 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top left, #f2f2f2, #ffffff);
+  background: radial-gradient(circle at top left, #f4f4f4, #ffffff);
   z-index: -1;
 }
 
 .background-waves::before {
   content: "";
   position: absolute;
-  width: 160%;
-  height: 160%;
+  width: 180%;
+  height: 180%;
   background:
-    radial-gradient(circle at 25% 35%, rgba(0,0,0,0.07), transparent 70%),
-    radial-gradient(circle at 75% 70%, rgba(0,0,0,0.05), transparent 70%);
+    radial-gradient(circle at 30% 40%, rgba(0,0,0,0.05), transparent 70%),
+    radial-gradient(circle at 80% 60%, rgba(0,0,0,0.04), transparent 70%);
   animation: subtleWaves 60s ease-in-out infinite alternate;
-  filter: blur(60px);
-  opacity: 0.45;
+  filter: blur(80px);
+  opacity: 0.4;
 }
 
 @keyframes subtleWaves {
   0% { transform: scale(1) translate(0,0); }
-  100% { transform: scale(1.1) translate(-40px,-30px); }
+  100% { transform: scale(1.05) translate(-40px,-25px); }
 }
 
 /* === Top Logo === */
@@ -87,18 +87,22 @@ body {
 .hero {
   min-height: 85vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 2rem 1rem 5rem 1rem;
+  padding: 1rem 1rem 5rem 1rem;
+}
+
+.hero-text {
+  margin-top: 1.8rem; /* Moves animation closer to logo */
 }
 
 .hero-text h2 {
   font-size: 2.3rem;
   font-weight: 700;
   color: #3a3a3a;
-  margin-bottom: 2rem; /* safe gap from animation */
+  margin-bottom: 1.2rem;
 }
 
 .hero-desc {
@@ -133,65 +137,6 @@ h3 {
   color: #3a3a3a;
 }
 
-/* === Cards === */
-.cards {
-  display: grid;
-  gap: 1.8rem;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  padding: 0 1rem;
-}
-
-.card {
-  background: #fff;
-  padding: 1.6rem;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transition: all 0.4s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: #3a3a3a;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-}
-
-/* === Form === */
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-  gap: 1rem;
-}
-
-input, select, textarea {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #333;
-  padding: 0.9rem;
-  border-radius: 8px;
-  outline: none;
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: #3a3a3a;
-  box-shadow: 0 0 5px rgba(0,0,0,0.15);
-}
-
-button {
-  background: #3a3a3a;
-  color: #fff;
-  border: none;
-  padding: 0.9rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #222;
-}
-
 /* === Footer === */
 footer {
   background: #f2f2f2;
@@ -200,14 +145,8 @@ footer {
   border-top: 1px solid #e0e0e0;
 }
 
-footer p {
-  color: #555;
-  font-size: 0.95rem;
-  margin: 0.5rem 0;
-}
-
 .footer-art {
-  margin-top: 1.5rem;
-  width: 300px;
+  margin-top: 2rem;
+  width: 340px;
   opacity: 0.95;
 }
