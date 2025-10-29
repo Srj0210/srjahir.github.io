@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark" />
   <title>SRJahir Tech — Cloud · AI · Web Excellence</title>
 
-  <!-- Security header -->
+  <!-- Allow Screenshot & prevent accidental blocking -->
+  <meta name="referrer" content="strict-origin" />
+  <meta name="robots" content="index, follow" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Security Policy -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://unpkg.com; connect-src https://api.emailjs.com; style-src 'self' 'unsafe-inline' https://unpkg.com; font-src https://fonts.gstatic.com;">
+    content="default-src * 'self' data: blob:; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; connect-src *; font-src *; img-src * data:;" />
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
@@ -20,6 +28,7 @@
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
+
 <body>
   <!-- Navbar -->
   <header class="nav">
@@ -42,7 +51,7 @@
   </section>
 
   <!-- Services -->
-  <section id="services" class="services" data-aos="fade-up">
+  <section id="services" class="services" data-aos="fade-up" style="opacity:1;">
     <h3>Our Expertise</h3>
     <div class="cards">
       <div class="card"><h4>☁️ Cloud Engineering</h4><p>AWS, RDS, Aurora & scalable infrastructure.</p></div>
@@ -53,7 +62,7 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="projects" data-aos="fade-up">
+  <section id="projects" class="projects" data-aos="fade-up" style="opacity:1;">
     <h3>Featured Projects</h3>
     <div class="cards">
       <div class="card">
@@ -80,20 +89,20 @@
   </section>
 
   <!-- About -->
-  <section id="about" class="about" data-aos="fade-up">
+  <section id="about" class="about" data-aos="fade-up" style="opacity:1;">
     <h3>Who We Are</h3>
-    <p><strong>SRJahir Tech</strong> is a modern technology firm founded by Suraj Ahir. 
-      We specialize in Cloud Engineering, Artificial Intelligence and Web Solutions that help businesses scale securely and efficiently.</p>
+    <p><strong>SRJahir Tech</strong> is a modern technology firm founded by Suraj Ahir.
+      We specialize in Cloud Engineering, Artificial Intelligence, and Web Solutions that help businesses scale securely and efficiently.</p>
     <p class="focus">Focus Areas: Cloud · AI · Web · Security · Innovation</p>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact" data-aos="fade-up">
+  <section id="contact" class="contact" data-aos="fade-up" style="opacity:1;">
     <h3>Get a Quote</h3>
     <form id="quote-form">
-      <input type="text" id="user_name" name="user_name" placeholder="Your Name" required />
-      <input type="email" id="user_email" name="user_email" placeholder="Your Email" required />
-      <select id="project_type" name="project_type">
+      <input type="text" id="user_name" placeholder="Your Name" required />
+      <input type="email" id="user_email" placeholder="Your Email" required />
+      <select id="project_type">
         <option value="">Select project type</option>
         <option>Cloud Engineering</option>
         <option>AI / Automation</option>
@@ -101,8 +110,8 @@
         <option>Security / Optimization</option>
         <option>Other / Custom Project</option>
       </select>
-      <textarea id="message" name="message" rows="5" placeholder="Project details…" required></textarea>
-      <input type="text" id="hp_field" name="hp_field" style="display:none" />
+      <textarea id="message" rows="5" placeholder="Project details…" required></textarea>
+      <input type="text" id="hp_field" style="display:none" />
       <button type="submit">Send Request</button>
     </form>
     <p id="form-status"></p>
@@ -113,7 +122,7 @@
   <footer>
     <p>© 2025 SRJahir Tech — Crafted with Excellence by Suraj Ahir</p>
     <p>Empowering Cloud · Elevating Intelligence</p>
-    <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy. 
+    <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy.
       <a href="mailto:surajmaitra1996@gmail.com?subject=Website Issue Report">Report an Issue</a>
     </p>
   </footer>
@@ -122,7 +131,7 @@
   <script src="script.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 1000, once: true });
+      AOS.init({ duration: 800, once: true });
       new Typed('.hero-text h2', {
         strings: ['Cloud.', 'AI.', 'Web.', 'Excellence.'],
         typeSpeed: 80,
