@@ -9,17 +9,16 @@
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Animation libs -->
+  <!-- Animation Libraries -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 
 <body>
-  <!-- Subtle Background -->
+  <!-- Smooth Background -->
   <div class="background-waves"></div>
 
-  <!-- Top Logo -->
+  <!-- Logo -->
   <img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
 
   <!-- Header -->
@@ -29,159 +28,147 @@
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
-      <a href="#contact">Quote</a>
+      <a href="#quote">Quote</a>
     </nav>
   </header>
 
-  <!-- Animation directly under header -->
-  <section class="animation-section">
-    <div class="container">
-      <!-- Reserve height so layout doesn’t jump while typing -->
-      <h2 class="typed-text" aria-label="Key capabilities"></h2>
-      <span class="typed-cursor">|</span>
-    </div>
-  </section>
-
-  <!-- Hero (kept same content position) -->
+  <!-- Hero Section -->
   <section class="hero" id="home">
-    <div class="container hero-content">
-      <p class="hero-desc">
-        Empowering businesses with intelligent, scalable and secure digital systems.
-      </p>
-      <a href="#contact" class="btn">Get a Quote</a>
+    <div class="animation-wrapper">
+      <h2 class="fade-slide-text"></h2>
     </div>
+    <p class="hero-desc">
+      Empowering businesses with intelligent, scalable and secure digital systems.
+    </p>
+    <a href="#quote" class="btn">Get a Quote</a>
   </section>
 
   <!-- Services -->
   <section id="services" class="services" data-aos="fade-up">
-    <div class="container">
-      <h3>Our Expertise</h3>
-      <div class="cards">
-        <div class="card">
-          <h4>☁️ Cloud Engineering</h4>
-          <p>We design and manage robust cloud environments across <b>AWS</b>, <b>Azure</b>, and <b>Google Cloud</b>. From architecture setup to scaling, we handle RDS, EC2, S3, IAM, Lambda, VPC, and complete DevOps pipelines.</p>
-        </div>
-        <div class="card">
-          <h4>🤖 AI & Automation</h4>
-          <p>Integrating <b>AI + Cloud</b> to streamline workflows. <b>CloudAI</b> learns your business logic, automating performance and enhancing efficiency through smart automation.</p>
-        </div>
-        <div class="card">
-          <h4>🌐 Web & App Development</h4>
-          <p>Modern websites and apps with <b>React</b>, <b>Next.js</b>, <b>Node.js</b>, and <b>Flutter</b>. We deliver high-performance, responsive, real-time digital products.</p>
-        </div>
-        <div class="card">
-          <h4>🔐 Security & Optimization</h4>
-          <p>We implement <b>IAM best practices</b>, <b>SSL encryption</b>, <b>CloudFront</b>, and <b>WAF</b> to keep your system secure and optimized.</p>
-        </div>
-        <div class="card">
-          <h4>🧠 Cloud Consulting & DevOps</h4>
-          <p>Specialized in <b>CI/CD pipelines</b>, <b>Docker</b>, <b>Kubernetes</b>, and <b>Infrastructure as Code</b> for zero-downtime production.</p>
-        </div>
-        <div class="card">
-          <h4>💡 Data & Analytics</h4>
-          <p>Unlock insights with <b>AWS Athena</b>, <b>Redshift</b>, <b>BigQuery</b>, and <b>Power BI</b> — turning data into business decisions.</p>
-        </div>
+    <h3>Our Expertise</h3>
+    <div class="cards">
+      <div class="card">
+        <h4>☁️ Cloud Engineering</h4>
+        <p>We design and manage robust cloud environments across <b>AWS</b>, <b>Azure</b>, and <b>Google Cloud</b>.  
+        From architecture setup to scaling, we handle RDS, EC2, S3, IAM, Lambda, VPC, and complete DevOps pipelines.</p>
+      </div>
+      <div class="card">
+        <h4>🤖 AI & Automation</h4>
+        <p>Integrating <b>AI + Cloud</b> to streamline workflows.  
+        <b>CloudAI</b> learns your business logic, automating performance and enhancing efficiency through smart automation.</p>
+      </div>
+      <div class="card">
+        <h4>🌐 Web & App Development</h4>
+        <p>Modern websites and apps with <b>React</b>, <b>Next.js</b>, <b>Node.js</b>, and <b>Flutter</b>.  
+        We deliver high-performance, responsive, real-time digital products.</p>
+      </div>
+      <div class="card">
+        <h4>🔐 Security & Optimization</h4>
+        <p>We implement <b>IAM best practices</b>, <b>SSL encryption</b>, <b>CloudFront</b>, and <b>WAF</b> to keep your system secure and optimized.</p>
+      </div>
+      <div class="card">
+        <h4>🧠 Cloud Consulting & DevOps</h4>
+        <p>Specialized in <b>CI/CD pipelines</b>, <b>Docker</b>, <b>Kubernetes</b>, and <b>Infrastructure as Code</b> for zero-downtime production.</p>
+      </div>
+      <div class="card">
+        <h4>💡 Data & Analytics</h4>
+        <p>Unlock insights with <b>AWS Athena</b>, <b>Redshift</b>, <b>BigQuery</b>, and <b>Power BI</b> — turning data into business decisions.</p>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
   <section id="projects" class="projects" data-aos="fade-up">
-    <div class="container">
-      <h3>Featured Projects</h3>
-      <div class="cards">
-        <div class="card">
-          <h4>CloudAI</h4>
-          <p>Smart AI assistant built for intelligent interaction.</p>
-          <a href="https://cloudai.srjahir.in" target="_blank">Visit</a>
-        </div>
-        <div class="card">
-          <h4>Stocks.SRJahir.in</h4>
-          <p>Real-time market analytics platform for investors.</p>
-          <a href="https://stocks.srjahir.in" target="_blank">Visit</a>
-        </div>
-        <div class="card">
-          <h4>Tools.SRJahir.in</h4>
-          <p>Developer utility hub for productivity and testing.</p>
-          <a href="https://tools.srjahir.in" target="_blank">Visit</a>
-        </div>
+    <h3>Featured Projects</h3>
+    <div class="cards">
+      <div class="card">
+        <h4>CloudAI</h4>
+        <p>Smart AI assistant built for intelligent interaction.</p>
+        <a href="https://cloudai.srjahir.in" target="_blank">Visit</a>
+      </div>
+      <div class="card">
+        <h4>Stocks.SRJahir.in</h4>
+        <p>Real-time market analytics platform for investors.</p>
+        <a href="https://stocks.srjahir.in" target="_blank">Visit</a>
+      </div>
+      <div class="card">
+        <h4>Tools.SRJahir.in</h4>
+        <p>Developer utility hub for productivity and testing.</p>
+        <a href="https://tools.srjahir.in" target="_blank">Visit</a>
       </div>
     </div>
   </section>
 
   <!-- About -->
   <section id="about" class="about" data-aos="fade-up">
-    <div class="container">
-      <h3>Who We Are</h3>
-      <p><strong>SRJahir Tech</strong> is a technology-driven company founded by Suraj Ahir.
-      We specialize in Cloud Engineering, AI, and Web Development — helping businesses innovate and scale globally.</p>
-    </div>
+    <h3>Who We Are</h3>
+    <p><strong>SRJahir Tech</strong> is a technology-driven company founded by Suraj Ahir.  
+    We specialize in Cloud Engineering, AI, and Web Development — helping businesses innovate and scale globally.</p>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="contact" data-aos="fade-up">
-    <div class="container">
-      <h3>Get a Quote</h3>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="ad6cc950-ed4c-4c24-9146-f0690ba431fb">
-        <div class="grid-2">
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-        </div>
-        <textarea name="message" rows="5" placeholder="Project details…" required></textarea>
-        <div class="grid-2">
-          <select name="project_type" required>
-            <option value="">Select project type</option>
-            <option>Cloud Engineering</option>
-            <option>AI / Automation</option>
-            <option>Web Development</option>
-            <option>Security / Optimization</option>
-            <option>Other / Custom Project</option>
-          </select>
-          <input type="hidden" name="redirect" value="https://srjahir.in/success.html">
-          <button type="submit" class="btn full">Send Request</button>
-        </div>
-      </form>
-      <p class="policy-note">By contacting us, you agree to our <a href="privacy.html">Privacy Policy</a>.</p>
-    </div>
+  <!-- Quote Section -->
+  <section id="quote" class="quote-section" data-aos="fade-up">
+    <h3>Get a Quote</h3>
+    <p class="quote-sub">
+      Let’s build something remarkable together — tell us your vision, and we’ll make it real.
+    </p>
+    <form action="https://api.web3forms.com/submit" method="POST" class="quote-form">
+      <input type="hidden" name="access_key" value="ad6cc950-ed4c-4c24-9146-f0690ba431fb" />
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+      </div>
+      <select name="project_type" required>
+        <option value="">Select project type</option>
+        <option>Cloud Engineering</option>
+        <option>AI / Automation</option>
+        <option>Web Development</option>
+        <option>Security / Optimization</option>
+        <option>Other / Custom Project</option>
+      </select>
+      <textarea name="message" rows="5" placeholder="Tell us about your project…" required></textarea>
+      <input type="hidden" name="redirect" value="https://srjahir.in/success.html" />
+      <button type="submit">Send Request</button>
+    </form>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>© 2025 SRJahir Tech — Crafted with Excellence by Suraj Ahir</p>
-      <p>Empowering Cloud · Elevating Intelligence</p>
-      <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy.
-        <a href="mailto:surajmaitra1996@gmail.com?subject=Website Issue Report">Report an Issue</a>
-      </p>
-      <img src="sanskrit.png" alt="Sanskrit Design" class="footer-art" />
-    </div>
+    <p>© 2025 SRJahir Tech — Crafted with Excellence by Suraj Ahir</p>
+    <p>Empowering Cloud · Elevating Intelligence</p>
+    <p class="secure-note">🔒 Secure site — SRJahir Tech protects your privacy.
+      <a href="mailto:surajmaitra1996@gmail.com?subject=Website Issue Report">Report an Issue</a>
+    </p>
+    <img src="sanskrit.png" alt="Sanskrit Design" class="footer-art" />
   </footer>
 
-  <!-- Scripts -->
+  <!-- Animation Script -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Only apply AOS to sections (not to the typed heading) to avoid jitter
-      AOS.init({ duration: 600, once: true, offset: 80 });
+    AOS.init({ duration: 700, once: true });
 
-      // Typed directly under header
-      const typedEl = document.querySelector(".typed-text");
-      if (typedEl) {
-        new Typed(typedEl, {
-          strings: [
-            "Cloud Architecture.",
-            "AI Automation.",
-            "Web & App Development.",
-            "Security. Reliability. Excellence."
-          ],
-          typeSpeed: 60,
-          backSpeed: 40,
-          backDelay: 1400,
-          smartBackspace: true,
-          loop: true
-        });
-      }
-    });
+    const lines = [
+      "Cloud Architecture.",
+      "AI Automation.",
+      "Web & App Development.",
+      "Security. Reliability. Excellence."
+    ];
+
+    const textEl = document.querySelector(".fade-slide-text");
+    let i = 0;
+
+    function fadeSlide() {
+      textEl.style.opacity = 0;
+      textEl.style.transform = "translateY(20px)";
+      setTimeout(() => {
+        textEl.textContent = lines[i];
+        textEl.style.opacity = 1;
+        textEl.style.transform = "translateY(0)";
+        i = (i + 1) % lines.length;
+      }, 400);
+    }
+
+    fadeSlide();
+    setInterval(fadeSlide, 2800);
   </script>
 </body>
 </html>
