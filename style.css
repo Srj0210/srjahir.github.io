@@ -7,8 +7,8 @@
 }
 
 body {
-  background: linear-gradient(180deg, #0a0a0a 0%, #1b1b1b 100%);
-  color: #eaeaea;
+  background: #f8f9fb;
+  color: #1a1a1a;
   line-height: 1.7;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -20,19 +20,20 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 2rem;
-  background: rgba(10, 10, 10, 0.9);
+  background: rgba(255, 255, 255, 0.9);
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 0, 51, 0.15);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .nav h1 {
   font-size: 1.7rem;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 1px;
+  color: #000;
+  letter-spacing: 0.5px;
 }
 
 .nav h1 span {
@@ -41,41 +42,44 @@ body {
 
 .nav nav a {
   margin-left: 1.8rem;
-  color: #dcdcdc;
+  color: #333;
   text-decoration: none;
   font-weight: 500;
   position: relative;
   transition: color 0.3s;
 }
 
-.nav nav a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: #ff0033;
-  transition: 0.3s ease;
-}
-
-.nav nav a:hover::after {
-  width: 100%;
-}
-
 .nav nav a:hover {
   color: #ff0033;
 }
 
-/* === Hero === */
+/* === Hero Section === */
 .hero {
-  height: 92vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  background: radial-gradient(circle at center, #121212, #0a0a0a 80%);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f6fa 100%);
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: url("logo.png") no-repeat center center/200px;
+  opacity: 0.03;
+  animation: slowMove 20s linear infinite;
+}
+
+@keyframes slowMove {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .hero-logo {
@@ -86,44 +90,41 @@ body {
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-10px); }
 }
 
 .hero-text h2 {
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 2.4rem;
+  font-weight: 700;
   color: #ff0033;
-  text-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+  margin-bottom: 0.6rem;
 }
 
 .hero-text p {
-  color: #c7c7c7;
-  margin-top: 1rem;
+  color: #555;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  font-size: 1.1rem;
 }
 
 .btn {
   display: inline-block;
-  margin-top: 1.6rem;
+  margin-top: 1.5rem;
   background: #ff0033;
   color: #fff;
   padding: 0.9rem 2.2rem;
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  letter-spacing: 0.5px;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
 }
 
 .btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+  transform: translateY(-2px);
+  background: #e6002e;
 }
 
-/* === Sections === */
+/* === Section === */
 section {
   padding: 4rem 1rem;
   text-align: center;
@@ -156,18 +157,18 @@ h3::after {
 }
 
 .card {
-  background: #161616;
+  background: #fff;
   padding: 1.6rem;
   border-radius: 12px;
-  border: 1px solid rgba(255, 0, 51, 0.15);
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.4s ease;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 0, 51, 0.5);
-  box-shadow: 0 0 25px rgba(255, 0, 51, 0.2);
+  transform: translateY(-5px);
+  border-color: #ff0033;
+  box-shadow: 0 10px 25px rgba(255, 0, 51, 0.1);
 }
 
 .card h4 {
@@ -177,7 +178,7 @@ h3::after {
 }
 
 .card p {
-  color: #b8b8b8;
+  color: #555;
   font-size: 0.95rem;
 }
 
@@ -191,9 +192,9 @@ form {
 }
 
 input, select, textarea {
-  background: #121212;
-  border: 1px solid #2e2e2e;
-  color: #eaeaea;
+  background: #fff;
+  border: 1px solid #ddd;
+  color: #333;
   padding: 0.9rem;
   border-radius: 8px;
   font-size: 1rem;
@@ -202,8 +203,8 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  border: 1px solid #ff0033;
-  box-shadow: 0 0 5px rgba(255, 0, 51, 0.3);
+  border-color: #ff0033;
+  box-shadow: 0 0 6px rgba(255, 0, 51, 0.2);
 }
 
 button {
@@ -215,17 +216,15 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+  background: #e6002e;
 }
 
 .policy-note {
   margin-top: 1rem;
-  color: #aab1b9;
+  color: #777;
   font-size: 0.9rem;
 }
 
@@ -236,28 +235,41 @@ button:hover {
 
 /* === Footer === */
 footer {
-  background: #0d0d0d;
+  background: #fafafa;
   text-align: center;
   padding: 2rem 1rem;
-  border-top: 1px solid rgba(255, 0, 51, 0.2);
+  border-top: 1px solid #e0e0e0;
 }
 
 footer p {
   margin: 0.5rem 0;
-  color: #b8b8b8;
+  color: #555;
   font-size: 0.95rem;
 }
 
 footer .secure-note a {
   color: #ff0033;
-  text-decoration: none;
 }
 
 .footer-art {
   margin-top: 1rem;
   width: 80px;
   opacity: 0.8;
-  filter: drop-shadow(0 0 10px rgba(255, 0, 51, 0.5));
+}
+
+/* === Scroll Reveal Animation === */
+[data-aos] {
+  transition: all 0.8s ease;
+}
+
+[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* === Responsive === */
@@ -271,7 +283,7 @@ footer .secure-note a {
   }
 
   .hero-text h2 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 
   .cards {
