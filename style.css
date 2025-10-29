@@ -13,47 +13,43 @@ body {
   overflow-x: hidden;
 }
 
-/* Soft Animated Background */
+/* === Smooth Animated Background === */
 .background-waves {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #ffffff 0%, #f7f8fc 100%);
-  overflow: hidden;
+  background: radial-gradient(circle at top left, #f8f8f8, #ffffff);
   z-index: -1;
+  overflow: hidden;
 }
 
-.background-waves::before,
-.background-waves::after {
+.background-waves::before {
   content: "";
   position: absolute;
   width: 120%;
   height: 120%;
-  top: -10%;
-  left: -10%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,0,51,0.05), transparent 70%),
-              radial-gradient(circle at 70% 70%, rgba(255,0,51,0.08), transparent 70%);
-  animation: moveWaves 18s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 20% 40%, rgba(0,0,0,0.05), transparent 70%),
+              radial-gradient(circle at 80% 60%, rgba(0,0,0,0.04), transparent 70%);
+  animation: slowFade 45s ease-in-out infinite alternate;
 }
 
-@keyframes moveWaves {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.1) translate(-30px, -20px); }
+@keyframes slowFade {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+  100% { transform: scale(1.05) translate(-20px, -15px); opacity: 0.9; }
 }
 
-/* Header */
+/* === Header === */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 2rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
@@ -65,21 +61,21 @@ body {
 }
 
 .nav h1 span {
-  color: #ff0033;
+  color: #3a3a3a;
 }
 
 .nav nav a {
   margin-left: 1.8rem;
-  color: #333;
+  color: #444;
   text-decoration: none;
   font-weight: 500;
 }
 
 .nav nav a:hover {
-  color: #ff0033;
+  color: #3a3a3a;
 }
 
-/* Hero */
+/* === Hero === */
 .hero {
   min-height: 90vh;
   display: flex;
@@ -97,7 +93,7 @@ body {
 .hero-text h2 {
   font-size: 2.3rem;
   font-weight: 700;
-  color: #ff0033;
+  color: #3a3a3a;
 }
 
 .hero-text p {
@@ -109,7 +105,7 @@ body {
 .btn {
   display: inline-block;
   margin-top: 1.5rem;
-  background: #ff0033;
+  background: #3a3a3a;
   color: #fff;
   padding: 0.9rem 2rem;
   border-radius: 8px;
@@ -118,10 +114,10 @@ body {
 }
 
 .btn:hover {
-  background: #e6002e;
+  background: #222;
 }
 
-/* Sections */
+/* === Sections === */
 section {
   padding: 4rem 1rem;
   text-align: center;
@@ -130,10 +126,10 @@ section {
 h3 {
   font-size: 1.9rem;
   margin-bottom: 2rem;
-  color: #ff0033;
+  color: #3a3a3a;
 }
 
-/* Cards */
+/* === Cards === */
 .cards {
   display: grid;
   gap: 1.8rem;
@@ -146,26 +142,22 @@ h3 {
   padding: 1.6rem;
   border-radius: 12px;
   border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.4s ease;
 }
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: #ff0033;
-  box-shadow: 0 8px 18px rgba(255,0,51,0.12);
+  border-color: #3a3a3a;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
 }
 
 .card h4 {
-  color: #ff0033;
+  color: #3a3a3a;
   margin-bottom: 0.6rem;
 }
 
-.card p {
-  color: #555;
-}
-
-/* Form */
+/* === Form === */
 form {
   display: flex;
   flex-direction: column;
@@ -176,7 +168,7 @@ form {
 
 input, select, textarea {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   color: #333;
   padding: 0.9rem;
   border-radius: 8px;
@@ -184,12 +176,12 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: #ff0033;
-  box-shadow: 0 0 5px rgba(255,0,51,0.2);
+  border-color: #3a3a3a;
+  box-shadow: 0 0 5px rgba(0,0,0,0.15);
 }
 
 button {
-  background: #ff0033;
+  background: #3a3a3a;
   color: #fff;
   border: none;
   padding: 0.9rem;
@@ -198,14 +190,14 @@ button {
 }
 
 button:hover {
-  background: #e6002e;
+  background: #222;
 }
 
-/* Footer */
+/* === Footer === */
 footer {
-  background: #fafafa;
+  background: #f8f8f8;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -216,11 +208,12 @@ footer p {
 }
 
 footer a {
-  color: #ff0033;
+  color: #3a3a3a;
+  text-decoration: none;
 }
 
 .footer-art {
   margin-top: 1rem;
-  width: 80px;
-  opacity: 0.8;
+  width: 220px;
+  opacity: 0.9;
 }
