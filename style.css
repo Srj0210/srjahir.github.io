@@ -1,4 +1,4 @@
-/* === SRJahir Tech: Premium Gray-White Corporate Theme === */
+/* === SRJahir Tech: Darker Gray Apple-like Theme === */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
 }
 
 body {
-  background: linear-gradient(180deg, #f7f7f7 0%, #ececec 100%);
+  background: linear-gradient(180deg, #e2e2e2 0%, #dcdcdc 100%);
   color: #333;
   font-family: "Poppins", sans-serif;
   line-height: 1.6;
@@ -15,33 +15,44 @@ body {
 
 /* === Header === */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
+  text-align: center;
   background: #ffffff;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding-bottom: 8px;
+}
+
+.header-top {
+  padding-top: 15px;
 }
 
 .brand {
   color: #000;
   font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
+  font-size: 1.7rem;
 }
 
 .brand span {
   color: #E63946;
 }
 
+.header-bottom {
+  margin-top: 5px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-bottom: 8px;
+}
+
 nav a {
   color: #444;
   text-decoration: none;
-  margin-left: 24px;
   font-weight: 500;
   transition: color 0.3s ease;
 }
@@ -61,18 +72,18 @@ nav a:hover {
 .logo-section img {
   width: 130px;
   height: auto;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.15));
 }
 
 /* === Hero === */
 .hero {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .fade-slide-text {
   color: #E63946;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   opacity: 0;
   transform: translateY(20px);
@@ -108,16 +119,17 @@ nav a:hover {
 
 /* === Sections === */
 .section {
-  padding: 70px 20px;
+  padding: 80px 20px;
   text-align: center;
 }
 
 .section h2 {
   color: #111;
-  margin-bottom: 35px;
-  font-size: 1.9rem;
+  margin-bottom: 40px;
+  font-size: 2rem;
 }
 
+/* === Grid Cards === */
 .grid {
   display: grid;
   gap: 25px;
@@ -126,7 +138,6 @@ nav a:hover {
   margin: 0 auto;
 }
 
-/* === Card === */
 .card {
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -139,7 +150,7 @@ nav a:hover {
 .card:hover {
   transform: translateY(-6px);
   border-color: #E63946;
-  box-shadow: 0 10px 22px rgba(230, 57, 70, 0.12);
+  box-shadow: 0 12px 25px rgba(230, 57, 70, 0.15);
 }
 
 .card h3 {
@@ -168,7 +179,6 @@ nav a:hover {
   border-radius: 6px;
   background-color: #fff;
   color: #333;
-  font-family: "Poppins", sans-serif;
   transition: box-shadow 0.3s ease;
 }
 
@@ -199,14 +209,14 @@ footer {
   text-align: center;
   background-color: #ffffff;
   margin-top: 50px;
-  padding: 35px 0;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.03);
+  padding: 40px 0;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .footer-image {
   display: block;
-  width: 95%;
+  width: 96%;
   max-width: 980px;
   margin: 0 auto 25px auto;
   opacity: 1;
