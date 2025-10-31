@@ -96,3 +96,53 @@ footer {
 .footer-art {
   margin-top:1.5rem;width:350px;opacity:.95;
 }
+
+
+/* ---------- Project Logo Enhancements ---------- */
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.project-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  transition: all 0.4s ease;
+}
+
+.project-link:hover .project-logo {
+  transform: scale(1.08) rotate(4deg);
+  filter: drop-shadow(0 6px 10px rgba(230,57,70,0.35));
+}
+
+.project-link h4 {
+  font-size: 1.1rem;
+  color: #111;
+  font-weight: 600;
+  margin-top: 6px;
+  transition: color 0.3s ease;
+}
+
+.project-link:hover h4 {
+  color: #e63946;
+}
+
+.visit-btn {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.visit-btn:hover {
+  color: #e63946;
+}
