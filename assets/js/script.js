@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // AOS Initialization
   AOS.init({ duration: 800, once: true, easing: "ease-out-cubic" });
 
+  // Ensure GSAP ScrollTrigger refreshes after AOS load
+  setTimeout(() => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }, 500);
+
+  // Form Submission Logic
   const form = document.getElementById("quoteForm");
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -11,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        body: formData,
       });
 
       if (res.ok) {
