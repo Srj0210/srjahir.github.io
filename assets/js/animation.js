@@ -14,13 +14,17 @@ gsap.from(".hero-desc", {
   delay: 0.3
 });
 
-// Scroll-trigger fade-up for sections
+// Scroll-trigger fade-up for each section
 document.querySelectorAll("section").forEach((sec) => {
   gsap.from(sec, {
-    scrollTrigger: { trigger: sec, start: "top 85%" },
+    scrollTrigger: {
+      trigger: sec,
+      start: "top 90%",
+      toggleActions: "play none none none"
+    },
     opacity: 0,
-    y: 60,
-    duration: 1,
+    y: 80,
+    duration: 1.2,
     ease: "power2.out"
   });
 });
