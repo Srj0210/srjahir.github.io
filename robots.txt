@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://srjahir.github.io/sitemap.xml
+
+# Prevent crawling of system folders
+Disallow: /assets/
+Disallow: /node_modules/
+Disallow: /backup/
+
+# SRJahir Tech SEO Access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: *
+Crawl-delay: 5
