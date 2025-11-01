@@ -1,7 +1,14 @@
-// ===== SRJahir Tech — Stable Animation =====
+// ===== SRJahir Tech — Polished Animations =====
 gsap.registerPlugin(ScrollTrigger);
 
-// --- HERO SECTION FIXED ---
+// --- HERO SECTION (Fixed Flicker + Entrance Animation) ---
+const heroBtn = document.querySelector(".hero .btn");
+if (heroBtn) {
+  // Ensure visible before animation starts
+  heroBtn.style.visibility = "visible";
+  heroBtn.style.opacity = "1";
+}
+
 gsap.from(".hero-text h2", {
   y: 50,
   opacity: 0,
@@ -20,14 +27,10 @@ gsap.from(".hero .btn", {
   opacity: 0,
   duration: 0.9,
   delay: 0.8,
-  ease: "power2.out",
-  onStart: () => {
-    document.querySelector(".hero .btn").style.visibility = "visible";
-    document.querySelector(".hero .btn").style.opacity = "1";
-  }
+  ease: "power2.out"
 });
 
-// --- SECTIONS (FADE-UP) ---
+// --- SECTION ENTRANCES ---
 document.querySelectorAll("section").forEach((sec) => {
   gsap.from(sec, {
     scrollTrigger: {
@@ -42,7 +45,7 @@ document.querySelectorAll("section").forEach((sec) => {
   });
 });
 
-// --- FOOTER ANIMATION ---
+// --- FOOTER ENTRANCE ---
 gsap.from("footer", {
   scrollTrigger: {
     trigger: "footer",
@@ -55,7 +58,19 @@ gsap.from("footer", {
   ease: "power2.out"
 });
 
-// --- INIT AOS SAFE MODE ---
+// --- SOFT BACKGROUND WAVE MOTION ---
+const waves = document.querySelector(".background-waves");
+if (waves) {
+  gsap.to(waves, {
+    duration: 15,
+    backgroundPosition: "100% 100%",
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+}
+
+// --- INIT AOS (Safe Mode) ---
 AOS.init({
   duration: 800,
   easing: "ease-in-out",
