@@ -1,9 +1,9 @@
-// ===== SRJahir Tech — Stable Hybrid Animation System =====
+// ===== SRJahir Tech — Stable Hybrid Animation Fix =====
 gsap.registerPlugin(ScrollTrigger);
 
-// --- HERO SECTION (GSAP) ---
+// --- HERO ANIMATION ---
 gsap.from(".hero-text h2", {
-  y: 40,
+  y: 50,
   opacity: 0,
   duration: 1.2,
   ease: "power3.out"
@@ -15,7 +15,7 @@ gsap.from(".hero-desc", {
   delay: 0.3,
   ease: "power2.out"
 });
-gsap.from(".hero .btn", {
+gsap.from(".btn", {
   scale: 0.9,
   opacity: 0,
   duration: 0.8,
@@ -23,7 +23,7 @@ gsap.from(".hero .btn", {
   ease: "back.out(1.8)"
 });
 
-// --- LOGO HOVER EFFECT ---
+// --- LOGO ANIMATION ---
 const logo = document.querySelector(".top-logo");
 if (logo) {
   logo.addEventListener("mouseenter", () => {
@@ -34,23 +34,33 @@ if (logo) {
   });
 }
 
-// --- FOOTER FADE-IN ---
+// --- ONLY GSAP fade for footer ---
 gsap.from("footer", {
   scrollTrigger: {
     trigger: "footer",
-    start: "top 90%"
+    start: "top 90%",
+    toggleActions: "play none none none"
   },
   opacity: 0,
   y: 50,
-  duration: 1.2,
+  duration: 1,
   ease: "power2.out"
 });
 
-// --- AOS Initialization (Cards & Sections) ---
+// --- FIX: Disable AOS opacity conflicts ---
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-aos]").forEach(el => {
+    el.style.visibility = "visible";
+    el.style.opacity = "1";
+  });
+});
+
+// --- INIT AOS (lighter config) ---
 AOS.init({
-  duration: 900,
+  duration: 800,
+  easing: "ease-in-out",
   once: true,
   offset: 100,
-  easing: 'ease-in-out',
-  mirror: false
+  mirror: false,
+  startEvent: "load"
 });
