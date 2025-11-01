@@ -1,7 +1,7 @@
 // ===== SRJahir Tech — Stable Hybrid Animation Fix =====
 gsap.registerPlugin(ScrollTrigger);
 
-// --- HERO ANIMATION ---
+// --- HERO ANIMATION FIXED ---
 gsap.from(".hero-text h2", {
   y: 50,
   opacity: 0,
@@ -15,12 +15,16 @@ gsap.from(".hero-desc", {
   delay: 0.3,
   ease: "power2.out"
 });
-gsap.from(".btn", {
-  scale: 0.9,
+gsap.from(".hero .btn", {
+  y: 20,
   opacity: 0,
-  duration: 0.8,
-  delay: 0.5,
-  ease: "back.out(1.8)"
+  duration: 0.9,
+  delay: 0.8, // thoda delay to avoid flicker
+  ease: "power2.out",
+  onStart: () => {
+    document.querySelector(".hero .btn").style.visibility = "visible";
+    document.querySelector(".hero .btn").style.opacity = "1";
+  }
 });
 
 // --- LOGO ANIMATION ---
