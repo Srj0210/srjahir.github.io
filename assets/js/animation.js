@@ -1,53 +1,84 @@
+// ====== SRJahir Tech — Premium Animation Engine ======
 gsap.registerPlugin(ScrollTrigger);
 
-// Init AOS safely
-if (typeof AOS !== "undefined") {
-  AOS.init({
-    once: true,
-    duration: 800,
-    offset: 120,
-    easing: "ease-out-cubic"
+// --- Hero Animation ---
+const tlHero = gsap.timeline();
+tlHero.from(".hero-text h2", {
+  y: 60,
+  opacity: 0,
+  duration: 1.3,
+  ease: "power3.out"
+})
+.from(".hero-desc", {
+  y: 40,
+  opacity: 0,
+  duration: 1,
+  ease: "power2.out"
+}, "-=0.8")
+.from(".btn", {
+  scale: 0.9,
+  opacity: 0,
+  duration: 0.8,
+  ease: "back.out(1.7)"
+}, "-=0.5");
+
+// --- Section Fade-Up Smooth Scroll ---
+gsap.utils.toArray("section").forEach((sec) => {
+  gsap.from(sec, {
+    scrollTrigger: {
+      trigger: sec,
+      start: "top 85%",
+      toggleActions: "play none none none"
+    },
+    y: 80,
+    opacity: 0,
+    duration: 1.2,
+    ease: "power2.out"
+  });
+});
+
+// --- Card Floating Entry ---
+gsap.utils.toArray(".card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 90%"
+    },
+    y: 60,
+    opacity: 0,
+    duration: 1,
+    delay: i * 0.1,
+    ease: "power2.out"
+  });
+});
+
+// --- Logo Hover Bounce ---
+const logo = document.querySelector(".top-logo");
+if (logo) {
+  logo.addEventListener("mouseenter", () => {
+    gsap.to(logo, { scale: 1.08, rotate: 6, duration: 0.5, ease: "back.out(2)" });
+  });
+  logo.addEventListener("mouseleave", () => {
+    gsap.to(logo, { scale: 1, rotate: 0, duration: 0.6, ease: "power2.out" });
   });
 }
 
-// Hero Animation
-gsap.from(".hero-text h2", {
-  y: 40,
+// --- Footer Fade In ---
+gsap.from("footer", {
+  scrollTrigger: {
+    trigger: "footer",
+    start: "top 90%"
+  },
   opacity: 0,
-  duration: 1.4,
-  ease: "power3.out"
-});
-gsap.from(".hero-desc", {
-  y: 30,
-  opacity: 0,
+  y: 50,
   duration: 1.2,
-  delay: 0.3
-});
-gsap.from(".btn", {
-  y: 20,
-  opacity: 0,
-  duration: 1.2,
-  delay: 0.6
+  ease: "power2.out"
 });
 
-// Safe scroll-trigger animation for visible sections only
-document.querySelectorAll("section").forEach((sec) => {
-  ScrollTrigger.create({
-    trigger: sec,
-    start: "top 85%",
-    onEnter: () => {
-      gsap.to(sec, {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power2.out"
-      });
-    }
-  });
-});
-
-// Ensure all sections visible by default
-document.querySelectorAll("section, footer").forEach((el) => {
-  el.style.opacity = "1";
-  el.style.visibility = "visible";
+// --- Initialize AOS ---
+AOS.init({
+  duration: 800,
+  once: true,
+  offset: 100,
+  easing: 'ease-in-out'
 });
