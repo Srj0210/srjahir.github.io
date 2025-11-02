@@ -1,25 +1,24 @@
-// ===== SRJahir Tech — Polished Animations =====
+// ===== SRJahir Tech — Motion Enhanced Animations =====
 gsap.registerPlugin(ScrollTrigger);
 
-// --- HERO SECTION (Fixed Flicker + Entrance Animation) ---
+/* --- HERO SECTION: Fade-in & Button Fix --- */
 const heroBtn = document.querySelector(".hero .btn");
 if (heroBtn) {
-  // Ensure visible before animation starts
   heroBtn.style.visibility = "visible";
   heroBtn.style.opacity = "1";
 }
 
 gsap.from(".hero-text h2", {
-  y: 50,
+  y: 40,
   opacity: 0,
   duration: 1.2,
   ease: "power3.out"
 });
 gsap.from(".hero-desc", {
-  y: 30,
+  y: 25,
   opacity: 0,
   duration: 1,
-  delay: 0.3,
+  delay: 0.4,
   ease: "power2.out"
 });
 gsap.from(".hero .btn", {
@@ -30,7 +29,41 @@ gsap.from(".hero .btn", {
   ease: "power2.out"
 });
 
-// --- SECTION ENTRANCES ---
+/* --- SMOOTH PARALLAX DEPTH EFFECT --- */
+gsap.to(".top-logo", {
+  yPercent: 20,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.to(".hero-text h2", {
+  yPercent: 10,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.to(".hero-desc", {
+  yPercent: 15,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+/* --- SECTION FADE-IN ANIMATIONS --- */
 document.querySelectorAll("section").forEach((sec) => {
   gsap.from(sec, {
     scrollTrigger: {
@@ -45,7 +78,7 @@ document.querySelectorAll("section").forEach((sec) => {
   });
 });
 
-// --- FOOTER ENTRANCE ---
+/* --- FOOTER ENTRANCE --- */
 gsap.from("footer", {
   scrollTrigger: {
     trigger: "footer",
@@ -58,11 +91,11 @@ gsap.from("footer", {
   ease: "power2.out"
 });
 
-// --- SOFT BACKGROUND WAVE MOTION ---
+/* --- SOFT BACKGROUND WAVE MOTION --- */
 const waves = document.querySelector(".background-waves");
 if (waves) {
   gsap.to(waves, {
-    duration: 15,
+    duration: 18,
     backgroundPosition: "100% 100%",
     repeat: -1,
     yoyo: true,
@@ -70,7 +103,7 @@ if (waves) {
   });
 }
 
-// --- INIT AOS (Safe Mode) ---
+/* --- AOS INIT (Safe Mode) --- */
 AOS.init({
   duration: 800,
   easing: "ease-in-out",
