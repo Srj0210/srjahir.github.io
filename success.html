@@ -3,45 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Request Sent — SRJahir Tech</title>
+  <meta name="theme-color" content="#ffffff" />
 
-  <meta name="description" content="Your request has been successfully sent to SRJahir Tech." />
+  <title>Request Received — SRJahir Tech</title>
+
+  <meta name="description" content="Your request has been received successfully by SRJahir Tech." />
   <meta name="robots" content="noindex, follow" />
 
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 75vh;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+
+    /* Success Circle */
+    .checkmark {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 3px solid #e63946;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      animation: pop 0.5s ease-out forwards;
+    }
+
+    .checkmark::after {
+      content: "";
+      width: 28px;
+      height: 52px;
+      border-right: 3px solid #e63946;
+      border-bottom: 3px solid #e63946;
+      transform: rotate(45deg);
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    main h1 {
+      margin-bottom: 0.6rem;
+      color: #111;
+    }
+
+    main p {
+      color: #555;
+      max-width: 520px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.8rem 1.6rem;
+      font-size: 15px;
+      border-radius: 8px;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
   <header class="nav">
     <h1>SRJahir<span>Tech</span></h1>
-    <nav class="menu-bar">
-      <a href="index.html">Home</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-    </nav>
   </header>
 
-  <section class="content-block" style="text-align:center; padding-top:6rem;">
-    <h3>Thank You!</h3>
+  <!-- CONTENT -->
+  <main>
+    <div class="checkmark"></div>
 
+    <h1>Thank You!</h1>
     <p>
-      Your request has been sent successfully.  
-      We have received your message and will get back to you as soon as possible.
+      Your request has been received successfully.  
+      Our team will contact you shortly to discuss your requirements.
     </p>
 
-    <p>
-      In the meantime, you can explore our platforms or return to the homepage.
-    </p>
+    <div class="btns">
+      <a href="index.html" class="btn">← Back to Home</a>
+      <a href="https://cloudai.srjahir.in" target="_blank" class="btn">
+        Try CloudAI
+      </a>
+    </div>
+  </main>
 
-    <a href="index.html" class="btn" style="margin-top:1.5rem;">
-      Back to Home
-    </a>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
-    <p>© 2025 SRJahir Tech</p>
+    <p>© 2025 SRJahir Tech — Built with clarity and purpose</p>
+    <img src="sanskrit.png" alt="Sanskrit Design" class="footer-art" />
   </footer>
 
 </body>
