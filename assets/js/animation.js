@@ -1,97 +1,119 @@
-/* ===================================================
-   SRJahir Tech — Minimal Premium Animations
-   Apple-style: smooth, subtle, professional
-   =================================================== */
-
+// ===== SRJahir Tech — Motion Enhanced Animations (Blur Upgrade) =====
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---------------------------------
-   HERO — Soft Fade on Load
----------------------------------- */
+/* --- HERO SECTION: Fade + Blur --- */
+const heroBtn = document.querySelector(".hero .btn");
+if (heroBtn) {
+  heroBtn.style.visibility = "visible";
+  heroBtn.style.opacity = "1";
+}
+
 gsap.from(".hero-text h2", {
-  opacity: 0,
   y: 40,
-  duration: 1.4,
-  ease: "power2.out"
+  opacity: 0,
+  filter: "blur(10px)",
+  duration: 1.2,
+  ease: "power3.out"
 });
 
 gsap.from(".hero-desc", {
+  y: 25,
   opacity: 0,
-  y: 40,
-  duration: 1.3,
-  delay: 0.15,
+  filter: "blur(8px)",
+  duration: 1,
+  delay: 0.4,
   ease: "power2.out"
 });
 
 gsap.from(".hero .btn", {
+  y: 20,
   opacity: 0,
-  y: 30,
-  duration: 1.2,
-  delay: 0.3,
+  filter: "blur(6px)",
+  duration: 0.9,
+  delay: 0.8,
   ease: "power2.out"
 });
 
-/* ---------------------------------
-   SECTION REVEAL — Fade + Lift
----------------------------------- */
-document.querySelectorAll("section").forEach((section) => {
-  gsap.from(section, {
-    scrollTrigger: {
-      trigger: section,
-      start: "top 85%",
-      toggleActions: "play none none none",
-      once: true
-    },
-    opacity: 0,
-    y: 45,
-    duration: 1.3,
-    ease: "power2.out"
-  });
+/* --- SMOOTH PARALLAX DEPTH EFFECT (UNCHANGED) --- */
+gsap.to(".top-logo", {
+  yPercent: 20,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
 });
 
-/* ---------------------------------
-   CARDS — Staggered Reveal
----------------------------------- */
-document.querySelectorAll(".cards").forEach((group) => {
-  gsap.from(group.children, {
+gsap.to(".hero-text h2", {
+  yPercent: 10,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+gsap.to(".hero-desc", {
+  yPercent: 15,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+/* --- SECTION FADE + BLUR-IN --- */
+document.querySelectorAll("section").forEach((sec) => {
+  gsap.from(sec, {
     scrollTrigger: {
-      trigger: group,
-      start: "top 85%",
-      toggleActions: "play none none none",
-      once: true
+      trigger: sec,
+      start: "top 90%",
+      toggleActions: "play none none none"
     },
     opacity: 0,
-    y: 35,
+    y: 60,
+    filter: "blur(12px)",
     duration: 1.2,
-    stagger: 0.15,
     ease: "power2.out"
   });
 });
 
-/* ---------------------------------
-   FOOTER — Gentle Fade
----------------------------------- */
+/* --- FOOTER FADE + BLUR --- */
 gsap.from("footer", {
   scrollTrigger: {
     trigger: "footer",
-    start: "top 90%",
-    toggleActions: "play none none none",
-    once: true
+    start: "top 95%",
+    toggleActions: "play none none none"
   },
   opacity: 0,
-  y: 30,
+  y: 40,
+  filter: "blur(10px)",
   duration: 1.2,
   ease: "power2.out"
 });
 
-/* ---------------------------------
-   AOS SAFE INIT (fallback only)
----------------------------------- */
-if (window.AOS) {
-  AOS.init({
-    once: true,
-    duration: 700,
-    easing: "ease-out-cubic",
-    offset: 120
+/* --- SOFT BACKGROUND WAVE MOTION (UNCHANGED) --- */
+const waves = document.querySelector(".background-waves");
+if (waves) {
+  gsap.to(waves, {
+    duration: 18,
+    backgroundPosition: "100% 100%",
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
   });
 }
+
+/* --- AOS INIT (SAFE) --- */
+AOS.init({
+  duration: 800,
+  easing: "ease-in-out",
+  once: true,
+  offset: 120
+});
