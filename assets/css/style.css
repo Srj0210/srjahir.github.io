@@ -106,11 +106,12 @@ header.nav h1 span {
 
 .hero-desc {
   color: #444;
-  max-width: 650px;
+  max-width: 720px;
   margin: 0 auto 2rem auto;
   font-size: 1.1rem;
 }
 
+/* ===== Buttons ===== */
 .btn {
   display: inline-block;
   background: #e63946;
@@ -127,13 +128,18 @@ header.nav h1 span {
   transform: translateY(-3px);
 }
 
-/* ===== Section Base ===== */
+.btn.full {
+  width: 100%;
+}
+
+/* ===== Base Sections ===== */
 section {
   padding: 4rem 1rem;
   text-align: center;
   visibility: visible !important;
   opacity: 1 !important;
 }
+
 h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
@@ -159,17 +165,80 @@ h3 {
   transition: all 0.3s ease;
   min-height: 160px;
 }
+
 .card:hover {
   transform: translateY(-5px);
   border-color: #e63946;
   box-shadow: 0 6px 16px rgba(230,57,70,0.15);
 }
 
-/* ===== Form Styling ===== */
+/* ===== Project Logo Section ===== */
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 90%);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+}
+
+.project-link:hover .project-logo {
+  transform: scale(1.08);
+  box-shadow: 0 0 22px rgba(230,57,70,0.35);
+}
+
+.visit-btn {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+.visit-btn:hover {
+  color: #e63946;
+}
+
+/* ===== Content Blocks (NEW — AdSense Friendly) ===== */
+.content-block {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.content-block h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.content-block p {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+
+.content-block a {
+  color: #e63946;
+  text-decoration: underline;
+}
+.content-block a:hover {
+  opacity: 0.85;
+}
+
+/* ===== Forms ===== */
 form {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
   gap: 1rem;
 }
@@ -189,22 +258,6 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 2px rgba(230,57,70,0.15);
 }
 
-button {
-  background: #e63946;
-  color: #fff;
-  border: none;
-  padding: 0.9rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-button:hover {
-  background: #c62828;
-  transform: translateY(-2px);
-}
-
 /* ===== Footer ===== */
 footer {
   background: #fff;
@@ -213,11 +266,13 @@ footer {
   border-top: 1px solid #ddd;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
 }
+
 footer p {
   margin: 0.4rem 0;
   font-size: 0.95rem;
   color: #222;
 }
+
 .footer-art {
   margin-top: 1.5rem;
   width: 330px;
@@ -228,57 +283,7 @@ footer p {
   transform: scale(1.05);
 }
 
-/* ===== Project Logo Section ===== */
-.project-link {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.project-logo {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  margin-bottom: 12px;
-  border-radius: 14px;
-  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 90%);
-  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-  transition: all 0.5s ease;
-}
-
-.project-link:hover .project-logo {
-  transform: scale(1.08) rotate(3deg);
-  box-shadow: 0 0 22px rgba(230,57,70,0.4);
-  filter: brightness(1.1);
-}
-
-.project-link h4 {
-  font-size: 1.15rem;
-  color: #111;
-  font-weight: 600;
-  margin-top: 6px;
-  transition: color 0.3s ease;
-}
-.project-link:hover h4 {
-  color: #e63946;
-}
-
-.visit-btn {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: underline;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-.visit-btn:hover {
-  color: #e63946;
-}
-
-/* ===== Responsive Fixes ===== */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .hero-text h2 {
     font-size: 2.1rem;
@@ -290,6 +295,6 @@ footer p {
     font-size: 1.6rem;
   }
   .footer-art {
-    width: 250px;
+    width: 240px;
   }
 }
