@@ -1,40 +1,59 @@
-// ===== SRJahir Tech — Motion Enhanced Animations (Blur Upgrade) =====
+// ===== SRJahir Tech — Professional Fade + Blur Animations =====
 gsap.registerPlugin(ScrollTrigger);
 
-/* --- HERO SECTION: Fade + Blur --- */
+/* -------------------------------------------------
+   HERO SECTION (Fade + Blur on Load)
+------------------------------------------------- */
 const heroBtn = document.querySelector(".hero .btn");
 if (heroBtn) {
   heroBtn.style.visibility = "visible";
   heroBtn.style.opacity = "1";
 }
 
-gsap.from(".hero-text h2", {
-  y: 40,
-  opacity: 0,
-  filter: "blur(10px)",
-  duration: 1.2,
-  ease: "power3.out"
-});
+gsap.fromTo(
+  ".hero-text h2",
+  { y: 40, opacity: 0, filter: "blur(10px)" },
+  {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    duration: 1.2,
+    ease: "power3.out",
+    clearProps: "filter"
+  }
+);
 
-gsap.from(".hero-desc", {
-  y: 25,
-  opacity: 0,
-  filter: "blur(8px)",
-  duration: 1,
-  delay: 0.4,
-  ease: "power2.out"
-});
+gsap.fromTo(
+  ".hero-desc",
+  { y: 25, opacity: 0, filter: "blur(8px)" },
+  {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    duration: 1,
+    delay: 0.3,
+    ease: "power2.out",
+    clearProps: "filter"
+  }
+);
 
-gsap.from(".hero .btn", {
-  y: 20,
-  opacity: 0,
-  filter: "blur(6px)",
-  duration: 0.9,
-  delay: 0.8,
-  ease: "power2.out"
-});
+gsap.fromTo(
+  ".hero .btn",
+  { y: 20, opacity: 0, filter: "blur(6px)" },
+  {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    duration: 0.9,
+    delay: 0.6,
+    ease: "power2.out",
+    clearProps: "filter"
+  }
+);
 
-/* --- SMOOTH PARALLAX DEPTH EFFECT (UNCHANGED) --- */
+/* -------------------------------------------------
+   HERO PARALLAX (UNCHANGED – WORKING PERFECT)
+------------------------------------------------- */
 gsap.to(".top-logo", {
   yPercent: 20,
   ease: "none",
@@ -68,37 +87,53 @@ gsap.to(".hero-desc", {
   }
 });
 
-/* --- SECTION FADE + BLUR-IN --- */
+/* -------------------------------------------------
+   SECTIONS (Fade + Blur on Scroll)
+------------------------------------------------- */
 document.querySelectorAll("section").forEach((sec) => {
-  gsap.from(sec, {
+  gsap.fromTo(
+    sec,
+    { opacity: 0, y: 60, filter: "blur(12px)" },
+    {
+      scrollTrigger: {
+        trigger: sec,
+        start: "top 90%",
+        toggleActions: "play none none none"
+      },
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 1.2,
+      ease: "power2.out",
+      clearProps: "filter"
+    }
+  );
+});
+
+/* -------------------------------------------------
+   FOOTER (Fade + Blur)
+------------------------------------------------- */
+gsap.fromTo(
+  "footer",
+  { opacity: 0, y: 40, filter: "blur(10px)" },
+  {
     scrollTrigger: {
-      trigger: sec,
-      start: "top 90%",
+      trigger: "footer",
+      start: "top 95%",
       toggleActions: "play none none none"
     },
-    opacity: 0,
-    y: 60,
-    filter: "blur(12px)",
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
     duration: 1.2,
-    ease: "power2.out"
-  });
-});
+    ease: "power2.out",
+    clearProps: "filter"
+  }
+);
 
-/* --- FOOTER FADE + BLUR --- */
-gsap.from("footer", {
-  scrollTrigger: {
-    trigger: "footer",
-    start: "top 95%",
-    toggleActions: "play none none none"
-  },
-  opacity: 0,
-  y: 40,
-  filter: "blur(10px)",
-  duration: 1.2,
-  ease: "power2.out"
-});
-
-/* --- SOFT BACKGROUND WAVE MOTION (UNCHANGED) --- */
+/* -------------------------------------------------
+   BACKGROUND WAVES (SOFT LOOP – UNCHANGED)
+------------------------------------------------- */
 const waves = document.querySelector(".background-waves");
 if (waves) {
   gsap.to(waves, {
@@ -110,7 +145,9 @@ if (waves) {
   });
 }
 
-/* --- AOS INIT (SAFE) --- */
+/* -------------------------------------------------
+   AOS (SAFE MODE)
+------------------------------------------------- */
 AOS.init({
   duration: 800,
   easing: "ease-in-out",
