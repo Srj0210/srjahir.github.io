@@ -1,8 +1,8 @@
-// ===== SRJahir Tech — Subtle Professional Fade Animations =====
+// ===== SRJahir Tech — Clean Fade Animations (NO BLUR) =====
 gsap.registerPlugin(ScrollTrigger);
 
 /* -------------------------------------------------
-   HERO SECTION (Very Minor Blur)
+   HERO SECTION (Fade + Move only)
 ------------------------------------------------- */
 const heroBtn = document.querySelector(".hero .btn");
 if (heroBtn) {
@@ -10,46 +10,28 @@ if (heroBtn) {
   heroBtn.style.opacity = "1";
 }
 
-gsap.fromTo(
-  ".hero-text h2",
-  { y: 30, opacity: 0, filter: "blur(4px)" },
-  {
-    y: 0,
-    opacity: 1,
-    filter: "blur(0px)",
-    duration: 1.1,
-    ease: "power3.out",
-    clearProps: "filter"
-  }
-);
+gsap.from(".hero-text h2", {
+  y: 30,
+  opacity: 0,
+  duration: 1.1,
+  ease: "power3.out"
+});
 
-gsap.fromTo(
-  ".hero-desc",
-  { y: 20, opacity: 0, filter: "blur(3px)" },
-  {
-    y: 0,
-    opacity: 1,
-    filter: "blur(0px)",
-    duration: 1,
-    delay: 0.25,
-    ease: "power2.out",
-    clearProps: "filter"
-  }
-);
+gsap.from(".hero-desc", {
+  y: 20,
+  opacity: 0,
+  duration: 1,
+  delay: 0.25,
+  ease: "power2.out"
+});
 
-gsap.fromTo(
-  ".hero .btn",
-  { y: 15, opacity: 0, filter: "blur(2px)" },
-  {
-    y: 0,
-    opacity: 1,
-    filter: "blur(0px)",
-    duration: 0.9,
-    delay: 0.5,
-    ease: "power2.out",
-    clearProps: "filter"
-  }
-);
+gsap.from(".hero .btn", {
+  y: 15,
+  opacity: 0,
+  duration: 0.9,
+  delay: 0.5,
+  ease: "power2.out"
+});
 
 /* -------------------------------------------------
    HERO PARALLAX (UNCHANGED)
@@ -88,47 +70,35 @@ gsap.to(".hero-desc", {
 });
 
 /* -------------------------------------------------
-   SECTIONS (Subtle Fade Only)
+   SECTIONS (Fade + Lift on Scroll)
 ------------------------------------------------- */
 document.querySelectorAll("section").forEach((sec) => {
-  gsap.fromTo(
-    sec,
-    { opacity: 0, y: 40, filter: "blur(3px)" },
-    {
-      scrollTrigger: {
-        trigger: sec,
-        start: "top 92%",
-        toggleActions: "play none none none"
-      },
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      duration: 1.1,
-      ease: "power2.out",
-      clearProps: "filter"
-    }
-  );
+  gsap.from(sec, {
+    scrollTrigger: {
+      trigger: sec,
+      start: "top 92%",
+      toggleActions: "play none none none"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 1.1,
+    ease: "power2.out"
+  });
 });
 
 /* -------------------------------------------------
    FOOTER
 ------------------------------------------------- */
-gsap.fromTo(
-  "footer",
-  { opacity: 0, y: 30, filter: "blur(3px)" },
-  {
-    scrollTrigger: {
-      trigger: "footer",
-      start: "top 95%"
-    },
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    duration: 1.1,
-    ease: "power2.out",
-    clearProps: "filter"
-  }
-);
+gsap.from("footer", {
+  scrollTrigger: {
+    trigger: "footer",
+    start: "top 95%"
+  },
+  opacity: 0,
+  y: 30,
+  duration: 1.1,
+  ease: "power2.out"
+});
 
 /* -------------------------------------------------
    BACKGROUND WAVES (UNCHANGED)
