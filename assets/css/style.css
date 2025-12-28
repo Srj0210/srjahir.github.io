@@ -298,3 +298,15 @@ footer p {
     width: 240px;
   }
 }
+
+.read-blog-btn {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #e63946;
+  text-decoration: underline;
+}
+
+.read-blog-btn:hover {
+  opacity: 0.8;
+}
