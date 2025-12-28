@@ -1,312 +1,171 @@
-/* ===============================
-   SRJahir Tech — Premium Styling
-   =============================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <title>SRJahir Tech — Cloud · AI · Web Excellence</title>
 
-html, body {
-  min-height: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  font-family: "Poppins", sans-serif;
-  color: #222;
-  line-height: 1.7;
-  background: linear-gradient(180deg, #f9f9f9, #eaeaea);
-}
+  <!-- SEO Meta -->
+  <meta name="description" content="SRJahir Tech is a technology platform offering CloudAI assistant, free online PDF tools, and stock market insights. Built for learners, developers, and professionals." />
+  <meta name="keywords" content="SRJahir Tech, CloudAI, SRJ Tools, PDF Tools, Stock Market Tools, Cloud Engineering, AI Assistant" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/" />
 
-/* ===== Background Soft Waves ===== */
-.background-waves {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 30%, #ffffff, #f2f2f2, #e8e8e8);
-  background-size: 200% 200%;
-  animation: waveMotion 20s ease-in-out infinite alternate;
-  z-index: -1;
-}
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SRJahir Tech — Cloud · AI · Web Excellence" />
+  <meta property="og:description" content="Explore CloudAI, SRJ Tools, and Stock Market platforms built by SRJahir Tech." />
+  <meta property="og:url" content="https://srjahir.in/" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
 
-@keyframes waveMotion {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
-}
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
 
-/* ===== Header & Logo ===== */
-.top-logo {
-  display: block;
-  margin: 25px auto 12px auto;
-  width: 90px;
-  transition: transform 0.4s ease;
-}
-.top-logo:hover {
-  transform: scale(1.1);
-}
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
 
-header.nav {
-  text-align: center;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.6rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="sitemap" type="application/xml" href="sitemap.xml" />
 
-header.nav h1 {
-  font-size: 1.9rem;
-  color: #000;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-header.nav h1 span {
-  color: #e63946;
-}
-
-.menu-bar {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.menu-bar a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-.menu-bar a:hover {
-  color: #e63946;
-}
-
-/* ===== Hero Section ===== */
-.hero {
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 2rem 1rem;
-}
-
-.hero-text h2 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 1rem;
-}
-
-.hero-desc {
-  color: #444;
-  max-width: 720px;
-  margin: 0 auto 2rem auto;
-  font-size: 1.1rem;
-}
-
-/* ===== Buttons ===== */
-.btn {
-  display: inline-block;
-  background: #e63946;
-  color: #fff;
-  padding: 0.9rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(230,57,70,0.2);
-}
-.btn:hover {
-  background: #c62828;
-  transform: translateY(-3px);
-}
-
-.btn.full {
-  width: 100%;
-}
-
-/* ===== Base Sections ===== */
-section {
-  padding: 4rem 1rem;
-  text-align: center;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-h3 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #111;
-  font-weight: 700;
-}
-
-/* ===== Cards ===== */
-.cards {
-  display: grid;
-  gap: 1.8rem;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.card {
-  background: #fff;
-  padding: 1.8rem;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  min-height: 160px;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  border-color: #e63946;
-  box-shadow: 0 6px 16px rgba(230,57,70,0.15);
-}
-
-/* ===== Project Logo Section ===== */
-.project-link {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.project-logo {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  margin-bottom: 12px;
-  border-radius: 14px;
-  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 90%);
-  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-  transition: all 0.4s ease;
-}
-
-.project-link:hover .project-logo {
-  transform: scale(1.08);
-  box-shadow: 0 0 22px rgba(230,57,70,0.35);
-}
-
-.visit-btn {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: underline;
-  font-weight: 600;
-}
-.visit-btn:hover {
-  color: #e63946;
-}
-
-/* ===== Content Blocks (NEW — AdSense Friendly) ===== */
-.content-block {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.content-block h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.content-block p {
-  font-size: 1.05rem;
-  color: #333;
-  margin-bottom: 1.2rem;
-}
-
-.content-block a {
-  color: #e63946;
-  text-decoration: underline;
-}
-.content-block a:hover {
-  opacity: 0.85;
-}
-
-/* ===== Forms ===== */
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 520px;
-  margin: 0 auto;
-  gap: 1rem;
-}
-
-input, select, textarea {
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #333;
-  padding: 0.9rem;
-  border-radius: 8px;
-  outline: none;
-  font-size: 1rem;
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: #e63946;
-  box-shadow: 0 0 0 2px rgba(230,57,70,0.15);
-}
-
-/* ===== Footer ===== */
-footer {
-  background: #fff;
-  text-align: center;
-  padding: 3rem 1rem;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
-}
-
-footer p {
-  margin: 0.4rem 0;
-  font-size: 0.95rem;
-  color: #222;
-}
-
-.footer-art {
-  margin-top: 1.5rem;
-  width: 330px;
-  opacity: 0.95;
-  transition: transform 0.4s ease;
-}
-.footer-art:hover {
-  transform: scale(1.05);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .hero-text h2 {
-    font-size: 2.1rem;
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SRJahir Tech",
+    "url": "https://srjahir.in/",
+    "founder": {
+      "@type": "Person",
+      "name": "Suraj Ahir"
+    }
   }
-  .hero-desc {
-    font-size: 1rem;
-  }
-  h3 {
-    font-size: 1.6rem;
-  }
-  .footer-art {
-    width: 240px;
-  }
-}
+  </script>
 
-.read-blog-btn {
-  display: inline-block;
-  margin-top: 12px;
-  font-weight: 600;
-  color: #e63946;
-  text-decoration: underline;
-}
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
 
-.read-blog-btn:hover {
-  opacity: 0.8;
-}
+  <!-- CSS + Animations -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="#contact">Quote</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h2 class="animated-heading">Empowering Digital Intelligence</h2>
+    <p class="hero-desc">
+      SRJahir Tech is a modern technology platform focused on building practical digital solutions.
+    </p>
+    <a href="#contact" class="btn">Get a Quote</a>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h3>Featured Projects</h3>
+  <div class="cards">
+
+    <!-- CloudAI -->
+    <div class="card" data-aos="fade-up">
+      <img src="logo.file/cloudai.png" class="project-logo" alt="CloudAI" />
+      <h4>CloudAI</h4>
+      <p>
+        CloudAI is an interactive AI assistant designed to explain concepts, answer questions,
+        and help users understand topics in a simple, conversational way.
+      </p>
+
+      <a href="blog.html#cloudai-blog" class="read-more">Read More</a>
+      <a href="https://cloudai.srjahir.in" target="_blank">cloudai.srjahir.in</a>
+    </div>
+
+    <!-- Stocks -->
+    <div class="card" data-aos="fade-up">
+      <img src="logo.file/Stokes.png" class="project-logo" alt="Stocks SRJahir" />
+      <h4>Stocks.SRJahir.in</h4>
+      <p>
+        Stocks.SRJahir.in is a stock market information platform focused on Indian markets.
+      </p>
+
+      <a href="blog.html#stocks-blog" class="read-more">Read More</a>
+      <a href="https://stocks.srjahir.in" target="_blank">stocks.srjahir.in</a>
+    </div>
+
+    <!-- Tools -->
+    <div class="card" data-aos="fade-up">
+      <img src="logo.file/tools.png" class="project-logo" alt="SRJ Tools" />
+      <h4>Tools.SRJahir.in</h4>
+      <p>
+        SRJ Tools is a collection of free online utilities, mainly focused on PDF operations.
+      </p>
+
+      <a href="blog.html#tools-blog" class="read-more">Read More</a>
+      <a href="https://tools.srjahir.in" target="_blank">tools.srjahir.in</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== ONLY ONE BUTTON BETWEEN SECTIONS ===== -->
+<div style="text-align:center; margin:40px 0;">
+  <a href="blog.html" class="btn">Read Blogs</a>
+</div>
+
+<section id="about" class="about">
+  <h3>Who We Are</h3>
+  <p>
+    SRJahir Tech was founded by Suraj Ahir with the vision of building practical, honest digital platforms.
+  </p>
+</section>
+
+<section id="contact" class="contact">
+  <h3>Get a Quote</h3>
+
+  <p class="policy-note">
+    By contacting us, you agree to our
+    <a href="terms.html">Terms</a>,
+    <a href="privacy.html">Privacy Policy</a> and
+    <a href="about.html">About / Vision</a>.
+  </p>
+
+  <p class="policy-note">
+    <a href="mailto:surajmaitra1996@gmail.com">surajmaitra1996@gmail.com</a>
+  </p>
+</section>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Built with clarity and purpose</p>
+  <img src="sanskrit.png" alt="Sanskrit" class="footer-art" />
+</footer>
+
+<script src="assets/js/animation.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
