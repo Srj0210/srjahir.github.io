@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <title>Blog — SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Read blogs by SRJahir Tech on Cloud, AI, productivity tools, and technology insights written for learners and builders." />
+  <meta name="keywords" content="SRJahir Tech Blog, CloudAI, PDF tools, productivity, free online tools" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blog.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SRJahir Tech Blog" />
+  <meta property="og:description" content="Insights, guides, and thoughts on Cloud, AI, and practical digital tools." />
+  <meta property="og:url" content="https://srjahir.in/blog.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+  <h3>SRJahir Tech Blog</h3>
+  <p>
+    Thoughts, guides, and explanations written to help people understand technology
+    in a practical and human way.
+  </p>
+</section>
+
+<!-- ================= BLOG LIST ================= -->
+
+<section class="services">
+
+  <div class="cards">
+
+    <!-- BLOG 1 -->
+    <div class="card blog-card">
+      <h4>How CloudAI Improves Everyday Productivity</h4>
+      <p class="blog-preview">
+        Artificial Intelligence is no longer just for experts. Tools like CloudAI
+        are helping everyday users learn, think, and work faster.
+      </p>
+
+      <button class="btn read-more-btn">Read More</button>
+
+      <div class="blog-full">
+        <p>
+          CloudAI is designed with a simple goal: explain complex ideas in a way that
+          feels natural and understandable. Instead of overwhelming users with technical
+          jargon, it focuses on clarity and step-by-step reasoning.
+        </p>
+        <p>
+          Whether someone is learning cloud concepts, preparing for exams, or just
+          exploring how technology works, CloudAI acts as a guide rather than a replacement
+          for thinking.
+        </p>
+        <p>
+          Productivity improves not because tasks are automated blindly, but because
+          understanding improves. This is where CloudAI stands apart.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOG 2 -->
+    <div class="card blog-card">
+      <h4>Why Free Online Tools Matter More Than Ever</h4>
+      <p class="blog-preview">
+        Free tools on the internet are often underestimated, but they play a huge role
+        in accessibility and learning.
+      </p>
+
+      <button class="btn read-more-btn">Read More</button>
+
+      <div class="blog-full">
+        <p>
+          Platforms like SRJ Tools exist to remove unnecessary barriers. Not everyone
+          can afford expensive software subscriptions just to merge or convert a PDF.
+        </p>
+        <p>
+          By offering browser-based tools, users can complete tasks quickly without
+          installing anything or worrying about privacy.
+        </p>
+        <p>
+          Free does not mean low quality. It means focused, honest, and built for real
+          needs rather than profit-driven complexity.
+        </p>
+      </div>
+    </div>
+
+    <!-- BLOG 3 -->
+    <div class="card blog-card">
+      <h4>Stock Platforms for Beginners: What Really Matters</h4>
+      <p class="blog-preview">
+        Beginners entering the stock market often feel overwhelmed by numbers, charts,
+        and constant noise.
+      </p>
+
+      <button class="btn read-more-btn">Read More</button>
+
+      <div class="blog-full">
+        <p>
+          A good beginner-friendly platform does not try to predict the future.
+          Instead, it focuses on presenting information clearly and honestly.
+        </p>
+        <p>
+          Stocks.SRJahir.in was built with this mindset — offering market overview,
+          IPO information, and index movement without unnecessary clutter.
+        </p>
+        <p>
+          Understanding behavior comes before chasing profit. That foundation
+          makes all the difference in the long run.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+</footer>
+
+<!-- ================= BLOG TOGGLE SCRIPT ================= -->
+<script>
+  document.querySelectorAll(".read-more-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".blog-card");
+      card.classList.toggle("open");
+      btn.innerText = card.classList.contains("open")
+        ? "Show Less"
+        : "Read More";
+    });
+  });
+</script>
+
+<style>
+  /* Blog specific */
+  .blog-full {
+    display: none;
+    margin-top: 12px;
+  }
+  .blog-card.open .blog-full {
+    display: block;
+  }
+</style>
+
+</body>
+</html>
