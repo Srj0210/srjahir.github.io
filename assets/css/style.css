@@ -338,3 +338,31 @@ a.btn {
   margin: 6px 0;
   opacity: 0.85;
 }
+
+/* ===============================
+   BLOG DISCLAIMER (UNIVERSAL)
+   =============================== */
+.blog-disclaimer {
+  max-width: 900px;
+  margin: 60px auto 40px auto;
+  padding: 20px 24px;
+  background: #f9f9f9;
+  border-left: 4px solid #e63946;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.blog-disclaimer strong {
+  color: #000;
+}
+
+/* Mobile spacing fix */
+@media (max-width: 600px) {
+  .blog-disclaimer {
+    margin: 40px 16px 32px 16px;
+    padding: 16px;
+    font-size: 13.5px;
+  }
+}
