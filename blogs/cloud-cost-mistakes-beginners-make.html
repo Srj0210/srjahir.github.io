@@ -3,31 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#ffffff" />
-
   <title>Cloud Cost Mistakes Beginners Make — SRJahir Tech</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Common cloud cost mistakes beginners make on AWS, Azure, and Google Cloud, explained in a practical and human way." />
-  <meta name="keywords" content="cloud cost mistakes, aws billing mistakes, cloud beginner errors, cloud cost control" />
-  <meta name="author" content="Suraj Ahir" />
+  <meta name="description" content="Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud." />
+  <meta name="author" content="SRJahir Tech" />
   <meta name="robots" content="index, follow" />
-
   <link rel="canonical" href="https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Cloud Cost Mistakes Beginners Make" />
-  <meta property="og:description" content="Cloud does not punish beginners. It punishes carelessness. Learn the most common cost mistakes and how to avoid them." />
-  <meta property="og:url" content="https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-
-  <link rel="icon" type="image/png" href="../logo.png" />
+  <link rel="icon" href="../logo.png" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
 </head>
 
-<body id="top">
-
+<body>
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -39,137 +34,60 @@
 </header>
 
 <section class="content-block blog-article">
-
-  <h1>Cloud Cost Mistakes Beginners Make (And How to Avoid Them)</h1>
-
-  <p class="blog-meta">
-    Written by <strong>SRJahir Tech</strong> · Cloud & Infrastructure · 2025
-  </p>
+  <h1>Cloud Cost Mistakes Beginners Make</h1>
+  <p class="blog-meta">SRJahir Tech · 2025</p>
 
   <p>
-    One of the biggest fears beginners have about cloud computing is billing.
-    Stories of unexpected bills create panic, confusion, and distrust.
+    Cloud platforms are powerful, but they are not forgiving.
+    Most beginners don’t overspend because cloud is expensive.
+    They overspend because they don’t understand responsibility.
   </p>
 
+  <h2>1. Leaving Resources Running</h2>
   <p>
-    The truth is simple:
-    <strong>Cloud does not punish beginners. It punishes carelessness.</strong>
+    Virtual machines, databases, and storage continue billing even
+    when you are not actively using them.
   </p>
 
+  <h2>2. Ignoring Regions and Pricing Models</h2>
   <p>
-    Cloud platforms like AWS, Azure, and Google Cloud are extremely powerful.
-    But power without awareness always comes with consequences.
+    Different regions have different prices.
+    Choosing the wrong region without understanding cost impact
+    is a common mistake.
   </p>
 
-  <h2>1. Forgetting to Shut Down Resources</h2>
-
+  <h2>3. No Budgets or Alerts</h2>
   <p>
-    This is the most common mistake — and the most expensive one.
+    If you don’t set alerts, the bill becomes the notification.
+    Budgets are not optional — they are protection.
   </p>
 
-  <p>
-    Beginners create virtual machines, databases, or load balancers for practice.
-    Then they close the browser and forget about them.
-  </p>
-
-  <p>
-    Cloud resources do not stop when you stop thinking about them.
-    If it is running, it is billing.
-  </p>
-
-  <p>
-    Many “unexpected bills” are simply forgotten resources.
-  </p>
-
-  <h2>2. Not Setting Budgets and Alerts</h2>
-
-  <p>
-    Cloud platforms give you cost alerts and budgets.
-    Beginners ignore them.
-  </p>
-
-  <p>
-    When you don’t monitor usage, the bill itself becomes the alert.
-    By then, it is too late.
-  </p>
-
-  <p>
-    A simple budget limit can save you from stress, panic, and regret.
-  </p>
-
-  <h2>3. Overengineering Too Early</h2>
-
-  <p>
-    Beginners often design systems for millions of users on day one.
-  </p>
-
-  <p>
-    In reality, most projects need:
-    simplicity, not scale.
-  </p>
-
-  <p>
-    More services mean more cost, more complexity, and more chances of mistakes.
-  </p>
-
-  <p>
-    Cloud rewards gradual growth, not ego-driven architecture.
-  </p>
-
-  <h2>4. Ignoring Monitoring and Logs</h2>
-
-  <p>
-    If you don’t monitor usage, performance, and traffic,
-    you don’t understand where your money is going.
-  </p>
-
-  <p>
-    Monitoring is not just for engineers.
-    It is for anyone who wants control.
-  </p>
-
-  <h2>5. Treating Cloud Like Traditional Hosting</h2>
-
+  <h2>4. Treating Cloud Like Hosting</h2>
   <p>
     Cloud is not shared hosting.
-  </p>
-
-  <p>
-    Every request, every storage operation,
-    every data transfer has a cost.
-  </p>
-
-  <p>
-    Once you understand this mindset shift,
-    cloud pricing starts making sense.
+    Every request, storage operation, and data transfer costs money.
   </p>
 
   <h2>How to Avoid These Mistakes</h2>
-
   <ul>
-    <li>Always shut down unused resources</li>
+    <li>Shut down unused resources</li>
     <li>Use budgets and alerts from day one</li>
     <li>Start small and scale slowly</li>
     <li>Understand cost as a feature, not a surprise</li>
   </ul>
 
   <p>
-    Cloud is fair.
-    It charges for what you use.
-  </p>
-
-  <p>
+    Cloud is fair. It charges for what you use.
     Respect the platform, and it will respect your wallet.
   </p>
 
   <a href="../blog.html" class="btn">← Back to Blog</a>
-
 </section>
 
-<div class="disclaimer">
+<div class="blog-disclaimer">
   <p>
     <strong>Disclaimer:</strong><br>
-    This article is written for educational and informational purposes only.
+    This article is for educational and informational purposes only.
     It does not provide financial, legal, or professional advice.
     Cloud pricing varies by provider, region, and usage.
     Always verify details from official documentation.
@@ -179,6 +97,5 @@
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
 </footer>
-
 </body>
 </html>
