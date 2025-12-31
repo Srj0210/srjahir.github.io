@@ -534,3 +534,34 @@ a.btn {
   content: "Next";
   font-size: 14px;
 }
+
+
+
+/* ===== PAGINATION THEME FIX ===== */
+.pagination {
+  margin: 48px 0 60px;
+}
+
+.pagination button {
+  background: #e63946;          /* SRJahir red */
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(230,57,70,0.25);
+  transition: all 0.25s ease;
+}
+
+.pagination button:hover {
+  background: #c62828;
+  transform: translateY(-1px);
+}
+
+.pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
