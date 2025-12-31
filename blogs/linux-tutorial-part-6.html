@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 6 — Searching Text with grep | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 6 by SRJahir Tech. Learn how to search text inside files using grep, pipes, and filters with real-world Linux examples." />
+  <meta name="keywords" content="Linux grep command, Linux search text, grep tutorial, Linux tutorial part 6" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-6.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 6: Searching Text & Filtering Data</h3>
+
+  <p>
+    In this part, we learn one of the most powerful Linux skills —
+    searching text inside files and command output.
+    This is where Linux becomes dangerous (in a good way).
+  </p>
+
+  <h4>1. grep — Search Text Inside Files</h4>
+  <p>
+    <code>grep</code> searches for matching text patterns.
+    It is used everywhere: logs, configs, scripts, pipelines.
+  </p>
+
+  <pre><code class="language-bash">grep "error" file.txt</code></pre>
+
+  <p>
+    This prints all lines containing the word <strong>error</strong>.
+  </p>
+
+  <h4>2. Case-Insensitive Search</h4>
+  <p>
+    Linux is case-sensitive by default.
+    Use <code>-i</code> to ignore case.
+  </p>
+
+  <pre><code class="language-bash">grep -i "error" file.txt</code></pre>
+
+  <h4>3. Search in Multiple Files</h4>
+  <pre><code class="language-bash">grep "failed" *.log</code></pre>
+
+  <p>
+    This searches across all log files.
+  </p>
+
+  <h4>4. Recursive Search (Folders)</h4>
+  <p>
+    Search inside directories using <code>-r</code>.
+  </p>
+
+  <pre><code class="language-bash">grep -r "password" /etc</code></pre>
+
+  <h4>⚠️ Warning</h4>
+  <p>
+    Recursive grep can be heavy.
+    Use it carefully on large directories.
+  </p>
+
+  <h4>5. grep with Line Numbers</h4>
+  <pre><code class="language-bash">grep -n "listen" nginx.conf</code></pre>
+
+  <p>
+    Shows exact line number — critical for debugging.
+  </p>
+
+  <h4>6. Pipes (|) — The Linux Superpower</h4>
+  <p>
+    Pipes send output of one command into another.
+  </p>
+
+  <pre><code class="language-bash">ls -l | grep ".log"</code></pre>
+
+  <p>
+    This filters only log files from directory listing.
+  </p>
+
+  <h4>7. grep with ps (Process Search)</h4>
+  <p>
+    Find running processes:
+  </p>
+
+  <pre><code class="language-bash">ps aux | grep nginx</code></pre>
+
+  <h4>8. Excluding Matches</h4>
+  <p>
+    Use <code>-v</code> to exclude matching lines.
+  </p>
+
+  <pre><code class="language-bash">ps aux | grep -v grep</code></pre>
+
+  <h4>9. Real-World Log Example</h4>
+  <pre><code class="language-bash">grep -i "error" /var/log/syslog</code></pre>
+
+  <p>
+    System admins live inside commands like this.
+  </p>
+
+  <h4>Important Mindset</h4>
+  <p>
+    Linux tools are simple alone,
+    unstoppable when combined.
+  </p>
+
+  <p>
+    If you master grep and pipes,
+    you control text — and Linux is mostly text.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn about file permissions and ownership —
+    the most misunderstood Linux concept.
+  </p>
+
+  <a href="linux-tutorial-part-7.html" class="btn">
+    Next: File Permissions & Ownership →
+  </a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Some files require root access.
+  Always understand what you are searching before using sudo.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Control Text, Control Systems</p>
+</footer>
+
+</body>
+</html>
