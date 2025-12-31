@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 12 — Virtual Environments & pip | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 12 by SRJahir Tech. Learn virtual environments, pip, dependency management, and clean project setup." />
+  <meta name="keywords" content="python virtual environment, python pip, python dependencies" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-12.html" />
+
+  <link rel="icon" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+</header>
+
+<section class="content-block">
+  <h3>Python Full Tutorial — Part 12</h3>
+
+  <p>
+    Professional Python projects never use global dependencies.
+    They use virtual environments.
+  </p>
+
+  <h4>1. What is pip?</h4>
+  <pre><code class="language-python">
+pip install requests
+  </code></pre>
+
+  <h4>2. What is a Virtual Environment?</h4>
+  <p>
+    An isolated Python environment per project.
+  </p>
+
+  <h4>3. Creating a Virtual Environment</h4>
+  <pre><code class="language-python">
+python -m venv venv
+  </code></pre>
+
+  <h4>4. Activating Environment</h4>
+  <pre><code class="language-python">
+# Windows
+venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+  </code></pre>
+
+  <h4>5. Installing Packages Inside venv</h4>
+  <pre><code class="language-python">
+pip install flask
+  </code></pre>
+
+  <h4>6. requirements.txt</h4>
+  <pre><code class="language-python">
+flask
+requests
+  </code></pre>
+
+  <pre><code class="language-python">
+pip install -r requirements.txt
+  </code></pre>
+
+  <h4>7. Why This Matters</h4>
+  <ul>
+    <li>No dependency conflicts</li>
+    <li>Clean deployments</li>
+    <li>Industry standard</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    If you skip virtual environments,
+    you are not ready for production Python.
+  </p>
+
+  <p>
+    Next step:
+    <strong>Mini Project using everything learned</strong>
+  </p>
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Always isolate environments when working on real projects.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech</p>
+</footer>
+
+</body>
+</html>
