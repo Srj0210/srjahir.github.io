@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 11 — File Handling | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 11 by SRJahir Tech. Learn file handling in Python including read, write, append, file modes, and real-world use cases." />
+  <meta name="keywords" content="python file handling, python read write file, python open file" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-11.html" />
+
+  <link rel="icon" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+</header>
+
+<section class="content-block">
+  <h3>Python Full Tutorial — Part 11</h3>
+
+  <p>
+    Real applications store data.
+    File handling is how Python talks to files on your system.
+  </p>
+
+  <h4>1. Opening a File</h4>
+  <pre><code class="language-python">
+file = open("data.txt", "r")
+content = file.read()
+file.close()
+  </code></pre>
+
+  <h4>2. File Modes</h4>
+  <ul>
+    <li><code>r</code> — Read</li>
+    <li><code>w</code> — Write (overwrite)</li>
+    <li><code>a</code> — Append</li>
+    <li><code>x</code> — Create</li>
+  </ul>
+
+  <h4>3. Writing to a File</h4>
+  <pre><code class="language-python">
+file = open("log.txt", "w")
+file.write("Hello Python\n")
+file.close()
+  </code></pre>
+
+  <h4>4. Appending Data</h4>
+  <pre><code class="language-python">
+file = open("log.txt", "a")
+file.write("New entry\n")
+file.close()
+  </code></pre>
+
+  <h4>5. Using with (Best Practice)</h4>
+  <pre><code class="language-python">
+with open("data.txt", "r") as file:
+    print(file.read())
+  </code></pre>
+
+  <h4>6. Reading Line by Line</h4>
+  <pre><code class="language-python">
+with open("data.txt") as file:
+    for line in file:
+        print(line.strip())
+  </code></pre>
+
+  <h4>7. Real Use Cases</h4>
+  <ul>
+    <li>Logs</li>
+    <li>Configurations</li>
+    <li>Reports</li>
+    <li>Data processing</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    File handling is the bridge between programs and persistence.
+  </p>
+
+  <p>
+    Next: <strong>Virtual Environments & pip</strong>
+  </p>
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  File operations can modify system data. Always handle carefully.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech</p>
+</footer>
+
+</body>
+</html>
