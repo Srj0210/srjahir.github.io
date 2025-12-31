@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 5 — Loops (for & while) | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 5 by SRJahir Tech. Learn loops in Python: for loop, while loop, range(), break, continue, and real-world looping examples." />
+  <meta name="keywords" content="Python loops, Python for loop, Python while loop, Python range, break continue" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-5.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js (GitHub-style code colors) -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 5</h3>
+
+  <p>
+    Real programs repeat work.
+    Writing the same code again and again is stupidity.
+    <strong>Loops solve this.</strong>
+  </p>
+
+  <h4>What is a Loop?</h4>
+  <p>
+    A loop runs the same block of code
+    multiple times until a condition is met.
+  </p>
+
+  <h4>The <code>for</code> Loop</h4>
+  <p>
+    <code>for</code> loop is used when you know
+    how many times something should run.
+  </p>
+
+  <div class="code-title">Basic for Loop</div>
+  <pre><code class="language-python">
+for i in range(5):
+    print(i)
+  </code></pre>
+
+  <p>
+    Output:
+    <br>0 1 2 3 4
+  </p>
+
+  <h4>Understanding <code>range()</code></h4>
+
+  <div class="code-title">range(start, stop)</div>
+  <pre><code class="language-python">
+for i in range(1, 6):
+    print(i)
+  </code></pre>
+
+  <p>
+    Starts from 1, stops before 6.
+  </p>
+
+  <h4>Looping Through Strings</h4>
+
+  <div class="code-title">String Loop</div>
+  <pre><code class="language-python">
+name = "Python"
+
+for ch in name:
+    print(ch)
+  </code></pre>
+
+  <h4>The <code>while</code> Loop</h4>
+  <p>
+    <code>while</code> loop runs
+    <strong>as long as condition is True</strong>.
+  </p>
+
+  <div class="code-title">Basic while Loop</div>
+  <pre><code class="language-python">
+count = 1
+
+while count <= 5:
+    print(count)
+    count += 1
+  </code></pre>
+
+  <h4>Infinite Loop (Danger)</h4>
+  <p>
+    If condition never becomes False,
+    loop never stops.
+  </p>
+
+  <div class="code-title">Infinite Loop Example</div>
+  <pre><code class="language-python">
+while True:
+    print("This will run forever")
+  </code></pre>
+
+  <h4>The <code>break</code> Statement</h4>
+  <p>
+    <code>break</code> stops the loop immediately.
+  </p>
+
+  <div class="code-title">Using break</div>
+  <pre><code class="language-python">
+for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)
+  </code></pre>
+
+  <h4>The <code>continue</code> Statement</h4>
+  <p>
+    <code>continue</code> skips current iteration.
+  </p>
+
+  <div class="code-title">Using continue</div>
+  <pre><code class="language-python">
+for i in range(1, 6):
+    if i == 3:
+        continue
+    print(i)
+  </code></pre>
+
+  <h4>Real-World Example</h4>
+
+  <div class="code-title">Password Attempts</div>
+  <pre><code class="language-python">
+attempts = 0
+
+while attempts < 3:
+    password = input("Enter password: ")
+
+    if password == "python123":
+        print("Access granted")
+        break
+    else:
+        print("Wrong password")
+
+    attempts += 1
+  </code></pre>
+
+  <h4>Common Beginner Mistakes</h4>
+  <ul>
+    <li>Forgetting to update loop variable</li>
+    <li>Infinite loops by mistake</li>
+    <li>Wrong indentation</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    If you understand loops,
+    you understand automation.
+    This is how software scales.
+  </p>
+
+  <p>
+    Next part:
+    <strong>Data Structures — List, Tuple, Set, Dictionary</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice daily to gain real programming skill.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
