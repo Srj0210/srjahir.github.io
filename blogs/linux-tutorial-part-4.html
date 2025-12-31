@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 4 — Basic Linux Commands | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 4 by SRJahir Tech. Learn basic Linux commands like ls, cd, pwd, mkdir, rm, cp, mv with clear explanations and real usage." />
+  <meta name="keywords" content="Linux commands, basic Linux commands, Linux tutorial part 4, learn Linux CLI" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-4.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 4: Basic Linux Commands</h3>
+
+  <p>
+    In this part, we will learn the most important Linux commands.
+    These commands form the foundation of everything you do in Linux.
+    Understanding them deeply is more important than memorizing them.
+  </p>
+
+  <h4>1. pwd — Print Working Directory</h4>
+  <p>
+    Shows your current location inside the Linux file system.
+  </p>
+
+  <pre><code class="language-bash">pwd</code></pre>
+
+  <p>
+    Use this command whenever you feel lost.
+  </p>
+
+  <h4>2. ls — List Files and Directories</h4>
+  <p>
+    Displays files and folders in the current directory.
+  </p>
+
+  <pre><code class="language-bash">ls</code></pre>
+
+  <p>
+    Common options:
+  </p>
+
+  <pre><code class="language-bash">ls -l
+ls -a
+ls -la</code></pre>
+
+  <ul>
+    <li><code>-l</code> → detailed view</li>
+    <li><code>-a</code> → include hidden files</li>
+  </ul>
+
+  <h4>3. cd — Change Directory</h4>
+  <p>
+    Used to move between directories.
+  </p>
+
+  <pre><code class="language-bash">cd /home
+cd ..
+cd ~</code></pre>
+
+  <ul>
+    <li><code>..</code> → parent directory</li>
+    <li><code>~</code> → home directory</li>
+  </ul>
+
+  <h4>4. mkdir — Create Directory</h4>
+  <p>
+    Creates new folders.
+  </p>
+
+  <pre><code class="language-bash">mkdir projects
+mkdir linux/tutorials</code></pre>
+
+  <h4>5. rmdir — Remove Empty Directory</h4>
+  <p>
+    Deletes empty directories only.
+  </p>
+
+  <pre><code class="language-bash">rmdir old_folder</code></pre>
+
+  <h4>6. touch — Create Empty File</h4>
+  <p>
+    Creates a new empty file.
+  </p>
+
+  <pre><code class="language-bash">touch file.txt</code></pre>
+
+  <h4>7. cp — Copy Files and Directories</h4>
+  <p>
+    Copies files from one location to another.
+  </p>
+
+  <pre><code class="language-bash">cp file1.txt file2.txt
+cp -r folder1 folder2</code></pre>
+
+  <h4>8. mv — Move or Rename Files</h4>
+  <p>
+    Moves files or renames them.
+  </p>
+
+  <pre><code class="language-bash">mv old.txt new.txt
+mv file.txt /home/user/</code></pre>
+
+  <h4>9. rm — Remove Files</h4>
+  <p>
+    Deletes files permanently.
+    Use carefully.
+  </p>
+
+  <pre><code class="language-bash">rm file.txt</code></pre>
+
+  <p>
+    Remove directories:
+  </p>
+
+  <pre><code class="language-bash">rm -r folder_name</code></pre>
+
+  <h4>⚠️ Important Warning</h4>
+  <p>
+    Linux does not have a recycle bin for terminal deletes.
+    Once removed, files are gone.
+  </p>
+
+  <h4>How These Commands Work Together</h4>
+  <p>
+    Linux workflows are built by combining small commands.
+    Each command does one job well.
+  </p>
+
+  <p>
+    Mastering these basics will make advanced topics easy later.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn how to view file contents
+    and work with text inside Linux.
+  </p>
+
+  <a href="linux-tutorial-part-5.html" class="btn">
+    Next: Viewing & Reading Files →
+  </a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Commands shown here can modify or delete files.
+  Practice in a safe environment.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Learn Systems, Not Just Commands</p>
+</footer>
+
+</body>
+</html>
