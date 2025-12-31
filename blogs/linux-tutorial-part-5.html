@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 5 — Viewing & Reading Files | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 5 by SRJahir Tech. Learn how to view and read files using cat, less, more, head, tail, and watch commands with real examples." />
+  <meta name="keywords" content="Linux cat command, Linux less command, Linux head tail, Linux tutorial part 5" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-5.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 5: Viewing & Reading Files</h3>
+
+  <p>
+    In this part, we will learn how to read files in Linux.
+    Linux systems store everything as text — logs, configs, scripts.
+    Knowing how to view files is a core Linux skill.
+  </p>
+
+  <h4>1. cat — View Entire File</h4>
+  <p>
+    <code>cat</code> prints the entire file content at once.
+    Best for small files.
+  </p>
+
+  <pre><code class="language-bash">cat file.txt</code></pre>
+
+  <p>
+    Combine files:
+  </p>
+
+  <pre><code class="language-bash">cat file1.txt file2.txt</code></pre>
+
+  <h4>⚠️ cat Limitation</h4>
+  <p>
+    Do not use <code>cat</code> on large files.
+    It will flood your terminal.
+  </p>
+
+  <h4>2. less — Read Large Files Safely</h4>
+  <p>
+    <code>less</code> opens files in a scrollable viewer.
+    This is the most used file viewer in Linux.
+  </p>
+
+  <pre><code class="language-bash">less largefile.log</code></pre>
+
+  <ul>
+    <li>Arrow keys → scroll</li>
+    <li><code>/word</code> → search</li>
+    <li><code>q</code> → quit</li>
+  </ul>
+
+  <h4>3. more — Older File Viewer</h4>
+  <p>
+    <code>more</code> is similar to less but limited.
+    Less is preferred in modern systems.
+  </p>
+
+  <pre><code class="language-bash">more file.txt</code></pre>
+
+  <h4>4. head — View Top Lines</h4>
+  <p>
+    Shows the first 10 lines of a file by default.
+  </p>
+
+  <pre><code class="language-bash">head file.txt</code></pre>
+
+  <p>
+    Custom number of lines:
+  </p>
+
+  <pre><code class="language-bash">head -n 5 file.txt</code></pre>
+
+  <h4>5. tail — View Last Lines</h4>
+  <p>
+    Shows the last 10 lines.
+    Very useful for logs.
+  </p>
+
+  <pre><code class="language-bash">tail file.txt</code></pre>
+
+  <p>
+    Live log monitoring:
+  </p>
+
+  <pre><code class="language-bash">tail -f /var/log/syslog</code></pre>
+
+  <h4>6. watch — Re-run Command Automatically</h4>
+  <p>
+    Runs a command repeatedly every 2 seconds.
+  </p>
+
+  <pre><code class="language-bash">watch tail file.txt</code></pre>
+
+  <h4>Real World Example</h4>
+  <p>
+    Server admins use:
+  </p>
+
+  <pre><code class="language-bash">tail -f /var/log/nginx/access.log</code></pre>
+
+  <p>
+    This allows real-time monitoring.
+  </p>
+
+  <h4>Important Mindset</h4>
+  <p>
+    Linux is about observing systems.
+    Logs tell the truth before dashboards do.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn how to search text inside files
+    using powerful Linux tools.
+  </p>
+
+  <a href="linux-tutorial-part-6.html" class="btn">
+    Next: Searching Text with grep →
+  </a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Some log files require root permissions.
+  Use <code>sudo</code> only when necessary.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Understand Systems Deeply</p>
+</footer>
+
+</body>
+</html>
