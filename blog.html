@@ -8,13 +8,13 @@
   <title>Blog — SRJahir Tech</title>
 
   <!-- SEO -->
-  <meta name="description" content="Long-form, human-written blogs on AI, Cloud, careers, India’s future, and future-ready skills by SRJahir Tech." />
-  <meta name="keywords" content="AI jobs, Cloud career, India future, tech skills, SRJahir Tech blog" />
-  <meta name="author" content="Suraj Ahir" />
+  <meta name="description" content="Long-form articles on AI, Cloud, programming, markets, careers, and India’s future by SRJahir Tech. Clear thinking. Practical knowledge." />
+  <meta name="keywords" content="AI blog, Cloud career, programming fundamentals, global markets, SRJahir Tech" />
+  <meta name="author" content="SRJahir Tech" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blog.html" />
 
-  <!-- Icons -->
+  <!-- Icon -->
   <link rel="icon" type="image/png" href="logo.png" />
 
   <!-- CSS -->
@@ -28,6 +28,77 @@
     gtag('js', new Date());
     gtag('config', 'G-93D0PKZM2L');
   </script>
+
+  <!-- Page specific styles -->
+  <style>
+    .blog-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .blog-search input {
+      padding: 8px 12px;
+      width: 240px;
+      max-width: 100%;
+    }
+    .blog-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .blog-categories button {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      background: none;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .blog-categories button.active {
+      background: #000;
+      color: #fff;
+    }
+    .write-with-us {
+      border-left: 4px solid #000;
+      padding-left: 16px;
+      margin: 32px 0;
+    }
+    .write-with-us ul {
+      padding-left: 20px;
+      margin: 12px 0;
+    }
+    .write-with-us li {
+      margin-bottom: 6px;
+    }
+    .write-with-us .small-note {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .blog-disclaimer {
+      margin: 48px 0 24px;
+      padding: 16px;
+      font-size: 14px;
+      opacity: 0.75;
+      border-top: 1px solid #ddd;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .pagination button {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      background: none;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -41,6 +112,76 @@
     <a href="privacy.html">Privacy</a>
   </nav>
 </header>
+
+<section class="content-block">
+  <h3>SRJahir Tech Blog</h3>
+  <p>
+    Long-form articles on AI, Cloud, programming, markets, careers,
+    and long-term thinking. No hype. Just clarity.
+  </p>
+</section>
+
+<!-- ===== WRITE WITH US ===== -->
+<section class="content-block write-with-us">
+
+  <h3>Write & Publish With SRJahir Tech</h3>
+
+  <p>
+    Do you have clarity, insights, or practical experience in AI, Cloud,
+    Programming, Markets, or Technology?
+    You can contribute your article to SRJahir Tech.
+  </p>
+
+  <p>
+    We review every submission carefully.
+    If your article adds real value, it will be published on our platform
+    with <strong>your name credited</strong>.
+  </p>
+
+  <ul>
+    <li>Original content only (no copied articles)</li>
+    <li>Clear thinking and practical explanation</li>
+    <li>No promotional or misleading content</li>
+  </ul>
+
+  <p>
+    📩 Send your article or idea to:
+    <br />
+    <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">
+      surajmaitra1996@gmail.com
+    </a>
+  </p>
+
+  <p class="small-note">
+    All submissions go through review.
+    We reserve the right to edit, improve, or decline content
+    to maintain quality and clarity.
+  </p>
+
+</section>
+
+<!-- ===== BLOG TOOLS ===== -->
+<section class="content-block">
+  <div class="blog-tools">
+
+    <div class="blog-search">
+      <input type="text" id="searchInput" placeholder="Search articles…" />
+    </div>
+
+    <div class="blog-categories">
+      <button class="active" onclick="filterCategory('all')">All</button>
+      <button onclick="filterCategory('ai')">AI</button>
+      <button onclick="filterCategory('cloud')">Cloud</button>
+      <button onclick="filterCategory('programming')">Programming</button>
+      <button onclick="filterCategory('markets')">Markets</button>
+      <button onclick="filterCategory('career')">Career</button>
+      <button onclick="filterCategory('india')">India</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== BLOG LIST ===== -->
 
 <section class="content-block">
   <h3>SRJahir Tech Blog</h3>
@@ -405,9 +546,79 @@
   </div>
 </section>
 
+
+
+
+<!-- ===== PAGINATION ===== -->
+<div class="pagination">
+  <button onclick="prevPage()">← Prev</button>
+  <button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  All articles published on SRJahir Tech are for educational and informational purposes only.
+  They do not constitute financial, legal, investment, or professional advice.
+  Technology, markets, and tools change over time.
+  Readers should always verify information from official sources before making decisions.
+</div>
+
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
 </footer>
+
+<script>
+  const cards = document.querySelectorAll(".blog-card");
+  const searchInput = document.getElementById("searchInput");
+  let currentPage = 1;
+  const perPage = 8;
+
+  function render() {
+    let visible = Array.from(cards).filter(c => !c.classList.contains("hidden"));
+    visible.forEach((c, i) => {
+      c.style.display =
+        i >= (currentPage - 1) * perPage && i < currentPage * perPage
+          ? "block"
+          : "none";
+    });
+  }
+
+  function filterCategory(cat) {
+    document.querySelectorAll(".blog-categories button").forEach(b => b.classList.remove("active"));
+    event.target.classList.add("active");
+
+    cards.forEach(card => {
+      card.classList.remove("hidden");
+      if (cat !== "all" && card.dataset.category !== cat) {
+        card.classList.add("hidden");
+      }
+    });
+    currentPage = 1;
+    render();
+  }
+
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value.toLowerCase();
+    cards.forEach(card => {
+      card.classList.toggle("hidden", !card.innerText.toLowerCase().includes(q));
+    });
+    currentPage = 1;
+    render();
+  });
+
+  function nextPage() {
+    currentPage++;
+    render();
+  }
+
+  function prevPage() {
+    if (currentPage > 1) currentPage--;
+    render();
+  }
+
+  render();
+</script>
 
 </body>
 </html>
