@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 3 — Operators & Input Output | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 3 by SRJahir Tech. Learn operators, expressions, comparisons, logical thinking, and input/output in Python with clear examples." />
+  <meta name="keywords" content="Python operators, Python input output, Python expressions, Python comparison operators" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-3.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 3</h3>
+
+  <p>
+    In Part 2, we understood variables and data types.
+    Now we move to the next core layer:
+    <strong>how Python performs actions and decisions</strong>.
+  </p>
+
+  <h4>What is an Operator?</h4>
+  <p>
+    Operators are symbols that tell Python
+    <strong>what action to perform</strong> on values.
+    Without operators, programs cannot think or decide.
+  </p>
+
+  <h4>Arithmetic Operators</h4>
+
+  <ul>
+    <li><code>+</code> Addition</li>
+    <li><code>-</code> Subtraction</li>
+    <li><code>*</code> Multiplication</li>
+    <li><code>/</code> Division</li>
+    <li><code>//</code> Floor Division</li>
+    <li><code>%</code> Modulus</li>
+    <li><code>**</code> Power</li>
+  </ul>
+
+  <div class="code-title">Arithmetic Example</div>
+  <pre><code class="language-python">
+a = 10
+b = 3
+
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a // b)
+print(a % b)
+print(a ** b)
+  </code></pre>
+
+  <h4>Why Floor Division Matters</h4>
+  <p>
+    Floor division removes decimal part.
+    This is critical in pagination, indexing, and memory calculations.
+  </p>
+
+  <h4>Comparison Operators</h4>
+
+  <ul>
+    <li><code>==</code> Equal to</li>
+    <li><code>!=</code> Not equal</li>
+    <li><code>></code> Greater than</li>
+    <li><code><</code> Less than</li>
+    <li><code>>=</code> Greater or equal</li>
+    <li><code><=</code> Less or equal</li>
+  </ul>
+
+  <div class="code-title">Comparison Example</div>
+  <pre><code class="language-python">
+age = 18
+
+print(age >= 18)
+print(age == 21)
+  </code></pre>
+
+  <p>
+    Comparison operators always return
+    <strong>True or False</strong>.
+  </p>
+
+  <h4>Logical Operators</h4>
+
+  <ul>
+    <li><code>and</code></li>
+    <li><code>or</code></li>
+    <li><code>not</code></li>
+  </ul>
+
+  <div class="code-title">Logical Thinking Example</div>
+  <pre><code class="language-python">
+age = 20
+has_id = True
+
+print(age >= 18 and has_id)
+print(age < 18 or has_id)
+print(not has_id)
+  </code></pre>
+
+  <p>
+    Logical operators are the foundation
+    of authentication, permissions, and decision systems.
+  </p>
+
+  <h4>What is an Expression?</h4>
+  <p>
+    An expression is a combination of values and operators
+    that produces a result.
+  </p>
+
+  <div class="code-title">Expression Example</div>
+  <pre><code class="language-python">
+result = (10 + 5) * 2
+print(result)
+  </code></pre>
+
+  <h4>Input from User</h4>
+  <p>
+    Python allows programs to accept input
+    using the <code>input()</code> function.
+  </p>
+
+  <div class="code-title">Basic Input Example</div>
+  <pre><code class="language-python">
+name = input("Enter your name: ")
+print("Hello", name)
+  </code></pre>
+
+  <p>
+    Important:
+    <code>input()</code> always returns a string.
+  </p>
+
+  <h4>Converting Input Type</h4>
+
+  <div class="code-title">Type Conversion</div>
+  <pre><code class="language-python">
+age = int(input("Enter your age: "))
+print(age + 1)
+  </code></pre>
+
+  <p>
+    Without conversion, calculations will fail.
+  </p>
+
+  <h4>Output with print()</h4>
+
+  <div class="code-title">Multiple Output Styles</div>
+  <pre><code class="language-python">
+x = 10
+y = 20
+
+print(x, y)
+print("Sum =", x + y)
+  </code></pre>
+
+  <h4>Why This Part is Critical</h4>
+  <p>
+    Operators and expressions define
+    how programs think, compare, and decide.
+    Every API, AI model, and backend logic
+    depends on this layer.
+  </p>
+
+  <p>
+    Next part will introduce
+    <strong>control flow</strong> —
+    if, else, and decision-making structures.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice is required to master programming concepts.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
