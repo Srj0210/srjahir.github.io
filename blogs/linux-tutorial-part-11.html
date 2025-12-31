@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Linux Tutorial Part 11 — Networking Basics | SRJahir Tech</title>
+
+<meta name="description" content="Linux Tutorial Part 11 by SRJahir Tech. Learn Linux networking commands, IP, ports, ping, netstat, ss." />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>Linux Tutorial — Part 11: Networking Basics</h3>
+
+<p>
+Linux servers live on networks.
+Understanding networking is mandatory.
+</p>
+
+<h4>1. Check IP Address</h4>
+<pre><code class="language-bash">ip a</code></pre>
+
+<h4>2. Ping Test</h4>
+<pre><code class="language-bash">ping google.com</code></pre>
+
+<h4>3. Check Open Ports</h4>
+<pre><code class="language-bash">ss -tuln</code></pre>
+
+<h4>4. netstat (older)</h4>
+<pre><code class="language-bash">netstat -tulnp</code></pre>
+
+<h4>5. Test Connectivity</h4>
+<pre><code class="language-bash">curl https://example.com</code></pre>
+
+<h4>6. DNS Resolution</h4>
+<pre><code class="language-bash">nslookup google.com</code></pre>
+
+<h4>7. Why Firewalls Matter</h4>
+<p>
+Open ports are attack surfaces.
+</p>
+
+<p>
+Next, we combine everything into real server thinking.
+</p>
+
+<a href="linux-tutorial-part-12.html" class="btn">
+Next: Linux for Servers →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never expose unnecessary ports publicly.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Networks Are Power</p>
+</footer>
+
+</body>
+</html>
