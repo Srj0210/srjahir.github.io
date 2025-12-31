@@ -1,0 +1,169 @@
+/* =====================================================
+   CODE TUTORIAL STYLES — SRJahir Tech
+   GitHub-style • Dark • Readable • Mobile-friendly
+   ===================================================== */
+
+/* ===== Base Code Block ===== */
+pre {
+  background: #0d1117;              /* GitHub dark */
+  color: #c9d1d9;
+  padding: 18px 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 24px 0;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+  border: 1px solid #30363d;
+}
+
+/* Remove extra spacing issues */
+pre[class*="language-"] {
+  margin: 24px 0;
+}
+
+/* ===== Inline & Block Code ===== */
+code {
+  font-family: "Fira Code", "JetBrains Mono", monospace;
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
+}
+
+/* Inline code inside text */
+p code,
+li code {
+  background: #161b22;
+  color: #ff7b72;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+/* ===== Prism.js Overrides ===== */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #c9d1d9;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #79c0ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a5d6ff;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #ff7b72;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #ff7b72;
+  font-weight: 500;
+}
+
+.token.function,
+.token.class-name {
+  color: #d2a8ff;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ffa657;
+}
+
+/* ===== Code Block Header (Optional Label) ===== */
+.code-title {
+  background: #161b22;
+  color: #8b949e;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #30363d;
+  border-bottom: none;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Use with:
+   <div class="code-title">Python Example</div>
+   <pre><code class="language-python">...</code></pre>
+*/
+
+/* ===== Copy Button (Optional future use) ===== */
+.copy-code-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-code-btn:hover {
+  background: #30363d;
+  color: #fff;
+}
+
+/* ===== Mobile Optimization ===== */
+@media (max-width: 768px) {
+  pre {
+    padding: 16px;
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  pre {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  code {
+    font-size: 13px;
+  }
+}
+
+/* ===== Smooth Scrollbar (Webkit) ===== */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 6px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
