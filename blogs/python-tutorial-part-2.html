@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 2 — Variables & Data Types | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 2 by SRJahir Tech. Learn variables, data types, memory basics, and how Python stores data internally." />
+  <meta name="keywords" content="Python variables, Python data types, Python memory basics, learn Python step by step" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-2.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 2</h3>
+
+  <p>
+    In Part 1, we understood what Python is and why it exists.
+    In this part, we enter the real foundation of programming:
+    <strong>variables, data types, and memory thinking</strong>.
+  </p>
+
+  <h4>What is a Variable?</h4>
+  <p>
+    A variable is a name that points to a value stored in memory.
+    Python does not think in terms of boxes —
+    it thinks in terms of references.
+  </p>
+
+  <div class="code-title">Basic Variable Example</div>
+  <pre><code class="language-python">
+x = 10
+name = "Python"
+  </code></pre>
+
+  <p>
+    Here:
+    <ul>
+      <li><code>x</code> points to number <code>10</code></li>
+      <li><code>name</code> points to text <code>"Python"</code></li>
+    </ul>
+  </p>
+
+  <h4>Python is Dynamically Typed</h4>
+  <p>
+    Python does not force you to declare data types.
+    The type is decided automatically at runtime.
+  </p>
+
+  <div class="code-title">Dynamic Typing Example</div>
+  <pre><code class="language-python">
+value = 10
+print(type(value))
+
+value = "Ten"
+print(type(value))
+  </code></pre>
+
+  <p>
+    Same variable name,
+    different data types —
+    Python allows this.
+  </p>
+
+  <h4>Common Python Data Types</h4>
+
+  <ul>
+    <li><strong>int</strong> → whole numbers</li>
+    <li><strong>float</strong> → decimal numbers</li>
+    <li><strong>str</strong> → text</li>
+    <li><strong>bool</strong> → True / False</li>
+  </ul>
+
+  <div class="code-title">Data Type Examples</div>
+  <pre><code class="language-python">
+age = 25          # int
+price = 99.99     # float
+language = "Python"  # str
+is_active = True  # bool
+  </code></pre>
+
+  <h4>Understanding Memory (Important)</h4>
+  <p>
+    Python variables do not store values directly.
+    They store references to objects in memory.
+  </p>
+
+  <div class="code-title">Reference Example</div>
+  <pre><code class="language-python">
+a = 5
+b = a
+a = 10
+
+print(a)
+print(b)
+  </code></pre>
+
+  <p>
+    Output:
+  </p>
+
+  <div class="code-title">Output</div>
+  <pre><code class="language-text">
+10
+5
+  </code></pre>
+
+  <p>
+    Explanation:
+    <ul>
+      <li><code>b</code> still points to old object <code>5</code></li>
+      <li><code>a</code> now points to new object <code>10</code></li>
+    </ul>
+  </p>
+
+  <h4>Rules for Variable Names</h4>
+  <ul>
+    <li>Must start with a letter or underscore</li>
+    <li>Cannot start with a number</li>
+    <li>Case-sensitive</li>
+    <li>No spaces allowed</li>
+  </ul>
+
+  <div class="code-title">Valid vs Invalid Names</div>
+  <pre><code class="language-python">
+user_name = "Suraj"   # valid
+_age = 25             # valid
+
+2name = "Wrong"       # invalid
+user-name = "Wrong"   # invalid
+  </code></pre>
+
+  <h4>Why This Matters</h4>
+  <p>
+    If you do not understand variables and data types,
+    loops, functions, APIs, and AI code will feel like magic.
+    Strong programmers think in memory and flow —
+    not syntax.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn operators and expressions —
+    how Python actually performs calculations and decisions.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Learning programming requires practice and logical thinking.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
