@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 7 — File Permissions & Ownership | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 7 by SRJahir Tech. Learn Linux file permissions, chmod, chown, users, groups, and permission logic with real-world examples." />
+  <meta name="keywords" content="Linux permissions, chmod tutorial, chown Linux, Linux file ownership, Linux tutorial part 7" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-7.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 7: File Permissions & Ownership</h3>
+
+  <p>
+    File permissions are the backbone of Linux security.
+    If you misunderstand this topic,
+    you will break systems — or expose them.
+  </p>
+
+  <h4>1. Why Linux Permissions Exist</h4>
+  <p>
+    Linux is a multi-user operating system.
+    Not every user should be able to read, modify,
+    or execute every file.
+  </p>
+
+  <p>
+    Permissions answer three questions:
+  </p>
+  <ul>
+    <li>Who owns the file?</li>
+    <li>Who belongs to the file’s group?</li>
+    <li>What can others do?</li>
+  </ul>
+
+  <h4>2. Viewing Permissions</h4>
+  <pre><code class="language-bash">ls -l</code></pre>
+
+  <p>
+    Example output:
+  </p>
+
+  <pre><code class="language-bash">-rw-r--r-- 1 user group file.txt</code></pre>
+
+  <h4>3. Understanding Permission Symbols</h4>
+  <p>
+    The permission string has three sections:
+  </p>
+
+  <ul>
+    <li><strong>User (owner)</strong></li>
+    <li><strong>Group</strong></li>
+    <li><strong>Others</strong></li>
+  </ul>
+
+  <p>
+    Each section contains:
+  </p>
+  <ul>
+    <li><code>r</code> → read</li>
+    <li><code>w</code> → write</li>
+    <li><code>x</code> → execute</li>
+  </ul>
+
+  <h4>4. chmod — Changing Permissions</h4>
+  <p>
+    <code>chmod</code> controls what actions are allowed.
+  </p>
+
+  <pre><code class="language-bash">chmod u+x script.sh</code></pre>
+
+  <p>
+    Adds execute permission for the owner.
+  </p>
+
+  <h4>5. Numeric Permission System</h4>
+  <p>
+    Linux also uses numbers:
+  </p>
+
+  <ul>
+    <li>r = 4</li>
+    <li>w = 2</li>
+    <li>x = 1</li>
+  </ul>
+
+  <p>
+    Example:
+  </p>
+
+  <pre><code class="language-bash">chmod 755 script.sh</code></pre>
+
+  <p>
+    Meaning:
+  </p>
+  <ul>
+    <li>User: read, write, execute</li>
+    <li>Group: read, execute</li>
+    <li>Others: read, execute</li>
+  </ul>
+
+  <h4>6. chown — Changing Ownership</h4>
+  <p>
+    Ownership controls responsibility.
+  </p>
+
+  <pre><code class="language-bash">sudo chown user file.txt</code></pre>
+
+  <p>
+    Change owner and group:
+  </p>
+
+  <pre><code class="language-bash">sudo chown user:group file.txt</code></pre>
+
+  <h4>7. Directories vs Files</h4>
+  <p>
+    Permissions behave differently on directories.
+  </p>
+
+  <ul>
+    <li><code>r</code> → list files</li>
+    <li><code>w</code> → create/delete files</li>
+    <li><code>x</code> → access directory</li>
+  </ul>
+
+  <h4>8. Recursive Permission Changes</h4>
+  <pre><code class="language-bash">chmod -R 755 myfolder</code></pre>
+
+  <p>
+    Applies permissions to all files and subfolders.
+  </p>
+
+  <h4>⚠️ Critical Warning</h4>
+  <p>
+    Never blindly use:
+  </p>
+
+  <pre><code class="language-bash">chmod -R 777 /</code></pre>
+
+  <p>
+    This destroys system security.
+  </p>
+
+  <h4>Real-World Mindset</h4>
+  <p>
+    Permissions are not about convenience.
+    They are about control, accountability, and safety.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn about users, groups, and sudo —
+    who is allowed to do what in Linux.
+  </p>
+
+  <a href="linux-tutorial-part-8.html" class="btn">
+    Next: Users, Groups & sudo →
+  </a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Incorrect permission changes can break systems.
+  Always understand the impact before using sudo or chmod recursively.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Secure Systems Start with Permissions</p>
+</footer>
+
+</body>
+</html>
