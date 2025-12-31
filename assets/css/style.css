@@ -484,4 +484,53 @@ a.btn {
       font-size:0.85rem;
       opacity:0.7;
     }
-  
+  /* ===== BLOG SEARCH & CATEGORY MOBILE FIX ===== */
+@media (max-width: 768px) {
+
+  .blog-tools {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .blog-search {
+    width: 100%;
+    margin-bottom: 6px;   /* 👈 search ko thoda upar */
+  }
+
+  .blog-search input {
+    width: 100%;
+  }
+
+  .blog-categories {
+    justify-content: flex-start;
+  }
+}
+
+.pagination button {
+  font-size: 0;   /* hide text */
+}
+
+.pagination button:first-child::after {
+  content: "Prev";
+  font-size: 14px;
+}
+
+.pagination button:last-child::after {
+  content: "Next";
+  font-size: 14px;
+}
+.pagination button {
+  font-size: 0;   /* hide text */
+}
+
+.pagination button:first-child::after {
+  content: "Prev";
+  font-size: 14px;
+}
+
+.pagination button:last-child::after {
+  content: "Next";
+  font-size: 14px;
+}
