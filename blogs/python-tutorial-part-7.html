@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 7 — Functions | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 7 by SRJahir Tech. Learn Python functions, parameters, return values, default arguments, and real-world usage with examples." />
+  <meta name="keywords" content="Python functions tutorial, python def, return function python" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-7.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js (GitHub style code) -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 7</h3>
+
+  <p>
+    If you write the same code again and again,
+    you are not programming — you are copying.
+  </p>
+
+  <p>
+    <strong>Functions</strong> solve this problem.
+    They allow you to write logic once and reuse it everywhere.
+  </p>
+
+  <h4>1. What is a Function?</h4>
+  <p>
+    A function is a block of code that runs only when called.
+  </p>
+
+  <div class="code-title">Basic Function</div>
+  <pre><code class="language-python">
+def greet():
+    print("Hello, welcome to Python")
+
+greet()
+  </code></pre>
+
+  <h4>2. Function with Parameters</h4>
+  <p>
+    Parameters allow functions to accept data.
+  </p>
+
+  <div class="code-title">Function with Input</div>
+  <pre><code class="language-python">
+def greet_user(name):
+    print("Hello", name)
+
+greet_user("Amit")
+greet_user("Neha")
+  </code></pre>
+
+  <h4>3. Return Values</h4>
+  <p>
+    Functions can return results instead of printing.
+  </p>
+
+  <div class="code-title">Return Example</div>
+  <pre><code class="language-python">
+def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result)
+  </code></pre>
+
+  <h4>Why Return is Important</h4>
+  <p>
+    Printing shows output.
+    Returning gives control to the program.
+  </p>
+
+  <h4>4. Default Parameters</h4>
+
+  <div class="code-title">Default Value</div>
+  <pre><code class="language-python">
+def greet(name="User"):
+    print("Hello", name)
+
+greet()
+greet("Rahul")
+  </code></pre>
+
+  <h4>5. Multiple Return Values</h4>
+
+  <div class="code-title">Returning Multiple Values</div>
+  <pre><code class="language-python">
+def calculate(a, b):
+    return a + b, a - b, a * b
+
+sum_, diff, mul = calculate(10, 5)
+print(sum_, diff, mul)
+  </code></pre>
+
+  <h4>6. Function Inside Function</h4>
+
+  <div class="code-title">Nested Function</div>
+  <pre><code class="language-python">
+def outer():
+    def inner():
+        print("Inner function")
+    inner()
+
+outer()
+  </code></pre>
+
+  <h4>7. Real-World Example</h4>
+
+  <div class="code-title">Login Validation</div>
+  <pre><code class="language-python">
+def login(username, password):
+    if username == "admin" and password == "1234":
+        return True
+    return False
+
+if login("admin", "1234"):
+    print("Access Granted")
+else:
+    print("Access Denied")
+  </code></pre>
+
+  <h4>8. Why Functions Matter</h4>
+  <ul>
+    <li>Cleaner code</li>
+    <li>Reusable logic</li>
+    <li>Easier debugging</li>
+    <li>Professional structure</li>
+  </ul>
+
+  <h4>Bad vs Good Code</h4>
+
+  <div class="code-title">❌ Bad</div>
+  <pre><code class="language-python">
+print(10 + 20)
+print(10 + 20)
+print(10 + 20)
+  </code></pre>
+
+  <div class="code-title">✅ Good</div>
+  <pre><code class="language-python">
+def add():
+    print(10 + 20)
+
+add()
+add()
+add()
+  </code></pre>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    Functions are not syntax.
+    They represent thinking in blocks.
+    This is where beginners start becoming developers.
+  </p>
+
+  <p>
+    Next part:
+    <strong>File Handling — reading & writing files</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice writing your own functions daily.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
