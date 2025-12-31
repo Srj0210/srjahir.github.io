@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 8 — Users, Groups & sudo | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 8 by SRJahir Tech. Learn Linux users, groups, sudo, user management commands, and access control with real examples." />
+  <meta name="keywords" content="Linux users, Linux groups, sudo tutorial, useradd, usermod, Linux permissions" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-8.html" />
+
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 8: Users, Groups & sudo</h3>
+
+  <p>
+    Linux is built for multiple users.
+    Understanding who can do what is essential
+    for security, servers, and real production systems.
+  </p>
+
+  <h4>1. What Is a User in Linux?</h4>
+  <p>
+    A user represents an identity.
+    Every process in Linux runs as some user.
+  </p>
+
+  <h4>2. Root User</h4>
+  <p>
+    <strong>root</strong> is the superuser.
+    It can read, write, delete, and destroy anything.
+  </p>
+
+  <h4>3. Why sudo Exists</h4>
+  <p>
+    Running everything as root is dangerous.
+    <code>sudo</code> allows temporary privilege escalation.
+  </p>
+
+  <pre><code class="language-bash">sudo apt update</code></pre>
+
+  <h4>4. Viewing Current User</h4>
+  <pre><code class="language-bash">whoami</code></pre>
+
+  <h4>5. Viewing All Users</h4>
+  <pre><code class="language-bash">cat /etc/passwd</code></pre>
+
+  <h4>6. Creating a New User</h4>
+  <pre><code class="language-bash">sudo useradd john</code></pre>
+
+  <p>
+    Create user with home directory:
+  </p>
+
+  <pre><code class="language-bash">sudo useradd -m john</code></pre>
+
+  <h4>7. Setting Password</h4>
+  <pre><code class="language-bash">sudo passwd john</code></pre>
+
+  <h4>8. Groups in Linux</h4>
+  <p>
+    Groups are collections of users.
+    Permissions are often assigned to groups.
+  </p>
+
+  <pre><code class="language-bash">groups</code></pre>
+
+  <h4>9. Adding User to Group</h4>
+  <pre><code class="language-bash">sudo usermod -aG sudo john</code></pre>
+
+  <h4>10. Switching Users</h4>
+  <pre><code class="language-bash">su - john</code></pre>
+
+  <h4>Security Rule</h4>
+  <p>
+    Give sudo access only when required.
+    Least privilege is a professional mindset.
+  </p>
+
+  <a href="linux-tutorial-part-9.html" class="btn">
+    Next: Package Management →
+  </a>
+
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Incorrect user or sudo configuration can compromise system security.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Control Access, Control Systems</p>
+</footer>
+
+</body>
+</html>
