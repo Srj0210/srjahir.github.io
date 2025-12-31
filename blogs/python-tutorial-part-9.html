@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 9 — Error Handling | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 9 by SRJahir Tech. Learn error handling in Python using try, except, else, finally with real-world examples." />
+  <meta name="keywords" content="python error handling, python try except, python exceptions tutorial" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-9.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js (GitHub style code) -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 9</h3>
+
+  <p>
+    Real programs fail.
+    Strong programs handle failure gracefully.
+  </p>
+
+  <p>
+    Error handling is what separates
+    beginners from professionals.
+  </p>
+
+  <h4>1. What is an Error?</h4>
+  <p>
+    An error is a problem that stops program execution.
+  </p>
+
+  <div class="code-title">Example Error</div>
+  <pre><code class="language-python">
+print(10 / 0)
+  </code></pre>
+
+  <p>This causes a <strong>ZeroDivisionError</strong>.</p>
+
+  <h4>2. Why Error Handling Matters</h4>
+  <ul>
+    <li>Programs should not crash unexpectedly</li>
+    <li>Users should see meaningful messages</li>
+    <li>Systems must stay stable</li>
+  </ul>
+
+  <h4>3. try & except</h4>
+
+  <div class="code-title">Basic Error Handling</div>
+  <pre><code class="language-python">
+try:
+    print(10 / 0)
+except:
+    print("Something went wrong")
+  </code></pre>
+
+  <h4>4. Catching Specific Errors</h4>
+
+  <div class="code-title">Specific Exception</div>
+  <pre><code class="language-python">
+try:
+    x = int("abc")
+except ValueError:
+    print("Invalid number")
+  </code></pre>
+
+  <h4>5. Multiple except Blocks</h4>
+
+  <div class="code-title">Multiple Errors</div>
+  <pre><code class="language-python">
+try:
+    a = int(input("Enter number: "))
+    print(10 / a)
+except ValueError:
+    print("Please enter a valid number")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+  </code></pre>
+
+  <h4>6. else Block</h4>
+  <p>
+    Runs only if no error occurs.
+  </p>
+
+  <div class="code-title">else Example</div>
+  <pre><code class="language-python">
+try:
+    num = int(input("Enter number: "))
+except ValueError:
+    print("Invalid input")
+else:
+    print("You entered:", num)
+  </code></pre>
+
+  <h4>7. finally Block</h4>
+  <p>
+    Always runs — error or no error.
+  </p>
+
+  <div class="code-title">finally Example</div>
+  <pre><code class="language-python">
+try:
+    file = open("data.txt", "r")
+    print(file.read())
+except FileNotFoundError:
+    print("File not found")
+finally:
+    print("Program finished")
+  </code></pre>
+
+  <h4>8. Real-World Example: Safe Calculator</h4>
+
+  <div class="code-title">Calculator with Error Handling</div>
+  <pre><code class="language-python">
+def divide(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return "Cannot divide by zero"
+
+print(divide(10, 2))
+print(divide(10, 0))
+  </code></pre>
+
+  <h4>9. Raising Your Own Errors</h4>
+
+  <div class="code-title">raise Keyword</div>
+  <pre><code class="language-python">
+age = -5
+
+if age < 0:
+    raise ValueError("Age cannot be negative")
+  </code></pre>
+
+  <h4>10. Common Mistakes</h4>
+  <ul>
+    <li>Using empty <code>except:</code></li>
+    <li>Hiding real bugs</li>
+    <li>Ignoring error messages</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    Error handling is not about avoiding errors.
+    It is about controlling failures.
+  </p>
+
+  <p>
+    Next part:
+    <strong>Modules & Packages</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Always handle errors explicitly in production systems.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
