@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 10 — Modules & Packages | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 10 by SRJahir Tech. Learn Python modules and packages, import styles, custom modules, and real project structure." />
+  <meta name="keywords" content="python modules, python packages, import module python, python project structure" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-10.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js (GitHub style code) -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 10</h3>
+
+  <p>
+    Big programs are not written in one file.
+    They are organized into <strong>modules</strong> and <strong>packages</strong>.
+  </p>
+
+  <p>
+    This is where Python starts feeling like
+    real software engineering.
+  </p>
+
+  <h4>1. What is a Module?</h4>
+  <p>
+    A module is simply a Python file (<code>.py</code>) containing code.
+  </p>
+
+  <div class="code-title">Example: math_module.py</div>
+  <pre><code class="language-python">
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+  </code></pre>
+
+  <h4>2. Importing a Module</h4>
+
+  <div class="code-title">Import Module</div>
+  <pre><code class="language-python">
+import math_module
+
+print(math_module.add(5, 3))
+print(math_module.subtract(10, 4))
+  </code></pre>
+
+  <h4>3. Import with Alias</h4>
+
+  <div class="code-title">Alias Import</div>
+  <pre><code class="language-python">
+import math_module as mm
+
+print(mm.add(2, 3))
+  </code></pre>
+
+  <h4>4. Import Specific Functions</h4>
+
+  <div class="code-title">Selective Import</div>
+  <pre><code class="language-python">
+from math_module import add
+
+print(add(7, 5))
+  </code></pre>
+
+  <h4>5. Built-in Modules</h4>
+  <p>
+    Python comes with many built-in modules.
+  </p>
+
+  <div class="code-title">Using Built-in Modules</div>
+  <pre><code class="language-python">
+import math
+import datetime
+
+print(math.sqrt(16))
+print(datetime.datetime.now())
+  </code></pre>
+
+  <h4>6. What is a Package?</h4>
+  <p>
+    A package is a folder that contains multiple modules.
+  </p>
+
+  <div class="code-title">Folder Structure</div>
+  <pre><code class="language-python">
+project/
+│
+├── utils/
+│   ├── __init__.py
+│   ├── math_utils.py
+│   └── string_utils.py
+│
+└── main.py
+  </code></pre>
+
+  <h4>7. Package Example</h4>
+
+  <div class="code-title">math_utils.py</div>
+  <pre><code class="language-python">
+def multiply(a, b):
+    return a * b
+  </code></pre>
+
+  <div class="code-title">main.py</div>
+  <pre><code class="language-python">
+from utils.math_utils import multiply
+
+print(multiply(4, 5))
+  </code></pre>
+
+  <h4>8. __init__.py Explained</h4>
+  <p>
+    <code>__init__.py</code> tells Python that the folder is a package.
+  </p>
+
+  <div class="code-title">__init__.py</div>
+  <pre><code class="language-python">
+from .math_utils import multiply
+  </code></pre>
+
+  <h4>9. Why Project Structure Matters</h4>
+  <ul>
+    <li>Clean code organization</li>
+    <li>Easy maintenance</li>
+    <li>Team collaboration</li>
+    <li>Scalable projects</li>
+  </ul>
+
+  <h4>10. Real-World Thinking</h4>
+  <p>
+    Beginners write scripts.
+    Engineers design systems.
+  </p>
+
+  <p>
+    Modules and packages are
+    the foundation of real Python projects.
+  </p>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    If your project is more than one file,
+    you need modules.
+    If it grows further,
+    you need packages.
+  </p>
+
+  <p>
+    Next part:
+    <strong>File Handling (Read / Write / Manage Files)</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Use proper project structures in production environments.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
