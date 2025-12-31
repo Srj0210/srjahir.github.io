@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 3 — Linux File System Structure | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 3 by SRJahir Tech. Learn Linux file system structure, root directories, purpose of each folder, and how Linux organizes data internally." />
+  <meta name="keywords" content="Linux file system, Linux directories explained, Linux tutorial part 3, Linux folder structure" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-3.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 3: Linux File System Structure</h3>
+
+  <p>
+    In this part, we will understand how Linux organizes files internally.
+    This is one of the most important Linux concepts.
+    Without this knowledge, Linux commands feel confusing and dangerous.
+  </p>
+
+  <h4>The Linux File System Philosophy</h4>
+  <p>
+    Linux follows a simple but strict rule:
+    <strong>everything is a file</strong>.
+  </p>
+
+  <p>
+    Hardware devices, configuration, logs, and even running processes
+    are represented using files.
+  </p>
+
+  <h4>The Root Directory (/)</h4>
+  <p>
+    Linux does not use drive letters like Windows (C:, D:).
+    Everything starts from a single root directory:
+  </p>
+
+  <pre><code class="language-bash">/</code></pre>
+
+  <p>
+    All files and folders exist under this root.
+    There is no concept of multiple independent roots.
+  </p>
+
+  <h4>Important Linux Directories (Must Know)</h4>
+
+  <h4>/bin — Essential Commands</h4>
+  <p>
+    Contains essential binary commands like:
+  </p>
+  <ul>
+    <li>ls</li>
+    <li>cp</li>
+    <li>mv</li>
+    <li>rm</li>
+  </ul>
+
+  <p>
+    These commands are required for the system to function.
+  </p>
+
+  <h4>/etc — Configuration Files</h4>
+  <p>
+    Stores system-wide configuration files.
+    No executable programs are stored here.
+  </p>
+
+  <p>
+    Editing files in <code>/etc</code> directly affects system behavior.
+  </p>
+
+  <h4>/home — User Directories</h4>
+  <p>
+    Each user has a personal directory inside <code>/home</code>.
+  </p>
+
+  <pre><code class="language-bash">/home/username</code></pre>
+
+  <p>
+    This is where personal files, downloads, and settings live.
+  </p>
+
+  <h4>/root — Root User Home</h4>
+  <p>
+    This is the home directory of the administrator (root user).
+  </p>
+
+  <p>
+    Normal users should not work here.
+  </p>
+
+  <h4>/var — Variable Data</h4>
+  <p>
+    Contains files that change frequently:
+  </p>
+  <ul>
+    <li>Logs</li>
+    <li>Caches</li>
+    <li>Mail</li>
+  </ul>
+
+  <p>
+    Server logs are usually stored in <code>/var/log</code>.
+  </p>
+
+  <h4>/usr — User Programs</h4>
+  <p>
+    Stores applications, libraries, and documentation.
+  </p>
+
+  <p>
+    Despite the name, this directory is shared by all users.
+  </p>
+
+  <h4>/tmp — Temporary Files</h4>
+  <p>
+    Used for temporary data.
+    Files here are often deleted automatically after reboot.
+  </p>
+
+  <h4>/dev — Devices</h4>
+  <p>
+    Hardware devices are exposed as files here.
+  </p>
+
+  <p>
+    This allows Linux to treat hardware uniformly.
+  </p>
+
+  <h4>/proc — Process Information</h4>
+  <p>
+    A virtual file system.
+    Contains live information about running processes and kernel state.
+  </p>
+
+  <h4>Why This Structure Matters</h4>
+  <p>
+    Linux commands assume you understand this layout.
+    Deleting or modifying the wrong directory
+    can break the system.
+  </p>
+
+  <h4>Golden Rule</h4>
+  <p>
+    Never delete files unless you understand:
+  </p>
+  <ul>
+    <li>What the directory is for</li>
+    <li>Who owns the file</li>
+    <li>Why it exists</li>
+  </ul>
+
+  <p>
+    In the next part,
+    we will learn basic Linux commands
+    and how to safely navigate the file system.
+  </p>
+
+  <a href="linux-tutorial-part-4.html" class="btn">
+    Next: Basic Linux Commands →
+  </a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Do not modify system files without understanding their purpose.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Learn Systems, Not Just Commands</p>
+</footer>
+
+</body>
+</html>
