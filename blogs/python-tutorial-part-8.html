@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 8 — File Handling | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 8 by SRJahir Tech. Learn file handling in Python: read, write, append files, real-world examples, and best practices." />
+  <meta name="keywords" content="python file handling, python read write file, python open file tutorial" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-8.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js (GitHub style code) -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 8</h3>
+
+  <p>
+    Programs that forget everything after running
+    are not very useful.
+  </p>
+
+  <p>
+    <strong>File handling</strong> allows Python programs
+    to store data permanently.
+  </p>
+
+  <h4>1. What is File Handling?</h4>
+  <p>
+    File handling means creating, reading, updating,
+    and deleting files using Python.
+  </p>
+
+  <h4>2. Opening a File</h4>
+
+  <div class="code-title">Basic Syntax</div>
+  <pre><code class="language-python">
+file = open("data.txt", "r")
+  </code></pre>
+
+  <p>Common file modes:</p>
+  <ul>
+    <li><strong>r</strong> – Read</li>
+    <li><strong>w</strong> – Write (overwrite)</li>
+    <li><strong>a</strong> – Append</li>
+    <li><strong>x</strong> – Create</li>
+  </ul>
+
+  <h4>3. Reading a File</h4>
+
+  <div class="code-title">Read Entire File</div>
+  <pre><code class="language-python">
+file = open("data.txt", "r")
+content = file.read()
+print(content)
+file.close()
+  </code></pre>
+
+  <h4>4. Reading Line by Line</h4>
+
+  <div class="code-title">Read Lines</div>
+  <pre><code class="language-python">
+file = open("data.txt", "r")
+for line in file:
+    print(line.strip())
+file.close()
+  </code></pre>
+
+  <h4>5. Writing to a File</h4>
+
+  <div class="code-title">Write Mode</div>
+  <pre><code class="language-python">
+file = open("data.txt", "w")
+file.write("Hello Python\n")
+file.write("File handling example")
+file.close()
+  </code></pre>
+
+  <p>
+    ⚠️ Write mode deletes existing content.
+  </p>
+
+  <h4>6. Appending to a File</h4>
+
+  <div class="code-title">Append Mode</div>
+  <pre><code class="language-python">
+file = open("data.txt", "a")
+file.write("\nNew line added")
+file.close()
+  </code></pre>
+
+  <h4>7. Using <code>with</code> (Best Practice)</h4>
+
+  <div class="code-title">Safe File Handling</div>
+  <pre><code class="language-python">
+with open("data.txt", "r") as file:
+    print(file.read())
+  </code></pre>
+
+  <p>
+    This automatically closes the file.
+  </p>
+
+  <h4>8. Real-World Example: User Log</h4>
+
+  <div class="code-title">Login Log File</div>
+  <pre><code class="language-python">
+def log_user(username):
+    with open("users.log", "a") as file:
+        file.write(username + " logged in\n")
+
+log_user("admin")
+log_user("guest")
+  </code></pre>
+
+  <h4>9. Checking if File Exists</h4>
+
+  <div class="code-title">File Exists</div>
+  <pre><code class="language-python">
+import os
+
+if os.path.exists("data.txt"):
+    print("File exists")
+else:
+    print("File not found")
+  </code></pre>
+
+  <h4>10. Why File Handling Matters</h4>
+  <ul>
+    <li>Saving user data</li>
+    <li>Logs & reports</li>
+    <li>Configuration files</li>
+    <li>Data processing</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    File handling connects programs with the real world.
+    This is where Python stops being a toy
+    and starts becoming a tool.
+  </p>
+
+  <p>
+    Next part:
+    <strong>Error Handling (try, except)</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Always handle files carefully to avoid data loss.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
