@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 6 — Data Structures | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 6 by SRJahir Tech. Learn Python data structures: List, Tuple, Set, Dictionary with examples and real-world usage." />
+  <meta name="keywords" content="Python list, tuple, set, dictionary, python data structures tutorial" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-6.html" />
+
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 6</h3>
+
+  <p>
+    Variables store single values.  
+    Real programs store <strong>collections of data</strong>.
+    That is why data structures exist.
+  </p>
+
+  <h4>1. List</h4>
+  <p>
+    A list stores multiple values in order.
+    Lists are mutable (changeable).
+  </p>
+
+  <div class="code-title">Creating a List</div>
+  <pre><code class="language-python">
+numbers = [10, 20, 30, 40]
+print(numbers)
+  </code></pre>
+
+  <div class="code-title">Access & Modify</div>
+  <pre><code class="language-python">
+numbers[0] = 99
+print(numbers)
+  </code></pre>
+
+  <div class="code-title">Common List Methods</div>
+  <pre><code class="language-python">
+numbers.append(50)
+numbers.remove(20)
+numbers.sort()
+print(numbers)
+  </code></pre>
+
+  <h4>Looping Through a List</h4>
+  <pre><code class="language-python">
+for n in numbers:
+    print(n)
+  </code></pre>
+
+  <h4>2. Tuple</h4>
+  <p>
+    Tuple is like a list,
+    but <strong>cannot be changed</strong>.
+  </p>
+
+  <div class="code-title">Tuple Example</div>
+  <pre><code class="language-python">
+coordinates = (10, 20)
+print(coordinates[0])
+  </code></pre>
+
+  <p>
+    Tuples are used when data must stay fixed.
+  </p>
+
+  <h4>3. Set</h4>
+  <p>
+    Set stores unique values.
+    No duplicates. No order.
+  </p>
+
+  <div class="code-title">Set Example</div>
+  <pre><code class="language-python">
+numbers = {1, 2, 3, 3, 4}
+print(numbers)
+  </code></pre>
+
+  <div class="code-title">Set Operations</div>
+  <pre><code class="language-python">
+numbers.add(5)
+numbers.remove(2)
+print(numbers)
+  </code></pre>
+
+  <h4>4. Dictionary</h4>
+  <p>
+    Dictionary stores data in
+    <strong>key : value</strong> format.
+  </p>
+
+  <div class="code-title">Dictionary Example</div>
+  <pre><code class="language-python">
+student = {
+    "name": "Rahul",
+    "age": 21,
+    "course": "Python"
+}
+
+print(student["name"])
+  </code></pre>
+
+  <div class="code-title">Update Dictionary</div>
+  <pre><code class="language-python">
+student["age"] = 22
+student["city"] = "Delhi"
+print(student)
+  </code></pre>
+
+  <h4>Looping Dictionary</h4>
+  <pre><code class="language-python">
+for key, value in student.items():
+    print(key, ":", value)
+  </code></pre>
+
+  <h4>Real-World Example</h4>
+
+  <div class="code-title">User Database</div>
+  <pre><code class="language-python">
+users = [
+    {"name": "Amit", "role": "admin"},
+    {"name": "Neha", "role": "user"},
+    {"name": "Ravi", "role": "user"}
+]
+
+for user in users:
+    if user["role"] == "admin":
+        print(user["name"], "has full access")
+  </code></pre>
+
+  <h4>Which One to Use?</h4>
+  <ul>
+    <li><strong>List:</strong> Ordered, changeable</li>
+    <li><strong>Tuple:</strong> Ordered, fixed</li>
+    <li><strong>Set:</strong> Unique values</li>
+    <li><strong>Dictionary:</strong> Key-value data</li>
+  </ul>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    Every serious program uses data structures.
+    If you skip this, you never grow beyond basics.
+  </p>
+
+  <p>
+    Next part:
+    <strong>Functions — reusable logic & clean code</strong>.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice writing your own examples daily.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
