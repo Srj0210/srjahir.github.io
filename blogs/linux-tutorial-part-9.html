@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 9 — Package Management | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 9 by SRJahir Tech. Learn Linux package managers like apt, yum, dnf, installation, updates, and system maintenance." />
+  <meta name="keywords" content="Linux package manager, apt tutorial, yum dnf, Linux software install" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-9.html" />
+
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+  <h3>Linux Tutorial — Part 9: Package Management</h3>
+
+  <p>
+    Software installation in Linux is centralized,
+    secure, and controlled through package managers.
+  </p>
+
+  <h4>1. What Is a Package Manager?</h4>
+  <p>
+    A package manager installs, updates,
+    removes, and tracks software automatically.
+  </p>
+
+  <h4>2. Popular Package Managers</h4>
+  <ul>
+    <li><strong>apt</strong> — Debian, Ubuntu</li>
+    <li><strong>yum</strong> — Older RHEL/CentOS</li>
+    <li><strong>dnf</strong> — Modern RHEL/Fedora</li>
+  </ul>
+
+  <h4>3. Updating Package List (apt)</h4>
+  <pre><code class="language-bash">sudo apt update</code></pre>
+
+  <h4>4. Upgrading Installed Packages</h4>
+  <pre><code class="language-bash">sudo apt upgrade</code></pre>
+
+  <h4>5. Installing Software</h4>
+  <pre><code class="language-bash">sudo apt install nginx</code></pre>
+
+  <h4>6. Removing Software</h4>
+  <pre><code class="language-bash">sudo apt remove nginx</code></pre>
+
+  <h4>7. Searching Packages</h4>
+  <pre><code class="language-bash">apt search python</code></pre>
+
+  <h4>8. yum / dnf Examples</h4>
+  <pre><code class="language-bash">sudo dnf install httpd</code></pre>
+
+  <pre><code class="language-bash">sudo yum remove httpd</code></pre>
+
+  <h4>9. Why Not Download Random Binaries?</h4>
+  <p>
+    Package managers verify integrity,
+    dependencies, and updates automatically.
+  </p>
+
+  <h4>Professional Rule</h4>
+  <p>
+    Keep systems updated,
+    but avoid blind upgrades on production servers.
+  </p>
+
+  <p>
+    In the next part,
+    we will learn system services and background processes.
+  </p>
+
+  <a href="linux-tutorial-part-10.html" class="btn">
+    Next: Processes & Services →
+  </a>
+
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  Always test upgrades before applying them to critical systems.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Stable Systems Need Managed Software</p>
+</footer>
+
+</body>
+</html>
