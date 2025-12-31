@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Linux Tutorial Part 10 — Processes & Services | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Linux Tutorial Part 10 by SRJahir Tech. Learn Linux processes, background jobs, services, systemctl, and process management." />
+  <meta name="keywords" content="Linux processes, systemctl tutorial, Linux services, ps top kill" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-10.html" />
+
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo" alt="SRJahir Tech">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+<h3>Linux Tutorial — Part 10: Processes & Services</h3>
+
+<p>
+Every running program in Linux is a <strong>process</strong>.
+Servers live and die by process management.
+</p>
+
+<h4>1. What Is a Process?</h4>
+<p>
+A process is a running instance of a program.
+Each process has a unique PID.
+</p>
+
+<h4>2. Viewing Processes</h4>
+<pre><code class="language-bash">ps aux</code></pre>
+
+<h4>3. Real-Time Process Monitor</h4>
+<pre><code class="language-bash">top</code></pre>
+
+<h4>4. Killing a Process</h4>
+<pre><code class="language-bash">kill 1234</code></pre>
+
+<h4>5. Force Kill</h4>
+<pre><code class="language-bash">kill -9 1234</code></pre>
+
+<h4>6. Background Processes</h4>
+<pre><code class="language-bash">command &</code></pre>
+
+<h4>7. Services in Linux</h4>
+<p>
+Services are long-running background processes.
+</p>
+
+<h4>8. systemctl Basics</h4>
+<pre><code class="language-bash">sudo systemctl status nginx</code></pre>
+
+<pre><code class="language-bash">sudo systemctl start nginx</code></pre>
+
+<pre><code class="language-bash">sudo systemctl stop nginx</code></pre>
+
+<pre><code class="language-bash">sudo systemctl enable nginx</code></pre>
+
+<h4>Professional Rule</h4>
+<p>
+Never kill random processes on production systems.
+Understand before acting.
+</p>
+
+<a href="linux-tutorial-part-11.html" class="btn">
+Next: Networking Basics →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Improper process handling can crash systems.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Control Processes, Control Stability</p>
+</footer>
+
+</body>
+</html>
