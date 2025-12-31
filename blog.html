@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
 
   <title>Blog — SRJahir Tech</title>
 
   <!-- SEO -->
-  <meta name="description" content="Long-form articles on AI, Cloud, programming, markets, careers, and India’s future by SRJahir Tech. Clear thinking. Practical knowledge." />
-  <meta name="keywords" content="AI blog, Cloud career, programming fundamentals, global markets, SRJahir Tech" />
+  <meta name="description" content="Long-form articles on AI, Cloud, programming, markets, careers, and long-term thinking by SRJahir Tech. Clear ideas. Practical knowledge." />
+  <meta name="keywords" content="SRJahir Tech Blog, AI, Cloud, Programming, Global Markets, Career, India Technology" />
   <meta name="author" content="SRJahir Tech" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blog.html" />
 
-  <!-- Icon -->
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="logo.png" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Animations (same as index) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
@@ -29,79 +35,75 @@
     gtag('config', 'G-93D0PKZM2L');
   </script>
 
-  <!-- Page specific styles -->
+  <!-- Page specific CSS -->
   <style>
     .blog-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-      margin-bottom: 24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:space-between;
+      margin-bottom:28px;
     }
     .blog-search input {
-      padding: 8px 12px;
-      width: 240px;
-      max-width: 100%;
+      padding:10px 14px;
+      width:240px;
+      max-width:100%;
     }
     .blog-categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
     }
     .blog-categories button {
-      padding: 6px 12px;
-      border: 1px solid #ccc;
-      background: none;
-      cursor: pointer;
-      border-radius: 20px;
-      font-size: 13px;
+      padding:6px 14px;
+      border-radius:20px;
+      border:1px solid #ccc;
+      background:#fff;
+      font-size:13px;
+      cursor:pointer;
     }
     .blog-categories button.active {
-      background: #000;
-      color: #fff;
-    }
-    .write-with-us {
-      border-left: 4px solid #000;
-      padding-left: 16px;
-      margin: 32px 0;
-    }
-    .write-with-us ul {
-      padding-left: 20px;
-      margin: 12px 0;
-    }
-    .write-with-us li {
-      margin-bottom: 6px;
-    }
-    .write-with-us .small-note {
-      font-size: 14px;
-      opacity: 0.7;
-    }
-    .blog-disclaimer {
-      margin: 48px 0 24px;
-      padding: 16px;
-      font-size: 14px;
-      opacity: 0.75;
-      border-top: 1px solid #ddd;
+      background:#000;
+      color:#fff;
+      border-color:#000;
     }
     .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 32px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin:40px 0;
     }
     .pagination button {
-      padding: 6px 12px;
-      border: 1px solid #ccc;
-      background: none;
-      cursor: pointer;
+      padding:6px 14px;
+      border:1px solid #ccc;
+      background:#fff;
+      cursor:pointer;
     }
-    .hidden {
-      display: none;
+    .hidden { display:none; }
+
+    .write-with-us {
+      max-width:900px;
+      margin:80px auto 40px;
+    }
+    .write-with-us ul {
+      margin:16px 0;
+      padding-left:18px;
+    }
+    .write-with-us li {
+      margin-bottom:6px;
+    }
+    .small-note {
+      font-size:0.85rem;
+      opacity:0.7;
     }
   </style>
 </head>
 
 <body>
+
+<!-- SAME BACKGROUND & LOGO AS INDEX -->
+<div class="background-waves"></div>
+<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
 
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
@@ -116,51 +118,13 @@
 <section class="content-block">
   <h3>SRJahir Tech Blog</h3>
   <p>
-    Long-form articles on AI, Cloud, programming, markets, careers,
-    and long-term thinking. No hype. Just clarity.
+    Long-form, practical articles on AI, Cloud, programming,
+    global markets, careers, and long-term thinking.
+    No hype. Just clarity.
   </p>
 </section>
 
-<!-- ===== WRITE WITH US ===== -->
-<section class="content-block write-with-us">
-
-  <h3>Write & Publish With SRJahir Tech</h3>
-
-  <p>
-    Do you have clarity, insights, or practical experience in AI, Cloud,
-    Programming, Markets, or Technology?
-    You can contribute your article to SRJahir Tech.
-  </p>
-
-  <p>
-    We review every submission carefully.
-    If your article adds real value, it will be published on our platform
-    with <strong>your name credited</strong>.
-  </p>
-
-  <ul>
-    <li>Original content only (no copied articles)</li>
-    <li>Clear thinking and practical explanation</li>
-    <li>No promotional or misleading content</li>
-  </ul>
-
-  <p>
-    📩 Send your article or idea to:
-    <br />
-    <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">
-      surajmaitra1996@gmail.com
-    </a>
-  </p>
-
-  <p class="small-note">
-    All submissions go through review.
-    We reserve the right to edit, improve, or decline content
-    to maintain quality and clarity.
-  </p>
-
-</section>
-
-<!-- ===== BLOG TOOLS ===== -->
+<!-- BLOG TOOLS -->
 <section class="content-block">
   <div class="blog-tools">
 
@@ -169,19 +133,19 @@
     </div>
 
     <div class="blog-categories">
-      <button class="active" onclick="filterCategory('all')">All</button>
-      <button onclick="filterCategory('ai')">AI</button>
-      <button onclick="filterCategory('cloud')">Cloud</button>
-      <button onclick="filterCategory('programming')">Programming</button>
-      <button onclick="filterCategory('markets')">Markets</button>
-      <button onclick="filterCategory('career')">Career</button>
-      <button onclick="filterCategory('india')">India</button>
+      <button class="active" onclick="filterCategory('all', this)">All</button>
+      <button onclick="filterCategory('ai', this)">AI</button>
+      <button onclick="filterCategory('cloud', this)">Cloud</button>
+      <button onclick="filterCategory('programming', this)">Programming</button>
+      <button onclick="filterCategory('markets', this)">Markets</button>
+      <button onclick="filterCategory('career', this)">Career</button>
+      <button onclick="filterCategory('india', this)">India</button>
     </div>
 
   </div>
 </section>
 
-<!-- ===== BLOG LIST ===== -->
+<!-- BLOG LIST -->
 
 <section class="content-block">
   <h3>SRJahir Tech Blog</h3>
@@ -544,29 +508,72 @@
 
     
   </div>
-</section>
+    </section>
 
-
-
-
-<!-- ===== PAGINATION ===== -->
+<!-- PAGINATION -->
 <div class="pagination">
   <button onclick="prevPage()">← Prev</button>
   <button onclick="nextPage()">Next →</button>
 </div>
 
-<!-- ===== DISCLAIMER ===== -->
+<!-- WRITE WITH US -->
+<section class="content-block write-with-us" data-aos="fade-up">
+
+  <h3>Write & Publish With SRJahir Tech</h3>
+
+  <p>
+    Do you have clarity, insight, or practical experience in AI, Cloud,
+    Programming, Markets, or Technology?
+    You can contribute your article to SRJahir Tech.
+  </p>
+
+  <p>
+    Every submission is reviewed carefully.
+    If your article adds real value, it will be published
+    with <strong>your name credited</strong>.
+  </p>
+
+  <ul>
+    <li>Original content only</li>
+    <li>Clear explanation and structured thinking</li>
+    <li>No promotional or misleading content</li>
+  </ul>
+
+  <p>
+    📩 Send your article or idea to:<br />
+    <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">
+      surajmaitra1996@gmail.com
+    </a>
+  </p>
+
+  <p class="small-note">
+    Submissions go through review.
+    We may edit, improve, or decline content
+    to maintain quality and clarity.
+  </p>
+
+</section>
+
+<!-- DISCLAIMER -->
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong><br>
-  All articles published on SRJahir Tech are for educational and informational purposes only.
-  They do not constitute financial, legal, investment, or professional advice.
-  Technology, markets, and tools change over time.
-  Readers should always verify information from official sources before making decisions.
+  All content on SRJahir Tech is published for educational and informational purposes only.
+  It does not provide financial, legal, investment, or professional advice.
+  Technology, markets, and tools evolve over time — always verify information
+  from official sources before making decisions.
 </div>
 
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p style="font-size:0.85rem;opacity:0.7;max-width:720px;margin:8px auto 0;">
+    SRJahir Tech provides educational content and tools for learning purposes only.
+  </p>
+  <img src="sanskrit.png" alt="Sanskrit" class="footer-art" />
 </footer>
+
+<!-- JS -->
+<script src="assets/js/animation.js"></script>
+<script src="assets/js/script.js"></script>
 
 <script>
   const cards = document.querySelectorAll(".blog-card");
@@ -575,7 +582,7 @@
   const perPage = 8;
 
   function render() {
-    let visible = Array.from(cards).filter(c => !c.classList.contains("hidden"));
+    const visible = [...cards].filter(c => !c.classList.contains("hidden"));
     visible.forEach((c, i) => {
       c.style.display =
         i >= (currentPage - 1) * perPage && i < currentPage * perPage
@@ -584,16 +591,18 @@
     });
   }
 
-  function filterCategory(cat) {
-    document.querySelectorAll(".blog-categories button").forEach(b => b.classList.remove("active"));
-    event.target.classList.add("active");
+  function filterCategory(cat, btn) {
+    document.querySelectorAll(".blog-categories button")
+      .forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
     cards.forEach(card => {
-      card.classList.remove("hidden");
-      if (cat !== "all" && card.dataset.category !== cat) {
-        card.classList.add("hidden");
-      }
+      card.classList.toggle(
+        "hidden",
+        cat !== "all" && card.dataset.category !== cat
+      );
     });
+
     currentPage = 1;
     render();
   }
@@ -601,7 +610,10 @@
   searchInput.addEventListener("input", () => {
     const q = searchInput.value.toLowerCase();
     cards.forEach(card => {
-      card.classList.toggle("hidden", !card.innerText.toLowerCase().includes(q));
+      card.classList.toggle(
+        "hidden",
+        !card.innerText.toLowerCase().includes(q)
+      );
     });
     currentPage = 1;
     render();
@@ -616,6 +628,12 @@
     if (currentPage > 1) currentPage--;
     render();
   }
+
+  AOS.init({
+    once:true,
+    duration:700,
+    easing:"ease-out-cubic"
+  });
 
   render();
 </script>
