@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Python Tutorial Part 4 — If Else Decision Making | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Python tutorial part 4 by SRJahir Tech. Learn if, else, elif, conditions, boolean logic, and real-world decision making in Python with clear examples." />
+  <meta name="keywords" content="Python if else, Python elif, Python conditions, Python decision making" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-4.html" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism.js -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+  <h3>Python Full Tutorial — Part 4</h3>
+
+  <p>
+    Till now we learned data, operators, and expressions.
+    Now comes the most important concept:
+    <strong>decision making</strong>.
+  </p>
+
+  <p>
+    Programs are powerful because they can
+    <strong>choose different paths</strong>
+    based on conditions.
+  </p>
+
+  <h4>Why Decision Making Matters</h4>
+  <p>
+    Login systems, payments, games, AI rules,
+    validations — everything depends on conditions.
+  </p>
+
+  <h4>The <code>if</code> Statement</h4>
+  <p>
+    <code>if</code> checks a condition.
+    If it is <strong>True</strong>, the code runs.
+  </p>
+
+  <div class="code-title">Basic if Example</div>
+  <pre><code class="language-python">
+age = 20
+
+if age >= 18:
+    print("You are allowed")
+  </code></pre>
+
+  <p>
+    Python uses <strong>indentation</strong>,
+    not brackets.
+    This is non-negotiable.
+  </p>
+
+  <h4>The <code>else</code> Statement</h4>
+  <p>
+    <code>else</code> runs when the condition is False.
+  </p>
+
+  <div class="code-title">if else Example</div>
+  <pre><code class="language-python">
+age = 15
+
+if age >= 18:
+    print("You can vote")
+else:
+    print("You cannot vote")
+  </code></pre>
+
+  <h4>The <code>elif</code> Statement</h4>
+  <p>
+    <code>elif</code> means "else if".
+    It allows multiple conditions.
+  </p>
+
+  <div class="code-title">elif Example</div>
+  <pre><code class="language-python">
+marks = 72
+
+if marks >= 90:
+    print("Grade A")
+elif marks >= 75:
+    print("Grade B")
+elif marks >= 60:
+    print("Grade C")
+else:
+    print("Fail")
+  </code></pre>
+
+  <h4>Condition Evaluation Order</h4>
+  <p>
+    Python checks conditions
+    <strong>top to bottom</strong>.
+    First True condition executes.
+  </p>
+
+  <h4>Using Logical Operators</h4>
+
+  <div class="code-title">Multiple Conditions</div>
+  <pre><code class="language-python">
+age = 22
+has_id = True
+
+if age >= 18 and has_id:
+    print("Entry allowed")
+else:
+    print("Entry denied")
+  </code></pre>
+
+  <h4>Nested if Statements</h4>
+  <p>
+    One decision inside another decision.
+  </p>
+
+  <div class="code-title">Nested if Example</div>
+  <pre><code class="language-python">
+age = 20
+
+if age >= 18:
+    if age < 60:
+        print("Adult")
+    else:
+        print("Senior")
+else:
+    print("Minor")
+  </code></pre>
+
+  <h4>Common Beginner Mistakes</h4>
+  <ul>
+    <li>Using <code>=</code> instead of <code>==</code></li>
+    <li>Wrong indentation</li>
+    <li>Overusing nested ifs</li>
+  </ul>
+
+  <h4>Real-World Example</h4>
+
+  <div class="code-title">Login Check</div>
+  <pre><code class="language-python">
+username = input("Enter username: ")
+password = input("Enter password: ")
+
+if username == "admin" and password == "1234":
+    print("Login successful")
+else:
+    print("Invalid credentials")
+  </code></pre>
+
+  <h4>Key Takeaway</h4>
+  <p>
+    If you understand <code>if / else / elif</code>,
+    you understand the brain of programming.
+  </p>
+
+  <p>
+    Next part introduces
+    <strong>loops</strong> —
+    making Python repeat work automatically.
+  </p>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice regularly to build real programming skills.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+</footer>
+
+</body>
+</html>
