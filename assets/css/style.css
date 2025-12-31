@@ -508,32 +508,6 @@ a.btn {
   }
 }
 
-.pagination button {
-  font-size: 0;   /* hide text */
-}
-
-.pagination button:first-child::after {
-  content: "Prev";
-  font-size: 14px;
-}
-
-.pagination button:last-child::after {
-  content: "Next";
-  font-size: 14px;
-}
-.pagination button {
-  font-size: 0;   /* hide text */
-}
-
-.pagination button:first-child::after {
-  content: "Prev";
-  font-size: 14px;
-}
-
-.pagination button:last-child::after {
-  content: "Next";
-  font-size: 14px;
-}
 
 
 
