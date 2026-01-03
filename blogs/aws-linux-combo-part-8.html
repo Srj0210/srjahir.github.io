@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>AWS + Linux Combo Part 8 — Storage & Volumes | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="AWS + Linux Combo Part 8 by SRJahir Tech. Learn EBS volumes, mounting disks, file systems, persistence, and real server storage thinking." />
+  <meta name="keywords" content="AWS EBS Linux, mount volume linux, cloud storage basics, linux disks" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-8.html" />
+
+  <link rel="icon" href="../logo.png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 8<br>Storage, Disks & Volumes</h3>
+
+<p>
+Servers are useless without storage.
+In cloud, storage is <strong>separate, attachable, and persistent</strong>.
+This part explains how AWS storage and Linux disks actually work together.
+</p>
+
+<h4>What Is AWS EBS?</h4>
+<p>
+Elastic Block Store (EBS) is a virtual hard disk.
+It exists independently from your EC2 instance.
+</p>
+
+<ul>
+  <li>Instance can die, disk survives</li>
+  <li>Can be attached/detached</li>
+  <li>Used for databases, files, logs</li>
+</ul>
+
+<h4>Check Disks in Linux</h4>
+<pre><code class="language-bash">lsblk</code></pre>
+
+<p>
+This shows all attached disks.
+New EBS volumes appear as <code>/dev/xvdf</code>, <code>/dev/nvme*</code>, etc.
+</p>
+
+<h4>Create File System</h4>
+<pre><code class="language-bash">mkfs.ext4 /dev/xvdf</code></pre>
+
+<p>
+Formatting prepares the disk for data.
+Never format a disk that already has data.
+</p>
+
+<h4>Mount the Volume</h4>
+<pre><code class="language-bash">mkdir /data
+mount /dev/xvdf /data</code></pre>
+
+<p>
+Now the disk is usable at <code>/data</code>.
+</p>
+
+<h4>Permanent Mount (fstab)</h4>
+<p>
+Without this, disk disappears after reboot.
+</p>
+
+<pre><code class="language-bash">nano /etc/fstab</code></pre>
+
+<pre><code class="language-bash">/dev/xvdf  /data  ext4  defaults,nofail  0  2</code></pre>
+
+<h4>Real-World Use Cases</h4>
+<ul>
+  <li>Database storage</li>
+  <li>User uploads</li>
+  <li>Application logs</li>
+</ul>
+
+<h4>Mindset Tip</h4>
+<p>
+OS disk is temporary.
+Data disk is sacred.
+Always separate them.
+</p>
+
+<a href="aws-linux-combo-part-9.html" class="btn">
+Next: Production Server Setup →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always double-check disk names before formatting.
+One wrong command can destroy data permanently.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Storage Is Memory</p>
+</footer>
+
+</body>
+</html>
