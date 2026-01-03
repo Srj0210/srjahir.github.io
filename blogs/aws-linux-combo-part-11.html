@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>AWS + Linux Combo Part 11 — CI/CD & Deployment | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="AWS + Linux Combo Part 11 by SRJahir Tech. Learn CI/CD concepts, deployment flow, automation mindset, and real DevOps thinking." />
+  <meta name="keywords" content="AWS CI CD Linux, deployment pipeline basics, devops beginner guide" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-11.html" />
+
+  <link rel="icon" href="../logo.png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 11<br>CI/CD & Deployment Thinking</h3>
+
+<p>
+This part explains how code moves from laptop
+to production <strong>safely and repeatedly</strong>.
+This is where engineers become DevOps-minded.
+</p>
+
+<h4>What Is CI/CD?</h4>
+<ul>
+  <li><strong>CI</strong> — Continuous Integration</li>
+  <li><strong>CD</strong> — Continuous Deployment</li>
+</ul>
+
+<p>
+It means:
+</p>
+<ul>
+  <li>Code is tested automatically</li>
+  <li>Deployments are repeatable</li>
+  <li>Human errors are reduced</li>
+</ul>
+
+<h4>Basic Deployment Flow</h4>
+<ol>
+  <li>Developer pushes code</li>
+  <li>Pipeline runs tests</li>
+  <li>Build is created</li>
+  <li>Server pulls new version</li>
+</ol>
+
+<h4>Why Manual Deployments Fail</h4>
+<ul>
+  <li>Forgotten steps</li>
+  <li>Wrong commands</li>
+  <li>Inconsistent environments</li>
+</ul>
+
+<h4>Linux Role in CI/CD</h4>
+<p>
+Linux servers execute:
+</p>
+<ul>
+  <li>Build scripts</li>
+  <li>Deployment scripts</li>
+  <li>Service restarts</li>
+</ul>
+
+<h4>Simple Deployment Example</h4>
+<pre><code class="language-bash">git pull origin main
+npm install
+pm2 restart app</code></pre>
+
+<p>
+Automation replaces panic.
+</p>
+
+<h4>Real Engineer Mindset</h4>
+<p>
+If deployment scares you,
+your system is fragile.
+Strong systems make deployments boring.
+</p>
+
+<h4>What Comes Next?</h4>
+<p>
+Next we combine everything into
+<strong>end-to-end real cloud project thinking</strong>.
+</p>
+
+<a href="aws-linux-combo-part-12.html" class="btn">
+Next: Final Project & Career Path →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always test pipelines in staging before production.
+Automation multiplies both good and bad decisions.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Automation Is Calm</p>
+</footer>
+
+</body>
+</html>
