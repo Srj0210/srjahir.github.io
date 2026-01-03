@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Docker Tutorial Part 3 — Docker Architecture | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Docker tutorial part 3 by SRJahir Tech. Understand Docker architecture including Docker Client, Docker Daemon, Images, and Containers." />
+  <meta name="keywords" content="Docker architecture, Docker client daemon, Docker images containers explained" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-3.html" />
+
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+  <h3>Docker Full Tutorial — Part 3</h3>
+
+  <p>
+    In this part, we will understand Docker architecture.
+    This is where many beginners get confused —
+    so we will keep it simple and logical.
+  </p>
+
+  <h4>Main Components of Docker</h4>
+
+  <ul>
+    <li>Docker Client</li>
+    <li>Docker Daemon</li>
+    <li>Docker Images</li>
+    <li>Docker Containers</li>
+  </ul>
+
+  <h4>Docker Client</h4>
+
+  <p>
+    Docker Client is what you interact with.
+    Every time you type a Docker command,
+    you are talking to the Docker Client.
+  </p>
+
+  <div class="code-title">Example</div>
+  <pre><code class="language-bash">
+docker ps
+docker run hello-world
+  </code></pre>
+
+  <p>
+    The client does not do heavy work.
+    It only sends instructions.
+  </p>
+
+  <h4>Docker Daemon</h4>
+
+  <p>
+    Docker Daemon is the brain.
+    It runs in the background and does the actual work.
+  </p>
+
+  <ul>
+    <li>Builds images</li>
+    <li>Runs containers</li>
+    <li>Manages networks and volumes</li>
+  </ul>
+
+  <h4>Docker Image</h4>
+
+  <p>
+    A Docker image is a blueprint.
+    It is a read-only template used to create containers.
+  </p>
+
+  <p>
+    Image contains:
+  </p>
+
+  <ul>
+    <li>Base OS layer</li>
+    <li>Application code</li>
+    <li>Dependencies</li>
+  </ul>
+
+  <h4>Docker Container</h4>
+
+  <p>
+    A container is a running instance of an image.
+    One image can create many containers.
+  </p>
+
+  <h4>Simple Flow</h4>
+
+  <ol>
+    <li>You run a Docker command</li>
+    <li>Client sends request</li>
+    <li>Daemon processes it</li>
+    <li>Container starts from image</li>
+  </ol>
+
+  <h4>Why This Architecture Matters</h4>
+
+  <p>
+    Understanding this helps you:
+  </p>
+
+  <ul>
+    <li>Debug issues</li>
+    <li>Understand errors</li>
+    <li>Work confidently in production</li>
+  </ul>
+
+  <p>
+    In Part 4, we will:
+  </p>
+
+  <ul>
+    <li>Install Docker</li>
+    <li>Verify installation</li>
+    <li>Run first real container</li>
+  </ul>
+
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practice is required to master Docker.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+</footer>
+
+</body>
+</html>
