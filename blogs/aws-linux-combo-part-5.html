@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 5 — Networking & Security Groups | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 5 by SRJahir Tech. Learn VPC basics, security groups, inbound outbound rules, Linux firewall concepts." />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-5.html">
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 5: Networking & Security Groups</h3>
+
+<p>
+AWS networking decides who can talk to your server.
+Linux firewall decides who is allowed inside the server.
+You must understand both.
+</p>
+
+<h4>What is a VPC?</h4>
+<p>
+VPC (Virtual Private Cloud) is your private network inside AWS.
+Every EC2 runs inside a VPC.
+</p>
+
+<h4>Security Groups (AWS Firewall)</h4>
+<p>
+Security Groups work at AWS level.
+They control traffic BEFORE it reaches Linux.
+</p>
+
+<ul>
+<li>Inbound rules → Who can connect</li>
+<li>Outbound rules → Where server can connect</li>
+</ul>
+
+<h4>Common Security Group Rules</h4>
+<pre><code class="language-bash">
+SSH    → Port 22
+HTTP   → Port 80
+HTTPS  → Port 443
+</code></pre>
+
+<h4>Linux Firewall (UFW)</h4>
+<p>
+Linux firewall protects the OS itself.
+</p>
+
+<pre><code class="language-bash">
+sudo ufw status
+sudo ufw allow ssh
+sudo ufw allow 80
+sudo ufw enable
+</code></pre>
+
+<h4>Golden Rule</h4>
+<p>
+AWS Security Group + Linux Firewall = Real Security  
+Never rely on only one.
+</p>
+
+<a href="aws-linux-combo-part-6.html" class="btn">
+Next: Installing Web Server & Apps →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never open all ports (0.0.0.0/0) in production.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Networks Control Power</p>
+</footer>
+
+</body>
+</html>
