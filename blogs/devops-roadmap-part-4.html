@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 4 — Linux Networking for DevOps | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 4 by SRJahir Tech. Learn Linux networking, IP addresses, ports, DNS, firewalls, and how DevOps engineers debug network issues." />
+<meta name="keywords" content="DevOps Linux networking, IP ports DNS firewall DevOps tutorial" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-4.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 4: Linux Networking for DevOps</h3>
+
+<p>
+DevOps engineers do not just write pipelines.
+They make sure systems are <strong>reachable, secure, and stable</strong>.
+</p>
+
+<p>
+If you do not understand networking,
+you will never understand cloud, Docker, or Kubernetes.
+</p>
+
+<hr>
+
+<h4>What Is Networking (In Simple Words)</h4>
+
+<p>
+Networking is how computers talk to each other.
+</p>
+
+<ul>
+  <li>Your laptop talking to Google</li>
+  <li>Your server talking to database</li>
+  <li>Your app talking to users</li>
+</ul>
+
+<p>
+DevOps is responsible when this communication fails.
+</p>
+
+<hr>
+
+<h4>IP Address — Identity of a Machine</h4>
+
+<p>
+Every machine has an IP address.
+It is like a phone number.
+</p>
+
+<div class="code-title">Check IP address</div>
+<pre><code class="language-bash">ip a</code></pre>
+
+<p>
+Common IP types:
+</p>
+
+<ul>
+  <li>Private IP → internal network</li>
+  <li>Public IP → internet access</li>
+</ul>
+
+<hr>
+
+<h4>Ping — Basic Connectivity Test</h4>
+
+<div class="code-title">Ping Google</div>
+<pre><code class="language-bash">ping google.com</code></pre>
+
+<p>
+If ping fails:
+</p>
+
+<ul>
+  <li>No internet</li>
+  <li>DNS issue</li>
+  <li>Firewall blocking</li>
+</ul>
+
+<p>
+Ping is the first DevOps debugging tool.
+</p>
+
+<hr>
+
+<h4>Ports — Doors of a Server</h4>
+
+<p>
+Servers expose services using ports.
+</p>
+
+<ul>
+  <li>22 → SSH</li>
+  <li>80 → HTTP</li>
+  <li>443 → HTTPS</li>
+  <li>3306 → MySQL</li>
+</ul>
+
+<div class="code-title">Check open ports</div>
+<pre><code class="language-bash">ss -tuln</code></pre>
+
+<p>
+Open ports = attack surface.
+DevOps must keep them minimal.
+</p>
+
+<hr>
+
+<h4>DNS — Name to IP Translator</h4>
+
+<p>
+Humans remember names.
+Machines understand IPs.
+</p>
+
+<div class="code-title">DNS lookup</div>
+<pre><code class="language-bash">nslookup google.com</code></pre>
+
+<p>
+If DNS fails:
+</p>
+
+<ul>
+  <li>Website not reachable</li>
+  <li>APIs break</li>
+  <li>Cloud services fail</li>
+</ul>
+
+<hr>
+
+<h4>Firewall — Security Gatekeeper</h4>
+
+<p>
+Firewalls decide:
+</p>
+
+<ul>
+  <li>Which ports are allowed</li>
+  <li>Which traffic is blocked</li>
+</ul>
+
+<div class="code-title">Check firewall status (Ubuntu)</div>
+<pre><code class="language-bash">sudo ufw status</code></pre>
+
+<div class="code-title">Allow SSH</div>
+<pre><code class="language-bash">sudo ufw allow 22</code></pre>
+
+<p>
+One wrong firewall rule can kill production.
+</p>
+
+<hr>
+
+<h4>Why Networking Is Critical for DevOps</h4>
+
+<p>
+CI/CD,
+cloud load balancers,
+containers,
+and microservices
+all depend on networking.
+</p>
+
+<p>
+Most real-world outages are network-related,
+not code-related.
+</p>
+
+<hr>
+
+<h4>What You Should Practice</h4>
+
+<ul>
+  <li>Ping from server to internet</li>
+  <li>Check ports before deploying app</li>
+  <li>Understand private vs public IP</li>
+  <li>Never expose unnecessary ports</li>
+</ul>
+
+<hr>
+
+<h4>Next Step in Roadmap</h4>
+
+<p>
+Now that you understand networking,
+we automate Linux using shell scripting —
+the backbone of DevOps automation.
+</p>
+
+<a href="devops-roadmap-part-5.html" class="btn">
+Next Part → Shell Scripting for DevOps
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Practice networking commands on local VM or cloud free tier.
+Never experiment on live production systems without approval.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Networks Before Automation</p>
+</footer>
+
+</body>
+</html>
