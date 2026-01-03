@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 9 — Kubernetes Basics | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 9 by SRJahir Tech. Learn Kubernetes basics, pods, nodes, deployments, services, and why Kubernetes is essential for DevOps." />
+<meta name="keywords" content="Kubernetes tutorial beginners, k8s basics, DevOps Kubernetes roadmap, pods services deployments" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-9.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 9: Kubernetes Basics</h3>
+
+<p>
+Agar Docker containers factory me bante hain,
+toh <strong>Kubernetes unka manager</strong> hai.
+Real DevOps yahin se large-scale hota hai.
+</p>
+
+<hr>
+
+<h4>Why Kubernetes Exists</h4>
+
+<p>
+Docker sirf container chalata hai.
+Par production me problems aati hain:
+</p>
+
+<ul>
+  <li>100+ containers kaise manage kare?</li>
+  <li>Container crash ho jaye toh?</li>
+  <li>Traffic badhe toh scaling kaise ho?</li>
+</ul>
+
+<p>
+Iska answer hai: <strong>Kubernetes (K8s)</strong>
+</p>
+
+<hr>
+
+<h4>What Is Kubernetes?</h4>
+
+<p>
+Kubernetes ek container orchestration system hai jo:
+</p>
+
+<ul>
+  <li>Containers deploy karta hai</li>
+  <li>Automatically restart karta hai</li>
+  <li>Load balance karta hai</li>
+  <li>Auto-scale karta hai</li>
+</ul>
+
+<p>
+Google ne banaya, industry ne adopt kiya.
+</p>
+
+<hr>
+
+<h4>Kubernetes Architecture (Simple)</h4>
+
+<ul>
+  <li><strong>Cluster</strong> – complete system</li>
+  <li><strong>Node</strong> – ek machine (VM/server)</li>
+  <li><strong>Pod</strong> – smallest unit</li>
+</ul>
+
+<p>
+👉 Container directly nahi,
+<strong>pod ke andar</strong> chalta hai.
+</p>
+
+<hr>
+
+<h4>What Is a Pod?</h4>
+
+<p>
+Pod ek wrapper hai jo:
+</p>
+
+<ul>
+  <li>1 ya multiple containers rakhta hai</li>
+  <li>Same network share karta hai</li>
+  <li>Same storage use karta hai</li>
+</ul>
+
+<p>
+Production me rarely single container pods.
+</p>
+
+<hr>
+
+<h4>Basic Kubernetes Objects</h4>
+
+<ul>
+  <li><strong>Pod</strong> – container holder</li>
+  <li><strong>Deployment</strong> – desired state maintain karta hai</li>
+  <li><strong>Service</strong> – networking & access</li>
+</ul>
+
+<hr>
+
+<h4>Deployment Explained</h4>
+
+<p>
+Deployment batata hai:
+</p>
+
+<ul>
+  <li>Kitne pods chahiye</li>
+  <li>Konsa image use hoga</li>
+  <li>Restart policy</li>
+</ul>
+
+<div class="code-title">Deployment Example</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: nginx</code></pre>
+
+<p>
+Yeh ensure karta hai:
+<strong>3 pods always running</strong>.
+</p>
+
+<hr>
+
+<h4>What Is a Service?</h4>
+
+<p>
+Pods ka IP dynamic hota hai.
+Service ek stable endpoint provide karta hai.
+</p>
+
+<ul>
+  <li>ClusterIP – internal</li>
+  <li>NodePort – external basic</li>
+  <li>LoadBalancer – cloud level</li>
+</ul>
+
+<hr>
+
+<h4>kubectl — Kubernetes Command Tool</h4>
+
+<div class="code-title">Common Commands</div>
+<pre><code class="language-bash">kubectl get pods
+kubectl get nodes
+kubectl apply -f app.yaml
+kubectl delete pod pod-name</code></pre>
+
+<p>
+kubectl = Kubernetes ka remote control.
+</p>
+
+<hr>
+
+<h4>Why Kubernetes Is Hard for Beginners</h4>
+
+<ul>
+  <li>Too many concepts</li>
+  <li>YAML heavy</li>
+  <li>Networking complex</li>
+</ul>
+
+<p>
+Isliye pehle Docker + CI/CD samajhna zaruri tha.
+</p>
+
+<hr>
+
+<h4>Reality Check</h4>
+
+<p>
+DevOps engineers:
+</p>
+
+<ul>
+  <li>Pods create nahi karte daily</li>
+  <li>Issues troubleshoot karte hain</li>
+  <li>Scaling & upgrades handle karte hain</li>
+</ul>
+
+<p>
+Understanding > memorizing.
+</p>
+
+<hr>
+
+<h4>What Comes Next?</h4>
+
+<p>
+Ab containers production me chal rahe hain.
+Next step:
+<strong>Cloud platforms (AWS/GCP/Azure)</strong>
+</p>
+
+<a href="devops-roadmap-part-10.html" class="btn">
+Next Part → Cloud for DevOps
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always practice Kubernetes in local environments like Minikube or Kind before production usage.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Orchestration Is Scale</p>
+</footer>
+
+</body>
+</html>
