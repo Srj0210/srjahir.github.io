@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 7 — Monitoring & Logs | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 7. Learn system monitoring, logs, disk usage, memory, CPU on Linux servers." />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 7: Monitoring & Logs</h3>
+
+<p>
+Servers fail silently.
+Monitoring tells you the truth.
+</p>
+
+<h4>CPU & Memory</h4>
+<pre><code class="language-bash">
+top
+htop
+free -h
+</code></pre>
+
+<h4>Disk Usage</h4>
+<pre><code class="language-bash">
+df -h
+du -sh /*
+</code></pre>
+
+<h4>System Logs</h4>
+<pre><code class="language-bash">
+journalctl -xe
+tail -f /var/log/syslog
+</code></pre>
+
+<h4>AWS Monitoring</h4>
+<p>
+CloudWatch tracks CPU, disk, network.
+Linux logs explain WHY.
+</p>
+
+<h4>Mindset</h4>
+<p>
+Never guess.
+Always verify with data.
+</p>
+
+<a href="aws-linux-combo-part-8.html" class="btn">
+Next: Automation & Real Workflow →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Monitoring saves production systems.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Measure Before Fix</p>
+</footer>
+
+</body>
+</html>
