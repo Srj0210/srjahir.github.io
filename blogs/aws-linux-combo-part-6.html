@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 6 — Web Servers on Linux | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 6. Install Nginx and Apache on EC2, understand ports, services, logs." />
+
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-6.html">
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 6: Web Servers</h3>
+
+<p>
+Most servers exist to serve something — websites, APIs, dashboards.
+Linux runs those services.
+</p>
+
+<h4>Install Nginx</h4>
+<pre><code class="language-bash">
+sudo apt update
+sudo apt install nginx -y
+</code></pre>
+
+<h4>Start & Enable Service</h4>
+<pre><code class="language-bash">
+sudo systemctl start nginx
+sudo systemctl enable nginx
+</code></pre>
+
+<h4>Check Status</h4>
+<pre><code class="language-bash">
+sudo systemctl status nginx
+</code></pre>
+
+<h4>Logs Location</h4>
+<pre><code class="language-bash">
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+</code></pre>
+
+<h4>Important Thinking</h4>
+<p>
+If your website is not opening, think in this order:
+</p>
+
+<ul>
+<li>Security Group</li>
+<li>Linux Firewall</li>
+<li>Service Status</li>
+<li>Logs</li>
+</ul>
+
+<a href="aws-linux-combo-part-7.html" class="btn">
+Next: Monitoring, Logs & Alerts →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always check logs before restarting services.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Servers Speak Through Logs</p>
+</footer>
+
+</body>
+</html>
