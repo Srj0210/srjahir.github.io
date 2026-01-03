@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 4 — Storage, EBS & Mounts | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 4. Learn EBS volumes, Linux mounts, resizing disks, and backups." />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 4: Storage, EBS & Mounts</h3>
+
+<p>
+Storage mistakes can crash production systems.
+Linux storage understanding is mandatory on AWS.
+</p>
+
+<h4>What is EBS?</h4>
+<p>
+EBS is a virtual hard disk attached to EC2.
+</p>
+
+<h4>Check Disks</h4>
+<pre><code class="language-bash">
+lsblk
+df -h
+</code></pre>
+
+<h4>Create Filesystem</h4>
+<pre><code class="language-bash">
+sudo mkfs.ext4 /dev/xvdf
+</code></pre>
+
+<h4>Mount Volume</h4>
+<pre><code class="language-bash">
+sudo mkdir /data
+sudo mount /dev/xvdf /data
+</code></pre>
+
+<h4>Permanent Mount</h4>
+<pre><code class="language-bash">
+/dev/xvdf /data ext4 defaults 0 0
+</code></pre>
+
+<h4>Backups Matter</h4>
+<p>
+AWS snapshots are useless if Linux data layout is wrong.
+</p>
+
+<a href="aws-linux-combo-part-5.html" class="btn">
+Next: Networking, Security Groups & Firewalls →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never format the wrong disk.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Data Is Sacred</p>
+</footer>
+
+</body>
+</html>
