@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>AWS + Linux Combo Part 9 — Production Server Setup | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="AWS + Linux Combo Part 9 by SRJahir Tech. Learn real production server setup, SSH hardening, users, folders, and best practices." />
+  <meta name="keywords" content="AWS Linux production server, Linux server setup, SSH hardening, cloud server best practices" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-9.html" />
+
+  <!-- Icons -->
+  <link rel="icon" href="../logo.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 9<br>Production Server Setup</h3>
+
+<p>
+This part moves you from practice mode to <strong>real production thinking</strong>.
+Production servers are not playgrounds.
+Every decision here affects security, uptime, and trust.
+</p>
+
+<h4>What Is a Production Server?</h4>
+<p>
+A production server is a system that serves real users.
+If it goes down, business stops.
+That is why discipline matters more than shortcuts.
+</p>
+
+<h4>Golden Rules of Production Servers</h4>
+<ul>
+  <li>No experiments directly on live server</li>
+  <li>No root login for daily work</li>
+  <li>No unnecessary software installed</li>
+  <li>Logs must always be readable</li>
+</ul>
+
+<h4>Create a Non-Root User</h4>
+<pre><code class="language-bash">adduser appuser
+usermod -aG sudo appuser</code></pre>
+
+<p>
+Root should be used only for emergencies.
+Daily work should always be done via a limited user.
+</p>
+
+<h4>Disable Root SSH Login</h4>
+<pre><code class="language-bash">nano /etc/ssh/sshd_config</code></pre>
+
+<p>Change:</p>
+<pre><code class="language-bash">PermitRootLogin no</code></pre>
+
+<p>Restart SSH:</p>
+<pre><code class="language-bash">systemctl restart ssh</code></pre>
+
+<h4>Production Folder Structure</h4>
+<pre><code class="language-bash">/var/www        → application code
+/etc            → configuration files
+/opt            → optional tools
+/var/log        → logs</code></pre>
+
+<p>
+Random folders and messy structure is a sign of beginner setup.
+Professionals keep servers predictable.
+</p>
+
+<h4>Why Security Comes First</h4>
+<p>
+Open servers are scanned automatically by bots.
+You are not attacked because you are important —
+you are attacked because you exist.
+</p>
+
+<h4>Mindset Shift</h4>
+<p>
+Production server is not your laptop.
+It is a shared responsibility between you, your team, and the business.
+</p>
+
+<a href="aws-linux-combo-part-10.html" class="btn">
+Next: IAM & Linux Permissions →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never test risky commands on production servers.
+Always verify changes on staging before deployment.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Production Is Discipline</p>
+</footer>
+
+</body>
+</html>
