@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Docker Tutorial Part 2 — What Is a Container | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Docker tutorial part 2 by SRJahir Tech. Learn what a container really is, how it works internally, and how containers differ from virtual machines." />
+  <meta name="keywords" content="Docker containers explained, what is container, Docker vs VM, container basics" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
+
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <!-- Prism -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+  <h3>Docker Full Tutorial — Part 2</h3>
+
+  <p>
+    In Part 1, we understood why Docker exists.
+    In this part, we will understand the most important concept:
+    <strong>what a container actually is</strong>.
+  </p>
+
+  <h4>Simple Definition of a Container</h4>
+
+  <p>
+    A container is a lightweight, isolated environment
+    that runs an application along with everything it needs.
+  </p>
+
+  <p>
+    That includes:
+  </p>
+
+  <ul>
+    <li>Application code</li>
+    <li>Runtime</li>
+    <li>Libraries</li>
+    <li>Environment variables</li>
+  </ul>
+
+  <h4>What a Container Is NOT</h4>
+
+  <ul>
+    <li>It is not a full operating system</li>
+    <li>It does not include its own kernel</li>
+    <li>It is not a virtual machine</li>
+  </ul>
+
+  <p>
+    Containers share the host machine’s Linux kernel.
+    This is why they are fast and lightweight.
+  </p>
+
+  <h4>How Containers Work Internally (Concept Level)</h4>
+
+  <p>
+    Docker containers use Linux features such as:
+  </p>
+
+  <ul>
+    <li><strong>Namespaces</strong> – isolation</li>
+    <li><strong>cgroups</strong> – resource limits</li>
+    <li><strong>Filesystem layers</strong> – efficiency</li>
+  </ul>
+
+  <p>
+    You do NOT need to master Linux internals right now.
+    Just understand this:
+  </p>
+
+  <p>
+    <strong>Containers feel like separate machines, but they are not.</strong>
+  </p>
+
+  <h4>Container vs Virtual Machine (Clear Comparison)</h4>
+
+  <ul>
+    <li>VM boots a full OS → slow</li>
+    <li>Container starts a process → fast</li>
+    <li>VM uses more memory</li>
+    <li>Container uses minimal memory</li>
+  </ul>
+
+  <h4>Why Containers Start So Fast</h4>
+
+  <p>
+    Because:
+  </p>
+
+  <ul>
+    <li>No OS boot process</li>
+    <li>No hardware emulation</li>
+    <li>Direct execution on host kernel</li>
+  </ul>
+
+  <h4>Real-Life Analogy</h4>
+
+  <p>
+    Think of containers like:
+  </p>
+
+  <ul>
+    <li>Different apps on your phone</li>
+    <li>Each app is isolated</li>
+    <li>But all share the same phone OS</li>
+  </ul>
+
+  <h4>Important Beginner Rule</h4>
+
+  <p>
+    Do not confuse container isolation with full isolation.
+    Containers are secure, but they are not magic.
+  </p>
+
+  <p>
+    In Part 3, we will understand:
+  </p>
+
+  <ul>
+    <li>Docker architecture</li>
+    <li>Docker client</li>
+    <li>Docker daemon</li>
+    <li>Images vs containers</li>
+  </ul>
+
+</section>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong><br>
+  This tutorial is for educational purposes only.
+  Practical Docker usage requires hands-on practice.
+</div>
+
+<footer>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+</footer>
+
+</body>
+</html>
