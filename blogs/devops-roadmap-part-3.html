@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 3 — Linux Users, Processes & System Control | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 3 by SRJahir Tech. Learn Linux users, groups, processes, system control, and how DevOps engineers manage servers safely." />
+<meta name="keywords" content="DevOps Linux users, Linux processes tutorial, Linux system management DevOps" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-3.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 3: Linux Users, Processes & System Control</h3>
+
+<p>
+DevOps engineers do not work as “admin always”.
+They work with **users, permissions, and controlled access**.
+</p>
+
+<p>
+Understanding users and processes is what separates
+a beginner from a production engineer.
+</p>
+
+<hr>
+
+<h4>Linux Users — Why They Exist</h4>
+
+<p>
+Linux is a multi-user operating system.
+That means:
+</p>
+
+<ul>
+  <li>Many people can use the same server</li>
+  <li>Each user has limited permissions</li>
+  <li>Security depends on user separation</li>
+</ul>
+
+<p>
+DevOps engineers NEVER run everything as root.
+</p>
+
+<hr>
+
+<h4>Check Current User</h4>
+
+<div class="code-title">Who am I?</div>
+<pre><code class="language-bash">whoami</code></pre>
+
+<p>
+This command tells which user is currently logged in.
+</p>
+
+<hr>
+
+<h4>Important System Users</h4>
+
+<ul>
+  <li><strong>root</strong> → superuser (full control)</li>
+  <li><strong>ubuntu / ec2-user</strong> → cloud default users</li>
+  <li><strong>service users</strong> → apps like nginx, mysql</li>
+</ul>
+
+<p>
+Running applications as root is dangerous.
+</p>
+
+<hr>
+
+<h4>Switching Users Safely</h4>
+
+<div class="code-title">Switch to root (if allowed)</div>
+<pre><code class="language-bash">sudo su</code></pre>
+
+<div class="code-title">Run single command as root</div>
+<pre><code class="language-bash">sudo apt update</code></pre>
+
+<p>
+<strong>sudo</strong> is the heart of DevOps safety.
+</p>
+
+<hr>
+
+<h4>Linux Processes — Programs in Action</h4>
+
+<p>
+Every running program is a process.
+</p>
+
+<p>
+Web servers, databases, containers —
+everything runs as processes.
+</p>
+
+<div class="code-title">View running processes</div>
+<pre><code class="language-bash">ps aux</code></pre>
+
+<div class="code-title">Live process monitoring</div>
+<pre><code class="language-bash">top</code></pre>
+
+<p>
+If a server is slow,
+process analysis is the first step.
+</p>
+
+<hr>
+
+<h4>Killing a Process (Carefully)</h4>
+
+<div class="code-title">Kill process by PID</div>
+<pre><code class="language-bash">kill 1234</code></pre>
+
+<div class="code-title">Force kill (dangerous)</div>
+<pre><code class="language-bash">kill -9 1234</code></pre>
+
+<p>
+Wrong kill command can crash production.
+Always double-check.
+</p>
+
+<hr>
+
+<h4>System Services (Background Programs)</h4>
+
+<p>
+Linux servers run services like:
+</p>
+
+<ul>
+  <li>nginx</li>
+  <li>docker</li>
+  <li>ssh</li>
+</ul>
+
+<div class="code-title">Check service status</div>
+<pre><code class="language-bash">systemctl status ssh</code></pre>
+
+<div class="code-title">Start service</div>
+<pre><code class="language-bash">sudo systemctl start nginx</code></pre>
+
+<div class="code-title">Enable on boot</div>
+<pre><code class="language-bash">sudo systemctl enable nginx</code></pre>
+
+<hr>
+
+<h4>Why This Matters for DevOps</h4>
+
+<p>
+CI/CD pipelines,
+containers,
+and cloud services
+all rely on:
+</p>
+
+<ul>
+  <li>Correct users</li>
+  <li>Healthy processes</li>
+  <li>Stable services</li>
+</ul>
+
+<p>
+If you skip this knowledge,
+DevOps becomes copy-paste chaos.
+</p>
+
+<hr>
+
+<h4>Next Step in Roadmap</h4>
+
+<p>
+Now that you understand Linux control,
+we move into networking —
+how servers talk to the world.
+</p>
+
+<a href="devops-roadmap-part-4.html" class="btn">
+Next Part → Linux Networking for DevOps
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never experiment with kill commands or root access on production servers.
+Practice on local VM or cloud free tier only.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Control Before Automation</p>
+</footer>
+
+</body>
+</html>
