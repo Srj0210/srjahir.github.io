@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 5 — Shell Scripting for DevOps | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 5 by SRJahir Tech. Learn shell scripting for DevOps, bash scripts, variables, loops, conditions, and real automation examples." />
+<meta name="keywords" content="DevOps shell scripting, bash scripting for DevOps, Linux automation tutorial" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 5: Shell Scripting for DevOps</h3>
+
+<p>
+DevOps ka real kaam yahan se start hota hai.
+</p>
+
+<p>
+Jo kaam tum manually 10 baar kar rahe ho,
+DevOps usko <strong>script likh ke 1 baar</strong> karta hai.
+</p>
+
+<hr>
+
+<h4>What Is Shell Scripting?</h4>
+
+<p>
+Shell scripting means:
+</p>
+
+<ul>
+  <li>Linux commands ko ek file me likhna</li>
+  <li>Repeatable automation banana</li>
+  <li>Human error kam karna</li>
+</ul>
+
+<p>
+DevOps engineer ka sabse pehla automation tool = <strong>Bash</strong>
+</p>
+
+<hr>
+
+<h4>Your First Shell Script</h4>
+
+<div class="code-title">Create script file</div>
+<pre><code class="language-bash">nano hello.sh</code></pre>
+
+<div class="code-title">hello.sh</div>
+<pre><code class="language-bash">#!/bin/bash
+echo "Hello DevOps World"</code></pre>
+
+<div class="code-title">Run script</div>
+<pre><code class="language-bash">chmod +x hello.sh
+./hello.sh</code></pre>
+
+<p>
+<code>#!/bin/bash</code> batata hai kaunsa shell use hoga.
+</p>
+
+<hr>
+
+<h4>Variables — Store Information</h4>
+
+<div class="code-title">Example</div>
+<pre><code class="language-bash">#!/bin/bash
+NAME="Suraj"
+echo "Hello $NAME"</code></pre>
+
+<p>
+Variables help DevOps scripts become flexible.
+</p>
+
+<hr>
+
+<h4>Taking User Input</h4>
+
+<div class="code-title">Input Example</div>
+<pre><code class="language-bash">#!/bin/bash
+echo "Enter your name:"
+read USER
+echo "Welcome $USER"</code></pre>
+
+<p>
+Scripts can interact with humans or systems.
+</p>
+
+<hr>
+
+<h4>Conditions — Decision Making</h4>
+
+<div class="code-title">if condition</div>
+<pre><code class="language-bash">#!/bin/bash
+if [ -f "/etc/passwd" ]; then
+  echo "File exists"
+else
+  echo "File missing"
+fi</code></pre>
+
+<p>
+Production scripts are full of conditions.
+</p>
+
+<hr>
+
+<h4>Loops — Automation Power</h4>
+
+<div class="code-title">For loop</div>
+<pre><code class="language-bash">#!/bin/bash
+for i in 1 2 3 4 5
+do
+  echo "Deployment step $i"
+done</code></pre>
+
+<p>
+Imagine deploying 50 servers without loops — impossible.
+</p>
+
+<hr>
+
+<h4>Real DevOps Script Example</h4>
+
+<p>
+Check disk usage and alert.
+</p>
+
+<div class="code-title">Disk Check Script</div>
+<pre><code class="language-bash">#!/bin/bash
+USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
+
+if [ $USAGE -gt 80 ]; then
+  echo "Warning: Disk usage above 80%"
+else
+  echo "Disk usage normal"
+fi</code></pre>
+
+<p>
+This is real-world DevOps thinking.
+</p>
+
+<hr>
+
+<h4>Why Shell Scripting Is Mandatory</h4>
+
+<ul>
+  <li>CI/CD pipelines use shell</li>
+  <li>Server automation uses shell</li>
+  <li>Cloud init scripts use shell</li>
+</ul>
+
+<p>
+Without shell scripting,
+DevOps engineer incomplete hai.
+</p>
+
+<hr>
+
+<h4>Practice Daily (Very Important)</h4>
+
+<ul>
+  <li>Write 1 script daily</li>
+  <li>Automate boring tasks</li>
+  <li>Break scripts and fix them</li>
+</ul>
+
+<hr>
+
+<h4>Next Step in DevOps Roadmap</h4>
+
+<p>
+Now we need team collaboration.
+That means <strong>Git & Version Control</strong>.
+</p>
+
+<a href="devops-roadmap-part-6.html" class="btn">
+Next Part → Git & Version Control
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always test shell scripts on local or test servers.
+Never run unverified scripts on production systems.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Automate Everything</p>
+</footer>
+
+</body>
+</html>
