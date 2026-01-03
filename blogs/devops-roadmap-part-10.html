@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 10 — Cloud for DevOps | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 10 by SRJahir Tech. Learn cloud fundamentals for DevOps using AWS, Azure, and GCP. Understand EC2, IAM, networking, storage, and real DevOps cloud usage." />
+<meta name="keywords" content="DevOps cloud tutorial, AWS for DevOps beginners, Azure DevOps basics, GCP DevOps roadmap" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 10: Cloud for DevOps</h3>
+
+<p>
+Modern DevOps bina cloud ke incomplete hai.
+Servers kharidna, setup karna, maintain karna —
+ye sab cloud ne simple bana diya.
+</p>
+
+<hr>
+
+<h4>What Is Cloud (Simple Meaning)</h4>
+
+<p>
+Cloud matlab:
+<strong>Internet pe available computers</strong>
+jo tum rent pe use karte ho.
+</p>
+
+<ul>
+  <li>No hardware buying</li>
+  <li>Pay only for usage</li>
+  <li>Scale anytime</li>
+</ul>
+
+<hr>
+
+<h4>Why DevOps Needs Cloud</h4>
+
+<p>
+DevOps ka goal hai:
+</p>
+
+<ul>
+  <li>Fast deployments</li>
+  <li>Automation</li>
+  <li>Reliability</li>
+</ul>
+
+<p>
+Cloud ye sab naturally support karta hai.
+</p>
+
+<hr>
+
+<h4>Main Cloud Providers</h4>
+
+<ul>
+  <li><strong>AWS</strong> – market leader</li>
+  <li><strong>Azure</strong> – Microsoft ecosystem</li>
+  <li><strong>GCP</strong> – Google infrastructure</li>
+</ul>
+
+<p>
+Concepts almost same hote hain —
+sirf names different.
+</p>
+
+<hr>
+
+<h4>Core Cloud Concepts for DevOps</h4>
+
+<h4>1. Virtual Machines</h4>
+<p>
+AWS me EC2, Azure me VM, GCP me Compute Engine.
+</p>
+
+<div class="code-title">Linux VM Example (AWS EC2)</div>
+<pre><code class="language-bash">ssh -i key.pem ubuntu@public-ip</code></pre>
+
+<p>
+DevOps engineers mostly Linux VMs use karte hain.
+</p>
+
+<hr>
+
+<h4>2. Identity & Access Management (IAM)</h4>
+
+<p>
+IAM batata hai:
+</p>
+
+<ul>
+  <li>Kaun access kare?</li>
+  <li>Kya access kare?</li>
+</ul>
+
+<p>
+<strong>Never use root user</strong> — industry rule.
+</p>
+
+<hr>
+
+<h4>3. Networking Basics</h4>
+
+<ul>
+  <li>VPC / Virtual Network</li>
+  <li>Subnets</li>
+  <li>Security Groups / Firewalls</li>
+</ul>
+
+<p>
+Networking misunderstanding = security issues.
+</p>
+
+<hr>
+
+<h4>4. Storage Types</h4>
+
+<ul>
+  <li>Block Storage (EBS)</li>
+  <li>Object Storage (S3)</li>
+  <li>File Storage (EFS)</li>
+</ul>
+
+<p>
+DevOps mostly:
+<strong>S3 + EBS</strong> use karta hai.
+</p>
+
+<hr>
+
+<h4>5. Cloud + Docker + Kubernetes</h4>
+
+<p>
+Real-world flow:
+</p>
+
+<ul>
+  <li>Code → Git</li>
+  <li>Build → CI pipeline</li>
+  <li>Image → Docker</li>
+  <li>Deploy → Kubernetes on cloud</li>
+</ul>
+
+<p>
+Cloud infra bina manual effort ke provision hota hai.
+</p>
+
+<hr>
+
+<h4>Infrastructure as Code (Preview)</h4>
+
+<p>
+Manual clicking DevOps nahi hai.
+</p>
+
+<p>
+DevOps engineers infra ko bhi code ki tarah likhte hain:
+</p>
+
+<ul>
+  <li>Terraform</li>
+  <li>CloudFormation</li>
+  <li>ARM templates</li>
+</ul>
+
+<p>
+Ispe next parts me focus aayega.
+</p>
+
+<hr>
+
+<h4>Common Beginner Mistakes</h4>
+
+<ul>
+  <li>Everything public expose karna</li>
+  <li>IAM ignore karna</li>
+  <li>Billing alerts na lagana</li>
+</ul>
+
+<p>
+Cloud power hai — responsibility bhi.
+</p>
+
+<hr>
+
+<h4>Reality of DevOps + Cloud Jobs</h4>
+
+<p>
+Interviewers expect:
+</p>
+
+<ul>
+  <li>Basic AWS services knowledge</li>
+  <li>Linux + networking clarity</li>
+  <li>Deployment understanding</li>
+</ul>
+
+<p>
+Certifications help,
+<strong>hands-on matters more</strong>.
+</p>
+
+<hr>
+
+<h4>What Comes Next?</h4>
+
+<p>
+Systems chal rahe hain,
+par unko observe kaise kare?
+</p>
+
+<a href="devops-roadmap-part-11.html" class="btn">
+Next Part → Monitoring & Logging
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Cloud services may incur costs. Always use free-tier accounts and billing alerts while learning.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Cloud Is the New Data Center</p>
+</footer>
+
+</body>
+</html>
