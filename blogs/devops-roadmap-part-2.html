@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 2 — Linux Fundamentals for DevOps | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 2 by SRJahir Tech. Learn Linux fundamentals required for DevOps including files, directories, commands, permissions, and server thinking." />
+<meta name="keywords" content="DevOps Linux basics, Linux for DevOps, learn Linux for DevOps, Linux fundamentals tutorial" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-2.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 2: Linux Fundamentals for DevOps</h3>
+
+<p>
+If DevOps had a backbone, it would be Linux.
+Almost every server, cloud VM, container, and production system
+runs on Linux.
+</p>
+
+<p>
+DevOps engineers do not “use Linux occasionally”.
+They live inside it.
+</p>
+
+<hr>
+
+<h4>Why Linux Is Mandatory for DevOps</h4>
+
+<p>
+Most cloud services (AWS, Azure, GCP) run Linux internally.
+Docker containers are Linux-based.
+Kubernetes nodes are Linux machines.
+</p>
+
+<p>
+If you avoid Linux, DevOps is not possible.
+</p>
+
+<hr>
+
+<h4>What Linux Really Is</h4>
+
+<p>
+Linux is an operating system —
+just like Windows —
+but designed for:
+</p>
+
+<ul>
+  <li>Servers</li>
+  <li>Stability</li>
+  <li>Automation</li>
+  <li>Remote access</li>
+</ul>
+
+<p>
+Linux does not focus on graphics.
+It focuses on control.
+</p>
+
+<hr>
+
+<h4>Understanding the Linux File System</h4>
+
+<p>
+Everything in Linux is a file.
+</p>
+
+<ul>
+  <li><strong>/</strong> → root directory</li>
+  <li><strong>/home</strong> → user files</li>
+  <li><strong>/etc</strong> → configuration files</li>
+  <li><strong>/var</strong> → logs and variable data</li>
+  <li><strong>/bin</strong> → essential commands</li>
+</ul>
+
+<p>
+DevOps engineers must know where configuration and logs live.
+</p>
+
+<hr>
+
+<h4>Basic Linux Commands You Must Know</h4>
+
+<div class="code-title">Check current directory</div>
+<pre><code class="language-bash">pwd</code></pre>
+
+<div class="code-title">List files</div>
+<pre><code class="language-bash">ls</code></pre>
+
+<div class="code-title">Change directory</div>
+<pre><code class="language-bash">cd /var/log</code></pre>
+
+<div class="code-title">Create a directory</div>
+<pre><code class="language-bash">mkdir devops</code></pre>
+
+<div class="code-title">Create a file</div>
+<pre><code class="language-bash">touch app.log</code></pre>
+
+<div class="code-title">View file content</div>
+<pre><code class="language-bash">cat app.log</code></pre>
+
+<p>
+These commands may look simple,
+but they are used daily in production.
+</p>
+
+<hr>
+
+<h4>Linux Permissions — Very Important</h4>
+
+<p>
+Linux protects files using permissions.
+</p>
+
+<p>
+Each file has:
+</p>
+
+<ul>
+  <li>Owner</li>
+  <li>Group</li>
+  <li>Permissions (read, write, execute)</li>
+</ul>
+
+<div class="code-title">Check permissions</div>
+<pre><code class="language-bash">ls -l</code></pre>
+
+<p>
+Incorrect permissions are a common cause of production failures.
+</p>
+
+<hr>
+
+<h4>Why DevOps Engineers Prefer Terminal</h4>
+
+<p>
+Terminal allows:
+</p>
+
+<ul>
+  <li>Automation</li>
+  <li>Remote control</li>
+  <li>Scripting</li>
+  <li>Speed</li>
+</ul>
+
+<p>
+GUIs do not scale.
+Terminals do.
+</p>
+
+<hr>
+
+<h4>Important Advice for Beginners</h4>
+
+<p>
+Do not memorize commands.
+Understand what they do.
+</p>
+
+<p>
+DevOps engineers are not command machines.
+They are system thinkers.
+</p>
+
+<hr>
+
+<h4>What Comes Next</h4>
+
+<p>
+In the next part,
+we will go deeper into Linux processes,
+users, and system management —
+the real server-level concepts.
+</p>
+
+<a href="devops-roadmap-part-3.html" class="btn">
+Next Part → Linux Users, Processes & System Basics
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Linux learning requires practice.
+Reading alone is not enough.
+Always test commands on a safe system or virtual machine.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Linux Is Power</p>
+</footer>
+
+</body>
+</html>
