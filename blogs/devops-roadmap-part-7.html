@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 7 — Docker & Containers | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 7 by SRJahir Tech. Learn Docker and containers from basics, images, containers, Dockerfile, real DevOps usage." />
+<meta name="keywords" content="Docker tutorial DevOps, containers for beginners, Docker DevOps roadmap" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 7: Docker & Containers</h3>
+
+<p>
+Agar DevOps ka heart Git hai,
+toh <strong>Docker uski muscle power</strong> hai.
+</p>
+
+<p>
+Docker ne ek sabse bada problem solve kiya:
+<strong>"It works on my machine"</strong>.
+</p>
+
+<hr>
+
+<h4>What Is a Container?</h4>
+
+<p>
+Container ek lightweight environment hota hai
+jisme:
+</p>
+
+<ul>
+  <li>Application</li>
+  <li>Dependencies</li>
+  <li>Configuration</li>
+</ul>
+
+<p>
+sab ek sath pack hota hai.
+</p>
+
+<p>
+Laptop, server, cloud — sab jagah same behavior.
+</p>
+
+<hr>
+
+<h4>Docker vs Virtual Machine</h4>
+
+<ul>
+  <li>VM = heavy, full OS</li>
+  <li>Container = lightweight, shared kernel</li>
+</ul>
+
+<p>
+Isliye containers fast, cheap aur scalable hote hain.
+</p>
+
+<hr>
+
+<h4>Install Docker (Linux)</h4>
+
+<div class="code-title">Install Docker</div>
+<pre><code class="language-bash">sudo apt update
+sudo apt install docker.io -y</code></pre>
+
+<div class="code-title">Start Docker</div>
+<pre><code class="language-bash">sudo systemctl start docker
+sudo systemctl enable docker</code></pre>
+
+<div class="code-title">Verify</div>
+<pre><code class="language-bash">docker --version</code></pre>
+
+<hr>
+
+<h4>Docker Images vs Containers</h4>
+
+<ul>
+  <li><strong>Image</strong> = blueprint</li>
+  <li><strong>Container</strong> = running instance</li>
+</ul>
+
+<p>
+Image se multiple containers ban sakte hain.
+</p>
+
+<hr>
+
+<h4>Your First Docker Container</h4>
+
+<div class="code-title">Run hello-world</div>
+<pre><code class="language-bash">docker run hello-world</code></pre>
+
+<p>
+Agar ye chala,
+Docker correctly installed hai.
+</p>
+
+<hr>
+
+<h4>Running a Real Container</h4>
+
+<div class="code-title">Run Nginx server</div>
+<pre><code class="language-bash">docker run -d -p 8080:80 nginx</code></pre>
+
+<p>
+Browser me open karo:
+</p>
+
+<pre><code class="language-bash">http://localhost:8080</code></pre>
+
+<p>
+Congratulations 🎉  
+Aapka first containerized server live hai.
+</p>
+
+<hr>
+
+<h4>Basic Docker Commands</h4>
+
+<div class="code-title">List running containers</div>
+<pre><code class="language-bash">docker ps</code></pre>
+
+<div class="code-title">List all containers</div>
+<pre><code class="language-bash">docker ps -a</code></pre>
+
+<div class="code-title">Stop container</div>
+<pre><code class="language-bash">docker stop container_id</code></pre>
+
+<div class="code-title">Remove container</div>
+<pre><code class="language-bash">docker rm container_id</code></pre>
+
+<hr>
+
+<h4>Dockerfile — Automation Begins</h4>
+
+<p>
+Dockerfile ek instruction file hoti hai
+jo image banati hai.
+</p>
+
+<div class="code-title">Simple Dockerfile</div>
+<pre><code class="language-docker">FROM ubuntu
+RUN apt update && apt install -y nginx
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+
+<p>
+Ye DevOps ka real kaam hai —
+manual nahi, automated setup.
+</p>
+
+<hr>
+
+<h4>Build Image</h4>
+
+<pre><code class="language-bash">docker build -t my-nginx .</code></pre>
+
+<div class="code-title">Run Image</div>
+<pre><code class="language-bash">docker run -d -p 8081:80 my-nginx</code></pre>
+
+<hr>
+
+<h4>Why Docker Is Mandatory for DevOps</h4>
+
+<ul>
+  <li>CI/CD pipelines Docker use karti hain</li>
+  <li>Kubernetes containers manage karta hai</li>
+  <li>Cloud native apps Docker-based hoti hain</li>
+</ul>
+
+<p>
+Docker skip = DevOps incomplete.
+</p>
+
+<hr>
+
+<h4>Common Beginner Mistakes</h4>
+
+<ul>
+  <li>Running containers as root</li>
+  <li>Huge images banana</li>
+  <li>No Dockerfile versioning</li>
+</ul>
+
+<hr>
+
+<h4>What Comes Next?</h4>
+
+<p>
+Containers ke baad aata hai
+<strong>Automation pipelines</strong>.
+</p>
+
+<a href="devops-roadmap-part-8.html" class="btn">
+Next Part → CI/CD Pipelines
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always scan Docker images and avoid running unknown containers in production.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Containers Changed Everything</p>
+</footer>
+
+</body>
+</html>
