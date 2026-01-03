@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 2 — EC2 & Linux Server Setup | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 2 by SRJahir Tech. Learn EC2 basics, AMIs, instance types, SSH access, and Linux server setup." />
+<meta name="author" content="SRJahir Tech" />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 2: EC2 & Linux Server Setup</h3>
+
+<p>
+EC2 is where AWS and Linux actually meet.
+An EC2 instance is nothing but a Linux server running inside AWS.
+</p>
+
+<h4>What is EC2?</h4>
+<p>
+EC2 (Elastic Compute Cloud) is a virtual machine.
+You control the OS.
+AWS controls the hardware.
+</p>
+
+<h4>Choosing the Right Linux AMI</h4>
+<ul>
+<li>Amazon Linux (AWS optimized)</li>
+<li>Ubuntu (most popular)</li>
+<li>Red Hat / CentOS (enterprise)</li>
+</ul>
+
+<p>
+For beginners, <strong>Ubuntu</strong> or <strong>Amazon Linux</strong> is best.
+</p>
+
+<h4>Instance Type (Important)</h4>
+<p>
+Instance type decides CPU & RAM.
+</p>
+
+<pre><code class="language-bash">
+t2.micro  # Free tier (practice only)
+t3.small  # Light production
+</code></pre>
+
+<h4>Key Pair & SSH</h4>
+<p>
+AWS does not use passwords by default.
+It uses SSH keys.
+</p>
+
+<pre><code class="language-bash">
+ssh -i key.pem ubuntu@PUBLIC_IP
+</code></pre>
+
+<h4>First Linux Commands on EC2</h4>
+<pre><code class="language-bash">
+whoami
+uname -a
+uptime
+df -h
+</code></pre>
+
+<h4>Important Thinking</h4>
+<p>
+This server is public.
+Anything open is a risk.
+Linux responsibility starts now.
+</p>
+
+<a href="aws-linux-combo-part-3.html" class="btn">
+Next: Users, Permissions & SSH Security →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never share your private key (.pem) file.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Servers Are Responsibility</p>
+</footer>
+
+</body>
+</html>
