@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>AWS + Linux Combo Part 10 — IAM & Permissions | SRJahir Tech</title>
+
+  <!-- SEO -->
+  <meta name="description" content="AWS + Linux Combo Part 10 by SRJahir Tech. Learn IAM, Linux permissions, chmod, chown, least privilege, and security mindset." />
+  <meta name="keywords" content="AWS IAM Linux permissions, chmod chown explained, cloud security basics" />
+  <meta name="author" content="SRJahir Tech" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-10.html" />
+
+  <link rel="icon" href="../logo.png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-93D0PKZM2L');
+  </script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+  </nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 10<br>IAM & Linux Permissions</h3>
+
+<p>
+This part explains one of the most misunderstood areas in cloud engineering:
+<strong>permissions</strong>.
+Most breaches happen because of bad permission design.
+</p>
+
+<h4>AWS IAM vs Linux Users</h4>
+<ul>
+  <li>AWS IAM controls cloud access</li>
+  <li>Linux users control server access</li>
+  <li>Both must follow least privilege</li>
+</ul>
+
+<h4>Linux Permission Model</h4>
+<p>
+Every file has:
+</p>
+<ul>
+  <li>Owner</li>
+  <li>Group</li>
+  <li>Others</li>
+</ul>
+
+<pre><code class="language-bash">ls -l</code></pre>
+
+<h4>chmod Explained Simply</h4>
+<pre><code class="language-bash">chmod 640 config.env</code></pre>
+
+<ul>
+  <li>Owner: read + write</li>
+  <li>Group: read</li>
+  <li>Others: no access</li>
+</ul>
+
+<h4>chown for Ownership</h4>
+<pre><code class="language-bash">chown appuser:www-data app/</code></pre>
+
+<p>
+Ownership mistakes cause most deployment failures.
+</p>
+
+<h4>Least Privilege Principle</h4>
+<p>
+Give only what is needed — nothing more.
+This applies to:
+</p>
+<ul>
+  <li>IAM roles</li>
+  <li>Linux users</li>
+  <li>Services</li>
+</ul>
+
+<h4>Common Beginner Mistakes</h4>
+<ul>
+  <li>chmod 777 everywhere</li>
+  <li>Running everything as root</li>
+  <li>Sharing AWS root account</li>
+</ul>
+
+<h4>Professional Mindset</h4>
+<p>
+If permissions are boring to you,
+you are not ready for production systems yet.
+</p>
+
+<a href="aws-linux-combo-part-11.html" class="btn">
+Next: CI/CD & Deployment Thinking →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never use 777 permissions in production.
+Security mistakes cost more than downtime.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Permissions Are Power</p>
+</footer>
+
+</body>
+</html>
