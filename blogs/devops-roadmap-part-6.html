@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 6 — Git & Version Control | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 6 by SRJahir Tech. Learn Git and version control for DevOps, repositories, commits, branches, GitHub workflow." />
+<meta name="keywords" content="DevOps Git tutorial, version control DevOps, GitHub for DevOps beginners" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-6.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 6: Git & Version Control</h3>
+
+<p>
+Agar DevOps ka backbone kuch hai,
+toh woh <strong>Git</strong> hai.
+</p>
+
+<p>
+Automation scripts, Docker files, CI/CD pipelines —
+sab Git ke bina meaningless hain.
+</p>
+
+<hr>
+
+<h4>What Is Version Control?</h4>
+
+<p>
+Version control ka matlab:
+</p>
+
+<ul>
+  <li>Code ka history rakhna</li>
+  <li>Changes track karna</li>
+  <li>Team ke sath safely kaam karna</li>
+</ul>
+
+<p>
+Git bina DevOps possible nahi hai.
+</p>
+
+<hr>
+
+<h4>Why DevOps Engineers Need Git</h4>
+
+<ul>
+  <li>CI/CD pipelines Git se trigger hoti hain</li>
+  <li>Infrastructure as Code Git me store hota hai</li>
+  <li>Rollback possible hota hai</li>
+</ul>
+
+<p>
+Production systems me “undo” sirf Git deta hai.
+</p>
+
+<hr>
+
+<h4>Install Git</h4>
+
+<div class="code-title">Ubuntu / Debian</div>
+<pre><code class="language-bash">sudo apt update
+sudo apt install git -y</code></pre>
+
+<div class="code-title">Check version</div>
+<pre><code class="language-bash">git --version</code></pre>
+
+<hr>
+
+<h4>Basic Git Configuration</h4>
+
+<div class="code-title">Set name & email</div>
+<pre><code class="language-bash">git config --global user.name "Your Name"
+git config --global user.email "youremail@example.com"</code></pre>
+
+<p>
+Ye identity commits ke sath store hoti hai.
+</p>
+
+<hr>
+
+<h4>Create Your First Repository</h4>
+
+<div class="code-title">Initialize repo</div>
+<pre><code class="language-bash">mkdir devops-project
+cd devops-project
+git init</code></pre>
+
+<p>
+Ab ye folder Git controlled ho gaya.
+</p>
+
+<hr>
+
+<h4>First Commit</h4>
+
+<div class="code-title">Create file</div>
+<pre><code class="language-bash">echo "DevOps Learning" > readme.txt</code></pre>
+
+<div class="code-title">Check status</div>
+<pre><code class="language-bash">git status</code></pre>
+
+<div class="code-title">Add & commit</div>
+<pre><code class="language-bash">git add .
+git commit -m "Initial commit"</code></pre>
+
+<p>
+Commit = snapshot of your project.
+</p>
+
+<hr>
+
+<h4>Understanding Git Workflow</h4>
+
+<ul>
+  <li>Working Directory → files you edit</li>
+  <li>Staging Area → files ready for commit</li>
+  <li>Repository → saved history</li>
+</ul>
+
+<p>
+DevOps automation always follows this flow.
+</p>
+
+<hr>
+
+<h4>Branches — Safe Experimenting</h4>
+
+<div class="code-title">Create branch</div>
+<pre><code class="language-bash">git branch dev</code></pre>
+
+<div class="code-title">Switch branch</div>
+<pre><code class="language-bash">git checkout dev</code></pre>
+
+<p>
+Production directly edit karna suicide hai.
+Branches safety dete hain.
+</p>
+
+<hr>
+
+<h4>Merge Branches</h4>
+
+<div class="code-title">Merge dev into main</div>
+<pre><code class="language-bash">git checkout main
+git merge dev</code></pre>
+
+<p>
+CI/CD pipelines yahin se start hoti hain.
+</p>
+
+<hr>
+
+<h4>GitHub — Remote Repositories</h4>
+
+<p>
+Git local hota hai,
+GitHub cloud me hota hai.
+</p>
+
+<div class="code-title">Add remote</div>
+<pre><code class="language-bash">git remote add origin https://github.com/username/repo.git</code></pre>
+
+<div class="code-title">Push code</div>
+<pre><code class="language-bash">git push -u origin main</code></pre>
+
+<hr>
+
+<h4>Common DevOps Mistakes</h4>
+
+<ul>
+  <li>Secrets Git me commit karna</li>
+  <li>Direct main branch pe kaam</li>
+  <li>No commit messages</li>
+</ul>
+
+<p>
+Git discipline = DevOps discipline.
+</p>
+
+<hr>
+
+<h4>What Comes Next?</h4>
+
+<p>
+Ab jab code versioned hai,
+next step hai <strong>Containers</strong>.
+</p>
+
+<a href="devops-roadmap-part-7.html" class="btn">
+Next Part → Docker & Containers
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never commit passwords, API keys, or secrets into Git repositories.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Version Control Is Safety</p>
+</footer>
+
+</body>
+</html>
