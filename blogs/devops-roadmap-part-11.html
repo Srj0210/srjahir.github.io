@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+
+<title>DevOps Roadmap Part 11 — Monitoring & Logging | SRJahir Tech</title>
+
+<!-- SEO -->
+<meta name="description" content="DevOps Roadmap Part 11 by SRJahir Tech. Learn monitoring, logging, observability, Prometheus, Grafana, logs, alerts, and real DevOps troubleshooting." />
+<meta name="keywords" content="DevOps monitoring tutorial, logging for DevOps, Prometheus Grafana basics, DevOps observability" />
+<meta name="author" content="SRJahir Tech" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-11.html" />
+
+<!-- Icon -->
+<link rel="icon" type="image/png" href="../logo.png">
+
+<!-- CSS -->
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<!-- ===== ARTICLE START ===== -->
+<section class="content-block">
+
+<h3>DevOps Roadmap — Part 11: Monitoring, Logging & Observability</h3>
+
+<p>
+Production system ka rule simple hai:
+<strong>“Agar tum dekh nahi sakte, to fix nahi kar sakte.”</strong>
+</p>
+
+<p>
+Monitoring aur logging DevOps ka backbone hai.
+Yahi decide karta hai ki tum real engineer ho ya sirf deployer.
+</p>
+
+<hr>
+
+<h4>Why Monitoring Is Mandatory</h4>
+
+<p>
+Production me ye sawal important hote hain:
+</p>
+
+<ul>
+  <li>Server alive hai ya nahi?</li>
+  <li>CPU / RAM overload to nahi?</li>
+  <li>App slow kyu ho rahi hai?</li>
+</ul>
+
+<p>
+Monitoring bina system andha hota hai.
+</p>
+
+<hr>
+
+<h4>Three Pillars of Observability</h4>
+
+<ul>
+  <li><strong>Metrics</strong> – numbers (CPU, RAM, latency)</li>
+  <li><strong>Logs</strong> – events & errors</li>
+  <li><strong>Traces</strong> – request ka full journey</li>
+</ul>
+
+<p>
+DevOps engineer ko teeno samajhne chahiye.
+</p>
+
+<hr>
+
+<h4>Monitoring Tools (Industry Standard)</h4>
+
+<ul>
+  <li>Prometheus – metrics collection</li>
+  <li>Grafana – visualization & dashboards</li>
+  <li>CloudWatch / Azure Monitor – cloud native</li>
+</ul>
+
+<p>
+Prometheus + Grafana combo almost everywhere use hota hai.
+</p>
+
+<hr>
+
+<h4>Basic Monitoring Example</h4>
+
+<p>
+Linux system check:
+</p>
+
+<div class="code-title">Check System Load</div>
+<pre><code class="language-bash">uptime</code></pre>
+
+<div class="code-title">CPU & Memory</div>
+<pre><code class="language-bash">top</code></pre>
+
+<p>
+Ye basic cheezein interview me bhi poochi jati hain.
+</p>
+
+<hr>
+
+<h4>What Is Logging?</h4>
+
+<p>
+Logs matlab system ka diary.
+Jo bhi hota hai — record hota hai.
+</p>
+
+<ul>
+  <li>Error logs</li>
+  <li>Access logs</li>
+  <li>Application logs</li>
+</ul>
+
+<p>
+Logs bina troubleshooting impossible hai.
+</p>
+
+<hr>
+
+<h4>Linux Logs You Must Know</h4>
+
+<div class="code-title">System Logs</div>
+<pre><code class="language-bash">/var/log/syslog</code></pre>
+
+<div class="code-title">Auth Logs</div>
+<pre><code class="language-bash">/var/log/auth.log</code></pre>
+
+<div class="code-title">View Logs</div>
+<pre><code class="language-bash">tail -f /var/log/syslog</code></pre>
+
+<hr>
+
+<h4>Centralized Logging (Real World)</h4>
+
+<p>
+Production me logs alag-alag servers pe nahi rehte.
+</p>
+
+<p>
+Common stack:
+</p>
+
+<ul>
+  <li>ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+  <li>EFK (Fluentd instead of Logstash)</li>
+</ul>
+
+<p>
+One dashboard → all logs.
+</p>
+
+<hr>
+
+<h4>Alerts — Sabse Important Part</h4>
+
+<p>
+Monitoring bina alert useless hai.
+</p>
+
+<p>
+Alert ka matlab:
+</p>
+
+<ul>
+  <li>CPU 90% se upar</li>
+  <li>Disk full hone wala</li>
+  <li>App down</li>
+</ul>
+
+<p>
+Alert email, Slack, SMS pe aata hai.
+</p>
+
+<hr>
+
+<h4>Common Beginner Mistakes</h4>
+
+<ul>
+  <li>Sirf dashboards banana, alerts nahi</li>
+  <li>Too many alerts (alert fatigue)</li>
+  <li>Logs rotate na karna</li>
+</ul>
+
+<p>
+Smart monitoring silent rehta hai jab sab sahi ho.
+</p>
+
+<hr>
+
+<h4>Interview Reality</h4>
+
+<p>
+Interviewer poochta hai:
+</p>
+
+<ul>
+  <li>App slow hai, tum kya check karoge?</li>
+  <li>Error aa raha hai, kaunsa log dekhega?</li>
+</ul>
+
+<p>
+Yaha DevOps engineer shine karta hai.
+</p>
+
+<hr>
+
+<h4>What Comes Next?</h4>
+
+<p>
+Ab tumhe DevOps ke saare tools ka idea hai.
+</p>
+
+<p>
+Final part me hum banayenge:
+<strong>Complete DevOps Engineer Roadmap</strong>
+— beginner se job-ready tak.
+</p>
+
+<a href="devops-roadmap-part-12.html" class="btn">
+Final Part → Become a DevOps Engineer
+</a>
+
+</section>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Monitoring setups vary by company and scale. Concepts remain universal across tools.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — If You Can Observe It, You Can Fix It</p>
+</footer>
+
+</body>
+</html>
