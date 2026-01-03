@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AWS + Linux Combo Part 3 — Users, Permissions & SSH Security | SRJahir Tech</title>
+
+<meta name="description" content="AWS + Linux Combo Part 3. Learn Linux users, sudo, permissions, SSH security on AWS EC2." />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>AWS + Linux Combo — Part 3: Users, Permissions & SSH Security</h3>
+
+<p>
+Running everything as root is dangerous.
+Real servers use proper Linux users.
+</p>
+
+<h4>Create a New User</h4>
+<pre><code class="language-bash">
+sudo adduser devuser
+</code></pre>
+
+<h4>Give Sudo Access</h4>
+<pre><code class="language-bash">
+sudo usermod -aG sudo devuser
+</code></pre>
+
+<h4>Switch User</h4>
+<pre><code class="language-bash">
+su - devuser
+</code></pre>
+
+<h4>File Permissions Explained</h4>
+<pre><code class="language-bash">
+ls -l
+chmod 755 file.sh
+chown user:user file.sh
+</code></pre>
+
+<h4>SSH Security Basics</h4>
+<ul>
+<li>Disable root login</li>
+<li>Use key-based auth only</li>
+<li>Change default SSH port (optional)</li>
+</ul>
+
+<h4>Why This Matters</h4>
+<p>
+Most cloud hacks happen due to weak Linux permissions.
+AWS cannot save you from bad Linux practices.
+</p>
+
+<a href="aws-linux-combo-part-4.html" class="btn">
+Next: Storage — EBS, Mounts & Backups →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Never give sudo access blindly.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — Security Is Discipline</p>
+</footer>
+
+</body>
+</html>
