@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Docker Tutorial Part 6 — Docker Compose | SRJahir Tech</title>
+
+<meta name="description" content="Docker Tutorial Part 6 by SRJahir Tech. Learn Docker Compose, docker-compose.yml, multi-container applications." />
+
+<link rel="icon" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
+</script>
+</head>
+
+<body>
+
+<div class="background-waves"></div>
+<img src="../logo.png" class="top-logo">
+
+<header class="nav">
+<h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar">
+<a href="../index.html">Home</a>
+<a href="../blog.html">Blog</a>
+</nav>
+</header>
+
+<section class="content-block">
+
+<h3>Docker Tutorial — Part 6: Docker Compose</h3>
+
+<p>
+In real applications, one container is never enough.
+A backend talks to a database, cache, and sometimes a frontend.
+Managing this manually becomes painful.
+</p>
+
+<h4>What is Docker Compose?</h4>
+<p>
+Docker Compose allows you to define and run
+<strong>multiple containers using one file</strong>.
+</p>
+
+<h4>The docker-compose.yml File</h4>
+<p>
+This file describes:
+</p>
+<ul>
+<li>Services (containers)</li>
+<li>Images</li>
+<li>Ports</li>
+<li>Volumes</li>
+<li>Networks</li>
+</ul>
+
+<h4>Basic Example (Web + Database)</h4>
+
+<pre><code class="language-yaml">
+version: "3.9"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+</code></pre>
+
+<h4>Start the Application</h4>
+<pre><code class="language-bash">docker compose up -d</code></pre>
+
+<h4>Stop Everything</h4>
+<pre><code class="language-bash">docker compose down</code></pre>
+
+<h4>Why Docker Compose Matters</h4>
+<ul>
+<li>One command starts everything</li>
+<li>Perfect for local development</li>
+<li>Industry standard workflow</li>
+</ul>
+
+<h4>Real-World Thinking</h4>
+<p>
+Every modern backend you deploy
+will eventually use Compose or Kubernetes.
+</p>
+
+<p>
+Next, we learn how Docker images are actually built.
+</p>
+
+<a href="docker-tutorial-part-7.html" class="btn">
+Next: Dockerfile & Image Building →
+</a>
+
+</section>
+
+<div class="blog-disclaimer">
+<strong>Disclaimer:</strong><br>
+Always version-control your docker-compose.yml file.
+</div>
+
+<footer>
+<p>© 2025 SRJahir Tech — One File, Many Containers</p>
+</footer>
+
+</body>
+</html>
