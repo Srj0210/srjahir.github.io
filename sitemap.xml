@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://srjahir.in/</loc>
-    <lastmod>2025-10-31</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://srjahir.in/terms.html</loc>
-    <lastmod>2025-10-31</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srjahir.in/privacy.html</loc>
-    <lastmod>2025-10-31</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srjahir.in/success.html</loc>
-    <lastmod>2025-10-31</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://srjahir.in/404.html</loc>
-    <lastmod>2025-10-31</lastmod>
-    <priority>0.4</priority>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <sitemap>
+    <loc>https://srjahir.in/sitemap-main.xml</loc>
+  </sitemap>
+
+  <sitemap>
+    <loc>https://srjahir.in/sitemap-blogs.xml</loc>
+  </sitemap>
+
+</sitemapindex>
