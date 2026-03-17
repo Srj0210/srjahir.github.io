@@ -5,23 +5,44 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
 
-  <title>Blog — SRJahir Tech</title>
+  <title>Blog — SRJahir Tech | AI, Cloud, Programming, Markets</title>
 
   <!-- SEO -->
-  <meta name="description" content="Long-form articles on AI, Cloud, programming, markets, careers, and long-term thinking by SRJahir Tech." />
-  <meta name="keywords" content="SRJahir Tech Blog, AI, Cloud, Programming, Markets, Career, India" />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="description" content="Long-form practical articles on AI, Cloud, programming, global markets, careers, and long-term thinking by SRJahir Tech. No hype. Just clarity." />
+  <meta name="keywords" content="SRJahir Tech Blog, AI, Cloud, Programming, Markets, Career, India, DevOps, Docker, Python, Linux" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blog.html" />
 
-  <!-- Icon -->
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:title" content="Blog — SRJahir Tech | AI, Cloud, Programming, Markets" />
+  <meta property="og:description" content="Practical articles on AI, Cloud, DevOps, Python, Linux, markets and careers. No hype. Just clarity." />
+  <meta property="og:url" content="https://srjahir.in/blog.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog — SRJahir Tech" />
+  <meta name="twitter:description" content="Practical articles on AI, Cloud, DevOps, Python, Linux, markets and careers." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="manifest" href="manifest.json" />
 
-  <!-- Global CSS -->
-  <link rel="stylesheet" href="assets/css/style.css" />
-
-  <!-- Animations -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
@@ -31,23 +52,32 @@
     gtag('js', new Date());
     gtag('config', 'G-93D0PKZM2L');
   </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 </head>
 
 <body>
 
-<!-- SAME BACKGROUND AS INDEX -->
-<div class="background-waves"></div>
-<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
+<div class="background-waves" aria-hidden="true"></div>
+<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" width="80" height="80" loading="eager" />
 
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
+  <nav class="menu-bar" aria-label="Main navigation">
     <a href="index.html">Home</a>
     <a href="blog.html">Blog</a>
     <a href="terms.html">Terms</a>
     <a href="privacy.html">Privacy</a>
   </nav>
 </header>
+
+<main>
 
 <!-- INTRO -->
 <section class="content-block">
@@ -59,15 +89,13 @@
   </p>
 </section>
 
-<!-- TOOLS -->
+<!-- SEARCH + FILTER -->
 <section class="content-block">
   <div class="blog-tools">
-
     <div class="blog-search">
-      <input type="text" id="searchInput" placeholder="Search articles…" />
+      <input type="text" id="searchInput" placeholder="Search articles…" aria-label="Search articles" />
     </div>
-
-    <div class="blog-categories">
+    <div class="blog-categories" role="group" aria-label="Filter by category">
       <button class="active" data-filter="all">All</button>
       <button data-filter="ai">AI</button>
       <button data-filter="cloud">Cloud</button>
@@ -75,903 +103,568 @@
       <button data-filter="markets">Markets</button>
       <button data-filter="career">Career</button>
       <button data-filter="india">India</button>
-<button data-filter="tutorial">Tutorial</button>
+      <button data-filter="tutorial">Tutorial</button>
     </div>
-
   </div>
 </section>
 
-<!-- BLOG LIST -->
-<section class="content-block">
-  <h3>SRJahir Tech Blog</h3>
-  <p>
-    Long-form, practical articles on AI, Cloud, careers, India’s future,
-    and real-world technology thinking. No hype. Just clarity.
-  </p>
-</section>
-
-<section class="services">
+<!-- BLOG CARDS -->
+<section class="services" aria-label="Blog articles">
   <div class="cards" id="blogCards">
 
     <div class="card blog-card" data-category="ai" data-aos="fade-up">
       <h4>Why AI Will Not Take Your Job</h4>
-      <p class="blog-preview">
-        AI is not replacing humans. It is replacing outdated ways of working.
-      </p>
+      <p class="blog-preview">AI is not replacing humans. It is replacing outdated ways of working.</p>
       <a href="blogs/ai-will-not-take-your-job.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="ai" data-aos="fade-up">
       <h4>How to Use AI the Right Way</h4>
-      <p class="blog-preview">
-        Learn how to use AI as a thinking partner, not a shortcut.
-      </p>
+      <p class="blog-preview">Learn how to use AI as a thinking partner, not a shortcut.</p>
       <a href="blogs/how-to-use-ai-the-right-way.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="ai" data-aos="fade-up">
       <h4>Why You Should Not Be Afraid of AI</h4>
-      <p class="blog-preview">
-        Fear comes from misunderstanding. AI is a power multiplier.
-      </p>
+      <p class="blog-preview">Fear comes from misunderstanding. AI is a power multiplier.</p>
       <a href="blogs/ai-fear-to-power.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="ai" data-aos="fade-up">
       <h4>Why AI and Adobe Will Empower Creators</h4>
-      <p class="blog-preview">
-        Creativity is not being automated — it is being amplified.
-      </p>
+      <p class="blog-preview">Creativity is not being automated — it is being amplified.</p>
       <a href="blogs/ai-adobe-creativity.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="career" data-aos="fade-up">
       <h4>Top Tech Skills That Will Save Your Career</h4>
-      <p class="blog-preview">
-        Skills that matter when AI reshapes jobs and industries.
-      </p>
+      <p class="blog-preview">Skills that matter when AI reshapes jobs and industries.</p>
       <a href="blogs/top-tech-skills-ai-era.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
       <h4>Cloud Career Roadmap</h4>
-      <p class="blog-preview">
-        A practical guide from beginner to industry-ready cloud engineer.
-      </p>
+      <p class="blog-preview">A practical guide from beginner to industry-ready cloud engineer.</p>
       <a href="blogs/cloud-career-roadmap.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="india" data-aos="fade-up">
       <h4>Why the Next 50 Years Are Bright for India</h4>
-      <p class="blog-preview">
-        India’s long-term strength lies in youth, technology, and adaptability.
-      </p>
+      <p class="blog-preview">India's long-term strength lies in youth, technology, and adaptability.</p>
       <a href="blogs/india-next-50-years.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="india" data-aos="fade-up">
-      <h4>India’s Youth Advantage</h4>
-      <p class="blog-preview">
-        Why this generation is fundamentally different from the past.
-      </p>
+      <h4>India's Youth Advantage</h4>
+      <p class="blog-preview">Why this generation is fundamentally different from the past.</p>
       <a href="blogs/india-youth-advantage.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="india" data-aos="fade-up">
       <h4>Why Systems Matter More Than Politics</h4>
-      <p class="blog-preview">
-        Politics changes headlines. Systems shape decades.
-        A neutral look at governance, technology, and long-term thinking.
-      </p>
-      <a href="blogs/why-systems-matter-more-than-politics.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Politics changes headlines. Systems shape decades.</p>
+      <a href="blogs/why-systems-matter-more-than-politics.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>How to Use Cloud Power the Right Way (AWS, Azure, Google Cloud)</h4>
-      <p class="blog-preview">
-        Cloud is not magic. It is responsibility, design, and thinking.
-        Learn how AWS, Azure, and Google Cloud actually give power — and how to use it correctly.
-      </p>
-      <a href="blogs/how-to-use-cloud-power.html" class="btn">
-        Read Article
-      </a>
+      <h4>How to Use Cloud Power the Right Way</h4>
+      <p class="blog-preview">Cloud is not magic. It is responsibility, design, and thinking.</p>
+      <a href="blogs/how-to-use-cloud-power.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
       <h4>Cloud Cost Mistakes Beginners Make</h4>
-      <p class="blog-preview">
-        Cloud is not expensive by default — carelessness is.
-        Learn the most common cloud cost mistakes beginners make
-        and how to avoid surprise bills.
-      </p>
-      <a href="blogs/cloud-cost-mistakes-beginners-make.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Cloud is not expensive by default — carelessness is.</p>
+      <a href="blogs/cloud-cost-mistakes-beginners-make.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>Why Certifications Alone Don’t Make Cloud Engineers</h4>
-      <p class="blog-preview">
-        Certifications open doors, but real cloud engineers are
-        judged by thinking, responsibility, and hands-on skills.
-      </p>
-      <a href="blogs/why-certifications-alone-dont-make-cloud-engineers.html" class="btn">
-        Read Article
-      </a>
+      <h4>Why Certifications Alone Don't Make Cloud Engineers</h4>
+      <p class="blog-preview">Certifications open doors, but real skills come from building things.</p>
+      <a href="blogs/why-certifications-alone-dont-make-cloud-engineers.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
       <h4>AI + Cloud = New Career Paths</h4>
-      <p class="blog-preview">
-        AI and Cloud together are reshaping careers.
-        Discover new roles emerging beyond traditional IT jobs.
-      </p>
-      <a href="blogs/ai-plus-cloud-new-career-paths.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">AI and Cloud together are reshaping careers across tech.</p>
+      <a href="blogs/ai-plus-cloud-new-career-paths.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="cloud" data-aos="fade-up">
       <h4>Cloud Security for Non-Security People</h4>
-      <p class="blog-preview">
-        You don’t need to be a security expert to stay safe.
-        Learn cloud security basics every developer should know.
-      </p>
-      <a href="blogs/cloud-security-for-non-security-people.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">You don't need to be a security expert to stay safe in the cloud.</p>
+      <a href="blogs/cloud-security-for-non-security-people.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Why Global Markets Move More on Psychology Than Numbers</h4>
-      <p class="blog-preview">
-        Markets don’t react to data alone.
-        Fear, confidence, and narratives shape global market movements.
-      </p>
-      <a href="blogs/why-global-markets-move-on-psychology.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Fear, confidence, and narratives shape global market movements.</p>
+      <a href="blogs/why-global-markets-move-on-psychology.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Global Markets vs Indian Markets</h4>
-      <p class="blog-preview">
-        Understand what truly drives global markets and Indian markets,
-        and why treating them the same is a mistake.
-      </p>
-      <a href="blogs/global-markets-vs-indian-markets.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Why treating global and Indian markets the same is a mistake.</p>
+      <a href="blogs/global-markets-vs-indian-markets.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Why Long-Term Investors Win</h4>
-      <p class="blog-preview">
-        Compounding, patience, and discipline explain
-        why long-term investors outperform traders.
-      </p>
-      <a href="blogs/why-long-term-investors-win.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Compounding, patience, and discipline explain why long-term investors win.</p>
+      <a href="blogs/why-long-term-investors-win.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Market Cycles Beginners Don’t Understand</h4>
-      <p class="blog-preview">
-        Every market follows emotional cycles.
-        Learn why beginners repeat the same mistakes every time.
-      </p>
-      <a href="blogs/market-cycles-beginners-dont-understand.html" class="btn">
-        Read Article
-      </a>
+      <h4>Market Cycles Beginners Don't Understand</h4>
+      <p class="blog-preview">Every market follows emotional cycles. Learn why beginners repeat mistakes.</p>
+      <a href="blogs/market-cycles-beginners-dont-understand.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Why News-Based Trading Fails</h4>
-      <p class="blog-preview">
-        Markets move before headlines.
-        Learn why reacting to news usually leads to losses.
-      </p>
-      <a href="blogs/why-news-based-trading-fails.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Markets move before headlines. Reacting to news usually leads to losses.</p>
+      <a href="blogs/why-news-based-trading-fails.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Why the American Market Moves the World</h4>
-      <p class="blog-preview">
-        The US market is not just another stock market.
-        It drives global liquidity, confidence, and capital flows.
-        Understand why the world reacts when America moves.
-      </p>
-      <a href="blogs/why-american-market-moves-the-world.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">The US market drives global liquidity, confidence, and capital flows.</p>
+      <a href="blogs/why-american-market-moves-the-world.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>How Beginners Misunderstand the American Market</h4>
-      <p class="blog-preview">
-        Many beginners enter the US market with wrong assumptions.
-        This article explains common misconceptions and why systems matter more than excitement.
-      </p>
-      <a href="blogs/how-beginners-misunderstand-american-market.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Common misconceptions Indian investors have about US markets.</p>
+      <a href="blogs/how-beginners-misunderstand-american-market.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="markets" data-aos="fade-up">
       <h4>Market Education: How Global Markets Actually Work</h4>
-      <p class="blog-preview">
-        A complete foundation guide to global markets.
-        Understand structure, institutions, risk, cycles, and why markets move
-        beyond news, noise, and social media opinions.
-      </p>
-      <a href="blogs/market-education-how-global-markets-work.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">A complete foundation guide to understanding global markets.</p>
+      <a href="blogs/market-education-how-global-markets-work.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="programming" data-aos="fade-up">
       <h4>Programming Languages That Will Matter (2026–2031)</h4>
-      <p class="blog-preview">
-        AI is changing how software is written.
-        Learn which programming languages will stay relevant,
-        which will grow, and how to choose wisely in the AI era.
-      </p>
-      <a href="blogs/programming-languages-2026-2031-ai-era.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">Which languages will stay relevant and grow in the AI era.</p>
+      <a href="blogs/programming-languages-2026-2031-ai-era.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="programming" data-aos="fade-up">
       <h4>Why Syntax Matters Less Than Thinking in the AI Era</h4>
-      <p class="blog-preview">
-        AI can write syntax in seconds.
-        What truly matters now is how you think, design problems,
-        and understand systems beyond code.
-      </p>
-      <a href="blogs/why-syntax-matters-less-than-thinking.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">AI can write syntax. What matters now is how you think and design.</p>
+      <a href="blogs/why-syntax-matters-less-than-thinking.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="programming" data-aos="fade-up">
       <h4>How AI Changes Software Engineering — Not Coding</h4>
-      <p class="blog-preview">
-        AI is changing architecture, responsibility, and decision-making —
-        not the existence of coding itself.
-      </p>
-      <a href="blogs/how-ai-changes-software-engineering-not-coding.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">AI is changing architecture and responsibility, not the existence of coding.</p>
+      <a href="blogs/how-ai-changes-software-engineering-not-coding.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="programming" data-aos="fade-up">
       <h4>Beginner vs Engineer: The Gap AI Cannot Fill</h4>
-      <p class="blog-preview">
-        AI can generate answers.
-        It cannot replace experience, judgment,
-        and responsibility that define real engineers.
-      </p>
-      <a href="blogs/beginner-vs-engineer-gap-ai-cannot-fill.html" class="btn">
-        Read Article
-      </a>
+      <p class="blog-preview">AI cannot replace experience, judgment, and responsibility.</p>
+      <a href="blogs/beginner-vs-engineer-the-gap-ai-cannot-fill.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="career" data-aos="fade-up">
-      <h4>Resume & CV Master Guide for the AI Era</h4>
-      <p class="blog-preview">
-        A complete resume and CV guide for the AI era.
-        Learn how to present skills, projects, and thinking correctly.
-      </p>
-      <a href="blogs/resume-cv-complete-guide-ai-era.html" class="btn">
-        Read Article
-      </a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Linux: Beginner to Professional</h4>
-      <p class="blog-preview">
-        A complete Linux learning roadmap — from basic commands
-        to real-world system administration and server thinking.
-      </p>
-      <a href="blogs/learn-linux-beginner-to-pro.html" class="btn">
-        Read Article
-      </a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Python: Beginner to Professional</h4>
-      <p class="blog-preview">
-        Learn Python the right way — fundamentals, problem-solving,
-        scripting, automation, and industry use cases.
-      </p>
-      <a href="blogs/learn-python-beginner-to-pro.html" class="btn">
-        Read Article
-      </a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn JavaScript: Beginner to Professional</h4>
-      <p class="blog-preview">
-        A deep guide to JavaScript — from basics to modern
-        web development and system-level thinking.
-      </p>
-      <a href="blogs/learn-javascript-beginner-to-pro.html" class="btn">
-        Read Article
-      </a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Java: Beginner to Professional</h4>
-      <p class="blog-preview">
-        Understand Java beyond syntax — object-oriented thinking,
-        backend systems, performance, and enterprise use.
-      </p>
-      <a href="blogs/learn-java-beginner-to-pro.html" class="btn">
-        Read Article
-      </a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn CSS: Beginner to Professional</h4>
-      <p class="blog-preview">
-        Learn CSS from fundamentals to layout systems,
-        responsiveness, performance, and scalable design.
-      </p>
-      <a href="blogs/learn-css-beginner-to-pro.html" class="btn">
-        Read Article
-      </a>
+      <h4>Resume &amp; CV Master Guide for the AI Era</h4>
+      <p class="blog-preview">A complete resume guide for presenting skills and thinking correctly.</p>
+      <a href="blogs/resume-complete-guide-ai-era.html" class="btn">Read Article</a>
     </div>
 
     <div class="card blog-card" data-category="programming" data-aos="fade-up">
       <h4>Programming Fundamentals — Master Guide</h4>
-      <p class="blog-preview">
-        Before learning Python, JavaScript, Java, or Cloud,
-        understand how programming actually works.
-        This pillar guide explains logic, flow, data, and thinking
-        that every strong developer shares.
-      </p>
-      <a href="blogs/programming-fundamentals-master-guide.html" class="btn">
-        Read Article
-      </a>
-    </div>
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 1 — Introduction & Setup</h4>
-  <p class="blog-preview">
-    Understand what Python is, where it is used, and how to set up Python the right way.
-  </p>
-  <a href="blogs/python-tutorial-part-1.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 2 — Variables & Data Types</h4>
-  <p class="blog-preview">
-    Learn how Python stores data using variables and core data types.
-  </p>
-  <a href="blogs/python-tutorial-part-2.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 3 — Operators & Expressions</h4>
-  <p class="blog-preview">
-    Master arithmetic, comparison, logical, and assignment operators in Python.
-  </p>
-  <a href="blogs/python-tutorial-part-3.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 4 — Conditional Statements</h4>
-  <p class="blog-preview">
-    Learn decision-making in Python using if, elif, and else.
-  </p>
-  <a href="blogs/python-tutorial-part-4.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 5 — Loops (for & while)</h4>
-  <p class="blog-preview">
-    Understand looping, iteration, and control flow using loops.
-  </p>
-  <a href="blogs/python-tutorial-part-5.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 6 — Functions</h4>
-  <p class="blog-preview">
-    Learn how to write reusable, clean, and structured Python functions.
-  </p>
-  <a href="blogs/python-tutorial-part-6.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 7 — Lists, Tuples & Sets</h4>
-  <p class="blog-preview">
-    Understand Python collections and how to work with grouped data.
-  </p>
-  <a href="blogs/python-tutorial-part-7.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 8 — Dictionaries</h4>
-  <p class="blog-preview">
-    Learn key-value data storage using Python dictionaries.
-  </p>
-  <a href="blogs/python-tutorial-part-8.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 9 — Strings & String Methods</h4>
-  <p class="blog-preview">
-    Master string handling, formatting, and common string operations.
-  </p>
-  <a href="blogs/python-tutorial-part-9.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 10 — Error Handling</h4>
-  <p class="blog-preview">
-    Learn how to handle errors using try, except, else, and finally.
-  </p>
-  <a href="blogs/python-tutorial-part-10.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 11 — File Handling</h4>
-  <p class="blog-preview">
-    Learn how Python reads, writes, and manages files in real applications.
-  </p>
-  <a href="blogs/python-tutorial-part-11.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Python Tutorial Part 12 — Virtual Environments & pip</h4>
-  <p class="blog-preview">
-    Learn dependency management using pip and virtual environments.
-  </p>
-  <a href="blogs/python-tutorial-part-12.html" class="btn">Read Article</a>
-</div>
-
-<!-- ================= LINUX TUTORIAL SERIES ================= -->
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 1: What Is Linux & Why It Matters</h4>
-  <p class="blog-preview">
-    Understand what Linux is, why it powers servers, cloud, DevOps, and how it differs from Windows and macOS.
-  </p>
-  <a href="blogs/linux-tutorial-part-1.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 2: Installing Linux & Choosing a Distro</h4>
-  <p class="blog-preview">
-    Learn how to install Linux, dual boot safely, use virtual machines, and choose the right distro for beginners.
-  </p>
-  <a href="blogs/linux-tutorial-part-2.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 3: Linux File System Explained</h4>
-  <p class="blog-preview">
-    Understand directories like /home, /etc, /var, /bin, permissions, and how Linux organizes everything.
-  </p>
-  <a href="blogs/linux-tutorial-part-3.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 4: Basic Linux Commands You Must Know</h4>
-  <p class="blog-preview">
-    Learn essential commands like ls, cd, pwd, cp, mv, rm, mkdir with real-world examples.
-  </p>
-  <a href="blogs/linux-tutorial-part-4.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 5: File Permissions & Ownership</h4>
-  <p class="blog-preview">
-    Master chmod, chown, permissions, users, groups, and Linux security basics.
-  </p>
-  <a href="blogs/linux-tutorial-part-5.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 6: Package Management (apt, yum, dnf)</h4>
-  <p class="blog-preview">
-    Learn how software installation works in Linux using package managers the right way.
-  </p>
-  <a href="blogs/linux-tutorial-part-6.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 7: Processes, CPU & Memory Management</h4>
-  <p class="blog-preview">
-    Understand running processes, background jobs, top, ps, kill, and system resource usage.
-  </p>
-  <a href="blogs/linux-tutorial-part-7.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 8: Networking Basics in Linux</h4>
-  <p class="blog-preview">
-    Learn IP addresses, ports, ping, netstat, ss, curl, wget, and basic network troubleshooting.
-  </p>
-  <a href="blogs/linux-tutorial-part-8.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 9: Shell Scripting Basics</h4>
-  <p class="blog-preview">
-    Automate tasks using bash scripting, variables, loops, conditions, and real scripts.
-  </p>
-  <a href="blogs/linux-tutorial-part-9.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 10: Logs, Monitoring & Troubleshooting</h4>
-  <p class="blog-preview">
-    Learn how to read logs, diagnose errors, monitor system health like real Linux admins.
-  </p>
-  <a href="blogs/linux-tutorial-part-10.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 11: Linux for Servers & Cloud</h4>
-  <p class="blog-preview">
-    Understand how Linux is used in cloud, servers, containers, and production environments.
-  </p>
-  <a href="blogs/linux-tutorial-part-11.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Linux Tutorial Part 12: Becoming a Confident Linux User</h4>
-  <p class="blog-preview">
-    Final roadmap, daily practice habits, common mistakes, and how to think like a Linux professional.
-  </p>
-  <a href="blogs/linux-tutorial-part-12.html" class="btn">Read Article</a>
-</div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 1: What is Docker & Why It Exists</h4>
-  <p class="blog-preview">
-    Understand Docker from zero — problems before Docker, containers vs virtual machines, and why Docker matters.
-  </p>
-  <a href="blogs/docker-tutorial-part-1.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 2: Installing Docker & First Container</h4>
-  <p class="blog-preview">
-    Install Docker step by step and run your first container to see Docker in action.
-  </p>
-  <a href="blogs/docker-tutorial-part-2.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 3: Docker Images & Containers Explained</h4>
-  <p class="blog-preview">
-    Learn what images and containers really are, how they work, and how Docker uses layers.
-  </p>
-  <a href="blogs/docker-tutorial-part-3.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 4: Running & Managing Containers</h4>
-  <p class="blog-preview">
-    Run, stop, restart, remove containers and understand container lifecycle clearly.
-  </p>
-  <a href="blogs/docker-tutorial-part-4.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 5: Dockerfile Basics</h4>
-  <p class="blog-preview">
-    Learn how to write Dockerfiles, build your own images, and understand each instruction.
-  </p>
-  <a href="blogs/docker-tutorial-part-5.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 6: Volumes & Persistent Data</h4>
-  <p class="blog-preview">
-    Understand Docker volumes, bind mounts, and how to keep data safe outside containers.
-  </p>
-  <a href="blogs/docker-tutorial-part-6.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 7: Docker Networking Explained</h4>
-  <p class="blog-preview">
-    Learn container networking, ports, bridge networks, and how containers talk to each other.
-  </p>
-  <a href="blogs/docker-tutorial-part-7.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 8: Docker Compose Basics</h4>
-  <p class="blog-preview">
-    Run multi-container applications using Docker Compose with real-world examples.
-  </p>
-  <a href="blogs/docker-tutorial-part-8.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 9: Environment Variables & Secrets</h4>
-  <p class="blog-preview">
-    Manage configs, environment variables, and secrets safely in Docker applications.
-  </p>
-  <a href="blogs/docker-tutorial-part-9.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 10: Docker Logs & Troubleshooting</h4>
-  <p class="blog-preview">
-    Debug containers, read logs, fix common Docker errors like a real DevOps engineer.
-  </p>
-  <a href="blogs/docker-tutorial-part-10.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 11: Docker Security Best Practices</h4>
-  <p class="blog-preview">
-    Learn container security basics, image scanning, permissions, and common mistakes.
-  </p>
-  <a href="blogs/docker-tutorial-part-11.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>Docker Tutorial Part 12: Docker in Real Projects & Career Path</h4>
-  <p class="blog-preview">
-    How Docker is used in production, real workflows, and what to learn next after Docker.
-  </p>
-  <a href="blogs/docker-tutorial-part-12.html" class="btn">Read Article</a>
-</div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 1: Cloud & Linux Foundations</h4>
-  <p class="blog-preview">
-    Understand cloud basics, why Linux dominates AWS, and how both work together in real systems.
-  </p>
-  <a href="blogs/aws-linux-combo-part-1.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 2: EC2 & Linux Server Setup</h4>
-  <p class="blog-preview">
-    Launch EC2 instances, choose Linux AMIs, connect via SSH, and secure your first server.
-  </p>
-  <a href="blogs/aws-linux-combo-part-2.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 3: Users, Permissions & SSH Security</h4>
-  <p class="blog-preview">
-    Manage Linux users on AWS, SSH keys, sudo rules, and basic server hardening.
-  </p>
-  <a href="blogs/aws-linux-combo-part-3.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 4: Storage — EBS, Mounts & Backups</h4>
-  <p class="blog-preview">
-    Learn EBS volumes, mounting disks in Linux, resizing storage, and backups.
-  </p>
-  <a href="blogs/aws-linux-combo-part-4.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 5: Networking, Security Groups & Firewalls</h4>
-  <p class="blog-preview">
-    Understand VPC basics, security groups, ports, and Linux firewall concepts together.
-  </p>
-  <a href="blogs/aws-linux-combo-part-5.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 6: Web Server Deployment</h4>
-  <p class="blog-preview">
-    Deploy Nginx/Apache on EC2, configure Linux services, and host your first website.
-  </p>
-  <a href="blogs/aws-linux-combo-part-6.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 7: Logs, Monitoring & Troubleshooting</h4>
-  <p class="blog-preview">
-    Read Linux logs, monitor EC2 health, and debug real production issues.
-  </p>
-  <a href="blogs/aws-linux-combo-part-7.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 8: Automation with Shell Scripts</h4>
-  <p class="blog-preview">
-    Automate AWS Linux tasks using bash scripts and cron jobs.
-  </p>
-  <a href="blogs/aws-linux-combo-part-8.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 9: Security Best Practices</h4>
-  <p class="blog-preview">
-    Secure Linux servers on AWS using real-world security practices.
-  </p>
-  <a href="blogs/aws-linux-combo-part-9.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 10: Cost Control & Optimization</h4>
-  <p class="blog-preview">
-    Reduce AWS costs using Linux-level optimizations and smart architecture.
-  </p>
-  <a href="blogs/aws-linux-combo-part-10.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 11: Real Production Architecture</h4>
-  <p class="blog-preview">
-    Understand how real companies run Linux workloads on AWS.
-  </p>
-  <a href="blogs/aws-linux-combo-part-11.html" class="btn">Read Article</a>
-</div>
-
-<div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>AWS + Linux Combo Part 12: Career Roadmap & Next Steps</h4>
-  <p class="blog-preview">
-    Final roadmap, skills to master, and how to grow into DevOps or Cloud roles.
-  </p>
-  <a href="blogs/aws-linux-combo-part-12.html" class="btn">Read Article</a>
-</div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 1: What is DevOps & Why It Matters</h4>
-  <p class="blog-preview">
-    Understand DevOps mindset, culture, real responsibilities, and why companies actually need DevOps engineers.
-  </p>
-  <a href="blogs/devops-roadmap-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 2: Linux Fundamentals for DevOps</h4>
-  <p class="blog-preview">
-    Learn Linux commands, permissions, processes, services, logs, and server thinking required for DevOps.
-  </p>
-  <a href="blogs/devops-roadmap-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 3: Networking Basics Every DevOps Must Know</h4>
-  <p class="blog-preview">
-    IP, DNS, ports, firewalls, load balancing, and how servers communicate in real production systems.
-  </p>
-  <a href="blogs/devops-roadmap-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 4: Cloud Fundamentals (AWS Explained Simply)</h4>
-  <p class="blog-preview">
-    Understand EC2, IAM, VPC, security groups, storage, and cloud concepts without confusion.
-  </p>
-  <a href="blogs/devops-roadmap-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 5: Docker & Containers Explained</h4>
-  <p class="blog-preview">
-    Learn containers vs VMs, Docker images, containers, Dockerfiles, and real DevOps use cases.
-  </p>
-  <a href="blogs/devops-roadmap-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 6: Git, GitHub & CI/CD Pipelines</h4>
-  <p class="blog-preview">
-    Learn version control, GitHub workflows, CI/CD concepts, and automated deployments.
-  </p>
-  <a href="blogs/devops-roadmap-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 7: Kubernetes Basics for Beginners</h4>
-  <p class="blog-preview">
-    Understand pods, deployments, services, scaling, and why Kubernetes is used in real systems.
-  </p>
-  <a href="blogs/devops-roadmap-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 8: Monitoring, Logs & Troubleshooting</h4>
-  <p class="blog-preview">
-    Learn how DevOps engineers detect failures, read logs, monitor systems, and recover fast.
-  </p>
-  <a href="blogs/devops-roadmap-part-8.html" class="btn">Read Article</a>
-</div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 9: DevOps Security & Best Practices</h4>
-  <p class="blog-preview">
-    IAM, secrets, least privilege, firewall rules, and security mindset every DevOps must have.
-  </p>
-  <a href="blogs/devops-roadmap-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 10: Real-World DevOps Projects</h4>
-  <p class="blog-preview">
-    Step-by-step DevOps projects using Linux, AWS, Docker, CI/CD, and monitoring.
-  </p>
-  <a href="blogs/devops-roadmap-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 11: DevOps Resume & Interview Preparation</h4>
-  <p class="blog-preview">
-    Learn how to build a strong DevOps resume, projects to show, and interview preparation strategy.
-  </p>
-  <a href="blogs/devops-roadmap-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-  <h4>DevOps Roadmap Part 12: Becoming a Confident DevOps Engineer</h4>
-  <p class="blog-preview">
-    Final roadmap, daily learning plan, mistakes to avoid, and how to grow as a DevOps professional.
-  </p>
-  <a href="blogs/devops-roadmap-part-12.html" class="btn">Read Article</a>
+      <p class="blog-preview">Before any language, understand how programming actually works.</p>
+      <a href="blogs/programming-fundamentals-master-guide.html" class="btn">Read Article</a>
     </div>
 
+    <div class="card blog-card" data-category="programming" data-aos="fade-up">
+      <h4>Learn Python: Beginner to Professional</h4>
+      <p class="blog-preview">Learn Python the right way — fundamentals, scripting, and real use cases.</p>
+      <a href="blogs/learn-python-beginner-to-pro.html" class="btn">Read Article</a>
+    </div>
 
-    
-    
+    <div class="card blog-card" data-category="programming" data-aos="fade-up">
+      <h4>Learn Linux: Beginner to Professional</h4>
+      <p class="blog-preview">Complete Linux roadmap from basic commands to server administration.</p>
+      <a href="blogs/learn-linux-beginner-to-pro.html" class="btn">Read Article</a>
+    </div>
 
+    <div class="card blog-card" data-category="programming" data-aos="fade-up">
+      <h4>Learn JavaScript: Beginner to Professional</h4>
+      <p class="blog-preview">From basics to modern web development and system-level thinking.</p>
+      <a href="blogs/learn-javascript-beginner-to-pro.html" class="btn">Read Article</a>
+    </div>
 
+    <div class="card blog-card" data-category="programming" data-aos="fade-up">
+      <h4>Learn Java: Beginner to Professional</h4>
+      <p class="blog-preview">OOP thinking, backend systems, performance, and enterprise use.</p>
+      <a href="blogs/learn-java-beginner-to-pro.html" class="btn">Read Article</a>
+    </div>
 
+    <div class="card blog-card" data-category="programming" data-aos="fade-up">
+      <h4>Learn CSS: Beginner to Professional</h4>
+      <p class="blog-preview">From fundamentals to layout systems, responsiveness and design.</p>
+      <a href="blogs/learn-css-beginner-to-pro.html" class="btn">Read Article</a>
+    </div>
 
+    <!-- PYTHON TUTORIAL SERIES -->
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 1 — Introduction &amp; Setup</h4>
+      <p class="blog-preview">What Python is, where it is used, and how to set it up correctly.</p>
+      <a href="blogs/python-tutorial-part-1.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 2 — Variables &amp; Data Types</h4>
+      <p class="blog-preview">How Python stores data using variables and core data types.</p>
+      <a href="blogs/python-tutorial-part-2.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 3 — Operators &amp; Expressions</h4>
+      <p class="blog-preview">Master arithmetic, comparison, logical, and assignment operators.</p>
+      <a href="blogs/python-tutorial-part-3.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 4 — Conditional Statements</h4>
+      <p class="blog-preview">Decision-making in Python using if, elif, and else.</p>
+      <a href="blogs/python-tutorial-part-4.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 5 — Loops</h4>
+      <p class="blog-preview">Looping, iteration, and control flow using for and while loops.</p>
+      <a href="blogs/python-tutorial-part-5.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 6 — Data Structures</h4>
+      <p class="blog-preview">Lists, tuples, sets, and dictionaries in Python explained clearly.</p>
+      <a href="blogs/python-tutorial-part-6.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 7 — Functions</h4>
+      <p class="blog-preview">Write reusable, clean, and structured Python functions.</p>
+      <a href="blogs/python-tutorial-part-7.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 8 — File Handling</h4>
+      <p class="blog-preview">How Python reads, writes, and manages files in real applications.</p>
+      <a href="blogs/python-tutorial-part-8.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 9 — Error Handling</h4>
+      <p class="blog-preview">Handle errors using try, except, else, and finally properly.</p>
+      <a href="blogs/python-tutorial-part-9.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 10 — Modules &amp; Packages</h4>
+      <p class="blog-preview">Using the standard library, pip, and third-party packages.</p>
+      <a href="blogs/python-tutorial-part-10.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 11 — Object Oriented Programming</h4>
+      <p class="blog-preview">Classes, objects, inheritance, and OOP in Python explained.</p>
+      <a href="blogs/python-tutorial-part-11.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Python Tutorial Part 12 — Virtual Environments &amp; Project Setup</h4>
+      <p class="blog-preview">Dependency management, virtual environments, and real project structure.</p>
+      <a href="blogs/python-tutorial-part-12.html" class="btn">Read Article</a>
+    </div>
 
-    
+    <!-- LINUX TUTORIAL SERIES -->
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 1 — Introduction &amp; Why Linux Matters</h4>
+      <p class="blog-preview">What Linux is, why it powers cloud and servers, and how to start.</p>
+      <a href="blogs/linux-tutorial-part-1.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 2 — File Navigation &amp; Management</h4>
+      <p class="blog-preview">Navigate the filesystem, manage files, and understand Linux structure.</p>
+      <a href="blogs/linux-tutorial-part-2.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 3 — File Permissions &amp; Ownership</h4>
+      <p class="blog-preview">chmod, chown, users, groups, and Linux security basics.</p>
+      <a href="blogs/linux-tutorial-part-3.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 4 — Text Processing Tools</h4>
+      <p class="blog-preview">grep, sed, awk, cut, sort — the essential text processing toolkit.</p>
+      <a href="blogs/linux-tutorial-part-4.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 5 — Process Management</h4>
+      <p class="blog-preview">Running processes, background jobs, signals, and system resources.</p>
+      <a href="blogs/linux-tutorial-part-5.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 6 — Networking Commands</h4>
+      <p class="blog-preview">IP, SSH, curl, ping, ss, netstat and network troubleshooting.</p>
+      <a href="blogs/linux-tutorial-part-6.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 7 — Shell Scripting</h4>
+      <p class="blog-preview">Automate tasks using bash scripts, variables, loops and functions.</p>
+      <a href="blogs/linux-tutorial-part-7.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 8 — Cron Jobs &amp; Task Scheduling</h4>
+      <p class="blog-preview">Schedule tasks with cron, systemd timers and the at command.</p>
+      <a href="blogs/linux-tutorial-part-8.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 9 — Package Management</h4>
+      <p class="blog-preview">apt, dnf, snap and managing software on Linux systems.</p>
+      <a href="blogs/linux-tutorial-part-9.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 10 — Environment Variables &amp; System Config</h4>
+      <p class="blog-preview">Environment variables, shell initialization, and system configuration.</p>
+      <a href="blogs/linux-tutorial-part-10.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 11 — Disk Management &amp; Storage</h4>
+      <p class="blog-preview">Disk partitions, LVM, filesystems and storage management.</p>
+      <a href="blogs/linux-tutorial-part-11.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Linux Tutorial Part 12 — System Hardening &amp; Security</h4>
+      <p class="blog-preview">Harden Linux servers, fail2ban, audit logs and security practices.</p>
+      <a href="blogs/linux-tutorial-part-12.html" class="btn">Read Article</a>
+    </div>
 
+    <!-- DOCKER TUTORIAL SERIES -->
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 1 — Why Docker Exists</h4>
+      <p class="blog-preview">Problems before Docker, containers vs VMs, and why Docker matters.</p>
+      <a href="blogs/docker-tutorial-part-1.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 2 — Installation &amp; First Containers</h4>
+      <p class="blog-preview">Install Docker and run your first container step by step.</p>
+      <a href="blogs/docker-tutorial-part-2.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 3 — Writing Dockerfiles</h4>
+      <p class="blog-preview">Write Dockerfiles, build images, and understand each instruction.</p>
+      <a href="blogs/docker-tutorial-part-3.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 4 — Volumes &amp; Data Persistence</h4>
+      <p class="blog-preview">Docker volumes, bind mounts, and keeping data safe outside containers.</p>
+      <a href="blogs/docker-tutorial-part-4.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 5 — Docker Networking</h4>
+      <p class="blog-preview">Container networking, ports, bridge networks and container DNS.</p>
+      <a href="blogs/docker-tutorial-part-5.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 6 — Docker Compose</h4>
+      <p class="blog-preview">Run multi-container applications using Docker Compose.</p>
+      <a href="blogs/docker-tutorial-part-6.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 7 — Registry &amp; Image Management</h4>
+      <p class="blog-preview">Tag, push, and manage Docker images with registries.</p>
+      <a href="blogs/docker-tutorial-part-7.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 8 — Multi-Stage Builds</h4>
+      <p class="blog-preview">Optimise Docker images using multi-stage builds for production.</p>
+      <a href="blogs/docker-tutorial-part-8.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 9 — Docker Security Best Practices</h4>
+      <p class="blog-preview">Container security, image scanning, permissions and hardening.</p>
+      <a href="blogs/docker-tutorial-part-9.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 10 — Docker in CI/CD Pipelines</h4>
+      <p class="blog-preview">Integrate Docker into GitHub Actions and automated deployment pipelines.</p>
+      <a href="blogs/docker-tutorial-part-10.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 11 — Docker Swarm &amp; Orchestration</h4>
+      <p class="blog-preview">Run Docker services at scale with Swarm orchestration.</p>
+      <a href="blogs/docker-tutorial-part-11.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>Docker Tutorial Part 12 — Real-World Docker Project</h4>
+      <p class="blog-preview">Build a complete production-ready Docker stack from scratch.</p>
+      <a href="blogs/docker-tutorial-part-12.html" class="btn">Read Article</a>
+    </div>
 
+    <!-- AWS + LINUX COMBO SERIES -->
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 1 — Why Learn AWS and Linux Together</h4>
+      <p class="blog-preview">Cloud basics, why Linux dominates AWS, and how both work together.</p>
+      <a href="blogs/aws-linux-combo-part-1.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 2 — Create AWS Account &amp; Launch EC2</h4>
+      <p class="blog-preview">Set up AWS, launch an EC2 instance, and connect via SSH.</p>
+      <a href="blogs/aws-linux-combo-part-2.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 3 — Connect to EC2 with SSH</h4>
+      <p class="blog-preview">SSH keys, secure connections, and managing EC2 from terminal.</p>
+      <a href="blogs/aws-linux-combo-part-3.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 4 — File Permissions &amp; Users on EC2</h4>
+      <p class="blog-preview">Linux users, permissions, sudo, and server security on AWS.</p>
+      <a href="blogs/aws-linux-combo-part-4.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 5 — Install Nginx Web Server on EC2</h4>
+      <p class="blog-preview">Deploy and configure Nginx on EC2 as a reverse proxy.</p>
+      <a href="blogs/aws-linux-combo-part-5.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 6 — AWS S3 from the Linux Command Line</h4>
+      <p class="blog-preview">Use the AWS CLI to manage S3 buckets and files from Linux.</p>
+      <a href="blogs/aws-linux-combo-part-6.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 7 — IAM Roles, Users, and Policies</h4>
+      <p class="blog-preview">Understand IAM and write precise least-privilege policies.</p>
+      <a href="blogs/aws-linux-combo-part-7.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 8 — Bash Scripting for AWS Automation</h4>
+      <p class="blog-preview">Automate AWS tasks with bash scripts and the AWS CLI.</p>
+      <a href="blogs/aws-linux-combo-part-8.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 9 — Master the AWS CLI on Linux</h4>
+      <p class="blog-preview">AWS CLI profiles, output formats, and jq for JSON processing.</p>
+      <a href="blogs/aws-linux-combo-part-9.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 10 — VPC, Networking &amp; Security Groups</h4>
+      <p class="blog-preview">VPCs, subnets, security groups, NACLs, and AWS networking.</p>
+      <a href="blogs/aws-linux-combo-part-10.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 11 — Monitoring with CloudWatch</h4>
+      <p class="blog-preview">CloudWatch metrics, alarms, logs and monitoring EC2 in production.</p>
+      <a href="blogs/aws-linux-combo-part-11.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>AWS + Linux Part 12 — Deploy a Real App End to End</h4>
+      <p class="blog-preview">Full production deployment on AWS with VPC, EC2, RDS and monitoring.</p>
+      <a href="blogs/aws-linux-combo-part-12.html" class="btn">Read Article</a>
+    </div>
+
+    <!-- DEVOPS ROADMAP SERIES -->
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 1 — What is DevOps &amp; Why It Matters</h4>
+      <p class="blog-preview">DevOps mindset, culture, real responsibilities and why companies need it.</p>
+      <a href="blogs/devops-roadmap-part-1.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 2 — Linux for DevOps</h4>
+      <p class="blog-preview">Linux commands, permissions, services and server thinking for DevOps.</p>
+      <a href="blogs/devops-roadmap-part-2.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 3 — Git &amp; Version Control</h4>
+      <p class="blog-preview">Git workflows, branching strategies, pull requests and code review.</p>
+      <a href="blogs/devops-roadmap-part-3.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 4 — Linux Networking for DevOps</h4>
+      <p class="blog-preview">IP, DNS, ports, firewalls, and how servers communicate in production.</p>
+      <a href="blogs/devops-roadmap-part-4.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 5 — Git &amp; Version Control for DevOps</h4>
+      <p class="blog-preview">Advanced Git for DevOps — pipelines, hooks and automation.</p>
+      <a href="blogs/devops-roadmap-part-5.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 6 — CI/CD Pipelines</h4>
+      <p class="blog-preview">Build automated CI/CD pipelines with GitHub Actions and best practices.</p>
+      <a href="blogs/devops-roadmap-part-6.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 7 — Terraform &amp; Infrastructure as Code</h4>
+      <p class="blog-preview">Write Terraform to provision and manage cloud infrastructure as code.</p>
+      <a href="blogs/devops-roadmap-part-7.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 8 — Ansible for Configuration Management</h4>
+      <p class="blog-preview">Automate server configuration with Ansible playbooks and inventory.</p>
+      <a href="blogs/devops-roadmap-part-8.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 9 — Monitoring &amp; Observability</h4>
+      <p class="blog-preview">Prometheus, Grafana, logs and the three pillars of observability.</p>
+      <a href="blogs/devops-roadmap-part-9.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 10 — Kubernetes Fundamentals</h4>
+      <p class="blog-preview">Pods, deployments, services and Kubernetes core concepts explained.</p>
+      <a href="blogs/devops-roadmap-part-10.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 11 — Cloud Platforms for DevOps</h4>
+      <p class="blog-preview">AWS, GCP, Azure for DevOps — choosing the right cloud platform.</p>
+      <a href="blogs/devops-roadmap-part-11.html" class="btn">Read Article</a>
+    </div>
+    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
+      <h4>DevOps Roadmap Part 12 — Complete DevOps Project</h4>
+      <p class="blog-preview">Build a complete end-to-end DevOps portfolio project.</p>
+      <a href="blogs/devops-roadmap-part-12.html" class="btn">Read Article</a>
+    </div>
 
   </div>
 </section>
 
 <!-- PAGINATION -->
 <div class="pagination">
-  <button id="prevBtn">← Prev</button>
-  <button id="nextBtn">Next →</button>
+  <button id="prevBtn">&#8592; Prev</button>
+  <button id="nextBtn">Next &#8594;</button>
 </div>
 
 <!-- WRITE WITH US -->
 <section class="content-block write-with-us" data-aos="fade-up">
-  <h3>Write & Publish With SRJahir Tech</h3>
-
+  <h3>Write &amp; Publish With SRJahir Tech</h3>
   <p>
     Do you have clarity, insight, or practical experience in AI, Cloud,
     Programming, Markets, or Technology?
     You can contribute your article to SRJahir Tech.
   </p>
-
   <ul>
     <li>Original content only</li>
     <li>Clear explanation and structured thinking</li>
     <li>No promotional or misleading content</li>
   </ul>
-
   <p>
-    📩 Send your article to:
-    <br />
+    Send your article to:
     <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">
       surajmaitra1996@gmail.com
     </a>
   </p>
-
-  <p class="small-note">
-    All submissions go through review.
-    We may edit or decline content to maintain quality.
-  </p>
+  <p class="small-note">All submissions go through review. We may edit or decline content to maintain quality.</p>
 </section>
 
 <!-- DISCLAIMER -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  All content on SRJahir Tech is for educational and informational purposes only.
+  <strong>Disclaimer:</strong> All content on SRJahir Tech is for educational and informational purposes only.
 </div>
 
+</main>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="sanskrit.png" alt="Sanskrit" class="footer-art" />
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="sanskrit.png" alt="" class="footer-art" aria-hidden="true" loading="lazy" />
 </footer>
 
-<!-- JS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="assets/js/blog.js"></script>
+<script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script defer src="assets/js/blog.js"></script>
 
 </body>
 </html>

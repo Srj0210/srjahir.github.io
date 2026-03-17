@@ -5,24 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
 
-  <title>SRJahir Tech — Cloud · AI · Web Excellence</title>
+  <title>SRJahir Tech — Cloud · AI · Web Development</title>
 
   <!-- SEO Meta -->
-  <meta name="description" content="SRJahir Tech is a technology platform offering CloudAI assistant, free online PDF tools, and stock market insights. Built for learners, developers, and professionals." />
-  <meta name="keywords" content="SRJahir Tech, CloudAI, SRJ Tools, PDF Tools, Stock Market Tools, Cloud Engineering, AI Assistant" />
+  <meta name="description" content="SRJahir Tech is an independent technology platform by Suraj Ahir. Offering CloudAI assistant, free online PDF tools, stock market insights, and practical tech tutorials." />
+  <meta name="keywords" content="SRJahir Tech, CloudAI, SRJ Tools, PDF Tools, Cloud Engineering, AI Tools, Tech Tutorials, Suraj Ahir" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/" />
 
-  <!-- Open Graph -->
+  <!-- Open Graph (complete) -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="SRJahir Tech — Cloud · AI · Web Excellence" />
-  <meta property="og:description" content="Explore CloudAI, SRJ Tools, and Stock Market platforms built by SRJahir Tech." />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:title" content="SRJahir Tech — Cloud · AI · Web Development" />
+  <meta property="og:description" content="Explore CloudAI, SRJ Tools, and Stock Market platforms. Free tech tutorials on Python, Linux, Docker, DevOps, Cloud and more." />
   <meta property="og:url" content="https://srjahir.in/" />
   <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="en_IN" />
 
-  <!-- Twitter -->
+  <!-- Twitter Card (complete) -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SRJahir Tech — Cloud · AI · Web Development" />
+  <meta name="twitter:description" content="Explore CloudAI, SRJ Tools, free PDF tools, and practical tech tutorials on Cloud, AI, DevOps." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
 
   <!-- Icons -->
   <link rel="icon" type="image/png" href="logo.png" />
@@ -30,19 +43,47 @@
 
   <!-- Manifest -->
   <link rel="manifest" href="manifest.json" />
-  <link rel="sitemap" type="application/xml" href="sitemap.xml" />
 
-  <!-- Structured Data -->
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+  <!-- Schema.org — Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "SRJahir Tech",
     "url": "https://srjahir.in/",
+    "logo": "https://srjahir.in/logo.png",
+    "description": "Independent technology platform offering AI tools, free PDF utilities, stock market insights, and practical tech tutorials.",
     "founder": {
       "@type": "Person",
       "name": "Suraj Ahir"
-    }
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "surajmaitra1996@gmail.com"
+    },
+    "sameAs": [
+      "https://cloudai.srjahir.in",
+      "https://tools.srjahir.in",
+      "https://stocks.srjahir.in"
+    ]
+  }
+  </script>
+
+  <!-- Schema.org — WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SRJahir Tech",
+    "url": "https://srjahir.in/",
+    "description": "Technology platform with AI tools, free utilities, and practical tech education."
   }
   </script>
 
@@ -55,31 +96,37 @@
     gtag('config', 'G-93D0PKZM2L');
   </script>
 
-  <!-- CSS + Animations -->
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243" />
+
+  <!-- CSS + Animation Libraries (defer JS for performance) -->
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
 
-<div class="background-waves"></div>
-<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" />
+<div class="background-waves" aria-hidden="true"></div>
+<img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" width="80" height="80" loading="eager" />
 
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
+  <nav class="menu-bar" aria-label="Main navigation">
     <a href="#services">Services</a>
     <a href="#projects">Projects</a>
     <a href="#about">About</a>
     <a href="blog.html">Blog</a>
-    <a href="#contact">Quote</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<section class="hero">
+<main>
+
+<section class="hero" aria-label="Introduction">
   <div class="hero-text">
     <h2 class="animated-heading">Empowering Digital Intelligence</h2>
     <p class="hero-desc">
@@ -88,14 +135,14 @@
       using cloud technology and artificial intelligence.
     </p>
     <p class="hero-desc" style="opacity:0.8;font-size:0.95rem;margin-top:8px;">
-  An educational technology platform focused on learning, clarity, and practical tools —
-  built for students, learners, and independent builders.
+      An educational technology platform focused on learning, clarity, and practical tools —
+      built for students, learners, and independent builders.
     </p>
-    <a href="#contact" class="btn">Get a Quote</a>
+    <a href="#contact" class="btn">Get in Touch</a>
   </div>
 </section>
 
-<section class="content-block">
+<section class="content-block" aria-label="Platform overview">
   <h3>What is SRJahir Tech?</h3>
   <p>
     SRJahir Tech is an independent technology initiative built to provide useful digital tools without unnecessary complexity.
@@ -107,13 +154,13 @@
   </p>
 </section>
 
-<section id="services" class="services">
-  <h3>Our Expertise</h3>
+<section id="services" class="services" aria-labelledby="services-heading">
+  <h3 id="services-heading">Our Expertise</h3>
 
   <div class="cards">
 
     <div class="card" data-aos="fade-up">
-      <h4>☁️ Cloud Engineering</h4>
+      <h4>&#9729;&#65039; Cloud Engineering</h4>
       <p>
         We work on building and managing cloud-based systems that are stable, secure,
         and easy to scale. Our focus is on creating setups that perform well in real use,
@@ -122,7 +169,7 @@
     </div>
 
     <div class="card" data-aos="fade-up">
-      <h4>🤖 AI & Automation</h4>
+      <h4>&#129302; AI &amp; Automation</h4>
       <p>
         We build AI-powered tools that help people learn faster and work more efficiently.
         This includes conversational assistants like CloudAI and simple automation that
@@ -131,7 +178,7 @@
     </div>
 
     <div class="card" data-aos="fade-up">
-      <h4>🌐 Web & App Development</h4>
+      <h4>&#127760; Web &amp; App Development</h4>
       <p>
         We create clean, responsive websites and web applications that load fast and feel
         easy to use. The goal is always clarity and long-term usability, whether someone
@@ -140,7 +187,7 @@
     </div>
 
     <div class="card" data-aos="fade-up">
-      <h4>🔐 Security & Optimization</h4>
+      <h4>&#128272; Security &amp; Optimization</h4>
       <p>
         We pay close attention to security, performance, and reliability. This includes
         basic protection, speed optimization, and monitoring to make sure platforms stay
@@ -149,7 +196,7 @@
     </div>
 
     <div class="card" data-aos="fade-up">
-      <h4>⚙️ DevOps & Consulting</h4>
+      <h4>&#9881;&#65039; DevOps &amp; Consulting</h4>
       <p>
         We help set up smoother development and deployment workflows so updates can be
         released without breaking things. We also provide practical guidance based on
@@ -160,13 +207,13 @@
   </div>
 </section>
 
-<section id="projects" class="projects">
-  <h3>Featured Projects</h3>
+<section id="projects" class="projects" aria-labelledby="projects-heading">
+  <h3 id="projects-heading">Featured Projects</h3>
   <div class="cards">
 
     <div class="card" data-aos="fade-up">
-      <a href="https://cloudai.srjahir.in" target="_blank" class="project-link">
-        <img src="logo.file/cloudai.png" class="project-logo" alt="CloudAI" />
+      <a href="https://cloudai.srjahir.in" target="_blank" rel="noopener noreferrer" class="project-link">
+        <img src="logo.file/cloudai.png" class="project-logo" alt="CloudAI — AI Assistant by SRJahir Tech" width="80" height="80" loading="lazy" />
         <h4>CloudAI</h4>
       </a>
       <p>
@@ -180,12 +227,12 @@
         You can try it directly and interact with it in real time.
       </p>
       <a href="blog.html#cloudai" class="read-more">Read More</a>
-      <a href="https://cloudai.srjahir.in" target="_blank" class="visit-btn">cloudai.srjahir.in</a>
+      <a href="https://cloudai.srjahir.in" target="_blank" rel="noopener noreferrer" class="visit-btn">cloudai.srjahir.in</a>
     </div>
 
     <div class="card" data-aos="fade-up">
-      <a href="https://stocks.srjahir.in" target="_blank" class="project-link">
-        <img src="logo.file/Stokes.png" class="project-logo" alt="Stocks SRJahir" />
+      <a href="https://stocks.srjahir.in" target="_blank" rel="noopener noreferrer" class="project-link">
+        <img src="logo.file/Stokes.png" class="project-logo" alt="Stocks SRJahir — Indian Stock Market Platform" width="80" height="80" loading="lazy" />
         <h4>Stocks.SRJahir.in</h4>
       </a>
       <p>
@@ -198,12 +245,12 @@
         making it useful for beginners who want to understand market behavior.
       </p>
       <a href="blog.html#stocks" class="read-more">Read More</a>
-      <a href="https://stocks.srjahir.in" target="_blank" class="visit-btn">stocks.srjahir.in</a>
+      <a href="https://stocks.srjahir.in" target="_blank" rel="noopener noreferrer" class="visit-btn">stocks.srjahir.in</a>
     </div>
 
     <div class="card" data-aos="fade-up">
-      <a href="https://tools.srjahir.in" target="_blank" class="project-link">
-        <img src="logo.file/tools.png" class="project-logo" alt="SRJ Tools" />
+      <a href="https://tools.srjahir.in" target="_blank" rel="noopener noreferrer" class="project-link">
+        <img src="logo.file/tools.png" class="project-logo" alt="SRJ Tools — Free Online PDF Utilities" width="80" height="80" loading="lazy" />
         <h4>Tools.SRJahir.in</h4>
       </a>
       <p>
@@ -215,19 +262,18 @@
         without forcing users to install software.
       </p>
       <a href="blog.html#tools" class="read-more">Read More</a>
-      <a href="https://tools.srjahir.in" target="_blank" class="visit-btn">tools.srjahir.in</a>
+      <a href="https://tools.srjahir.in" target="_blank" rel="noopener noreferrer" class="visit-btn">tools.srjahir.in</a>
     </div>
 
   </div>
 </section>
 
-<!-- Read Blogs button between Featured Projects and Who We Are -->
 <div style="text-align:center; margin: 24px 0;">
   <a href="blog.html" class="btn center">Read Blogs</a>
 </div>
 
-<section id="about" class="about">
-  <h3>About SRJahir Tech</h3>
+<section id="about" class="about" aria-labelledby="about-heading">
+  <h3 id="about-heading">About SRJahir Tech</h3>
 
   <p>
     SRJahir Tech is an independent technology platform built with a simple belief:
@@ -251,58 +297,65 @@
     ecosystem built through continuous learning, experimentation, and honest effort.
   </p>
 
-  <!-- JOURNEY -->
   <div class="timeline">
     <h4>Our Journey</h4>
     <ul>
-      <li><strong>2024</strong> — Idea & foundation</li>
-      <li><strong>2025</strong> — Tools, CloudAI, Blog ecosystem</li>
-      <li><strong>2026</strong> — Scaling & deeper learning tools</li>
+      <li><strong>2024</strong> — Idea &amp; foundation</li>
+      <li><strong>2025</strong> — Tools, CloudAI, Blog ecosystem launched</li>
+      <li><strong>2026</strong> — Scaling &amp; deeper learning tools</li>
     </ul>
   </div>
 </section>
 
-<section id="contact" class="contact">
-  <h3>Get a Quote</h3>
-  <form id="quoteForm">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <select name="project_type" required>
+<section id="contact" class="contact" aria-labelledby="contact-heading">
+  <h3 id="contact-heading">Get in Touch</h3>
+  <form id="quoteForm" novalidate>
+    <label for="name" class="sr-only">Your Name</label>
+    <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name" />
+
+    <label for="email" class="sr-only">Your Email</label>
+    <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email" />
+
+    <label for="project_type" class="sr-only">Project Type</label>
+    <select id="project_type" name="project_type" required>
       <option value="">Select project type</option>
       <option>Cloud Engineering</option>
       <option>AI / Automation</option>
       <option>Web Development</option>
       <option>Other</option>
     </select>
-    <textarea name="message" rows="5" placeholder="Project details…" required></textarea>
+
+    <label for="message" class="sr-only">Project Details</label>
+    <textarea id="message" name="message" rows="5" placeholder="Project details…" required></textarea>
+
     <button type="submit" class="btn full">Send Request</button>
   </form>
 
- <p class="policy-note">
-  By contacting us, you agree to our
-  <a href="terms.html">Terms</a> and
-  <a href="privacy.html">Privacy Policy</a>.
-</p>
+  <p class="policy-note">
+    By contacting us, you agree to our
+    <a href="terms.html">Terms</a> and
+    <a href="privacy.html">Privacy Policy</a>.
+  </p>
 
-<p class="policy-note">
-  You can also contact us directly at
-  <a href="mailto:surajmaitra1996@gmail.com">
-    surajmaitra1996@gmail.com
-  </a>.
-</p>
+  <p class="policy-note">
+    You can also email us directly at
+    <a href="mailto:surajmaitra1996@gmail.com">surajmaitra1996@gmail.com</a>.
+  </p>
 </section>
 
+</main>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Built with clarity and purpose</p>
+  <p>&copy; 2026 SRJahir Tech &mdash; Built with clarity and purpose</p>
   <p style="font-size:0.85rem;opacity:0.7;max-width:720px;margin:8px auto 0;">
-  SRJahir Tech provides educational content and tools for learning and informational purposes only.
-  We do not offer financial or legal advice.
+    SRJahir Tech provides educational content and tools for learning and informational purposes only.
+    We do not offer financial or legal advice.
   </p>
-  <img src="sanskrit.png" alt="Sanskrit" class="footer-art" />
+  <img src="sanskrit.png" alt="" class="footer-art" aria-hidden="true" loading="lazy" />
 </footer>
 
-<script src="assets/js/animation.js"></script>
-<script src="assets/js/script.js"></script>
+<script src="assets/js/animation.js" defer></script>
+<script src="assets/js/script.js" defer></script>
 
 </body>
 </html>
