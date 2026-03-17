@@ -1,109 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 10 — Kubernetes Introduction | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 10 by SRJahir Tech. Learn why Kubernetes exists, what problems it solves, and how it works with Docker." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech</title>
+  <meta name="description" content="Learn to use Docker in CI/CD pipelines with GitHub Actions. Automate image builds, run tests in containers, push to registries, and deploy automatically." />
+  <meta name="keywords" content="Docker CI/CD tutorial, Docker GitHub Actions, Docker automated build, Docker deployment pipeline" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-10.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech" />
+  <meta property="og:description" content="Learn to use Docker in CI/CD pipelines with GitHub Actions. Automate image builds, run tests in containers, push to registries, and deploy automatically." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-10.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 10: Docker in CI/CD Pipelines</h3>
+<p>Building Docker images manually on your laptop works fine for personal projects. But in a professional team, every code change should automatically trigger a build, test run, and deployment. This is CI/CD — Continuous Integration and Continuous Deployment. Docker fits perfectly into CI/CD pipelines because containers make builds reproducible and deployments consistent.</p>
 
-<h3>Docker Tutorial — Part 10: Why Kubernetes Exists</h3>
+<h4>What CI/CD Means in the Docker World</h4>
+<p>The Docker CI/CD workflow looks like this: a developer pushes code to Git, the CI system (GitHub Actions, GitLab CI, Jenkins) automatically builds a Docker image, runs tests inside that image, pushes the image to a registry with a version tag, and optionally deploys it to staging or production. Every step is automated, reproducible, and auditable.</p>
 
-<p>
-Docker solves application packaging.
-But Docker alone cannot manage large systems.
-That is where Kubernetes enters.
-</p>
+<h4>GitHub Actions — Docker Build and Push</h4>
+<p>GitHub Actions is one of the most popular CI/CD platforms. Here is a complete workflow that builds your Docker image and pushes it to Docker Hub on every push to the main branch:</p>
+<div class="code-title">.github/workflows/docker-build.yml</div>
+<pre><code class="language-bash">name: Build and Push Docker Image
 
-<h4>The Problem Docker Cannot Solve Alone</h4>
-<ul>
-<li>What if container crashes?</li>
-<li>What if traffic suddenly increases?</li>
-<li>What if multiple servers are involved?</li>
-</ul>
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-<h4>What Kubernetes Does</h4>
-<p>
-Kubernetes is a container orchestration system.
-It manages containers automatically.
-</p>
+env:
+  DOCKER_IMAGE: yourusername/my-app
 
-<ul>
-<li>Auto-restarts containers</li>
-<li>Scales applications</li>
-<li>Distributes load</li>
-<li>Manages deployments</li>
-</ul>
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
 
-<h4>Docker vs Kubernetes</h4>
-<p>
-Docker runs containers.  
-Kubernetes manages containers.
-</p>
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-<h4>Basic Kubernetes Concepts</h4>
-<ul>
-<li>Pod — smallest unit</li>
-<li>Node — machine</li>
-<li>Cluster — group of nodes</li>
-<li>Service — network access</li>
-</ul>
+      # Set up Docker Buildx (needed for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-<h4>Important Truth</h4>
-<p>
-You must understand Docker before Kubernetes.
-Skipping Docker causes confusion later.
-</p>
+      # Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-<p>
-Next, we see how Docker fits into a DevOps workflow.
-</p>
+      # Extract metadata for tagging
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix=
+            type=semver,pattern={{version}}
 
-<a href="docker-tutorial-part-11.html" class="btn">
-Next: Docker in DevOps →
-</a>
+      # Build and push
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max</code></pre>
 
+<h4>Setting Up GitHub Secrets</h4>
+<p>Never put credentials directly in workflow files. Use GitHub repository secrets instead. Go to your repository Settings → Secrets and variables → Actions → New repository secret. Add <code>DOCKERHUB_USERNAME</code> and <code>DOCKERHUB_TOKEN</code> (use an access token, not your password).</p>
+
+<h4>Running Tests in Docker During CI</h4>
+<div class="code-title">Test Stage in CI</div>
+<pre><code class="language-bash">      # Run tests using Docker
+      - name: Run tests
+        run: |
+          docker build --target test -t my-app:test .
+          docker run --rm my-app:test pytest tests/ -v
+
+      # Or using docker compose
+      - name: Run integration tests
+        run: |
+          docker compose -f docker-compose.test.yml up --abort-on-container-exit
+          docker compose -f docker-compose.test.yml down</code></pre>
+
+<h4>Build Caching for Faster Pipelines</h4>
+<p>Docker builds without caching are slow. GitHub Actions provides a cache mechanism that stores Docker layers between runs. The <code>cache-from</code> and <code>cache-to</code> options in the build-push-action handle this automatically. For a typical Python project, caching reduces build time from 5+ minutes to under 1 minute after the first run.</p>
+
+<h4>Multi-Platform Builds</h4>
+<p>With Apple Silicon Macs common in development teams, building images for both AMD64 (x86_64) and ARM64 is often required:</p>
+<div class="code-title">Multi-Platform Build</div>
+<pre><code class="language-bash">      - name: Build multi-platform image
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: yourusername/my-app:latest</code></pre>
+
+<h4>Deployment After Build</h4>
+<div class="code-title">Deploy to Server via SSH</div>
+<pre><code class="language-bash">      - name: Deploy to production server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull yourusername/my-app:${{ github.sha }}
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d               --name my-app               -p 5000:5000               --restart unless-stopped               yourusername/my-app:${{ github.sha }}</code></pre>
+
+<p>In Part 11, we will explore Docker Swarm — Docker's built-in container orchestration for running containers across multiple servers with load balancing and automatic failover.</p>
 </section>
+<h4>GitHub Actions Docker Integration</h4>
+<p>GitHub Actions is one of the most widely used CI/CD platforms and has excellent Docker support. A typical workflow builds, tests, and pushes a Docker image on every push to main:</p>
+<div class="code-title">GitHub Actions Docker Workflow</div>
+<pre><code class="language-yaml">name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            myuser/myapp:latest
+            myuser/myapp:${{ github.sha }}</code></pre>
+<p>Store Docker Hub credentials as GitHub repository secrets, not in the workflow file. The <code>github.sha</code> context variable provides the commit hash for traceability — you can always identify exactly which code version a running container contains.</p>
+<h4>Testing Containers in CI</h4>
+<p>Before pushing an image, run tests against it in CI. Build the image, start it as a service in the CI job, wait for it to be healthy, then run your test suite against it. This validates not just that the code works but that it works in the containerized environment — catching issues like missing environment variables, missing files, or incorrect permissions that only manifest in the container context.</p>
+<h4>Practice Exercise</h4>
+<p>Set up a GitHub Actions workflow for a simple application: the workflow should trigger on push, build the Docker image, run a container from the built image and verify it starts correctly (using a health check or a curl request), and push the image to Docker Hub if tests pass. Store your Docker Hub credentials as GitHub secrets. Verify the workflow runs successfully by pushing a change and watching the Actions tab.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Kubernetes adds power but also complexity.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Orchestration Matters</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

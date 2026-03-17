@@ -1,215 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 3 — Linux File System Structure | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 3 by SRJahir Tech. Learn Linux file system structure, root directories, purpose of each folder, and how Linux organizes data internally." />
-  <meta name="keywords" content="Linux file system, Linux directories explained, Linux tutorial part 3, Linux folder structure" />
-  <meta name="author" content="SRJahir Tech" />
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech</title>
+  <meta name="description" content="Understand Linux file permissions completely — read write execute, chmod, chown, sudo, user groups, and permission numbers explained." />
+  <meta name="keywords" content="Linux permissions, Linux chmod chown, Linux file ownership, Linux sudo, Linux users groups" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-3.html" />
-
-  <!-- Icons -->
+  <meta property="og:title" content="Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech" /><meta property="og:description" content="Understand Linux file permissions completely — read write execute, chmod, chown, sudo, user groups, and permission numbers explained." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>Linux Tutorial — Part 3: File Permissions &amp; Ownership</h3>
+<p>Linux is a multi-user system. Permissions control who can read, modify, or execute each file. Understanding permissions is not optional — it is one of the most important concepts in Linux security, system administration, and DevOps.</p>
+<h4>The Permission Model</h4>
+<p>Every file and directory in Linux has three permission sets and three types of permissions:</p>
+<div class="code-title">Permission Structure</div>
+<pre><code class="language-bash">-rwxr-xr--  1  suraj  developers  4096  Mar 10  script.sh
+ |||||||||||     |      |
+ |||------        Owner  Group
+ |||  r-x = Group can read and execute
+ |||
+ rwx = Owner can read, write, execute
+ 
+ - = regular file
+ d = directory
+ l = symbolic link</code></pre>
+<h4>Understanding r, w, x</h4>
+<ul>
+  <li><strong>r (read)</strong> — Can read the file's content. For directories: can list contents.</li>
+  <li><strong>w (write)</strong> — Can modify the file. For directories: can create/delete files inside.</li>
+  <li><strong>x (execute)</strong> — Can run the file as a program. For directories: can enter (cd into) the directory.</li>
+</ul>
+<h4>Numeric Permissions</h4>
+<p>Each permission has a number value: r=4, w=2, x=1. Add them together:</p>
+<div class="code-title">Permission Numbers</div>
+<pre><code class="language-bash">7 = rwx (4+2+1) — Full permissions
+6 = rw- (4+2)   — Read and write
+5 = r-x (4+1)   — Read and execute
+4 = r-- (4)     — Read only
+0 = ---         — No permissions
 
-  <h3>Linux Tutorial — Part 3: Linux File System Structure</h3>
-
-  <p>
-    In this part, we will understand how Linux organizes files internally.
-    This is one of the most important Linux concepts.
-    Without this knowledge, Linux commands feel confusing and dangerous.
-  </p>
-
-  <h4>The Linux File System Philosophy</h4>
-  <p>
-    Linux follows a simple but strict rule:
-    <strong>everything is a file</strong>.
-  </p>
-
-  <p>
-    Hardware devices, configuration, logs, and even running processes
-    are represented using files.
-  </p>
-
-  <h4>The Root Directory (/)</h4>
-  <p>
-    Linux does not use drive letters like Windows (C:, D:).
-    Everything starts from a single root directory:
-  </p>
-
-  <pre><code class="language-bash">/</code></pre>
-
-  <p>
-    All files and folders exist under this root.
-    There is no concept of multiple independent roots.
-  </p>
-
-  <h4>Important Linux Directories (Must Know)</h4>
-
-  <h4>/bin — Essential Commands</h4>
-  <p>
-    Contains essential binary commands like:
-  </p>
-  <ul>
-    <li>ls</li>
-    <li>cp</li>
-    <li>mv</li>
-    <li>rm</li>
-  </ul>
-
-  <p>
-    These commands are required for the system to function.
-  </p>
-
-  <h4>/etc — Configuration Files</h4>
-  <p>
-    Stores system-wide configuration files.
-    No executable programs are stored here.
-  </p>
-
-  <p>
-    Editing files in <code>/etc</code> directly affects system behavior.
-  </p>
-
-  <h4>/home — User Directories</h4>
-  <p>
-    Each user has a personal directory inside <code>/home</code>.
-  </p>
-
-  <pre><code class="language-bash">/home/username</code></pre>
-
-  <p>
-    This is where personal files, downloads, and settings live.
-  </p>
-
-  <h4>/root — Root User Home</h4>
-  <p>
-    This is the home directory of the administrator (root user).
-  </p>
-
-  <p>
-    Normal users should not work here.
-  </p>
-
-  <h4>/var — Variable Data</h4>
-  <p>
-    Contains files that change frequently:
-  </p>
-  <ul>
-    <li>Logs</li>
-    <li>Caches</li>
-    <li>Mail</li>
-  </ul>
-
-  <p>
-    Server logs are usually stored in <code>/var/log</code>.
-  </p>
-
-  <h4>/usr — User Programs</h4>
-  <p>
-    Stores applications, libraries, and documentation.
-  </p>
-
-  <p>
-    Despite the name, this directory is shared by all users.
-  </p>
-
-  <h4>/tmp — Temporary Files</h4>
-  <p>
-    Used for temporary data.
-    Files here are often deleted automatically after reboot.
-  </p>
-
-  <h4>/dev — Devices</h4>
-  <p>
-    Hardware devices are exposed as files here.
-  </p>
-
-  <p>
-    This allows Linux to treat hardware uniformly.
-  </p>
-
-  <h4>/proc — Process Information</h4>
-  <p>
-    A virtual file system.
-    Contains live information about running processes and kernel state.
-  </p>
-
-  <h4>Why This Structure Matters</h4>
-  <p>
-    Linux commands assume you understand this layout.
-    Deleting or modifying the wrong directory
-    can break the system.
-  </p>
-
-  <h4>Golden Rule</h4>
-  <p>
-    Never delete files unless you understand:
-  </p>
-  <ul>
-    <li>What the directory is for</li>
-    <li>Who owns the file</li>
-    <li>Why it exists</li>
-  </ul>
-
-  <p>
-    In the next part,
-    we will learn basic Linux commands
-    and how to safely navigate the file system.
-  </p>
-
-  <a href="linux-tutorial-part-4.html" class="btn">
-    Next: Basic Linux Commands →
-  </a>
+# Common patterns:
+755 = rwxr-xr-x  (Owner: full, Group/Others: read+execute)
+644 = rw-r--r--  (Owner: read+write, Group/Others: read only)
+600 = rw-------  (Owner only: read+write)
+777 = rwxrwxrwx  (Everyone: full — use carefully!)</code></pre>
+<h4>chmod — Changing Permissions</h4>
+<div class="code-title">chmod Examples</div>
+<pre><code class="language-bash">chmod 755 script.sh      # Make script executable
+chmod 644 config.txt     # Standard file permissions
+chmod 600 private.key    # Private key — owner only
+chmod +x deploy.sh       # Add execute for all
+chmod -w file.txt        # Remove write for all
+chmod u+x script.sh      # Add execute for user only
+chmod -R 755 directory/  # Apply recursively</code></pre>
+<h4>chown — Changing Ownership</h4>
+<div class="code-title">chown Examples</div>
+<pre><code class="language-bash">chown suraj file.txt              # Change owner
+chown suraj:developers file.txt   # Change owner and group
+chown -R suraj:suraj /var/www/    # Recursive ownership change</code></pre>
+<h4>sudo — Running as Root</h4>
+<p>Some system operations require root (administrator) privileges. <code>sudo</code> lets authorized users run commands as root:</p>
+<div class="code-title">sudo Examples</div>
+<pre><code class="language-bash">sudo apt update                   # Update package list
+sudo apt install nginx            # Install software
+sudo systemctl start nginx        # Start a service
+sudo chmod 755 /etc/myapp.conf    # Change protected file permissions
+sudo -i                           # Open root shell (use carefully)</code></pre>
+<h4>Users and Groups</h4>
+<div class="code-title">User Management</div>
+<pre><code class="language-bash">whoami                    # Current user
+id                        # Current user's UID, GID, groups
+groups                    # Groups current user belongs to
+sudo adduser newuser      # Create a new user
+sudo passwd newuser       # Set password
+sudo usermod -aG sudo newuser  # Add user to sudo group
+cat /etc/passwd           # List all users</code></pre>
+<h4>The .ssh Directory Permissions</h4>
+<p>SSH key security depends on correct permissions — this is critical for cloud server access:</p>
+<div class="code-title">SSH Permission Requirements</div>
+<pre><code class="language-bash">chmod 700 ~/.ssh          # .ssh directory
+chmod 600 ~/.ssh/id_rsa   # Private key — MUST be 600
+chmod 644 ~/.ssh/id_rsa.pub  # Public key</code></pre>
+<p>If private key permissions are too open, SSH will refuse to use it and give a "WARNING: UNPROTECTED PRIVATE KEY FILE!" error.</p>
+<p>In Part 4, we will cover text processing commands — grep, sed, awk, find — the tools that make Linux incredibly powerful for data processing.</p>
+<h4>The setuid, setgid, and Sticky Bit</h4>
+<p>Beyond the standard read-write-execute permissions, Linux has three special permission bits. The setuid bit (numeric 4000) on an executable file means the program runs with the permissions of the file's owner, not the user who launched it. This is how <code>passwd</code> (the password-changing command) allows regular users to write to the system password file — it runs as root regardless of who invokes it. The setgid bit (numeric 2000) on a directory causes new files created in that directory to inherit the directory's group ownership rather than the creating user's group — useful for shared project directories. The sticky bit (numeric 1000) on a directory (common on <code>/tmp</code>) means only the file's owner, the directory's owner, or root can delete files — preventing users from deleting each other's temporary files.</p>
+<h4>Access Control Lists (ACLs)</h4>
+<p>Standard Unix permissions allow only one owner, one group, and a set of "other" permissions. Access Control Lists (ACLs) extend this model to allow specific permissions for multiple users and groups on a single file. Use <code>getfacl filename</code> to view ACLs and <code>setfacl -m u:username:rwx filename</code> to grant specific permissions to a named user. ACLs are essential in enterprise environments where complex permission requirements cannot be satisfied by the standard three-user model. Most modern Linux filesystems (ext4, XFS) support ACLs natively.</p>
+<h4>Practice Exercise</h4>
+<p>Create a shared directory scenario: make a directory called <code>/tmp/team_project</code>, set it to group ownership of a specific group (create the group with <code>groupadd</code>), apply the setgid bit so new files inherit the group, and set permissions so that only the group can write to it. Then add another user using <code>useradd</code> (or check your existing user), add them to the group with <code>usermod -aG</code>, and verify that files created by both users inherit the group ownership.</p>
 
 </section>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Do not modify system files without understanding their purpose.
-</div>
-
-<footer>
-  <p>© 2025 SRJahir Tech — Learn Systems, Not Just Commands</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

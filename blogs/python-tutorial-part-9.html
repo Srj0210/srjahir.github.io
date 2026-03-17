@@ -4,43 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
   <title>Python Tutorial Part 9 — Error Handling | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Python tutorial part 9 by SRJahir Tech. Learn error handling in Python using try, except, else, finally with real-world examples." />
-  <meta name="keywords" content="python error handling, python try except, python exceptions tutorial" />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="description" content="Learn Python error handling with try-except-finally. Understand common exceptions, custom exceptions, and how to write robust programs." />
+  <meta name="keywords" content="Python error handling, Python try except, Python exceptions, Python finally, Python raise" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-9.html" />
-
-  <!-- Icon -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Python Tutorial Part 9 — Error Handling | SRJahir Tech" />
+  <meta property="og:description" content="Learn Python error handling with try-except-finally. Understand common exceptions, custom exceptions, and how to write robust programs." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-9.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Python Tutorial Part 9 — Error Handling | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Python error handling with try-except-finally. Understand common exceptions, custom exceptions, and how to write robust programs."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism.js (GitHub style code) -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -51,159 +46,146 @@
   </nav>
 </header>
 
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
 
-  <h3>Python Full Tutorial — Part 9</h3>
-
-  <p>
-    Real programs fail.
-    Strong programs handle failure gracefully.
-  </p>
-
-  <p>
-    Error handling is what separates
-    beginners from professionals.
-  </p>
-
-  <h4>1. What is an Error?</h4>
-  <p>
-    An error is a problem that stops program execution.
-  </p>
-
-  <div class="code-title">Example Error</div>
-  <pre><code class="language-python">
-print(10 / 0)
-  </code></pre>
-
-  <p>This causes a <strong>ZeroDivisionError</strong>.</p>
-
-  <h4>2. Why Error Handling Matters</h4>
-  <ul>
-    <li>Programs should not crash unexpectedly</li>
-    <li>Users should see meaningful messages</li>
-    <li>Systems must stay stable</li>
-  </ul>
-
-  <h4>3. try & except</h4>
-
-  <div class="code-title">Basic Error Handling</div>
-  <pre><code class="language-python">
-try:
-    print(10 / 0)
-except:
-    print("Something went wrong")
-  </code></pre>
-
-  <h4>4. Catching Specific Errors</h4>
-
-  <div class="code-title">Specific Exception</div>
-  <pre><code class="language-python">
-try:
-    x = int("abc")
+<h3>Python Full Tutorial — Part 9: Error Handling</h3>
+<p>Real programs fail. Not because programmers are incompetent — because the real world is unpredictable. A file that should exist does not. A user enters text where a number was expected. A network request times out. A database is unavailable. Professional programs handle these failures gracefully instead of crashing.</p>
+<h4>What Happens Without Error Handling</h4>
+<div class="code-title">Unhandled Error</div>
+<pre><code class="language-python">number = int(input("Enter a number: "))
+# User types "hello" → Program crashes with ValueError</code></pre>
+<h4>try-except — Catching Errors</h4>
+<div class="code-title">Basic try-except</div>
+<pre><code class="language-python">try:
+    number = int(input("Enter a number: "))
+    result = 100 / number
+    print(f"Result: {result}")
 except ValueError:
-    print("Invalid number")
-  </code></pre>
-
-  <h4>5. Multiple except Blocks</h4>
-
-  <div class="code-title">Multiple Errors</div>
-  <pre><code class="language-python">
-try:
-    a = int(input("Enter number: "))
-    print(10 / a)
-except ValueError:
-    print("Please enter a valid number")
+    print("That was not a valid number.")
 except ZeroDivisionError:
-    print("Cannot divide by zero")
-  </code></pre>
-
-  <h4>6. else Block</h4>
-  <p>
-    Runs only if no error occurs.
-  </p>
-
-  <div class="code-title">else Example</div>
-  <pre><code class="language-python">
-try:
-    num = int(input("Enter number: "))
-except ValueError:
-    print("Invalid input")
-else:
-    print("You entered:", num)
-  </code></pre>
-
-  <h4>7. finally Block</h4>
-  <p>
-    Always runs — error or no error.
-  </p>
-
-  <div class="code-title">finally Example</div>
-  <pre><code class="language-python">
-try:
+    print("Cannot divide by zero.")</code></pre>
+<h4>except Exception — Catching All Errors</h4>
+<div class="code-title">Catch All Exceptions</div>
+<pre><code class="language-python">try:
+    risky_code()
+except Exception as e:
+    print(f"Something went wrong: {e}")</code></pre>
+<h4>else and finally</h4>
+<div class="code-title">Full try-except-else-finally</div>
+<pre><code class="language-python">try:
     file = open("data.txt", "r")
-    print(file.read())
+    content = file.read()
 except FileNotFoundError:
-    print("File not found")
+    print("File does not exist.")
+else:
+    print("File read successfully!")
+    print(content)
 finally:
-    print("Program finished")
-  </code></pre>
+    print("This runs always — cleanup goes here")
+    # Close connections, release resources, etc.</code></pre>
+<h4>Common Python Exceptions</h4>
+<ul>
+  <li><code>ValueError</code> — Wrong value type (e.g., int("hello"))</li>
+  <li><code>TypeError</code> — Operation on wrong type (e.g., "5" + 5)</li>
+  <li><code>FileNotFoundError</code> — File does not exist</li>
+  <li><code>ZeroDivisionError</code> — Dividing by zero</li>
+  <li><code>KeyError</code> — Dictionary key does not exist</li>
+  <li><code>IndexError</code> — List index out of range</li>
+  <li><code>AttributeError</code> — Object has no such attribute</li>
+  <li><code>ImportError</code> — Module not found</li>
+</ul>
+<h4>Raising Your Own Exceptions</h4>
+<div class="code-title">raise Statement</div>
+<pre><code class="language-python">def set_age(age):
+    if not isinstance(age, int):
+        raise TypeError("Age must be an integer")
+    if age < 0 or age > 150:
+        raise ValueError("Age must be between 0 and 150")
+    return age
 
-  <h4>8. Real-World Example: Safe Calculator</h4>
+try:
+    set_age(-5)
+except ValueError as e:
+    print(f"Invalid age: {e}")</code></pre>
+<h4>Custom Exception Classes</h4>
+<div class="code-title">Custom Exception</div>
+<pre><code class="language-python">class InsufficientFundsError(Exception):
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f"Need {amount}, only have {balance}")
 
-  <div class="code-title">Calculator with Error Handling</div>
-  <pre><code class="language-python">
-def divide(a, b):
-    try:
-        return a / b
-    except ZeroDivisionError:
-        return "Cannot divide by zero"
+def withdraw(balance, amount):
+    if amount > balance:
+        raise InsufficientFundsError(balance, amount)
+    return balance - amount
 
-print(divide(10, 2))
-print(divide(10, 0))
-  </code></pre>
+try:
+    new_balance = withdraw(500, 1000)
+except InsufficientFundsError as e:
+    print(f"Transaction failed: {e}")</code></pre>
+<p>In Part 10, we explore modules and packages — how Python code is organized into reusable, importable units.</p>
 
-  <h4>9. Raising Your Own Errors</h4>
 
-  <div class="code-title">raise Keyword</div>
-  <pre><code class="language-python">
-age = -5
+  <h4>Common Mistakes Beginners Make</h4>
+  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
+  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
+  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
+  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
 
-if age < 0:
-    raise ValueError("Age cannot be negative")
-  </code></pre>
+  <h4>How This Topic Appears in Real Projects</h4>
+  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
+  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
 
-  <h4>10. Common Mistakes</h4>
-  <ul>
-    <li>Using empty <code>except:</code></li>
-    <li>Hiding real bugs</li>
-    <li>Ignoring error messages</li>
-  </ul>
+  <h4>Practice Exercise</h4>
+  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
 
-  <h4>Key Takeaway</h4>
-  <p>
-    Error handling is not about avoiding errors.
-    It is about controlling failures.
-  </p>
+  <h4>Creating Custom Exceptions</h4>
+<p>While Python's built-in exceptions cover many cases, real applications benefit from custom exception classes that carry meaningful names and can include domain-specific information:</p>
+<div class="code-title">Custom Exception Classes</div>
+<pre><code class="language-python">class InsufficientFundsError(Exception):
+    # Raised when a withdrawal exceeds the account balance.
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(
+            f"Cannot withdraw Rs {amount}. Current balance: Rs {balance}"
+        )
 
-  <p>
-    Next part:
-    <strong>Modules & Packages</strong>.
-  </p>
+class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+    
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError(self.balance, amount)
+        self.balance -= amount
+        return self.balance
+
+# Using the custom exception
+account = BankAccount(1000)
+try:
+    account.withdraw(1500)
+except InsufficientFundsError as e:
+    print(f"Transaction failed: {e}")
+    print(f"Attempted: Rs {e.amount}, Available: Rs {e.balance}")</code></pre>
+<p>Custom exceptions make your code's error conditions explicit and self-documenting. Anyone reading code that raises <code>InsufficientFundsError</code> immediately understands what went wrong without reading the error message text.</p>
+<h4>Logging vs Printing</h4>
+<p>In production code, using Python's <code>logging</code> module instead of <code>print()</code> for error reporting and debugging is strongly recommended. Logging provides severity levels (DEBUG, INFO, WARNING, ERROR, CRITICAL), timestamps, file output, and configurable verbosity — capabilities that print statements cannot provide. Learning to use the logging module is an important step toward writing production-quality Python code.</p>
+<h4>Practice Exercise</h4>
+<p>Create a simple bank account class with deposit and withdrawal methods. Define custom exceptions for invalid amounts (negative numbers), insufficient funds, and account closure. Write a test program that exercises each exception path and handles them appropriately, printing informative messages for each case.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
-<!-- ===== DISCLAIMER ===== -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Always handle errors explicitly in production systems.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

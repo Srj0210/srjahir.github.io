@@ -1,87 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Linux Tutorial Part 11 — Networking Basics | SRJahir Tech</title>
-
-<meta name="description" content="Linux Tutorial Part 11 by SRJahir Tech. Learn Linux networking commands, IP, ports, ping, netstat, ss." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 11 — Disk Management & Storage | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-11.html">
+<meta property="og:title" content="Linux Tutorial Part 11 — Disk Management & Storage | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 11 — Disk Management & Storage | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
-<header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
-</header>
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 11: Disk Management &amp; Storage</h3>
+<p>Understanding disk management in Linux is critical for operations work. Running out of disk space crashes applications. Incorrectly mounted storage loses data. Poor disk organization creates performance problems. This part covers everything from checking disk usage to mounting volumes — skills used constantly in server administration.</p>
+<h4>Checking Disk Usage</h4>
+<div class="code-title">Disk Space Commands</div>
+<pre><code class="language-bash">df -h                          # Disk space by filesystem (human readable)
+df -h /                        # Root filesystem specifically
+df -i                          # Inode usage (sometimes the real bottleneck)
+du -sh /var/log/               # Size of a directory
+du -sh /var/* | sort -h        # All /var subdirs sorted by size
+du -ah /home/suraj | sort -rh | head -20  # 20 largest items in home</code></pre>
+<h4>Finding What's Using Disk Space</h4>
+<div class="code-title">Disk Space Investigation</div>
+<pre><code class="language-bash"># Find large files
+find / -type f -size +500M 2>/dev/null
 
-<h3>Linux Tutorial — Part 11: Networking Basics</h3>
+# Find large directories
+du -h --max-depth=1 / 2>/dev/null | sort -rh | head -10
 
-<p>
-Linux servers live on networks.
-Understanding networking is mandatory.
-</p>
+# Find old log files
+find /var/log -name "*.log" -mtime +30
 
-<h4>1. Check IP Address</h4>
-<pre><code class="language-bash">ip a</code></pre>
+# Check for deleted files still held open (common in production!)
+lsof | grep deleted | head -20</code></pre>
+<h4>Block Devices and Partitions</h4>
+<div class="code-title">Storage Inspection</div>
+<pre><code class="language-bash">lsblk                          # List block devices in tree form
+lsblk -f                       # Include filesystem types
+fdisk -l                       # Partition details (requires root)
+blkid                          # Block device UUIDs and types
+cat /proc/partitions            # Kernel's view of partitions</code></pre>
+<h4>Mounting Filesystems</h4>
+<div class="code-title">Mount Commands</div>
+<pre><code class="language-bash">mount                                      # Show all mounted filesystems
+mount /dev/sdb1 /mnt/data                 # Mount device to directory
+mount -t ext4 /dev/sdb1 /mnt/data         # Specify filesystem type
+umount /mnt/data                          # Unmount
+umount -l /mnt/data                       # Lazy unmount (when busy)
 
-<h4>2. Ping Test</h4>
-<pre><code class="language-bash">ping google.com</code></pre>
+# Permanent mounts in /etc/fstab
+# UUID=abc123  /mnt/data  ext4  defaults  0  2</code></pre>
+<h4>Creating Filesystems</h4>
+<div class="code-title">Format Partitions</div>
+<pre><code class="language-bash">mkfs.ext4 /dev/sdb1            # Format as ext4
+mkfs.xfs /dev/sdc1             # Format as XFS (better for large files)
+mkfs.vfat /dev/sdd1            # Format as FAT32 (for USB drives)</code></pre>
+<h4>Log Management and Rotation</h4>
+<div class="code-title">Managing Logs</div>
+<pre><code class="language-bash">journalctl --disk-usage                    # How much space logs use
+sudo journalctl --vacuum-size=1G           # Reduce journal to 1GB
+sudo journalctl --vacuum-time=2weeks       # Delete logs older than 2 weeks
 
-<h4>3. Check Open Ports</h4>
-<pre><code class="language-bash">ss -tuln</code></pre>
+# logrotate configuration
+cat /etc/logrotate.conf
+ls /etc/logrotate.d/                       # App-specific configs
+sudo logrotate -f /etc/logrotate.conf     # Force rotation now</code></pre>
+<h4>Disk Performance</h4>
+<div class="code-title">Performance Testing</div>
+<pre><code class="language-bash">iostat -x 1                    # Disk I/O statistics every second
+iotop                          # Interactive disk I/O by process
+dd if=/dev/zero of=/tmp/test bs=1M count=1000  # Write speed test
+hdparm -Tt /dev/sda            # Read speed (cached and buffered)</code></pre>
+<p>In Part 12, the final part, we bring everything together and build a complete system administration checklist — a practical reference for managing Linux servers in production.</p>
+<h4>LVM — Logical Volume Manager</h4>
+<p>LVM provides an abstraction layer between physical disks and filesystems, enabling features impossible with traditional partitioning: resizing volumes while in use, combining multiple disks into one logical volume, and taking snapshots. Physical Volumes (PVs) are the underlying disks — <code>pvcreate /dev/sdb</code>. Volume Groups (VGs) pool physical volumes — <code>vgcreate data_vg /dev/sdb</code>. Logical Volumes (LVs) are created from VGs and used as actual block devices — <code>lvcreate -L 20G -n data_lv data_vg</code>. To extend a running volume: <code>lvextend -L +10G /dev/data_vg/data_lv</code> then <code>resize2fs /dev/data_vg/data_lv</code> to expand the filesystem. In cloud environments where disk size needs change over time, LVM understanding directly applies to managing EBS volumes on AWS or persistent disks on GCP.</p>
+<h4>Filesystem Types and When to Use Each</h4>
+<p>Linux supports multiple filesystem types, each with different characteristics. ext4 is the standard default for most Linux installations — reliable, well-tested, and supported everywhere. XFS is preferred for large files and high-performance workloads — it is the default on RHEL/CentOS 7+. Btrfs offers advanced features including snapshots, checksumming, and built-in RAID, though it is less mature than ext4 for production use. tmpfs is a memory-based filesystem used for <code>/tmp</code> and <code>/run</code> — fast but does not survive reboots. Understanding filesystem selection matters when setting up servers, NAS systems, or containers where performance and feature requirements differ.</p>
+<h4>Practice Exercise</h4>
+<p>Explore your system's storage: use <code>lsblk</code> to see the block device tree, <code>df -hT</code> to see all filesystems with their types and usage, <code>sudo fdisk -l</code> for detailed partition information, and <code>sudo blkid</code> to see filesystem UUIDs. Generate a 100MB test file with <code>dd if=/dev/zero of=/tmp/testfile bs=1M count=100</code>, check usage change with <code>df -h</code>, then remove it and verify space recovered. Also examine <code>/etc/fstab</code> to understand how filesystems are configured for automatic mounting at boot.</p>
 
-<h4>4. netstat (older)</h4>
-<pre><code class="language-bash">netstat -tulnp</code></pre>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-<h4>5. Test Connectivity</h4>
-<pre><code class="language-bash">curl https://example.com</code></pre>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-<h4>6. DNS Resolution</h4>
-<pre><code class="language-bash">nslookup google.com</code></pre>
-
-<h4>7. Why Firewalls Matter</h4>
-<p>
-Open ports are attack surfaces.
-</p>
-
-<p>
-Next, we combine everything into real server thinking.
-</p>
-
-<a href="linux-tutorial-part-12.html" class="btn">
-Next: Linux for Servers →
-</a>
-
-</section>
-
-<div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never expose unnecessary ports publicly.
-</div>
-
-<footer>
-<p>© 2025 SRJahir Tech — Networks Are Power</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

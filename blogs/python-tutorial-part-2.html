@@ -4,43 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
   <title>Python Tutorial Part 2 — Variables & Data Types | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Python tutorial part 2 by SRJahir Tech. Learn variables, data types, memory basics, and how Python stores data internally." />
-  <meta name="keywords" content="Python variables, Python data types, Python memory basics, learn Python step by step" />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="description" content="Learn how Python stores information using variables and data types. Understand int, float, string, boolean and how Python handles memory references." />
+  <meta name="keywords" content="Python variables, Python data types, Python int float string boolean, Python memory model" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-2.html" />
-
-  <!-- Icons -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Python Tutorial Part 2 — Variables & Data Types | SRJahir Tech" />
+  <meta property="og:description" content="Learn how Python stores information using variables and data types. Understand int, float, string, boolean and how Python handles memory references." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-2.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Python Tutorial Part 2 — Variables & Data Types | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn how Python stores information using variables and data types. Understand int, float, string, boolean and how Python handles memory references."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism.js -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -51,154 +46,153 @@
   </nav>
 </header>
 
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
 
-  <h3>Python Full Tutorial — Part 2</h3>
+<h3>Python Full Tutorial — Part 2: Variables &amp; Data Types</h3>
+<p>In Part 1, we set up Python and understood what it is. Now we go into the actual foundation of programming: how Python stores and manages information. This is where real programming thinking begins.</p>
 
-  <p>
-    In Part 1, we understood what Python is and why it exists.
-    In this part, we enter the real foundation of programming:
-    <strong>variables, data types, and memory thinking</strong>.
-  </p>
+<h4>What is a Variable?</h4>
+<p>A variable is a name you give to a piece of data so you can refer to it later. Think of it like a label on a box — the label is the variable name, and whatever is inside the box is the value. In Python, you create a variable simply by writing a name, then an equals sign, then the value:</p>
+<div class="code-title">Creating Variables</div>
+<pre><code class="language-python">age = 25
+name = "Suraj"
+is_student = True
+height = 5.9</code></pre>
+<p>No special keywords needed. No type declarations. Just name = value and Python handles everything else. This simplicity is by design.</p>
 
-  <h4>What is a Variable?</h4>
-  <p>
-    A variable is a name that points to a value stored in memory.
-    Python does not think in terms of boxes —
-    it thinks in terms of references.
-  </p>
-
-  <div class="code-title">Basic Variable Example</div>
-  <pre><code class="language-python">
-x = 10
-name = "Python"
-  </code></pre>
-
-  <p>
-    Here:
-    <ul>
-      <li><code>x</code> points to number <code>10</code></li>
-      <li><code>name</code> points to text <code>"Python"</code></li>
-    </ul>
-  </p>
-
-  <h4>Python is Dynamically Typed</h4>
-  <p>
-    Python does not force you to declare data types.
-    The type is decided automatically at runtime.
-  </p>
-
-  <div class="code-title">Dynamic Typing Example</div>
-  <pre><code class="language-python">
-value = 10
-print(type(value))
-
-value = "Ten"
-print(type(value))
-  </code></pre>
-
-  <p>
-    Same variable name,
-    different data types —
-    Python allows this.
-  </p>
-
-  <h4>Common Python Data Types</h4>
-
-  <ul>
-    <li><strong>int</strong> → whole numbers</li>
-    <li><strong>float</strong> → decimal numbers</li>
-    <li><strong>str</strong> → text</li>
-    <li><strong>bool</strong> → True / False</li>
-  </ul>
-
-  <div class="code-title">Data Type Examples</div>
-  <pre><code class="language-python">
-age = 25          # int
-price = 99.99     # float
-language = "Python"  # str
-is_active = True  # bool
-  </code></pre>
-
-  <h4>Understanding Memory (Important)</h4>
-  <p>
-    Python variables do not store values directly.
-    They store references to objects in memory.
-  </p>
-
-  <div class="code-title">Reference Example</div>
-  <pre><code class="language-python">
-a = 5
+<h4>How Python Actually Stores Variables</h4>
+<p>Here is something most beginner tutorials skip — and it causes confusion later. In Python, variables do not <em>contain</em> values. They <em>point to</em> values stored in memory. This is called a reference model.</p>
+<div class="code-title">Reference Model Example</div>
+<pre><code class="language-python">a = 10
 b = a
-a = 10
+a = 20
 
-print(a)
-print(b)
-  </code></pre>
+print(a)  # 20
+print(b)  # 10</code></pre>
+<p>When you wrote <code>b = a</code>, Python made <code>b</code> point to the same value <code>a</code> was pointing to at that moment, which was 10. When you then changed <code>a</code> to point to 20, <code>b</code> did not change — it was still pointing to 10. Understanding this model will save you from many confusing bugs later.</p>
 
-  <p>
-    Output:
-  </p>
+<h4>Python's Core Data Types</h4>
+<p>Python has several built-in data types. Let us understand each one properly:</p>
 
-  <div class="code-title">Output</div>
-  <pre><code class="language-text">
-10
-5
-  </code></pre>
+<h5>1. Integer (int)</h5>
+<p>Whole numbers — positive, negative, or zero. No decimal point.</p>
+<div class="code-title">Integer Examples</div>
+<pre><code class="language-python">score = 100
+temperature = -5
+items_in_cart = 0
+population = 1400000000</code></pre>
 
-  <p>
-    Explanation:
-    <ul>
-      <li><code>b</code> still points to old object <code>5</code></li>
-      <li><code>a</code> now points to new object <code>10</code></li>
-    </ul>
-  </p>
+<h5>2. Float</h5>
+<p>Numbers with decimal points. Used when precision matters.</p>
+<div class="code-title">Float Examples</div>
+<pre><code class="language-python">price = 99.99
+pi = 3.14159
+percentage = 78.5</code></pre>
 
-  <h4>Rules for Variable Names</h4>
-  <ul>
-    <li>Must start with a letter or underscore</li>
-    <li>Cannot start with a number</li>
-    <li>Case-sensitive</li>
-    <li>No spaces allowed</li>
-  </ul>
+<h5>3. String (str)</h5>
+<p>Text data. Always wrapped in quotes — single or double, both work the same way.</p>
+<div class="code-title">String Examples</div>
+<pre><code class="language-python">city = "Rajkot"
+message = 'Learning Python is powerful'
+greeting = "Hello, " + city  # String joining</code></pre>
 
-  <div class="code-title">Valid vs Invalid Names</div>
-  <pre><code class="language-python">
-user_name = "Suraj"   # valid
-_age = 25             # valid
+<h5>4. Boolean (bool)</h5>
+<p>Only two possible values: <code>True</code> or <code>False</code>. Used heavily in conditions and logic.</p>
+<div class="code-title">Boolean Examples</div>
+<pre><code class="language-python">is_logged_in = True
+has_paid = False
+is_adult = age >= 18  # Evaluates to True or False</code></pre>
 
-2name = "Wrong"       # invalid
-user-name = "Wrong"   # invalid
-  </code></pre>
+<h5>5. NoneType</h5>
+<p>Represents the absence of a value. When a variable has no meaningful value yet, we use <code>None</code>.</p>
+<div class="code-title">None Example</div>
+<pre><code class="language-python">result = None  # No value assigned yet</code></pre>
 
-  <h4>Why This Matters</h4>
-  <p>
-    If you do not understand variables and data types,
-    loops, functions, APIs, and AI code will feel like magic.
-    Strong programmers think in memory and flow —
-    not syntax.
-  </p>
+<h4>Checking Data Types</h4>
+<p>Python gives you a built-in function called <code>type()</code> to check what type a variable holds:</p>
+<div class="code-title">Checking Types</div>
+<pre><code class="language-python">x = 42
+y = 3.14
+z = "hello"
+flag = True
 
-  <p>
-    In the next part,
-    we will learn operators and expressions —
-    how Python actually performs calculations and decisions.
-  </p>
+print(type(x))    # &lt;class 'int'&gt;
+print(type(y))    # &lt;class 'float'&gt;
+print(type(z))    # &lt;class 'str'&gt;
+print(type(flag)) # &lt;class 'bool'&gt;</code></pre>
+
+<h4>Type Conversion</h4>
+<p>Sometimes you need to convert data from one type to another. Python makes this straightforward:</p>
+<div class="code-title">Type Conversion Examples</div>
+<pre><code class="language-python"># String to integer
+age_text = "25"
+age_number = int(age_text)   # Now it's 25 as a number
+
+# Integer to string
+count = 100
+count_text = str(count)      # Now it's "100" as text
+
+# String to float
+price_text = "49.99"
+price = float(price_text)    # Now it's 49.99 as a decimal
+
+# Integer to float
+whole = 5
+decimal = float(whole)       # Now it's 5.0</code></pre>
+<p>This matters a lot when reading user input — everything the user types comes in as a string, and you often need to convert it to a number to do calculations.</p>
+
+<h4>Naming Rules for Variables</h4>
+<p>Python has clear rules for what you can name your variables:</p>
+<ul>
+  <li>Must start with a letter or underscore (<code>_</code>)</li>
+  <li>Cannot start with a number</li>
+  <li>Can only contain letters, numbers, and underscores</li>
+  <li>Case-sensitive — <code>Name</code> and <code>name</code> are two different variables</li>
+  <li>Cannot use Python reserved words like <code>if</code>, <code>for</code>, <code>while</code>, <code>class</code></li>
+</ul>
+<div class="code-title">Valid and Invalid Names</div>
+<pre><code class="language-python">user_name = "Suraj"    # valid
+_temp = 100            # valid
+firstName = "Raj"      # valid
+
+2name = "wrong"        # INVALID — starts with number
+my-name = "wrong"      # INVALID — hyphen not allowed
+for = 5                # INVALID — reserved word</code></pre>
+
+<h4>Multiple Assignment in One Line</h4>
+<p>Python lets you assign multiple variables at once — useful for clean, readable code:</p>
+<div class="code-title">Multiple Assignment</div>
+<pre><code class="language-python">x, y, z = 10, 20, 30
+print(x, y, z)  # 10 20 30
+
+# Swap two variables (Python makes this elegant)
+a = 5
+b = 10
+a, b = b, a
+print(a, b)  # 10 5</code></pre>
+
+<h4>Why This Matters</h4>
+<p>Variables and data types are not just "basics" to get through. They are the foundation everything else is built on. When you work with APIs, databases, machine learning models, or web applications — you are always working with data stored in variables of specific types. Understanding how Python references values in memory will help you avoid bugs that confuse even experienced developers.</p>
+<p>In Part 3, we will learn about operators and how Python performs calculations, comparisons, and logical decisions.</p>
+
+<h4>Common Mistakes with Variables</h4>
+<p>Understanding what to avoid is just as important as knowing the right approach. The most common mistake beginners make is confusing assignment with comparison. A single equals sign (<code>=</code>) assigns a value. A double equals sign (<code>==</code>) checks if two values are equal. Writing <code>if x = 5</code> instead of <code>if x == 5</code> is a syntax error in Python. Another frequent mistake is using a variable before assigning it a value — Python will raise a <code>NameError</code> in this case, not silently use a default. Always initialize variables before using them.</p>
+<h4>Dynamic Typing — A Powerful but Sharp Tool</h4>
+<p>Python is dynamically typed, meaning a variable can hold any type of value and that type can change during the program's execution. You can write <code>x = 5</code> and then <code>x = "hello"</code> and Python will not complain. This flexibility is part of what makes Python fast to write, but it also means you need to be aware of what type your variables hold at any given point. In larger programs, using type hints — a Python feature that documents expected types without enforcing them — helps maintain clarity. Understanding dynamic typing is what separates Python from statically typed languages like Java or C++, where you must declare the type of every variable.</p>
+<h4>Practice Exercise</h4>
+<p>Create a small Python script that: declares variables for a person's name (string), age (integer), height in meters (float), and whether they are employed (boolean). Print each variable along with its type using <code>type()</code>. Then convert the age to a float and the height to a string, and print the results. This exercise will reinforce variable assignment, the core data types, and type conversion all in one.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
-<!-- ===== DISCLAIMER ===== -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Learning programming requires practice and logical thinking.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

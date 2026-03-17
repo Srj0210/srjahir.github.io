@@ -1,93 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>AWS + Linux Combo Part 7 — Monitoring & Logs | SRJahir Tech</title>
-
-<meta name="description" content="AWS + Linux Combo Part 7. Learn system monitoring, logs, disk usage, memory, CPU on Linux servers." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());
-gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>AWS + Linux Combo — Part 7: IAM Roles, Users, and Policies | SRJahir Tech</title>
+  <meta name="description" content="Understand AWS IAM — users, roles, policies, and permissions. Learn how to attach IAM roles to EC2 instances for secure AWS service access." />
+  <meta name="keywords" content="AWS IAM roles, IAM policies EC2, AWS permissions, IAM user role, attach role EC2" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-7.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 7: IAM Roles, Users, and Policies | SRJahir Tech" />
+  <meta property="og:description" content="Understand AWS IAM — users, roles, policies, and permissions. Learn how to attach IAM roles to EC2 instances for secure AWS service access." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-7.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 7: IAM Roles, Users, and Policies","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Understand AWS IAM — users, roles, policies, and permissions. Learn how to attach IAM roles to EC2 instances for secure AWS service access."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 7: Monitoring & Logs</h3>
+<h3>AWS + Linux Combo — Part 7: IAM Roles, Users, and Policies</h3>
 
-<p>
-Servers fail silently.
-Monitoring tells you the truth.
-</p>
+<p>IAM stands for Identity and Access Management. It is the AWS service that controls who can do what in your AWS account. Understanding IAM is not optional if you want to use AWS seriously — it is the foundation of AWS security. Every AWS action, whether clicking in the console or running an AWS CLI command, is governed by IAM.</p>
 
-<h4>CPU & Memory</h4>
-<pre><code class="language-bash">
-top
-htop
-free -h
-</code></pre>
+<h4>Why IAM Matters</h4>
+<p>In the previous lesson, we used access keys to configure the AWS CLI. That approach works, but it has a major problem: access keys are long-lived credentials that can be stolen. If someone gets your key ID and secret key, they can do anything in your AWS account that your user has permission to do. This has caused massive security breaches and accidental bills in the thousands of dollars for many developers.</p>
+<p>The right approach for EC2 instances is to use IAM Roles — temporary credentials that AWS automatically manages. No keys to store, no keys to leak.</p>
 
-<h4>Disk Usage</h4>
-<pre><code class="language-bash">
-df -h
-du -sh /*
-</code></pre>
+<h4>IAM Core Concepts</h4>
+<ul>
+  <li><strong>Users</strong> — Individual people or service accounts with permanent credentials (password or access keys).</li>
+  <li><strong>Groups</strong> — Collections of users. Assign policies to groups instead of individual users for easier management.</li>
+  <li><strong>Roles</strong> — Identities that can be assumed by AWS services (like EC2), users, or external accounts. Roles use temporary credentials that auto-rotate.</li>
+  <li><strong>Policies</strong> — JSON documents that define what actions are allowed or denied on which resources.</li>
+</ul>
 
-<h4>System Logs</h4>
-<pre><code class="language-bash">
-journalctl -xe
-tail -f /var/log/syslog
-</code></pre>
+<h4>Understanding IAM Policies</h4>
+<p>Policies are the rules. Every permission in AWS is controlled by a policy. Here is what a policy looks like:</p>
+<div class="code-title">Example IAM Policy (S3 Read Only)</div>
+<pre><code class="language-bash">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-srjahir-bucket-2026",
+        "arn:aws:s3:::my-srjahir-bucket-2026/*"
+      ]
+    }
+  ]
+}</code></pre>
+<p>This policy allows reading objects from a specific S3 bucket and listing its contents. It does not allow deleting or uploading. AWS policies follow the principle of least privilege — grant only the permissions actually needed.</p>
 
-<h4>AWS Monitoring</h4>
-<p>
-CloudWatch tracks CPU, disk, network.
-Linux logs explain WHY.
-</p>
+<h4>Creating an IAM Role for EC2</h4>
+<p>Go to AWS Console → IAM → Roles → Create role. For the trusted entity type, select "AWS service" and choose EC2. This means EC2 instances can assume this role. Click Next and search for the policy "AmazonS3ReadOnlyAccess". Select it and click Next. Name the role "EC2-S3-Reader" and create it.</p>
 
-<h4>Mindset</h4>
-<p>
-Never guess.
-Always verify with data.
-</p>
+<h4>Attaching a Role to Your EC2 Instance</h4>
+<p>Go to EC2 → Instances → select your instance → Actions → Security → Modify IAM role → select "EC2-S3-Reader" → Update IAM role. Now your EC2 instance automatically has permission to read from S3 — no access keys needed.</p>
+<div class="code-title">Test the Role</div>
+<pre><code class="language-bash"># SSH into EC2 and try listing S3 (no aws configure needed now)
+aws s3 ls
 
-<a href="aws-linux-combo-part-8.html" class="btn">
-Next: Automation & Real Workflow →
-</a>
+# If you see your buckets, the role is working correctly
+
+# Check what credentials are being used
+aws sts get-caller-identity</code></pre>
+
+<h4>IAM Best Practices</h4>
+<p>The root account you used to create AWS should never be used for everyday work. Create an IAM admin user for your daily use. Enable MFA (Multi-Factor Authentication) on the root account and on any IAM users with significant permissions. Use roles instead of access keys wherever possible. Apply the principle of least privilege — give each user, role, or service only the minimum permissions it actually needs. Regularly review and remove permissions that are no longer needed.</p>
+<div class="code-title">Create IAM User via CLI</div>
+<pre><code class="language-bash"># Create a new IAM user
+aws iam create-user --user-name devuser
+
+# Attach a policy to the user
+aws iam attach-user-policy   --user-name devuser   --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+# List user's policies
+aws iam list-attached-user-policies --user-name devuser</code></pre>
+
+<h4>Common Managed Policies</h4>
+<p>AWS provides hundreds of pre-built "managed policies" you can attach to users, groups, or roles. Common ones include AdministratorAccess (full admin — use sparingly), AmazonS3FullAccess, AmazonEC2ReadOnlyAccess, AmazonDynamoDBFullAccess, and AWSLambdaBasicExecutionRole. For most EC2 use cases, create custom policies with only the specific permissions needed rather than using broad managed policies.</p>
+<p>In Part 8, we will write Bash scripts to automate common AWS and Linux tasks — combining everything we have learned so far into practical automation.</p>
+
+<h4>IAM Policy Deep Dive</h4>
+<p>IAM policies are JSON documents that define permissions. Understanding policy structure allows you to write precise, minimal policies rather than using overly broad managed policies:</p>
+<div class="code-title">Custom IAM Policy Example</div>
+<pre><code class="language-json">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadSpecificS3Bucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-app-bucket",
+                "arn:aws:s3:::my-app-bucket/*"
+            ]
+        },
+        {
+            "Sid": "DenyDeleteOperations",
+            "Effect": "Deny",
+            "Action": "s3:DeleteObject",
+            "Resource": "arn:aws:s3:::my-app-bucket/*"
+        }
+    ]
+}</code></pre>
+<p>The policy evaluation logic: explicit Deny always overrides Allow. If there is no explicit Allow, access is implicitly denied. This means you must explicitly Allow every action you want to permit — being specific about resources (using ARNs rather than wildcards where possible) is both more secure and required for passing AWS security reviews.</p>
+<h4>Service Control Policies for Multi-Account Organizations</h4>
+<p>In AWS Organizations — the service for managing multiple AWS accounts — Service Control Policies (SCPs) provide guardrails that apply to entire organizational units regardless of what IAM policies within individual accounts permit. SCPs cannot grant permissions but can restrict what is possible. A common SCP prevents disabling of CloudTrail logging across all accounts in an organization — even account administrators cannot disable audit logging. This provides organization-wide security guarantees that cannot be overridden by individual account mistakes.</p>
+<h4>Practice Exercise</h4>
+<p>Create an IAM user with no permissions, then create a custom policy that grants read-only access to a specific S3 bucket and attach it to the user. Configure the AWS CLI with the user's access keys and verify you can list the bucket contents but cannot write or delete. Then modify the policy to add write access and verify. Finally, use the IAM Policy Simulator in the AWS console to test what actions are allowed for different policy combinations before applying them to production resources.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Monitoring saves production systems.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Measure Before Fix</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

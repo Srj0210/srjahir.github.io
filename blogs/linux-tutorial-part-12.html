@@ -1,99 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Linux Tutorial Part 12 — Linux for Servers & Cloud | SRJahir Tech</title>
-
-<meta name="description" content="Linux Tutorial Part 12 by SRJahir Tech. Learn how Linux is used in servers, cloud, DevOps, and careers." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 12 — System Hardening & Security | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-12.html">
+<meta property="og:title" content="Linux Tutorial Part 12 — System Hardening & Security | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 12 — System Hardening & Security | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
-<header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
-</header>
-
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 12: System Hardening &amp; Security</h3>
+<p>This final part of the Linux series covers security hardening — making a Linux server resistant to attacks and unauthorized access. Every internet-facing server needs these practices. Security is not a feature you add later — it is a set of habits you build from the start.</p>
+<h4>User and Authentication Security</h4>
+<div class="code-title">Secure User Management</div>
+<pre><code class="language-bash"># Disable root SSH login
+sudo nano /etc/ssh/sshd_config
+# Set: PermitRootLogin no
+# Set: PasswordAuthentication no  (force key-based auth)
+# Set: MaxAuthTries 3
+sudo systemctl restart ssh
 
-<h3>Linux Tutorial — Part 12: Linux for Servers & Cloud</h3>
+# Create sudo user instead of using root
+sudo adduser deploy
+sudo usermod -aG sudo deploy
 
-<p>
-Almost the entire internet runs on Linux.
-This is where careers begin.
-</p>
+# Lock unused accounts
+sudo passwd -l username
 
-<h4>1. Linux in Real Servers</h4>
+# Check failed login attempts
+grep "Failed password" /var/log/auth.log | tail -20
+lastb | head -20</code></pre>
+<h4>SSH Key-Based Authentication</h4>
+<div class="code-title">SSH Keys Setup</div>
+<pre><code class="language-bash"># Generate key pair on your local machine
+ssh-keygen -t ed25519 -C "suraj@srjahir.in"
+
+# Copy public key to server
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server
+# Or manually:
+cat ~/.ssh/id_ed25519.pub | ssh user@server "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+# Set correct permissions on server
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys</code></pre>
+<h4>Firewall Configuration</h4>
+<div class="code-title">UFW Firewall Hardening</div>
+<pre><code class="language-bash">sudo ufw default deny incoming    # Block all incoming by default
+sudo ufw default allow outgoing   # Allow all outgoing
+sudo ufw allow from YOUR_IP to any port 22  # SSH from your IP only
+sudo ufw allow 80                 # HTTP
+sudo ufw allow 443                # HTTPS
+sudo ufw enable
+sudo ufw status verbose</code></pre>
+<h4>Fail2Ban — Block Brute Force Attacks</h4>
+<div class="code-title">Fail2Ban Setup</div>
+<pre><code class="language-bash">sudo apt install fail2ban
+sudo systemctl enable fail2ban
+
+# Configuration
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+sudo nano /etc/fail2ban/jail.local
+# [sshd]
+# enabled = true
+# maxretry = 5
+# bantime = 3600
+
+sudo systemctl restart fail2ban
+sudo fail2ban-client status sshd   # See banned IPs</code></pre>
+<h4>System Updates and Patches</h4>
+<div class="code-title">Keeping Systems Updated</div>
+<pre><code class="language-bash">sudo apt update && sudo apt upgrade -y         # Apply all updates
+sudo apt install unattended-upgrades           # Auto security updates
+sudo dpkg-reconfigure unattended-upgrades      # Configure auto-updates
+sudo unattended-upgrade --dry-run              # Preview changes</code></pre>
+<h4>File Integrity Monitoring</h4>
+<div class="code-title">Auditing Changes</div>
+<pre><code class="language-bash">sudo apt install aide             # Advanced Intrusion Detection Environment
+sudo aideinit                     # Initialize baseline database
+sudo aide --check                 # Compare current state to baseline
+
+# Auditd for logging
+sudo apt install auditd
+sudo auditctl -w /etc/passwd -p rwxa -k passwd_changes
+sudo ausearch -k passwd_changes   # Search audit log</code></pre>
+<h4>Security Checklist for Production Servers</h4>
+<p>Here is a practical security checklist for every new Linux server you set up:</p>
 <ul>
-<li>Web servers (Nginx, Apache)</li>
-<li>Databases</li>
-<li>Application servers</li>
+  <li>Disable root SSH login</li>
+  <li>Use SSH key authentication only — disable password auth</li>
+  <li>Change default SSH port if possible</li>
+  <li>Enable and configure UFW firewall — deny all, allow specific</li>
+  <li>Install and configure Fail2Ban</li>
+  <li>Enable automatic security updates</li>
+  <li>Remove or disable unnecessary services</li>
+  <li>Ensure no world-writable files outside /tmp</li>
+  <li>Set up centralized logging</li>
+  <li>Monitor for failed login attempts regularly</li>
 </ul>
+<p>Security is not a one-time task — it is an ongoing practice. Systems that were secure a year ago may not be secure today because new vulnerabilities are discovered constantly. Subscribe to security advisories for your distribution and review logs regularly.</p>
+<p>Congratulations on completing the Linux tutorial series. You now have the foundation to operate Linux servers, write automation scripts, manage security, and work confidently in any Linux-based environment.</p>
+<h4>Intrusion Detection and Log Analysis</h4>
+<p>Security on a Linux server requires ongoing monitoring, not just initial hardening. The <code>/var/log/auth.log</code> file (Ubuntu) or <code>/var/log/secure</code> (RHEL) records all authentication events including SSH login attempts and sudo usage. Check it regularly: <code>grep "Failed password" /var/log/auth.log | tail -20</code> shows recent failed SSH attempts. <code>fail2ban</code> automatically parses auth logs and temporarily bans IPs showing brute-force patterns — essential for any internet-facing server. Install with <code>sudo apt install fail2ban</code> and it works with sensible defaults immediately. Review its jail status with <code>sudo fail2ban-client status sshd</code> to see how many IPs have been banned.</p>
+<h4>Regular Security Maintenance Checklist</h4>
+<p>A practical security maintenance routine for Linux servers: keep the system updated — <code>sudo apt update &amp;&amp; sudo apt upgrade</code> weekly at minimum, and configure <code>unattended-upgrades</code> for automatic security patches. Review user accounts periodically — <code>cat /etc/passwd</code> to check for unexpected accounts, <code>last</code> to see recent logins. Check for world-writable files: <code>find /etc /var /usr -perm -002 -type f 2>/dev/null</code>. Verify SSH configuration — root login disabled, password authentication off if keys are in use. Review open ports regularly: <code>ss -tulnp</code> and verify each service should be running. Check for failed services: <code>systemctl --failed</code>.</p>
+<h4>Practice Exercise</h4>
+<p>Perform a basic security audit: check for accounts with UID 0 using <code>awk -F: '($3 == 0)' /etc/passwd</code>, check SSH configuration with <code>grep -E "PermitRootLogin|PasswordAuthentication|Port" /etc/ssh/sshd_config</code>, list all listening network services with <code>ss -tulnp</code>, check recent authentication events with <code>tail -50 /var/log/auth.log</code>, and find recently modified files in /etc with <code>find /etc -mtime -7 -type f</code>. Document what you find and research the correct secure configuration for any items that need attention.</p>
 
-<h4>2. Linux in Cloud</h4>
-<ul>
-<li>AWS EC2</li>
-<li>Azure VM</li>
-<li>Google Compute Engine</li>
-</ul>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-<h4>3. Linux + DevOps</h4>
-<ul>
-<li>Docker</li>
-<li>Kubernetes</li>
-<li>CI/CD pipelines</li>
-</ul>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-<h4>4. Skills That Matter</h4>
-<ul>
-<li>Permissions</li>
-<li>Networking</li>
-<li>Processes</li>
-<li>Logs</li>
-</ul>
-
-<h4>5. Final Advice</h4>
-<p>
-Linux is not memorization.
-It is understanding systems.
-</p>
-
-<p>
-This completes the Linux tutorial series.
-</p>
-
-<a href="../blog.html" class="btn">
-Back to Blog
-</a>
-
-</section>
-
-<div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Mastery comes from practice, not reading alone.
-</div>
-
-<footer>
-<p>© 2025 SRJahir Tech — Linux Is Not Optional</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

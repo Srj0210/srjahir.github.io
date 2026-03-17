@@ -4,43 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
   <title>Python Tutorial Part 7 — Functions | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Python tutorial part 7 by SRJahir Tech. Learn Python functions, parameters, return values, default arguments, and real-world usage with examples." />
-  <meta name="keywords" content="Python functions tutorial, python def, return function python" />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="description" content="Learn Python functions completely — defining, calling, parameters, return values, default args, *args, **kwargs, and lambda functions." />
+  <meta name="keywords" content="Python functions tutorial, Python def, Python return, Python args kwargs, Python lambda" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-7.html" />
-
-  <!-- Icon -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Python Tutorial Part 7 — Functions | SRJahir Tech" />
+  <meta property="og:description" content="Learn Python functions completely — defining, calling, parameters, return values, default args, *args, **kwargs, and lambda functions." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-7.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Python Tutorial Part 7 — Functions | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Python functions completely — defining, calling, parameters, return values, default args, *args, **kwargs, and lambda functions."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism.js (GitHub style code) -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -51,169 +46,138 @@
   </nav>
 </header>
 
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
 
-  <h3>Python Full Tutorial — Part 7</h3>
+<h3>Python Full Tutorial — Part 7: Functions</h3>
+<p>Functions are how you stop writing the same logic over and over. They are how you organize code, make it testable, and build programs that scale. Every professional Python codebase is built from functions. This is one of the most important parts of the entire series.</p>
+<h4>Defining and Calling a Function</h4>
+<div class="code-title">Basic Function</div>
+<pre><code class="language-python">def greet():
+    print("Hello from SRJahir Tech!")
+    print("Welcome to Python!")
 
-  <p>
-    If you write the same code again and again,
-    you are not programming — you are copying.
-  </p>
+greet()   # Call the function
+greet()   # Call it again — reusable</code></pre>
+<h4>Functions with Parameters</h4>
+<div class="code-title">Parameters and Arguments</div>
+<pre><code class="language-python">def greet_user(name, city):
+    print(f"Hello {name}! You are from {city}.")
 
-  <p>
-    <strong>Functions</strong> solve this problem.
-    They allow you to write logic once and reuse it everywhere.
-  </p>
+greet_user("Suraj", "Rajkot")
+greet_user("Priya", "Mumbai")</code></pre>
+<h4>Return Values</h4>
+<div class="code-title">Return Statement</div>
+<pre><code class="language-python">def calculate_area(length, width):
+    area = length * width
+    return area
 
-  <h4>1. What is a Function?</h4>
-  <p>
-    A function is a block of code that runs only when called.
-  </p>
+result = calculate_area(10, 5)
+print(f"Area: {result} sq units")
 
-  <div class="code-title">Basic Function</div>
-  <pre><code class="language-python">
-def greet():
-    print("Hello, welcome to Python")
+# Return multiple values
+def get_min_max(numbers):
+    return min(numbers), max(numbers)
 
-greet()
-  </code></pre>
+low, high = get_min_max([3, 7, 1, 9, 4])
+print(f"Min: {low}, Max: {high}")</code></pre>
+<h4>Default Parameter Values</h4>
+<div class="code-title">Default Parameters</div>
+<pre><code class="language-python">def send_email(to, subject, priority="normal"):
+    print(f"To: {to}")
+    print(f"Subject: {subject}")
+    print(f"Priority: {priority}")
 
-  <h4>2. Function with Parameters</h4>
-  <p>
-    Parameters allow functions to accept data.
-  </p>
+send_email("admin@example.com", "Server down!", "high")
+send_email("user@example.com", "Newsletter")  # Uses default priority</code></pre>
+<h4>*args — Variable Number of Arguments</h4>
+<div class="code-title">*args Example</div>
+<pre><code class="language-python">def total(*numbers):
+    return sum(numbers)
 
-  <div class="code-title">Function with Input</div>
-  <pre><code class="language-python">
-def greet_user(name):
-    print("Hello", name)
+print(total(10, 20))           # 30
+print(total(5, 15, 25, 35))    # 80</code></pre>
+<h4>**kwargs — Keyword Arguments</h4>
+<div class="code-title">**kwargs Example</div>
+<pre><code class="language-python">def create_profile(**info):
+    for key, value in info.items():
+        print(f"{key}: {value}")
 
-greet_user("Amit")
-greet_user("Neha")
-  </code></pre>
+create_profile(name="Suraj", age=22, city="Rajkot", role="Engineer")</code></pre>
+<h4>Lambda Functions</h4>
+<p>Lambda functions are small anonymous functions — one line, no def needed:</p>
+<div class="code-title">Lambda Examples</div>
+<pre><code class="language-python">square = lambda x: x ** 2
+print(square(5))  # 25
 
-  <h4>3. Return Values</h4>
-  <p>
-    Functions can return results instead of printing.
-  </p>
+# Used with sorted/filter/map
+students = [("Amit", 85), ("Sara", 92), ("Raj", 78)]
+sorted_students = sorted(students, key=lambda s: s[1], reverse=True)
+print(sorted_students)  # Sorted by score, highest first</code></pre>
+<h4>Scope — Local vs Global</h4>
+<div class="code-title">Scope Example</div>
+<pre><code class="language-python">total_users = 0  # Global variable
 
-  <div class="code-title">Return Example</div>
-  <pre><code class="language-python">
-def add(a, b):
-    return a + b
+def add_user():
+    global total_users   # Declare we want the global one
+    total_users += 1
 
-result = add(10, 20)
-print(result)
-  </code></pre>
+add_user()
+add_user()
+print(total_users)  # 2</code></pre>
+<p>Best practice: avoid global variables when possible. Pass values as parameters and return results. Functions with no side effects are easier to test and debug.</p>
+<p>In Part 8, we learn file handling — reading and writing files, which is how programs persist data beyond a single run.</p>
 
-  <h4>Why Return is Important</h4>
-  <p>
-    Printing shows output.
-    Returning gives control to the program.
-  </p>
 
-  <h4>4. Default Parameters</h4>
+  <h4>Common Mistakes Beginners Make</h4>
+  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
+  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
+  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
+  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
 
-  <div class="code-title">Default Value</div>
-  <pre><code class="language-python">
-def greet(name="User"):
-    print("Hello", name)
+  <h4>How This Topic Appears in Real Projects</h4>
+  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
+  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
 
-greet()
-greet("Rahul")
-  </code></pre>
+  <h4>Practice Exercise</h4>
+  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
 
-  <h4>5. Multiple Return Values</h4>
+  <h4>Lambda Functions for Short Operations</h4>
+<p>Python supports anonymous functions — small, one-expression functions defined without a name using the <code>lambda</code> keyword. Lambda functions are most useful when you need a simple function as an argument to another function:</p>
+<div class="code-title">Lambda Functions</div>
+<pre><code class="language-python"># Regular function
+def square(x):
+    return x ** 2
 
-  <div class="code-title">Returning Multiple Values</div>
-  <pre><code class="language-python">
-def calculate(a, b):
-    return a + b, a - b, a * b
+# Equivalent lambda
+square = lambda x: x ** 2
 
-sum_, diff, mul = calculate(10, 5)
-print(sum_, diff, mul)
-  </code></pre>
+# Most common use: as argument to sorted(), map(), filter()
+students = [("Alice", 88), ("Bob", 95), ("Charlie", 72)]
 
-  <h4>6. Function Inside Function</h4>
+# Sort by score (second element of each tuple)
+sorted_students = sorted(students, key=lambda s: s[1], reverse=True)
+# Result: [("Bob", 95), ("Alice", 88), ("Charlie", 72)]
 
-  <div class="code-title">Nested Function</div>
-  <pre><code class="language-python">
-def outer():
-    def inner():
-        print("Inner function")
-    inner()
+# Filter scores above 80
+passing = list(filter(lambda s: s[1] >= 80, students))
+# Result: [("Alice", 88), ("Bob", 95)]</code></pre>
+<p>Use lambda for simple, single-expression functions. For anything complex enough to need explanation or multiple lines, define a regular function with a descriptive name instead.</p>
+<h4>The Importance of Docstrings</h4>
+<p>Professional Python functions include docstrings — string literals immediately after the function definition that document what the function does, its parameters, and its return value. Docstrings are accessible via <code>help()</code> and are used by documentation tools to auto-generate API documentation. Writing clear docstrings is a sign of professional-quality code and makes your functions usable by others (including future you).</p>
+<h4>Practice Exercise</h4>
+<p>Write a set of utility functions for a simple student grade management system: a function to calculate the average of a list of scores, a function to determine letter grade from a numeric score, a function that takes a list of (name, score) tuples and returns a sorted list of (name, letter_grade) pairs. Write proper docstrings for each function and test them with at least five sample students.</p>
 
-outer()
-  </code></pre>
-
-  <h4>7. Real-World Example</h4>
-
-  <div class="code-title">Login Validation</div>
-  <pre><code class="language-python">
-def login(username, password):
-    if username == "admin" and password == "1234":
-        return True
-    return False
-
-if login("admin", "1234"):
-    print("Access Granted")
-else:
-    print("Access Denied")
-  </code></pre>
-
-  <h4>8. Why Functions Matter</h4>
-  <ul>
-    <li>Cleaner code</li>
-    <li>Reusable logic</li>
-    <li>Easier debugging</li>
-    <li>Professional structure</li>
-  </ul>
-
-  <h4>Bad vs Good Code</h4>
-
-  <div class="code-title">❌ Bad</div>
-  <pre><code class="language-python">
-print(10 + 20)
-print(10 + 20)
-print(10 + 20)
-  </code></pre>
-
-  <div class="code-title">✅ Good</div>
-  <pre><code class="language-python">
-def add():
-    print(10 + 20)
-
-add()
-add()
-add()
-  </code></pre>
-
-  <h4>Key Takeaway</h4>
-  <p>
-    Functions are not syntax.
-    They represent thinking in blocks.
-    This is where beginners start becoming developers.
-  </p>
-
-  <p>
-    Next part:
-    <strong>File Handling — reading & writing files</strong>.
-  </p>
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
-<!-- ===== DISCLAIMER ===== -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Practice writing your own functions daily.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

@@ -1,124 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 6 — Docker Compose | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 6 by SRJahir Tech. Learn Docker Compose, docker-compose.yml, multi-container applications." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 6 — Docker Compose | SRJahir Tech</title>
+  <meta name="description" content="Learn Docker Compose to manage multi-container applications. Write docker-compose.yml files, understand services, manage dependencies, and run complex apps with one command." />
+  <meta name="keywords" content="Docker Compose tutorial, docker-compose.yml explained, Docker Compose services, multi-container Docker" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-6.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 6 — Docker Compose | SRJahir Tech" />
+  <meta property="og:description" content="Learn Docker Compose to manage multi-container applications. Write docker-compose.yml files, understand services, manage dependencies, and run complex apps with one command." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-6.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 6 — Docker Compose | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Docker Compose to manage multi-container applications. Write docker-compose.yml files, understand services, manage dependencies, and run complex apps with one command."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
-
-<h3>Docker Tutorial — Part 6: Docker Compose</h3>
-
-<p>
-In real applications, one container is never enough.
-A backend talks to a database, cache, and sometimes a frontend.
-Managing this manually becomes painful.
-</p>
+<h3>Docker Full Tutorial — Part 6: Docker Compose</h3>
+<p>Running one container with a long <code>docker run</code> command is manageable. Running five containers with networks, volumes, environment variables, and port mappings by typing individual commands becomes chaotic and error-prone. Docker Compose solves this by letting you define your entire multi-container application in a single YAML file and start everything with one command.</p>
 
 <h4>What is Docker Compose?</h4>
-<p>
-Docker Compose allows you to define and run
-<strong>multiple containers using one file</strong>.
-</p>
+<p>Docker Compose is a tool for defining and running multi-container Docker applications. You describe your application's services, networks, and volumes in a <code>docker-compose.yml</code> file. Then you use the <code>docker compose up</code> command to create and start all services together. It is the standard way to manage local development environments and simple production deployments.</p>
 
-<h4>The docker-compose.yml File</h4>
-<p>
-This file describes:
-</p>
-<ul>
-<li>Services (containers)</li>
-<li>Images</li>
-<li>Ports</li>
-<li>Volumes</li>
-<li>Networks</li>
-</ul>
-
-<h4>Basic Example (Web + Database)</h4>
-
-<pre><code class="language-yaml">
-version: "3.9"
+<h4>Your First docker-compose.yml</h4>
+<p>Let us build a real example — a web application with Nginx, Flask, and PostgreSQL:</p>
+<div class="code-title">docker-compose.yml</div>
+<pre><code class="language-bash">version: '3.8'
 
 services:
-  web:
-    image: nginx
-    ports:
-      - "8080:80"
-
+  # PostgreSQL Database
   db:
-    image: mysql
+    image: postgres:15
     environment:
-      MYSQL_ROOT_PASSWORD: root
-</code></pre>
+      POSTGRES_DB: myapp
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
-<h4>Start the Application</h4>
-<pre><code class="language-bash">docker compose up -d</code></pre>
+  # Flask Backend
+  backend:
+    build: ./backend  # Build from local Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://appuser:apppassword@db:5432/myapp
+    depends_on:
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./backend:/app  # Bind mount for development
 
-<h4>Stop Everything</h4>
-<pre><code class="language-bash">docker compose down</code></pre>
+  # Nginx Frontend Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - app-network
 
-<h4>Why Docker Compose Matters</h4>
-<ul>
-<li>One command starts everything</li>
-<li>Perfect for local development</li>
-<li>Industry standard workflow</li>
-</ul>
+volumes:
+  postgres-data:
 
-<h4>Real-World Thinking</h4>
-<p>
-Every modern backend you deploy
-will eventually use Compose or Kubernetes.
-</p>
+networks:
+  app-network:
+    driver: bridge</code></pre>
 
-<p>
-Next, we learn how Docker images are actually built.
-</p>
+<h4>Essential Docker Compose Commands</h4>
+<div class="code-title">Compose Commands</div>
+<pre><code class="language-bash"># Start all services (build if needed)
+docker compose up
 
-<a href="docker-tutorial-part-7.html" class="btn">
-Next: Dockerfile & Image Building →
-</a>
+# Start in background (detached mode)
+docker compose up -d
 
+# Build images without starting
+docker compose build
+
+# Rebuild a specific service
+docker compose build backend
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+
+# View logs of all services
+docker compose logs
+
+# Follow logs of a specific service
+docker compose logs -f backend
+
+# List running services
+docker compose ps
+
+# Run a command in a service container
+docker compose exec backend bash
+
+# Scale a service (run multiple instances)
+docker compose up -d --scale backend=3</code></pre>
+
+<h4>Understanding depends_on</h4>
+<p>The <code>depends_on</code> option tells Docker Compose to start services in a specific order. In our example, the backend starts after the database, and Nginx starts after the backend. However, there is an important nuance: <code>depends_on</code> only waits for the container to start, not for the service inside it to be ready. A PostgreSQL container can be running but not yet accepting connections. For health checks and wait logic, you need additional tooling like <code>wait-for-it</code> scripts or Docker healthchecks.</p>
+
+<h4>Environment Variables in Compose</h4>
+<p>Hardcoding passwords in docker-compose.yml is bad practice. Use a <code>.env</code> file instead:</p>
+<div class="code-title">.env file</div>
+<pre><code class="language-bash">POSTGRES_PASSWORD=mysecurepassword
+POSTGRES_USER=appuser
+POSTGRES_DB=myapp</code></pre>
+<div class="code-title">docker-compose.yml with .env</div>
+<pre><code class="language-bash">services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}</code></pre>
+<p>Docker Compose automatically reads the <code>.env</code> file in the same directory. Add <code>.env</code> to your <code>.gitignore</code> to avoid committing secrets.</p>
+
+<h4>Health Checks</h4>
+<div class="code-title">Healthcheck in Compose</div>
+<pre><code class="language-bash">services:
+  db:
+    image: postgres:15
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d myapp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s</code></pre>
+
+<h4>Development vs Production Compose Files</h4>
+<p>A common pattern is to have multiple Compose files — a base file and environment-specific overrides:</p>
+<div class="code-title">Override Files</div>
+<pre><code class="language-bash"># Base configuration
+docker-compose.yml
+
+# Development overrides (bind mounts, debug settings)
+docker-compose.dev.yml
+
+# Start with development overrides
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up</code></pre>
+
+<p>In Part 7, we will explore Docker in real-world CI/CD pipelines — how images are built, tagged, pushed to registries, and deployed automatically in modern development workflows.</p>
 </section>
+<h4>Docker Compose Environment Variables and Secrets</h4>
+<p>Hardcoding sensitive values in docker-compose.yml is a security risk — these files often end up in version control. Docker Compose supports several approaches for managing configuration and secrets. The <code>.env</code> file in the same directory as docker-compose.yml is automatically loaded and its variables are available in the compose file using <code>${VARIABLE_NAME}</code> syntax. This file should be in <code>.gitignore</code>. For even more flexibility, each service can specify an <code>env_file</code> path to load environment-specific configuration:</p>
+<div class="code-title">Docker Compose with Variables</div>
+<pre><code class="language-yaml">version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:</code></pre>
+<h4>Health Checks in Docker Compose</h4>
+<p>The <code>depends_on</code> directive in Compose only waits for a container to start, not for the service inside to be ready. Adding health checks ensures services are actually ready before dependent services start. Define a healthcheck in the service configuration: <code>healthcheck: test: ["CMD", "pg_isready"] interval: 10s timeout: 5s retries: 5</code>. Then use <code>depends_on: db: condition: service_healthy</code> to wait for the healthy state before starting the dependent service.</p>
+<h4>Practice Exercise</h4>
+<p>Build a complete three-service application with Docker Compose: a database (PostgreSQL or MySQL), a backend API (any language), and a frontend or nginx reverse proxy. Use a <code>.env</code> file for all credentials and configuration. Add health checks to the database service and make the API depend on it being healthy. Test the full stack with <code>docker compose up</code> and verify all services start correctly and can communicate.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always version-control your docker-compose.yml file.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — One File, Many Containers</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

@@ -4,41 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>Docker Tutorial Part 2 — What Is a Container | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Docker tutorial part 2 by SRJahir Tech. Learn what a container really is, how it works internally, and how containers differ from virtual machines." />
-  <meta name="keywords" content="Docker containers explained, what is container, Docker vs VM, container basics" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech</title>
+  <meta name="description" content="Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker." />
+  <meta name="keywords" content="Docker install Ubuntu, Docker tutorial part 2, Docker first container, Docker commands beginners" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
-
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech" />
+  <meta property="og:description" content="Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -48,131 +45,142 @@
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 2: Installation &amp; First Containers</h3>
+<p>In Part 1 we understood why Docker exists and what problem it solves. Now we get hands-on. We will install Docker, understand its architecture, and run our first real containers. By the end of this part, you will have a working Docker setup and understand what actually happens when you type <code>docker run</code>.</p>
 
-  <h3>Docker Full Tutorial — Part 2</h3>
+<h4>Installing Docker on Ubuntu/Debian</h4>
+<p>This is the most common setup for developers and cloud servers. Follow these steps carefully:</p>
+<div class="code-title">Docker Install — Ubuntu</div>
+<pre><code class="language-bash"># Remove old versions first
+sudo apt remove docker docker-engine docker.io containerd runc
 
-  <p>
-    In Part 1, we understood why Docker exists.
-    In this part, we will understand the most important concept:
-    <strong>what a container actually is</strong>.
-  </p>
+# Update and install dependencies
+sudo apt update
+sudo apt install ca-certificates curl gnupg lsb-release
 
-  <h4>Simple Definition of a Container</h4>
+# Add Docker's official GPG key
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-  <p>
-    A container is a lightweight, isolated environment
-    that runs an application along with everything it needs.
-  </p>
+# Add Docker repository
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-  <p>
-    That includes:
-  </p>
+# Install Docker Engine
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-  <ul>
-    <li>Application code</li>
-    <li>Runtime</li>
-    <li>Libraries</li>
-    <li>Environment variables</li>
-  </ul>
+# Start Docker and enable on boot
+sudo systemctl start docker
+sudo systemctl enable docker
 
-  <h4>What a Container Is NOT</h4>
+# Run Docker without sudo (important!)
+sudo usermod -aG docker $USER
+newgrp docker</code></pre>
 
-  <ul>
-    <li>It is not a full operating system</li>
-    <li>It does not include its own kernel</li>
-    <li>It is not a virtual machine</li>
-  </ul>
+<h4>Installing Docker on Windows</h4>
+<p>Download Docker Desktop from the official Docker website. Docker Desktop for Windows includes everything you need: Docker Engine, Docker CLI, Docker Compose, and a visual dashboard. It requires Windows 10 or 11 with WSL2 (Windows Subsystem for Linux) enabled. During installation, Docker will ask you to install WSL2 if it is not already set up — follow the prompts and it will guide you through.</p>
+<p>After installation, Docker Desktop runs in the system tray. You can interact with Docker via PowerShell or Command Prompt using the same commands you would use on Linux.</p>
 
-  <p>
-    Containers share the host machine’s Linux kernel.
-    This is why they are fast and lightweight.
-  </p>
+<h4>Installing Docker on Mac</h4>
+<p>Download Docker Desktop for Mac from the official Docker website. There are two versions — one for Intel chips and one for Apple Silicon (M1, M2, M3). Make sure you download the right one for your machine. After installation, Docker Desktop gives you a menu bar icon and a dashboard to manage containers visually.</p>
 
-  <h4>How Containers Work Internally (Concept Level)</h4>
+<h4>Verifying Docker Installation</h4>
+<p>After installing, verify that Docker is working correctly:</p>
+<div class="code-title">Verify Docker</div>
+<pre><code class="language-bash">docker --version
+docker info</code></pre>
+<p>If you see version information, Docker is installed. Now run the classic test container:</p>
+<div class="code-title">Hello World Container</div>
+<pre><code class="language-bash">docker run hello-world</code></pre>
+<p>This command pulls a tiny test image from Docker Hub and runs it. You will see a message confirming that Docker is working correctly. Let us understand exactly what happened here:</p>
+<ul>
+  <li>Docker checked if the <code>hello-world</code> image exists locally</li>
+  <li>It did not find it, so it pulled it from Docker Hub (Docker's public image registry)</li>
+  <li>Docker created a container from that image</li>
+  <li>The container ran, printed the message, and exited</li>
+</ul>
 
-  <p>
-    Docker containers use Linux features such as:
-  </p>
+<h4>Essential Docker Commands You Must Know</h4>
+<p>These are the commands you will use constantly. Do not just read them — run each one and observe the output.</p>
+<div class="code-title">Core Docker Commands</div>
+<pre><code class="language-bash"># Pull an image from Docker Hub
+docker pull ubuntu
 
-  <ul>
-    <li><strong>Namespaces</strong> – isolation</li>
-    <li><strong>cgroups</strong> – resource limits</li>
-    <li><strong>Filesystem layers</strong> – efficiency</li>
-  </ul>
+# List downloaded images
+docker images
 
-  <p>
-    You do NOT need to master Linux internals right now.
-    Just understand this:
-  </p>
+# Run a container (interactive mode)
+docker run -it ubuntu bash
 
-  <p>
-    <strong>Containers feel like separate machines, but they are not.</strong>
-  </p>
+# List running containers
+docker ps
 
-  <h4>Container vs Virtual Machine (Clear Comparison)</h4>
+# List all containers (including stopped)
+docker ps -a
 
-  <ul>
-    <li>VM boots a full OS → slow</li>
-    <li>Container starts a process → fast</li>
-    <li>VM uses more memory</li>
-    <li>Container uses minimal memory</li>
-  </ul>
+# Stop a running container
+docker stop &lt;container_id&gt;
 
-  <h4>Why Containers Start So Fast</h4>
+# Remove a container
+docker rm &lt;container_id&gt;
 
-  <p>
-    Because:
-  </p>
+# Remove an image
+docker rmi ubuntu</code></pre>
 
-  <ul>
-    <li>No OS boot process</li>
-    <li>No hardware emulation</li>
-    <li>Direct execution on host kernel</li>
-  </ul>
+<h4>Running Your First Real Container</h4>
+<p>Let us run something more meaningful — an Nginx web server inside a container:</p>
+<div class="code-title">Run Nginx Container</div>
+<pre><code class="language-bash">docker run -d -p 8080:80 --name my-web nginx</code></pre>
+<p>Breaking down this command:</p>
+<ul>
+  <li><code>-d</code> — run in detached mode (background)</li>
+  <li><code>-p 8080:80</code> — map port 8080 on your machine to port 80 inside the container</li>
+  <li><code>--name my-web</code> — give the container a readable name</li>
+  <li><code>nginx</code> — use the official Nginx image</li>
+</ul>
+<p>Open your browser and go to <code>http://localhost:8080</code>. You will see the Nginx welcome page. A full web server running inside a container — no installation required on your host machine.</p>
 
-  <h4>Real-Life Analogy</h4>
+<h4>Understanding Container Lifecycle</h4>
+<p>A Docker container goes through specific states: created, running, stopped, and removed. Understanding this lifecycle is important because containers are meant to be disposable. You can stop them, delete them, and create new ones from the same image in seconds. The image stays — only the container instance is deleted when you run <code>docker rm</code>.</p>
+<p>This is fundamentally different from a virtual machine. A VM takes minutes to start. A container takes milliseconds. A VM has its own full OS. A container shares the host OS kernel. This is why containers are so powerful for modern development and deployment workflows.</p>
 
-  <p>
-    Think of containers like:
-  </p>
+<h4>Viewing Container Logs</h4>
+<p>When a container runs in the background, how do you know what it is doing? Docker captures all output from the container process and stores it as logs.</p>
+<div class="code-title">Container Logs</div>
+<pre><code class="language-bash"># View logs of a container
+docker logs my-web
 
-  <ul>
-    <li>Different apps on your phone</li>
-    <li>Each app is isolated</li>
-    <li>But all share the same phone OS</li>
-  </ul>
+# Follow logs in real time
+docker logs -f my-web</code></pre>
+<p>This is your window into what is happening inside a running container. In production systems, log monitoring is critical — Docker's logging system makes it straightforward.</p>
 
-  <h4>Important Beginner Rule</h4>
+<h4>Entering a Running Container</h4>
+<p>Sometimes you need to get inside a container and look around or troubleshoot. Use this command:</p>
+<div class="code-title">Enter Running Container</div>
+<pre><code class="language-bash">docker exec -it my-web bash</code></pre>
+<p>This opens a bash shell inside the running Nginx container. You can browse the filesystem, check configuration files, and run commands just as you would on a regular Linux server. Type <code>exit</code> to leave the container without stopping it.</p>
 
-  <p>
-    Do not confuse container isolation with full isolation.
-    Containers are secure, but they are not magic.
-  </p>
+<h4>Cleanup — Good Practice</h4>
+<p>Containers and images accumulate quickly and take up disk space. Keep your Docker environment clean:</p>
+<div class="code-title">Docker Cleanup</div>
+<pre><code class="language-bash"># Remove all stopped containers
+docker container prune
 
-  <p>
-    In Part 3, we will understand:
-  </p>
+# Remove unused images
+docker image prune
 
-  <ul>
-    <li>Docker architecture</li>
-    <li>Docker client</li>
-    <li>Docker daemon</li>
-    <li>Images vs containers</li>
-  </ul>
+# Remove everything unused (containers, networks, images)
+docker system prune</code></pre>
 
+<p>In Part 3, we will learn to write our own Dockerfile and build custom images — this is where Docker becomes truly powerful for real projects.</p>
 </section>
-
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Practical Docker usage requires hands-on practice.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

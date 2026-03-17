@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 12 — Becoming a DevOps Engineer | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 12 by SRJahir Tech. Complete DevOps engineer roadmap, daily learning plan, skills, mindset, projects, and career guidance." />
-<meta name="keywords" content="DevOps roadmap complete, become DevOps engineer, DevOps career guide, DevOps learning path" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-12.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>DevOps Roadmap Part 12 — Complete DevOps Project | SRJahir Tech</title>
+  <meta name="description" content="Build a complete DevOps project from scratch. Combine Terraform, Docker, GitHub Actions CI/CD, Kubernetes, and monitoring into a real production-grade deployment pipeline." />
+  <meta name="keywords" content="DevOps complete project, DevOps end to end pipeline, Terraform Docker Kubernetes CI/CD, production DevOps workflow" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-12.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 12 — Complete DevOps Project | SRJahir Tech" />
+  <meta property="og:description" content="Build a complete DevOps project from scratch. Combine Terraform, Docker, GitHub Actions CI/CD, Kubernetes, and monitoring into a real production-grade deployment pipeline." />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-12.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 12 — Complete DevOps Project | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -45,221 +42,181 @@ gtag('config', 'G-93D0PKZM2L');
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 12: Complete DevOps Project</h3>
+<p>This is the final part of the DevOps Roadmap series. Instead of introducing new concepts, we are going to connect everything you have learned across eleven parts into one coherent project. This is how a real DevOps workflow looks when all the pieces fit together. Follow along and build this — the hands-on experience is what turns knowledge into skill.</p>
 
-<h3>DevOps Roadmap — Part 12: Becoming a DevOps Engineer</h3>
-
-<p>
-Agar tum yaha tak aaye ho,
-to tumne DevOps sirf suna nahi — samjha hai.
-</p>
-
-<p>
-Ab sawal ye hai:
-<strong>“DevOps engineer kaise bane?”</strong>
-</p>
-
-<hr>
-
-<h4>First Reality Check</h4>
-
-<p>
-DevOps ek tool nahi hai.
-DevOps ek <strong>responsibility mindset</strong> hai.
-</p>
-
+<h4>What We Are Building</h4>
+<p>A production-grade deployment pipeline for a web application with these components working together:</p>
 <ul>
-  <li>Code sirf likhna nahi</li>
-  <li>System chalana bhi hai</li>
-  <li>Failure ka ownership lena hota hai</li>
+  <li><strong>Terraform</strong> — Provision AWS infrastructure (VPC, EC2, RDS, S3)</li>
+  <li><strong>Ansible</strong> — Configure servers after provisioning</li>
+  <li><strong>Docker</strong> — Containerize the application</li>
+  <li><strong>GitHub Actions</strong> — CI/CD pipeline that tests, builds, and deploys automatically</li>
+  <li><strong>AWS ECR + ECS</strong> — Container registry and managed container runtime</li>
+  <li><strong>Prometheus + Grafana</strong> — Monitoring and alerting</li>
 </ul>
 
-<hr>
+<h4>Phase 1 — Infrastructure with Terraform</h4>
+<div class="code-title">infrastructure/main.tf</div>
+<pre><code class="language-bash">module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.0"
+  name    = "production-vpc"
+  cidr    = "10.0.0.0/16"
+  azs     = ["ap-south-1a", "ap-south-1b"]
+  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets = ["10.0.10.0/24", "10.0.11.0/24"]
+  enable_nat_gateway = true
+}
 
-<h4>DevOps Engineer Actually Kya Karta Hai?</h4>
+module "ecs" {
+  source  = "terraform-aws-modules/ecs/aws"
+  cluster_name = "production-cluster"
+}
 
-<ul>
-  <li>CI/CD pipelines maintain karta hai</li>
-  <li>Servers & cloud manage karta hai</li>
-  <li>Deployments automate karta hai</li>
-  <li>Failures troubleshoot karta hai</li>
-  <li>Security & monitoring dekhta hai</li>
-</ul>
+resource "aws_ecr_repository" "app" {
+  name = "my-app"
+  image_tag_mutability = "MUTABLE"
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
 
-<p>
-DevOps = Developer + Operations + Ownership
-</p>
+resource "aws_db_instance" "postgres" {
+  engine         = "postgres"
+  engine_version = "15"
+  instance_class = "db.t3.micro"
+  db_name        = "appdb"
+  username       = "appuser"
+  password       = var.db_password
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.db.id]
+  skip_final_snapshot    = false
+}</code></pre>
 
-<hr>
+<h4>Phase 2 — CI/CD Pipeline</h4>
+<div class="code-title">.github/workflows/deploy.yml</div>
+<pre><code class="language-bash">name: Full Deployment Pipeline
 
-<h4>Complete Skill Map (No Confusion)</h4>
+on:
+  push:
+    branches: [main]
 
-<h5>1️⃣ Core Foundation</h5>
-<ul>
-  <li>Linux (must)</li>
-  <li>Networking basics</li>
-  <li>Shell scripting</li>
-</ul>
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          docker build --target test -t app:test .
+          docker run --rm app:test pytest
 
-<h5>2️⃣ Programming Basics</h5>
-<ul>
-  <li>Python or Bash</li>
-  <li>Read logs, write scripts</li>
-</ul>
+  security-scan:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'app:latest'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
 
-<h5>3️⃣ Cloud</h5>
-<ul>
-  <li>AWS / Azure / GCP (one is enough)</li>
-  <li>EC2, IAM, VPC, storage</li>
-</ul>
+  build-push:
+    needs: security-scan
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
 
-<h5>4️⃣ Containers & CI/CD</h5>
-<ul>
-  <li>Docker</li>
-  <li>Git & GitHub</li>
-  <li>GitHub Actions / Jenkins</li>
-</ul>
+      - name: Push to ECR
+        id: build
+        run: |
+          aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_URI
+          docker build -t $ECR_URI:${{ github.sha }} .
+          docker push $ECR_URI:${{ github.sha }}
 
-<h5>5️⃣ Infrastructure & Automation</h5>
-<ul>
-  <li>Terraform (infra as code)</li>
-  <li>Ansible basics</li>
-</ul>
+  deploy:
+    needs: build-push
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update ECS service
+        run: |
+          aws ecs update-service             --cluster production-cluster             --service my-app-service             --force-new-deployment</code></pre>
 
-<h5>6️⃣ Monitoring & Security</h5>
-<ul>
-  <li>Logs & alerts</li>
-  <li>Basic security awareness</li>
-</ul>
+<h4>Phase 3 — Monitoring Stack</h4>
+<div class="code-title">monitoring/docker-compose.yml</div>
+<pre><code class="language-bash">version: '3.8'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
 
-<hr>
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
 
-<h4>Daily Learning Plan (Poor Student Friendly)</h4>
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
 
-<p>
-Books kharidna zaroori nahi.
-Consistency zaroori hai.
-</p>
+volumes:
+  prometheus-data:
+  grafana-data:</code></pre>
 
-<ul>
-  <li>1–2 hours daily Linux / cloud practice</li>
-  <li>Weekend pe project improve karo</li>
-  <li>Break systems (and fix them)</li>
-</ul>
-
-<p>
-Free resources + practice = enough.
-</p>
-
-<hr>
-
-<h4>Projects Matter More Than Certificates</h4>
-
-<p>
-Interview me ye poochte hain:
-</p>
-
-<ul>
-  <li>“Tumne kya banaya?”</li>
-  <li>“Production issue kaise solve kiya?”</li>
-</ul>
-
-<p>
-Suggested beginner projects:
-</p>
-
-<ul>
-  <li>Deploy app on EC2 using Docker</li>
-  <li>CI/CD pipeline with GitHub Actions</li>
-  <li>Monitoring setup with alerts</li>
-</ul>
-
-<hr>
-
-<h4>Common Mistakes Beginners Make</h4>
-
-<ul>
-  <li>Sab tools ek sath seekhna</li>
-  <li>Sirf tutorials dekhna</li>
-  <li>Production fear rakhna</li>
-</ul>
-
-<p>
-Galtiya karna hi DevOps ka training hai.
-</p>
-
-<hr>
-
-<h4>Job Reality (Honest Truth)</h4>
-
-<p>
-Entry-level DevOps role rare hota hai.
-</p>
-
-<p>
-Usually path:
-</p>
-
-<ul>
-  <li>Linux / Cloud Engineer</li>
-  <li>Support / SRE role</li>
-  <li>Then DevOps</li>
-</ul>
-
-<p>
-Patience + skills = entry.
-</p>
-
-<hr>
-
-<h4>Final Advice</h4>
-
-<p>
-DevOps banna shortcut se nahi hota.
-</p>
-
-<p>
-Lekin agar tum:
-</p>
-
-<ul>
-  <li>Systems samajhte ho</li>
-  <li>Responsibility lete ho</li>
-  <li>Seekhna nahi chhodte</li>
-</ul>
-
-<p>
-To DevOps tumhe khud dhund lega.
-</p>
-
-<hr>
-
-<p>
-This completes the <strong>DevOps Roadmap Series</strong>.
-</p>
-
-<p>
-SRJahir Tech ka goal simple hai:
-<strong>clarity dena, hype nahi.</strong>
-</p>
-
-<a href="../blog.html" class="btn">
-← Back to Blog
-</a>
-
+<h4>The Complete Flow</h4>
+<ol>
+  <li>Developer pushes code to GitHub</li>
+  <li>GitHub Actions triggers: tests run, security scan, Docker image built</li>
+  <li>Image pushed to AWS ECR with the commit SHA as tag</li>
+  <li>ECS task definition updated with new image</li>
+  <li>ECS performs rolling deployment — no downtime</li>
+  <li>Prometheus scrapes new containers automatically</li>
+  <li>Grafana dashboards update in real time</li>
+  <li>Alerts fire to Slack/email if any service degrades</li>
+</ol>
+<p>This is professional DevOps. Every deployment is automated, auditable, and reversible. The infrastructure is code. The configuration is code. The pipeline is code. Everything lives in Git and can be reviewed, rolled back, or reproduced by anyone on the team.</p>
+<p>You have now completed the DevOps Roadmap series. The tools you have learned — Linux, Git, Docker, CI/CD, Terraform, Ansible, Kubernetes, Cloud, Monitoring — form the complete foundation of a modern DevOps engineer. The next step is to build and deploy something real. That experience is what makes everything stick.</p>
 </section>
+<h4>DevOps Project Architecture</h4>
+<p>A complete DevOps project demonstrates the full pipeline from code commit to production deployment. The minimal viable architecture: application code in a Git repository, a CI pipeline that runs on every push (lint, test, build, containerize), a CD pipeline that deploys to staging automatically and to production with approval, infrastructure managed as code with Terraform, application configuration managed with environment variables or a secrets manager, and monitoring with metrics, logs, and alerts. Building this end-to-end pipeline, even for a simple application, demonstrates all the core DevOps competencies that employers look for.</p>
+<h4>The DevOps Mindset Beyond Tools</h4>
+<p>DevOps is often described as a set of tools, but the more important dimension is the mindset and culture it represents. The core principles: automate everything that can be automated — manual processes are slow, error-prone, and do not scale. Measure everything — you cannot improve what you cannot measure, and data-driven decisions are better than intuition. Fail fast and recover faster — design systems to detect failures quickly and recover automatically. Shift left on security and quality — find problems early in the development process where they are cheapest to fix. The best DevOps engineers combine technical depth with the communication skills to help teams adopt these principles. Technical skill without cultural influence produces tools that nobody uses. Cultural change without technical depth produces aspirations that nobody can execute.</p>
+<h4>Your Complete DevOps Portfolio Project</h4>
+<p>Build and publicly document a complete DevOps project: choose a simple web application (or use an existing open-source project), containerize it with a production-ready Dockerfile, write Terraform for the cloud infrastructure, set up a GitHub Actions CI/CD pipeline that deploys to your cloud infrastructure, add Prometheus monitoring and a Grafana dashboard, and write a comprehensive README documenting the architecture, setup steps, and design decisions. This portfolio project demonstrates every core DevOps skill in one coherent project and is far more compelling to hiring managers than a list of tools on a resume.</p>
 
-<!-- ===== DISCLAIMER ===== -->
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
+
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-This roadmap is educational. Career outcomes depend on practice, consistency, and opportunities.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Build Systems, Not Just Skills</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

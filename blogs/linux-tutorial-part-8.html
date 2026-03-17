@@ -1,129 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 8 — Users, Groups & sudo | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 8 by SRJahir Tech. Learn Linux users, groups, sudo, user management commands, and access control with real examples." />
-  <meta name="keywords" content="Linux users, Linux groups, sudo tutorial, useradd, usermod, Linux permissions" />
-  <meta name="author" content="SRJahir Tech" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-8.html" />
-
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-8.html">
+<meta property="og:title" content="Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 8: Cron Jobs &amp; Task Scheduling</h3>
+<p>Production systems need to do things automatically on a schedule — run backups at midnight, send reports every Monday, clean up logs every Sunday, check server health every 5 minutes. Cron is Linux's built-in task scheduler, and it is one of the most practically useful tools in system administration.</p>
+<h4>Understanding Cron</h4>
+<p>Cron is a daemon (background process) that wakes up every minute and checks a set of configuration files called crontabs. If any job is scheduled for the current time, cron runs it. The service starts automatically at boot and runs continuously.</p>
+<h4>Crontab Syntax</h4>
+<div class="code-title">Cron Schedule Format</div>
+<pre><code class="language-bash"># Format: minute hour day-of-month month day-of-week command
+#         *      *    *            *     *
+#         |      |    |            |     |--- Day of week (0-7, 0 and 7 are Sunday)
+#         |      |    |            |--------- Month (1-12)
+#         |      |    |---------------------- Day of month (1-31)
+#         |      |--------------------------- Hour (0-23)
+#         |---------------------------------- Minute (0-59)
 
-  <h3>Linux Tutorial — Part 8: Users, Groups & sudo</h3>
+# Examples:
+0 2 * * *       /backup.sh         # Every day at 2:00 AM
+*/5 * * * *     /health-check.sh   # Every 5 minutes
+0 9 * * 1       /weekly-report.sh  # Every Monday at 9 AM
+0 */6 * * *     /sync.sh           # Every 6 hours
+0 0 1 * *       /monthly-cleanup.sh # First day of every month at midnight
+30 18 * * 1-5   /eod-backup.sh     # Weekdays at 6:30 PM</code></pre>
+<h4>Managing Crontabs</h4>
+<div class="code-title">Crontab Commands</div>
+<pre><code class="language-bash">crontab -e          # Edit current user's crontab
+crontab -l          # List current crontab
+crontab -r          # Remove crontab (careful!)
+sudo crontab -e     # Edit root's crontab
+crontab -u username -l  # View another user's crontab</code></pre>
+<h4>Practical Cron Examples</h4>
+<div class="code-title">Real Cron Jobs</div>
+<pre><code class="language-bash"># Check disk usage every 10 minutes, alert if over 85%
+*/10 * * * * df / | awk 'NR==2 {gsub(/%/,""); if($5>85) print "DISK ALERT: "$5"%"}' | mail -s "Disk Alert" admin@srjahir.in
 
-  <p>
-    Linux is built for multiple users.
-    Understanding who can do what is essential
-    for security, servers, and real production systems.
-  </p>
+# Daily backup at 3 AM
+0 3 * * * /home/suraj/scripts/backup.sh >> /var/log/backup.log 2>&1
 
-  <h4>1. What Is a User in Linux?</h4>
-  <p>
-    A user represents an identity.
-    Every process in Linux runs as some user.
-  </p>
+# Restart app if it crashes (every minute)
+* * * * * systemctl is-active myapp || systemctl restart myapp
 
-  <h4>2. Root User</h4>
-  <p>
-    <strong>root</strong> is the superuser.
-    It can read, write, delete, and destroy anything.
-  </p>
+# Weekly log rotation every Sunday at midnight
+0 0 * * 0 find /var/log/myapp -name "*.log" -mtime +30 -delete
 
-  <h4>3. Why sudo Exists</h4>
-  <p>
-    Running everything as root is dangerous.
-    <code>sudo</code> allows temporary privilege escalation.
-  </p>
+# Database backup every 6 hours
+0 */6 * * * /usr/local/bin/pg_backup.sh</code></pre>
+<h4>Systemd Timers — The Modern Alternative</h4>
+<p>Systemd timers are a more modern alternative to cron with better logging and dependency management:</p>
+<div class="code-title">Systemd Timer Unit</div>
+<pre><code class="language-bash"># /etc/systemd/system/backup.timer
+[Unit]
+Description=Daily Backup Timer
 
-  <pre><code class="language-bash">sudo apt update</code></pre>
+[Timer]
+OnCalendar=daily
+Persistent=true
 
-  <h4>4. Viewing Current User</h4>
-  <pre><code class="language-bash">whoami</code></pre>
+[Install]
+WantedBy=timers.target
 
-  <h4>5. Viewing All Users</h4>
-  <pre><code class="language-bash">cat /etc/passwd</code></pre>
+# Enable and start
+sudo systemctl enable backup.timer
+sudo systemctl start backup.timer
+sudo systemctl list-timers</code></pre>
+<h4>Viewing Cron Logs</h4>
+<div class="code-title">Cron Logging</div>
+<pre><code class="language-bash">grep CRON /var/log/syslog           # See cron execution history
+tail -f /var/log/syslog | grep CRON # Follow cron activity
+journalctl -u cron                  # Systemd journal for cron</code></pre>
+<h4>Best Practices for Cron Jobs</h4>
+<p>A few important practices that prevent common cron problems: Always use absolute paths in cron scripts, because cron runs with a minimal environment and may not have your normal PATH. Redirect output to a log file with <code>>> logfile 2>&1</code> so you can diagnose failures. Test scripts manually before scheduling them. Add flock or locking if the same job might run while a previous instance is still running — this prevents overlapping executions causing data corruption.</p>
+<p>In Part 9, we will cover package management — how to install, update, and manage software on Linux systems.</p>
+<h4>Cron Job Best Practices</h4>
+<p>Several practices make cron jobs reliable and debuggable. Always use absolute paths because cron runs with a minimal PATH that does not include your normal directories. Redirect both stdout and stderr to a log file: <code>* * * * * /path/to/script.sh >> /var/log/myjob.log 2>&amp;1</code>. Use <code>MAILTO=""</code> at the top of crontab to suppress email output, or set it to your address to receive notifications. For long-running jobs, prevent overlapping executions using <code>flock</code>: <code>* * * * * flock -n /tmp/myjob.lock /path/to/script.sh</code>. Always test the exact command manually from the terminal first to verify it works before scheduling it.</p>
+<h4>Systemd Timers as a Modern Alternative</h4>
+<p>Systemd timers offer advantages over cron: better logging via <code>journalctl</code>, dependency management, and the ability to catch up on missed jobs after system downtime. A timer requires two unit files — a service file defining what to run, and a timer file defining when. Use <code>systemctl list-timers</code> to see all scheduled timers and their next execution times. For new systems where systemd is available, timers are worth learning as the modern alternative, while cron remains universal and will work everywhere.</p>
+<h4>at Command for One-Time Jobs</h4>
+<p>While cron handles recurring jobs, the <code>at</code> command schedules a one-time job to run at a specific future time. <code>at 3pm tomorrow</code> opens an interactive prompt where you type commands, then press Ctrl+D to submit. <code>at now + 2 hours</code> schedules something two hours from now. <code>atq</code> lists pending at jobs and <code>atrm</code> removes them. The <code>at</code> command is useful for one-off maintenance tasks — running a database backup before a system update, sending a notification at a specific time, or running a script during a low-traffic window.</p>
+<h4>Practice Exercise</h4>
+<p>Create a cron job that runs every minute and appends the current timestamp and disk usage to a log file. Let it run for five minutes, then examine the log. Verify the cron job is running with <code>crontab -l</code>. After verifying it works, change the schedule to run daily at midnight. Then remove it with <code>crontab -e</code> and delete the line. Also practice using <code>at now + 5 minutes</code> to schedule a one-time command and verify it ran with <code>atq</code> before it executes.</p>
 
-  <h4>6. Creating a New User</h4>
-  <pre><code class="language-bash">sudo useradd john</code></pre>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-  <p>
-    Create user with home directory:
-  </p>
-
-  <pre><code class="language-bash">sudo useradd -m john</code></pre>
-
-  <h4>7. Setting Password</h4>
-  <pre><code class="language-bash">sudo passwd john</code></pre>
-
-  <h4>8. Groups in Linux</h4>
-  <p>
-    Groups are collections of users.
-    Permissions are often assigned to groups.
-  </p>
-
-  <pre><code class="language-bash">groups</code></pre>
-
-  <h4>9. Adding User to Group</h4>
-  <pre><code class="language-bash">sudo usermod -aG sudo john</code></pre>
-
-  <h4>10. Switching Users</h4>
-  <pre><code class="language-bash">su - john</code></pre>
-
-  <h4>Security Rule</h4>
-  <p>
-    Give sudo access only when required.
-    Least privilege is a professional mindset.
-  </p>
-
-  <a href="linux-tutorial-part-9.html" class="btn">
-    Next: Package Management →
-  </a>
-
-</section>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  Incorrect user or sudo configuration can compromise system security.
-</div>
-
-<footer>
-  <p>© 2025 SRJahir Tech — Control Access, Control Systems</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

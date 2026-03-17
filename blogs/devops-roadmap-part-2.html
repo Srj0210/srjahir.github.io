@@ -1,237 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 2 — Linux Fundamentals for DevOps | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 2 by SRJahir Tech. Learn Linux fundamentals required for DevOps including files, directories, commands, permissions, and server thinking." />
-<meta name="keywords" content="DevOps Linux basics, Linux for DevOps, learn Linux for DevOps, Linux fundamentals tutorial" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-2.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech</title>
+  <meta name="description" content="Learn essential Linux skills for DevOps — file navigation, permissions, process management, systemd services, and shell scripting basics." />
+  <meta name="keywords" content="Linux DevOps, Linux for engineers, Linux commands DevOps, systemd services Linux" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-2.html" />
+  <meta property="og:title" content="DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech" /><meta property="og:description" content="Learn essential Linux skills for DevOps — file navigation, permissions, process management, systemd services, and shell scripting basics." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 2: Linux for DevOps</h3>
+<p>Every DevOps engineer lives in Linux. Your CI/CD servers run Linux. Your Docker containers run Linux. Your Kubernetes nodes run Linux. Your cloud VMs run Linux. There is no DevOps without Linux. This part focuses specifically on Linux skills that matter most in a DevOps context — not general Linux, but the parts you will use every single day on the job.</p>
+<h4>SSH — The DevOps Lifeline</h4>
+<p>SSH (Secure Shell) is how you connect to and manage remote servers. This is one of the most used tools in DevOps:</p>
+<div class="code-title">SSH Commands</div>
+<pre><code class="language-bash">ssh user@server_ip                    # Connect to server
+ssh -i key.pem ubuntu@54.1.2.3        # Connect with key file (AWS style)
+ssh -p 2222 user@server               # Non-standard port
 
-<h3>DevOps Roadmap — Part 2: Linux Fundamentals for DevOps</h3>
+# Copy files to/from remote server
+scp file.txt user@server:/home/user/
+scp user@server:/var/log/app.log .
 
-<p>
-If DevOps had a backbone, it would be Linux.
-Almost every server, cloud VM, container, and production system
-runs on Linux.
-</p>
+# Sync directories
+rsync -avz ./app/ user@server:/var/www/app/</code></pre>
+<h4>Managing Services with systemd</h4>
+<p>In production, applications run as services managed by systemd:</p>
+<div class="code-title">systemctl Commands</div>
+<pre><code class="language-bash">sudo systemctl start nginx       # Start service
+sudo systemctl stop nginx        # Stop service
+sudo systemctl restart nginx     # Restart
+sudo systemctl reload nginx      # Reload config without restart
+sudo systemctl enable nginx      # Start on boot
+sudo systemctl disable nginx     # Do not start on boot
+sudo systemctl status nginx      # Check status
+sudo systemctl is-active nginx   # Check if running</code></pre>
+<h4>Process Management</h4>
+<div class="code-title">Process Commands</div>
+<pre><code class="language-bash">ps aux                  # All running processes
+ps aux | grep nginx     # Find specific process
+top                     # Real-time process monitor
+htop                    # Better process monitor (install separately)
+kill 1234               # Kill process by PID
+kill -9 1234            # Force kill
+pkill nginx             # Kill by name
+nohup python app.py &   # Run in background, survive logout</code></pre>
+<h4>Disk and Memory Monitoring</h4>
+<div class="code-title">Resource Monitoring</div>
+<pre><code class="language-bash">df -h                   # Disk usage by filesystem
+du -sh /var/log/        # Size of directory
+free -h                 # Memory usage
+vmstat 1                # Virtual memory stats every 1 second
+iostat                  # CPU and disk I/O stats
+lsblk                   # Block devices</code></pre>
+<h4>Network Commands</h4>
+<div class="code-title">Network Troubleshooting</div>
+<pre><code class="language-bash">ip addr                 # Network interfaces and IPs
+netstat -tulnp          # Open ports and listening services
+ss -tulnp               # Modern replacement for netstat
+ping google.com         # Test connectivity
+traceroute google.com   # Trace network path
+curl -I https://srjahir.in   # HTTP headers check
+wget https://example.com/file.zip  # Download file
+nslookup srjahir.in     # DNS lookup</code></pre>
+<h4>Bash Scripting Basics for Automation</h4>
+<p>DevOps engineers automate repetitive tasks with shell scripts:</p>
+<div class="code-title">Deployment Script Example</div>
+<pre><code class="language-bash">#!/bin/bash
+# deploy.sh — Simple application deployment script
 
-<p>
-DevOps engineers do not “use Linux occasionally”.
-They live inside it.
-</p>
+APP_DIR="/var/www/myapp"
+BACKUP_DIR="/var/backups"
+DATE=$(date +%Y%m%d_%H%M%S)
 
-<hr>
+echo "Starting deployment: $DATE"
 
-<h4>Why Linux Is Mandatory for DevOps</h4>
+# Create backup
+cp -r $APP_DIR $BACKUP_DIR/myapp_$DATE
+echo "Backup created"
 
-<p>
-Most cloud services (AWS, Azure, GCP) run Linux internally.
-Docker containers are Linux-based.
-Kubernetes nodes are Linux machines.
-</p>
+# Pull latest code
+cd $APP_DIR
+git pull origin main
+echo "Code updated"
 
-<p>
-If you avoid Linux, DevOps is not possible.
-</p>
+# Install dependencies
+pip install -r requirements.txt -q
 
-<hr>
+# Restart service
+sudo systemctl restart myapp
+sudo systemctl status myapp
 
-<h4>What Linux Really Is</h4>
-
-<p>
-Linux is an operating system —
-just like Windows —
-but designed for:
-</p>
-
-<ul>
-  <li>Servers</li>
-  <li>Stability</li>
-  <li>Automation</li>
-  <li>Remote access</li>
-</ul>
-
-<p>
-Linux does not focus on graphics.
-It focuses on control.
-</p>
-
-<hr>
-
-<h4>Understanding the Linux File System</h4>
-
-<p>
-Everything in Linux is a file.
-</p>
-
-<ul>
-  <li><strong>/</strong> → root directory</li>
-  <li><strong>/home</strong> → user files</li>
-  <li><strong>/etc</strong> → configuration files</li>
-  <li><strong>/var</strong> → logs and variable data</li>
-  <li><strong>/bin</strong> → essential commands</li>
-</ul>
-
-<p>
-DevOps engineers must know where configuration and logs live.
-</p>
-
-<hr>
-
-<h4>Basic Linux Commands You Must Know</h4>
-
-<div class="code-title">Check current directory</div>
-<pre><code class="language-bash">pwd</code></pre>
-
-<div class="code-title">List files</div>
-<pre><code class="language-bash">ls</code></pre>
-
-<div class="code-title">Change directory</div>
-<pre><code class="language-bash">cd /var/log</code></pre>
-
-<div class="code-title">Create a directory</div>
-<pre><code class="language-bash">mkdir devops</code></pre>
-
-<div class="code-title">Create a file</div>
-<pre><code class="language-bash">touch app.log</code></pre>
-
-<div class="code-title">View file content</div>
-<pre><code class="language-bash">cat app.log</code></pre>
-
-<p>
-These commands may look simple,
-but they are used daily in production.
-</p>
-
-<hr>
-
-<h4>Linux Permissions — Very Important</h4>
-
-<p>
-Linux protects files using permissions.
-</p>
-
-<p>
-Each file has:
-</p>
-
-<ul>
-  <li>Owner</li>
-  <li>Group</li>
-  <li>Permissions (read, write, execute)</li>
-</ul>
-
-<div class="code-title">Check permissions</div>
-<pre><code class="language-bash">ls -l</code></pre>
-
-<p>
-Incorrect permissions are a common cause of production failures.
-</p>
-
-<hr>
-
-<h4>Why DevOps Engineers Prefer Terminal</h4>
-
-<p>
-Terminal allows:
-</p>
-
-<ul>
-  <li>Automation</li>
-  <li>Remote control</li>
-  <li>Scripting</li>
-  <li>Speed</li>
-</ul>
-
-<p>
-GUIs do not scale.
-Terminals do.
-</p>
-
-<hr>
-
-<h4>Important Advice for Beginners</h4>
-
-<p>
-Do not memorize commands.
-Understand what they do.
-</p>
-
-<p>
-DevOps engineers are not command machines.
-They are system thinkers.
-</p>
-
-<hr>
-
-<h4>What Comes Next</h4>
-
-<p>
-In the next part,
-we will go deeper into Linux processes,
-users, and system management —
-the real server-level concepts.
-</p>
-
-<a href="devops-roadmap-part-3.html" class="btn">
-Next Part → Linux Users, Processes & System Basics
-</a>
-
+echo "Deployment completed successfully"</code></pre>
+<h4>Log Management</h4>
+<div class="code-title">Log Commands</div>
+<pre><code class="language-bash">journalctl -u nginx              # Service logs
+journalctl -f                    # Follow system logs
+journalctl --since "1 hour ago"  # Recent logs
+tail -f /var/log/nginx/access.log  # Follow nginx access log
+grep "500" /var/log/nginx/error.log | tail -20</code></pre>
+<p>In Part 3, we will deep dive into Git — the version control system that is the foundation of every CI/CD pipeline.</p>
 </section>
+<h4>Essential Linux Skills for DevOps Work</h4>
+<p>Beyond basic navigation, DevOps engineers rely on specific Linux skills daily. Process management — knowing how to find resource-hungry processes with <code>top</code> and <code>ps aux</code>, kill stuck processes, and understand system load — is fundamental for production troubleshooting. Systemd service management — starting, stopping, enabling, and checking the status of services with <code>systemctl</code> — is how applications are managed on modern Linux systems. Log inspection with <code>journalctl</code> for systemd-managed services and direct log file reading with <code>tail -f</code> and <code>grep</code> are the first tools used in incident response. Network diagnostics with <code>ss</code>, <code>curl</code>, <code>ping</code>, and <code>dig</code> are used to diagnose connectivity issues between services.</p>
+<h4>Shell Scripting for Automation</h4>
+<p>DevOps engineers write shell scripts constantly — for deployment automation, system configuration, health checks, data processing, and operational tasks. Effective shell scripting requires understanding variables and parameter expansion, conditionals and loops, functions for code reuse, error handling with <code>set -euo pipefail</code>, and working with command output using pipes and redirection. A shell script that deploys an application, checks that the service started successfully, and rolls back on failure is a realistic DevOps deliverable. Investing in shell scripting proficiency pays continuous dividends throughout a DevOps career.</p>
+<h4>Practice Exercise</h4>
+<p>Write a deployment health check script: it should verify that a specified systemd service is running, check that a specific port is listening using <code>ss -tulnp</code>, make an HTTP request to a health check endpoint using <code>curl</code> and verify the response code is 200, and output a clear pass/fail status for each check. Test it against a real service on your system such as nginx or sshd. This is a simplified version of the health check scripts used in real deployment pipelines.</p>
 
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Linux learning requires practice.
-Reading alone is not enough.
-Always test commands on a safe system or virtual machine.
-</div>
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
 
-<footer>
-<p>© 2025 SRJahir Tech — Linux Is Power</p>
-</footer>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

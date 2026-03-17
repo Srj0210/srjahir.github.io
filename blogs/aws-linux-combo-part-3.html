@@ -1,96 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>AWS + Linux Combo Part 3 — Users, Permissions & SSH Security | SRJahir Tech</title>
-
-<meta name="description" content="AWS + Linux Combo Part 3. Learn Linux users, sudo, permissions, SSH security on AWS EC2." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>AWS + Linux Combo — Part 3: Connect to EC2 with SSH | SRJahir Tech</title>
+  <meta name="description" content="Learn how to connect to your AWS EC2 Linux instance using SSH. Understand SSH keys, commands, and basic Linux navigation on your cloud server." />
+  <meta name="keywords" content="SSH to EC2, connect Linux AWS, SSH key pair, EC2 terminal, AWS Linux commands" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-3.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 3: Connect to EC2 with SSH | SRJahir Tech" />
+  <meta property="og:description" content="Learn how to connect to your AWS EC2 Linux instance using SSH. Understand SSH keys, commands, and basic Linux navigation on your cloud server." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-3.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 3: Connect to EC2 with SSH","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn how to connect to your AWS EC2 Linux instance using SSH. Understand SSH keys, commands, and basic Linux navigation on your cloud server."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 3: Users, Permissions & SSH Security</h3>
+<h3>AWS + Linux Combo — Part 3: Connect to EC2 with SSH</h3>
 
-<p>
-Running everything as root is dangerous.
-Real servers use proper Linux users.
-</p>
+<p>Your EC2 instance is running. Now it is time to connect to it. This is the moment where the cloud becomes real — you open a terminal on your laptop and type commands that execute on a server sitting in an Amazon data center somewhere in the world. That is what SSH makes possible.</p>
 
-<h4>Create a New User</h4>
-<pre><code class="language-bash">
-sudo adduser devuser
-</code></pre>
+<h4>What is SSH?</h4>
+<p>SSH stands for Secure Shell. It is a protocol that lets you log into a remote computer securely over a network. All data sent between your machine and the server is encrypted, so no one on the network can read your commands or the server's responses. SSH is the standard way to manage Linux servers, and it is used by virtually every cloud and DevOps engineer every day.</p>
+<p>When you SSH into an EC2 instance, you get a command-line interface — a terminal — on that remote server. You can run any Linux command as if you were sitting in front of the machine.</p>
 
-<h4>Give Sudo Access</h4>
-<pre><code class="language-bash">
-sudo usermod -aG sudo devuser
-</code></pre>
+<h4>Finding Your Instance's Public IP</h4>
+<p>Go to the AWS Console → EC2 → Instances → click your instance. In the details pane, find the <strong>Public IPv4 address</strong>. It looks something like <code>13.234.56.78</code>. Copy this address — you will use it in the SSH command.</p>
 
-<h4>Switch User</h4>
-<pre><code class="language-bash">
-su - devuser
-</code></pre>
+<h4>Connecting from Linux or Mac</h4>
+<p>Open your terminal. Navigate to where you saved your .pem key file. Run this command:</p>
+<div class="code-title">SSH Connect Command</div>
+<pre><code class="language-bash">ssh -i ~/.ssh/my-key.pem ec2-user@13.234.56.78</code></pre>
+<p>Replace <code>13.234.56.78</code> with your actual instance public IP. The default username for Amazon Linux is <code>ec2-user</code>. For Ubuntu AMIs it is <code>ubuntu</code>. For Debian it is <code>admin</code>.</p>
+<p>The first time you connect, SSH will ask you to confirm the server's fingerprint. Type <code>yes</code> and press Enter. This is a one-time security confirmation.</p>
 
-<h4>File Permissions Explained</h4>
-<pre><code class="language-bash">
-ls -l
-chmod 755 file.sh
-chown user:user file.sh
-</code></pre>
+<h4>Connecting from Windows</h4>
+<p>On Windows, you have two options. First, you can use Windows Subsystem for Linux (WSL) and run the same SSH command as above. Second, you can use PuTTY, a free SSH client for Windows. If using PuTTY, note that it uses .ppk key files, not .pem — you will need to convert your key using PuTTYgen first.</p>
+<p>The easiest modern approach on Windows is to enable WSL (Windows Subsystem for Linux), which gives you a proper Linux terminal. Then follow the Linux/Mac steps above.</p>
 
-<h4>SSH Security Basics</h4>
+<h4>What You See After Login</h4>
+<p>After successful connection, you will see something like this:</p>
+<div class="code-title">EC2 Login Welcome Screen</div>
+<pre><code class="language-bash">   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Mon Mar 17 10:00:00 2026 from 1.2.3.4
+[ec2-user@ip-172-31-10-20 ~]$</code></pre>
+<p>That prompt <code>[ec2-user@ip-172-31-10-20 ~]$</code> is your Linux shell. You are now inside a server in the cloud.</p>
+
+<h4>Basic Linux Navigation Commands</h4>
+<p>Let us run some essential commands to understand where you are and what the server looks like:</p>
+<div class="code-title">Navigation Commands</div>
+<pre><code class="language-bash"># Print current directory
+pwd
+
+# List files in current directory
+ls
+ls -la   # detailed view with hidden files
+
+# Change directory
+cd /     # go to root of the file system
+cd ~     # go to home directory
+cd /etc  # go to the etc directory
+
+# Show system info
+uname -a        # kernel and OS info
+hostname        # server hostname
+whoami          # current logged-in user
+uptime          # how long the server has been running</code></pre>
+
+<h4>Exploring the Linux File System</h4>
+<p>Linux has a specific directory structure. Here are the most important directories on your EC2 instance:</p>
 <ul>
-<li>Disable root login</li>
-<li>Use key-based auth only</li>
-<li>Change default SSH port (optional)</li>
+  <li><code>/</code> — Root of the entire file system. Everything lives under this.</li>
+  <li><code>/home/ec2-user</code> — Your home directory. Where you land after login.</li>
+  <li><code>/etc</code> — Configuration files for the OS and applications.</li>
+  <li><code>/var/log</code> — Log files. Crucial for debugging.</li>
+  <li><code>/tmp</code> — Temporary files. Cleared on reboot.</li>
+  <li><code>/usr/bin</code> — User-installed programs and commands.</li>
+  <li><code>/opt</code> — Optional software packages.</li>
 </ul>
 
-<h4>Why This Matters</h4>
-<p>
-Most cloud hacks happen due to weak Linux permissions.
-AWS cannot save you from bad Linux practices.
-</p>
+<h4>Creating and Editing Files</h4>
+<p>Two of the most common tasks on a Linux server are creating files and editing them:</p>
+<div class="code-title">File Operations</div>
+<pre><code class="language-bash"># Create an empty file
+touch myfile.txt
 
-<a href="aws-linux-combo-part-4.html" class="btn">
-Next: Storage — EBS, Mounts & Backups →
-</a>
+# Write text to a file
+echo "Hello from EC2" > myfile.txt
+
+# Display file contents
+cat myfile.txt
+
+# Edit a file with nano (beginner-friendly editor)
+nano myfile.txt
+
+# Edit a file with vim (powerful, but has a learning curve)
+vim myfile.txt</code></pre>
+<p>In nano, use Ctrl+O to save and Ctrl+X to exit. In vim, press <code>i</code> to enter insert mode, type your content, press Escape to exit insert mode, then type <code>:wq</code> and press Enter to save and quit.</p>
+
+<h4>Installing Software on Amazon Linux</h4>
+<p>Amazon Linux uses the <code>dnf</code> package manager (or <code>yum</code> on older versions):</p>
+<div class="code-title">Install Packages</div>
+<pre><code class="language-bash"># Update all installed packages
+sudo dnf update -y
+
+# Install a package (e.g., git)
+sudo dnf install git -y
+
+# Check if git was installed
+git --version</code></pre>
+
+<h4>Exiting SSH Session</h4>
+<p>When you are done working on the server, type <code>exit</code> or press <strong>Ctrl+D</strong> to close the SSH session. This logs you out but does NOT stop the EC2 instance. The server keeps running. To stop it, go back to the AWS console and stop the instance from there.</p>
+<p>In Part 4, we will go deeper into Linux on EC2 — covering file permissions, user management, and how to control who can access what on your server.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never give sudo access blindly.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Security Is Discipline</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

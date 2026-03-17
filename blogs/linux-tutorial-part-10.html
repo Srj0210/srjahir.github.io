@@ -1,111 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 10 — Processes & Services | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 10 by SRJahir Tech. Learn Linux processes, background jobs, services, systemctl, and process management." />
-  <meta name="keywords" content="Linux processes, systemctl tutorial, Linux services, ps top kill" />
-  <meta name="author" content="SRJahir Tech" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-10.html" />
-
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" class="top-logo" alt="SRJahir Tech">
-
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 10 — Environment Variables & System Config | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-10.html">
+<meta property="og:title" content="Linux Tutorial Part 10 — Environment Variables & System Config | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 10 — Environment Variables & System Config | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 10: Environment Variables &amp; System Configuration</h3>
+<p>Environment variables are a key mechanism in Linux for configuring how programs behave without hardcoding settings. Every professional deployment uses environment variables to manage configuration across different environments — development, staging, production. Understanding them deeply matters for every developer and operations engineer.</p>
+<h4>What Are Environment Variables?</h4>
+<p>Environment variables are named values stored in the shell's environment. Every process inherits environment variables from its parent. They configure system behavior, set paths for finding executables, and provide configuration to applications without modifying code.</p>
+<div class="code-title">Working with Environment Variables</div>
+<pre><code class="language-bash">env                             # Print all environment variables
+printenv                        # Same as env
+echo $HOME                      # Print specific variable
+echo $PATH                      # Show executable search paths
+echo $USER                      # Current username
+echo $SHELL                     # Current shell
+echo $PWD                       # Current directory
 
-<h3>Linux Tutorial — Part 10: Processes & Services</h3>
+# Set a variable (current session only)
+export DATABASE_URL="postgresql://localhost/mydb"
+export APP_ENV="production"
+export PORT=8080
 
-<p>
-Every running program in Linux is a <strong>process</strong>.
-Servers live and die by process management.
-</p>
+# Unset a variable
+unset DATABASE_URL</code></pre>
+<h4>Making Variables Persistent</h4>
+<div class="code-title">Persistent Configuration</div>
+<pre><code class="language-bash"># User-level — add to ~/.bashrc or ~/.bash_profile
+echo 'export JAVA_HOME="/usr/lib/jvm/java-17"' >> ~/.bashrc
+echo 'export PATH="$PATH:$JAVA_HOME/bin"' >> ~/.bashrc
+source ~/.bashrc    # Apply changes without restarting shell
 
-<h4>1. What Is a Process?</h4>
-<p>
-A process is a running instance of a program.
-Each process has a unique PID.
-</p>
+# System-level — for all users
+sudo nano /etc/environment
+# Add: MY_GLOBAL_VAR="value"
 
-<h4>2. Viewing Processes</h4>
-<pre><code class="language-bash">ps aux</code></pre>
+# Or in /etc/profile.d/
+sudo nano /etc/profile.d/myapp.sh
+# Add exports there</code></pre>
+<h4>PATH — The Most Important Variable</h4>
+<p>PATH determines where Linux looks for executable programs when you type a command. Understanding PATH helps you install software correctly and troubleshoot "command not found" errors:</p>
+<div class="code-title">PATH Management</div>
+<pre><code class="language-bash">echo $PATH                              # See current PATH
+which python3                           # Where is python3 found?
+which: no mycommand in ($PATH)          # What "command not found" means
 
-<h4>3. Real-Time Process Monitor</h4>
-<pre><code class="language-bash">top</code></pre>
+# Add to PATH
+export PATH="$PATH:/home/suraj/.local/bin"
+export PATH="/usr/local/go/bin:$PATH"  # Add to front (higher priority)</code></pre>
+<h4>Configuration Files Overview</h4>
+<div class="code-title">Key Configuration Files</div>
+<pre><code class="language-bash">/etc/hostname               # System hostname
+/etc/hosts                  # Local DNS — override DNS for specific names
+/etc/fstab                  # Filesystem mount points
+/etc/sudoers                # Sudo permissions (edit with visudo!)
+/etc/ssh/sshd_config        # SSH server configuration
+/etc/crontab                # System-wide cron jobs
+/etc/sysctl.conf            # Kernel parameters
+/etc/environment            # System-wide environment variables
+~/.bashrc                   # User shell config (runs for interactive shells)
+~/.bash_profile             # User login config (runs at login)
+~/.ssh/config               # SSH client configuration</code></pre>
+<h4>Managing /etc/hosts</h4>
+<div class="code-title">/etc/hosts Usage</div>
+<pre><code class="language-bash">cat /etc/hosts
+# 127.0.0.1    localhost
+# Add custom entries:
+sudo bash -c 'echo "192.168.1.50  staging.internal" >> /etc/hosts'
+sudo bash -c 'echo "10.0.1.10    database.internal" >> /etc/hosts'</code></pre>
+<h4>Using .env Files in Applications</h4>
+<p>Modern applications typically use <code>.env</code> files for local development and real environment variables in production:</p>
+<div class="code-title">.env Pattern</div>
+<pre><code class="language-bash"># .env file — never commit to git
+DATABASE_URL=postgresql://localhost/myapp_dev
+SECRET_KEY=dev-secret-key-change-in-prod
+REDIS_URL=redis://localhost:6379
+DEBUG=true
 
-<h4>4. Killing a Process</h4>
-<pre><code class="language-bash">kill 1234</code></pre>
+# Load with bash
+export $(cat .env | grep -v '^#' | xargs)
 
-<h4>5. Force Kill</h4>
-<pre><code class="language-bash">kill -9 1234</code></pre>
+# Load with Python dotenv
+from dotenv import load_dotenv
+load_dotenv()</code></pre>
+<p>In Part 11, we will cover disk management — understanding file systems, mounting, and managing storage in Linux.</p>
+<h4>Profile Files and Shell Initialization Order</h4>
+<p>When you open a terminal, Linux executes files in a specific order to set up your environment. For SSH login sessions: <code>/etc/profile</code> runs first system-wide, then <code>~/.bash_profile</code> or <code>~/.profile</code> for the user. For interactive terminal sessions: <code>/etc/bash.bashrc</code> runs system-wide, then <code>~/.bashrc</code> for the user. Most user-specific configuration belongs in <code>~/.bashrc</code> on Ubuntu/Debian systems. Changes take effect for new shells. Use <code>source ~/.bashrc</code> to apply changes immediately to the current session. A well-maintained <code>~/.bashrc</code> stored in a git repository is a personal productivity asset you can deploy to any new machine.</p>
+<h4>Managing Multiple Versions with update-alternatives</h4>
+<p>When multiple versions of a tool are installed, <code>update-alternatives</code> manages which version commands resolve to. <code>sudo update-alternatives --config python3</code> shows available Python 3 versions and lets you select the default interactively. <code>sudo update-alternatives --list java</code> shows configured Java alternatives. This system is cleaner than manually editing symlinks and prevents the confusion of installing a new tool version and having the command still point to the old one. On RHEL/CentOS, the equivalent is the <code>alternatives</code> command with identical syntax.</p>
+<h4>Practice Exercise</h4>
+<p>Customize your shell environment by editing <code>~/.bashrc</code>: add three useful aliases (<code>alias ll='ls -la --color=auto'</code>, <code>alias ..='cd ..'</code>, <code>alias grep='grep --color=auto'</code>), customize your PS1 prompt to show username, hostname, and current directory in different colors, and add a function that creates a directory and immediately changes into it (<code>mkcd() { mkdir -p "$1" &amp;&amp; cd "$1"; }</code>). Run <code>source ~/.bashrc</code> to apply changes. Then use <code>printenv</code> to see all environment variables and identify three you were not previously aware of.</p>
 
-<h4>6. Background Processes</h4>
-<pre><code class="language-bash">command &</code></pre>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-<h4>7. Services in Linux</h4>
-<p>
-Services are long-running background processes.
-</p>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-<h4>8. systemctl Basics</h4>
-<pre><code class="language-bash">sudo systemctl status nginx</code></pre>
-
-<pre><code class="language-bash">sudo systemctl start nginx</code></pre>
-
-<pre><code class="language-bash">sudo systemctl stop nginx</code></pre>
-
-<pre><code class="language-bash">sudo systemctl enable nginx</code></pre>
-
-<h4>Professional Rule</h4>
-<p>
-Never kill random processes on production systems.
-Understand before acting.
-</p>
-
-<a href="linux-tutorial-part-11.html" class="btn">
-Next: Networking Basics →
-</a>
-
-</section>
-
-<div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Improper process handling can crash systems.
-</div>
-
-<footer>
-<p>© 2025 SRJahir Tech — Control Processes, Control Stability</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

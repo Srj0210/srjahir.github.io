@@ -4,133 +4,237 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>AWS + Linux Combo Part 8 — Storage & Volumes | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="AWS + Linux Combo Part 8 by SRJahir Tech. Learn EBS volumes, mounting disks, file systems, persistence, and real server storage thinking." />
-  <meta name="keywords" content="AWS EBS Linux, mount volume linux, cloud storage basics, linux disks" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation | SRJahir Tech</title>
+  <meta name="description" content="Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns." />
+  <meta name="keywords" content="Bash scripting AWS, automate AWS Linux, cron jobs EC2, shell scripts cloud, Linux automation" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-8.html" />
-
-  <link rel="icon" href="../logo.png">
-
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation | SRJahir Tech" />
+  <meta property="og:description" content="Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-8.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
     <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 8<br>Storage, Disks & Volumes</h3>
+<h3>AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation</h3>
 
-<p>
-Servers are useless without storage.
-In cloud, storage is <strong>separate, attachable, and persistent</strong>.
-This part explains how AWS storage and Linux disks actually work together.
-</p>
+<p>Bash scripting is the glue that holds Linux and AWS together in real-world environments. Rather than running commands manually every day, you write scripts that run them automatically. This is how real cloud operations work — almost everything is automated. In this part, we learn enough Bash to write useful automation scripts for our EC2 and AWS setup.</p>
 
-<h4>What Is AWS EBS?</h4>
-<p>
-Elastic Block Store (EBS) is a virtual hard disk.
-It exists independently from your EC2 instance.
-</p>
+<h4>What is a Bash Script?</h4>
+<p>A Bash script is a plain text file containing a series of Linux commands. When you run the script, all those commands execute in sequence — exactly as if you had typed them one by one in your terminal. Scripts let you repeat complex workflows with a single command, run tasks at scheduled times, respond to conditions and errors, and build reproducible infrastructure setup processes.</p>
 
-<ul>
-  <li>Instance can die, disk survives</li>
-  <li>Can be attached/detached</li>
-  <li>Used for databases, files, logs</li>
-</ul>
+<h4>Your First Bash Script</h4>
+<div class="code-title">hello.sh</div>
+<pre><code class="language-bash">#!/bin/bash
+# This line tells Linux to use bash to run this script
 
-<h4>Check Disks in Linux</h4>
-<pre><code class="language-bash">lsblk</code></pre>
+echo "Hello, AWS automation!"
+echo "Today is: $(date)"
+echo "Server hostname: $(hostname)"
+echo "Logged in as: $(whoami)"</code></pre>
+<div class="code-title">Run the Script</div>
+<pre><code class="language-bash"># Make executable
+chmod +x hello.sh
 
-<p>
-This shows all attached disks.
-New EBS volumes appear as <code>/dev/xvdf</code>, <code>/dev/nvme*</code>, etc.
-</p>
+# Run it
+./hello.sh</code></pre>
 
-<h4>Create File System</h4>
-<pre><code class="language-bash">mkfs.ext4 /dev/xvdf</code></pre>
+<h4>Variables in Bash</h4>
+<div class="code-title">Variables</div>
+<pre><code class="language-bash">#!/bin/bash
 
-<p>
-Formatting prepares the disk for data.
-Never format a disk that already has data.
-</p>
+# Assign variables (no spaces around =)
+NAME="Suraj"
+BUCKET="my-srjahir-bucket-2026"
+DATE=$(date +%Y-%m-%d)
 
-<h4>Mount the Volume</h4>
-<pre><code class="language-bash">mkdir /data
-mount /dev/xvdf /data</code></pre>
+echo "Name: $NAME"
+echo "Bucket: $BUCKET"
+echo "Date: $DATE"
 
-<p>
-Now the disk is usable at <code>/data</code>.
-</p>
+# Read from environment
+REGION=${AWS_DEFAULT_REGION:-ap-south-1}  # use default if not set
+echo "Region: $REGION"</code></pre>
 
-<h4>Permanent Mount (fstab)</h4>
-<p>
-Without this, disk disappears after reboot.
-</p>
+<h4>Conditionals</h4>
+<div class="code-title">If/Else</div>
+<pre><code class="language-bash">#!/bin/bash
 
-<pre><code class="language-bash">nano /etc/fstab</code></pre>
+FILE="/var/log/nginx/error.log"
 
-<pre><code class="language-bash">/dev/xvdf  /data  ext4  defaults,nofail  0  2</code></pre>
+if [ -f "$FILE" ]; then
+    echo "Error log exists. Checking size..."
+    SIZE=$(wc -l < "$FILE")
+    if [ "$SIZE" -gt 1000 ]; then
+        echo "Warning: error log has $SIZE lines"
+    else
+        echo "Log size OK: $SIZE lines"
+    fi
+else
+    echo "No error log found"
+fi</code></pre>
 
-<h4>Real-World Use Cases</h4>
-<ul>
-  <li>Database storage</li>
-  <li>User uploads</li>
-  <li>Application logs</li>
-</ul>
+<h4>Loops</h4>
+<div class="code-title">For Loop</div>
+<pre><code class="language-bash">#!/bin/bash
 
-<h4>Mindset Tip</h4>
-<p>
-OS disk is temporary.
-Data disk is sacred.
-Always separate them.
-</p>
+# Loop through a list
+for SERVICE in nginx ssh cron; do
+    STATUS=$(systemctl is-active $SERVICE)
+    echo "$SERVICE: $STATUS"
+done
 
-<a href="aws-linux-combo-part-9.html" class="btn">
-Next: Production Server Setup →
-</a>
+# Loop through files
+for FILE in /var/log/nginx/*.log; do
+    echo "Processing: $FILE"
+done</code></pre>
+
+<h4>Practical Script: Daily S3 Backup</h4>
+<div class="code-title">daily-backup.sh</div>
+<pre><code class="language-bash">#!/bin/bash
+
+BUCKET="my-srjahir-bucket-2026"
+DATE=$(date +%Y-%m-%d)
+BACKUP_DIR="/tmp/backup-${DATE}"
+LOG_FILE="/var/log/backup.log"
+
+echo "[$(date)] Starting backup..." >> "$LOG_FILE"
+
+# Create backup directory
+mkdir -p "$BACKUP_DIR"
+
+# Copy files to backup
+cp -r /var/www/html/ "$BACKUP_DIR/website"
+cp -r /etc/nginx/ "$BACKUP_DIR/nginx-config"
+
+# Compress everything
+tar -czf "/tmp/backup-${DATE}.tar.gz" -C /tmp "backup-${DATE}"
+
+# Upload to S3
+if aws s3 cp "/tmp/backup-${DATE}.tar.gz" "s3://${BUCKET}/backups/"; then
+    echo "[$(date)] Backup uploaded successfully" >> "$LOG_FILE"
+else
+    echo "[$(date)] ERROR: Backup upload failed" >> "$LOG_FILE"
+    exit 1
+fi
+
+# Clean up temp files
+rm -rf "$BACKUP_DIR" "/tmp/backup-${DATE}.tar.gz"
+
+echo "[$(date)] Backup complete" >> "$LOG_FILE"</code></pre>
+
+<h4>Scheduling with Cron</h4>
+<p>Cron is Linux's job scheduler. It runs scripts automatically at set times:</p>
+<div class="code-title">Crontab Setup</div>
+<pre><code class="language-bash"># Edit your crontab
+crontab -e
+
+# Cron syntax: minute hour day month weekday command
+# Run backup at 2 AM every day
+0 2 * * * /home/ec2-user/daily-backup.sh
+
+# Run every hour
+0 * * * * /home/ec2-user/check-logs.sh
+
+# Run every 5 minutes
+*/5 * * * * /home/ec2-user/health-check.sh
+
+# View scheduled jobs
+crontab -l</code></pre>
+
+<h4>Script: EC2 Health Check</h4>
+<div class="code-title">health-check.sh</div>
+<pre><code class="language-bash">#!/bin/bash
+
+# Check if Nginx is running, restart if not
+if ! systemctl is-active --quiet nginx; then
+    echo "[$(date)] Nginx is down. Restarting..." >> /var/log/health.log
+    sudo systemctl restart nginx
+    echo "[$(date)] Nginx restarted" >> /var/log/health.log
+fi
+
+# Check disk usage
+DISK_USAGE=$(df / | awk 'NR==2{print $5}' | tr -d '%')
+if [ "$DISK_USAGE" -gt 80 ]; then
+    echo "[$(date)] WARNING: Disk usage at ${DISK_USAGE}%" >> /var/log/health.log
+fi</code></pre>
+<p>This kind of script, scheduled to run every 5 minutes with cron, gives you basic self-healing capability for your server. In Part 9, we go deeper into the AWS CLI — controlling your entire infrastructure from the Linux terminal.</p>
+
+<h4>AWS SDK Integration in Bash Scripts</h4>
+<p>The AWS CLI supports all AWS API operations, making it possible to build powerful automation scripts without writing application code. Combine standard Linux tools with AWS CLI commands for sophisticated operations:</p>
+<div class="code-title">Automated Backup Script</div>
+<pre><code class="language-bash">#!/bin/bash
+set -euo pipefail
+
+BUCKET="my-backup-bucket"
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR="/tmp/backup_${DATE}"
+
+# Create backup
+mkdir -p "$BACKUP_DIR"
+pg_dump myapp_db > "${BACKUP_DIR}/database.sql"
+tar czf "/tmp/backup_${DATE}.tar.gz" -C /tmp "backup_${DATE}"
+
+# Upload to S3
+aws s3 cp "/tmp/backup_${DATE}.tar.gz"     "s3://${BUCKET}/backups/backup_${DATE}.tar.gz"     --storage-class STANDARD_IA
+
+# Notify
+echo "Backup completed: backup_${DATE}.tar.gz" |     aws sns publish     --topic-arn "arn:aws:sns:ap-south-1:123456789:backup-notifications"     --message file:///dev/stdin
+
+# Cleanup
+rm -rf "$BACKUP_DIR" "/tmp/backup_${DATE}.tar.gz"
+
+echo "Backup and upload complete"</code></pre>
+<h4>Using AWS Systems Manager Parameter Store</h4>
+<p>Rather than hardcoding configuration or storing secrets in environment files on instances, use AWS SSM Parameter Store or Secrets Manager. Scripts can retrieve configuration at runtime: <code>DB_PASSWORD=$(aws ssm get-parameter --name /myapp/db/password --with-decryption --query Parameter.Value --output text)</code>. This centralizes configuration management, provides encryption for sensitive values, enables easy rotation, and creates an audit trail of every parameter access.</p>
+<h4>Practice Exercise</h4>
+<p>Write a bash script that uses the AWS CLI to: list all EC2 instances in your account with their state and instance type, find all S3 buckets and report their sizes using <code>aws s3 ls --summarize --human-readable</code>, and store a test secret in SSM Parameter Store then retrieve it in the same script. Schedule the EC2 listing script to run daily using cron and log output to a file with timestamps.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always double-check disk names before formatting.
-One wrong command can destroy data permanently.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Storage Is Memory</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

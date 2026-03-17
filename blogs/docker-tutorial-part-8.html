@@ -1,117 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 8 — Security & Best Practices | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 8 by SRJahir Tech. Learn Docker security basics, image hardening, and production best practices." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 8 — Multi-Stage Builds | SRJahir Tech</title>
+  <meta name="description" content="Master Docker multi-stage builds to create tiny production images. Learn how to separate build and runtime environments, reduce image size, and follow security best practices." />
+  <meta name="keywords" content="Docker multi-stage build tutorial, reduce Docker image size, Docker build stages, Docker production optimization" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-8.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 8 — Multi-Stage Builds | SRJahir Tech" />
+  <meta property="og:description" content="Master Docker multi-stage builds to create tiny production images. Learn how to separate build and runtime environments, reduce image size, and follow security best practices." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-8.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 8 — Multi-Stage Builds | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 8: Multi-Stage Builds</h3>
+<p>One of the most important Docker techniques for production deployments is multi-stage builds. Without this, your production images contain compilers, build tools, test frameworks, and development dependencies that your running application does not need. The result is bloated images that are slower to pull, take more storage, and have a larger attack surface. Multi-stage builds solve this elegantly.</p>
 
-<h3>Docker Tutorial — Part 8: Security & Best Practices</h3>
+<h4>The Problem — Fat Images</h4>
+<p>Consider building a Go application. The Go compiler alone is around 600MB. Your compiled application binary might be just 10MB. Why would you ship 600MB to production when the running application only needs 10MB? Before multi-stage builds, this was common. Developers would either use a bloated single-stage image or maintain separate Dockerfiles for building and running — which was messy.</p>
 
-<p>
-Docker makes deployment easy,
-but a careless Docker setup can become a security disaster.
-Security is not optional.
-</p>
+<h4>Multi-Stage Build — How It Works</h4>
+<p>A multi-stage Dockerfile has multiple FROM statements, each starting a new build stage. Docker executes all stages but only keeps what you explicitly copy into the final stage. The intermediate stages and their layers are discarded. Your final image contains only what you need to run the application.</p>
+<div class="code-title">Multi-Stage — Go Application</div>
+<pre><code class="language-bash"># Stage 1: Build stage (uses large Go image)
+FROM golang:1.21 AS builder
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o myapp .
 
-<h4>1. Never Run Containers as Root</h4>
-<p>
-By default, containers run as root.
-This is dangerous.
-</p>
+# Stage 2: Final stage (uses tiny scratch image)
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+# Copy ONLY the compiled binary from builder stage
+COPY --from=builder /app/myapp .
+EXPOSE 8080
+CMD ["./myapp"]</code></pre>
+<p>The first stage uses the full Go development image (about 800MB). The second stage uses Alpine Linux (about 5MB) and copies only the compiled binary. The resulting image is around 15MB instead of 800MB.</p>
 
-<pre><code class="language-dockerfile">
-FROM node:18
-RUN useradd -m appuser
-USER appuser
-</code></pre>
+<h4>Multi-Stage for Python Applications</h4>
+<div class="code-title">Multi-Stage — Python</div>
+<pre><code class="language-bash"># Stage 1: Build dependencies
+FROM python:3.11 AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
 
-<h4>2. Use Official & Minimal Images</h4>
+# Stage 2: Production image
+FROM python:3.11-slim
+WORKDIR /app
+# Copy installed packages from builder
+COPY --from=builder /root/.local /root/.local
+COPY . .
+ENV PATH=/root/.local/bin:$PATH
+EXPOSE 5000
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]</code></pre>
+
+<h4>Multi-Stage for Node.js / React</h4>
+<p>This pattern is very common for frontend applications where you build during CI but only need the compiled static files at runtime:</p>
+<div class="code-title">Multi-Stage — React App</div>
+<pre><code class="language-bash"># Stage 1: Build the React app
+FROM node:20 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve with Nginx (no Node.js needed!)
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+<p>The final image contains only Nginx and your compiled React files. No Node.js, no npm, no source code. The size goes from potentially 1GB+ down to around 30MB.</p>
+
+<h4>Named Stages and Selective Targeting</h4>
+<div class="code-title">Named Stages</div>
+<pre><code class="language-bash"># Build only a specific stage (useful for testing)
+docker build --target builder -t my-app:build .
+docker build --target production -t my-app:prod .
+
+# Example with test stage
+FROM python:3.11 AS base
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+FROM base AS test
+RUN pip install pytest
+COPY . .
+RUN pytest tests/
+
+FROM base AS production
+COPY . .
+CMD ["python", "app.py"]</code></pre>
+
+<h4>Copying from External Images</h4>
+<p>You can copy files from any image, not just stages in the same Dockerfile:</p>
+<div class="code-title">Copy From External Image</div>
+<pre><code class="language-bash">FROM ubuntu:22.04
+# Copy a binary from an official image
+COPY --from=nginx:latest /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=postgres:15 /usr/bin/psql /usr/bin/psql</code></pre>
+
+<h4>Best Practices Summary</h4>
 <ul>
-<li>Prefer official images</li>
-<li>Use slim or alpine variants</li>
+  <li>Use <code>AS</code> to name your stages clearly — <code>builder</code>, <code>test</code>, <code>production</code></li>
+  <li>Use slim or alpine base images in the final stage</li>
+  <li>Only copy what the runtime application needs</li>
+  <li>Run as a non-root user in production stages</li>
+  <li>Use <code>--no-cache-dir</code> and <code>--no-install-recommends</code> to reduce size</li>
 </ul>
 
-<pre><code class="language-dockerfile">
-FROM python:3.12-slim
-</code></pre>
-
-<h4>3. Do Not Store Secrets in Images</h4>
-<p>
-Never hardcode passwords or API keys.
-</p>
-
-<pre><code class="language-bash">
-docker run -e DB_PASSWORD=secret myapp
-</code></pre>
-
-<h4>4. Scan Images for Vulnerabilities</h4>
-<pre><code class="language-bash">
-docker scan myimage
-</code></pre>
-
-<h4>5. Limit Container Resources</h4>
-<pre><code class="language-bash">
-docker run --memory=512m --cpus=1 myapp
-</code></pre>
-
-<h4>Security Mindset</h4>
-<p>
-Containers reduce risk,
-but only if configured correctly.
-Security is a habit, not a feature.
-</p>
-
-<p>
-Next, we connect Docker with real cloud and CI/CD workflows.
-</p>
-
-<a href="docker-tutorial-part-9.html" class="btn">
-Next: Docker in Real Projects →
-</a>
-
+<p>In Part 9, we will cover Docker security — running containers safely, avoiding common vulnerabilities, and following security best practices for production environments.</p>
 </section>
+<h4>Optimizing Multi-Stage Builds Further</h4>
+<p>Multi-stage builds can be further optimized by targeting specific stages during development. Use <code>docker build --target builder .</code> to build only up to the builder stage — useful for running tests or debugging in the build environment without producing the final runtime image. You can also use build arguments to pass configuration into the build process: <code>ARG BUILD_ENV=production</code> in the Dockerfile and <code>docker build --build-arg BUILD_ENV=development .</code> to override it. Build arguments are available only during the build process, not in the running container — use environment variables for runtime configuration.</p>
+<h4>Distroless Images for Maximum Security</h4>
+<p>Google's distroless images take the minimal image philosophy further than Alpine. Distroless images contain only your application and its runtime dependencies — no package manager, no shell, no operating system utilities. This dramatically reduces the attack surface since there is no shell for an attacker to execute even if they gain code execution. The trade-off is that debugging becomes harder since you cannot exec into the container and run commands. A practical compromise: use distroless in production builds, Alpine-based images in development builds where debugging capability matters. The multi-stage pattern supports this easily by maintaining separate final-stage definitions.</p>
+<h4>Practice Exercise</h4>
+<p>Take an existing application with a basic Dockerfile and optimize it through multiple iterations: first, measure the baseline image size with <code>docker images</code>. Then apply a multi-stage build and measure the improvement. Then try switching the runtime stage to an Alpine or slim base image and measure again. Finally, experiment with ordering Dockerfile instructions to maximize cache efficiency — move frequently changing layers (like copying application code) after less frequently changing layers (like installing dependencies). Document the size reduction at each step.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Misconfigured containers can expose entire servers.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Secure Containers, Stable Systems</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

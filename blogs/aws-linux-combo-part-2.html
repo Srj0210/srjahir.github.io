@@ -1,115 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>AWS + Linux Combo Part 2 — EC2 & Linux Server Setup | SRJahir Tech</title>
-
-<meta name="description" content="AWS + Linux Combo Part 2 by SRJahir Tech. Learn EC2 basics, AMIs, instance types, SSH access, and Linux server setup." />
-<meta name="author" content="SRJahir Tech" />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>AWS + Linux Combo — Part 2: Create AWS Account & Launch EC2 | SRJahir Tech</title>
+  <meta name="description" content="Step-by-step guide to creating an AWS Free Tier account and launching your first EC2 Linux instance. Get your cloud server running in minutes." />
+  <meta name="keywords" content="AWS account setup, launch EC2 instance, AWS free tier, EC2 Linux server, AWS beginner" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-2.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 2: Create AWS Account & Launch EC2 | SRJahir Tech" />
+  <meta property="og:description" content="Step-by-step guide to creating an AWS Free Tier account and launching your first EC2 Linux instance. Get your cloud server running in minutes." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-2.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 2: Create AWS Account & Launch EC2","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Step-by-step guide to creating an AWS Free Tier account and launching your first EC2 Linux instance. Get your cloud server running in minutes."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 2: EC2 & Linux Server Setup</h3>
+<h3>AWS + Linux Combo — Part 2: Create AWS Account &amp; Launch EC2</h3>
 
-<p>
-EC2 is where AWS and Linux actually meet.
-An EC2 instance is nothing but a Linux server running inside AWS.
-</p>
+<p>In this part, we go from zero to having a real Linux server running in AWS. This is where it gets concrete. By the end of this lesson, you will have an EC2 instance running, and you will be ready to connect to it in the next part.</p>
+
+<h4>Step 1: Create Your AWS Account</h4>
+<p>Go to <strong>aws.amazon.com</strong> and click "Create a Free Account". You will need to provide an email address, create a password, and choose an account name. During signup, AWS will ask for a credit card — this is required even for the free tier. AWS uses it to verify your identity and to charge you if you go beyond free tier limits. As long as you follow the lessons and clean up resources afterward, you will not be charged.</p>
+<p>After entering your card details, AWS will ask you to verify your identity with a phone call or SMS. Complete this step. Then choose the Basic support plan — it is free and sufficient for learning.</p>
+
+<h4>Understanding the AWS Console</h4>
+<p>Once logged in, you see the AWS Management Console. This is the web interface for all AWS services. The top navigation shows your region in the top right corner. <strong>Region matters</strong> — all resources you create exist in a specific geographic region. For this series, choose a region close to you. For India, use <code>ap-south-1</code> (Mumbai). Make sure you always have the right region selected before creating resources.</p>
+<p>The search bar at the top lets you find any service quickly. Type "EC2" and click on it to go to the EC2 dashboard.</p>
 
 <h4>What is EC2?</h4>
-<p>
-EC2 (Elastic Compute Cloud) is a virtual machine.
-You control the OS.
-AWS controls the hardware.
-</p>
+<p>EC2 stands for Elastic Compute Cloud. It is AWS's virtual server service. An EC2 instance is basically a computer running in an AWS data center that you can access over the internet. You choose how much CPU, memory, and storage it has. You choose the operating system. You start it, stop it, and delete it whenever you want. You pay by the hour (or second in some cases) for the time it is running.</p>
 
-<h4>Choosing the Right Linux AMI</h4>
-<ul>
-<li>Amazon Linux (AWS optimized)</li>
-<li>Ubuntu (most popular)</li>
-<li>Red Hat / CentOS (enterprise)</li>
-</ul>
+<h4>Step 2: Launch Your First EC2 Instance</h4>
+<p>In the EC2 dashboard, click the orange "Launch instance" button. You will be taken through a setup wizard:</p>
+<ol>
+  <li><strong>Name your instance</strong> — Call it something like "my-first-server"</li>
+  <li><strong>Choose an AMI</strong> — Select "Amazon Linux 2023" (it is free tier eligible and well-optimized)</li>
+  <li><strong>Choose instance type</strong> — Select <code>t2.micro</code> or <code>t3.micro</code> — these are free tier eligible</li>
+  <li><strong>Create a Key Pair</strong> — Click "Create new key pair", name it "my-key", choose RSA and .pem format, click Create. Your browser will download a .pem file — <strong>save this file</strong>, you cannot download it again</li>
+  <li><strong>Network settings</strong> — Leave defaults, but make sure "Allow SSH traffic from" is set to "My IP"</li>
+  <li><strong>Storage</strong> — 8 GB default is fine</li>
+  <li>Click <strong>Launch instance</strong></li>
+</ol>
 
-<p>
-For beginners, <strong>Ubuntu</strong> or <strong>Amazon Linux</strong> is best.
-</p>
+<h4>Understanding Key Pairs</h4>
+<p>A key pair is how you authenticate to your Linux server. It uses public-key cryptography. AWS keeps the public key, and you keep the private key (the .pem file). When you SSH into the server, your private key proves your identity. Without this file, you cannot connect. Move it somewhere safe on your computer — many developers put it in a folder called <code>~/.ssh/</code>.</p>
+<div class="code-title">Set Correct Permissions on Key File (Linux/Mac)</div>
+<pre><code class="language-bash">chmod 400 ~/.ssh/my-key.pem</code></pre>
+<p>On Windows, you may need to adjust file permissions through Properties → Security.</p>
 
-<h4>Instance Type (Important)</h4>
-<p>
-Instance type decides CPU & RAM.
-</p>
+<h4>Step 3: Check Your Running Instance</h4>
+<p>After launching, go to EC2 → Instances. You will see your instance listed. It takes about 1-2 minutes to start. The status will change from "pending" to "running". Once it says "running", your Linux server is live in the cloud.</p>
+<p>Click on your instance to see its details. The most important fields right now are the <strong>Public IPv4 address</strong> or <strong>Public IPv4 DNS</strong> — you will use one of these to connect in the next lesson.</p>
 
-<pre><code class="language-bash">
-t2.micro  # Free tier (practice only)
-t3.small  # Light production
-</code></pre>
+<h4>Understanding Security Groups</h4>
+<p>A Security Group is a virtual firewall for your EC2 instance. It controls which traffic is allowed in and out. When you launched the instance, AWS created a Security Group that allows SSH (port 22) from your IP. This means only your computer can connect to the server via SSH right now. Later in the series, we will open more ports when we deploy web applications.</p>
 
-<h4>Key Pair & SSH</h4>
-<p>
-AWS does not use passwords by default.
-It uses SSH keys.
-</p>
+<h4>Free Tier Reminder</h4>
+<p>The <code>t2.micro</code> instance is free for 750 hours per month for the first 12 months of your AWS account. Since a month has about 720-744 hours, running one instance continuously stays within the free tier. Running two instances doubles usage, which may incur charges. Always stop or terminate instances when you are done learning for the day to stay safe.</p>
+<div class="code-title">Stop vs Terminate — Important Difference</div>
+<pre><code class="language-bash"># Stop: saves the instance state, you can restart it later
+# (storage still has a small cost, but EC2 hours stop counting)
 
-<pre><code class="language-bash">
-ssh -i key.pem ubuntu@PUBLIC_IP
-</code></pre>
+# Terminate: permanently deletes the instance
+# (use this when you are completely done with an instance)</code></pre>
 
-<h4>First Linux Commands on EC2</h4>
-<pre><code class="language-bash">
-whoami
-uname -a
-uptime
-df -h
-</code></pre>
+<h4>What We Accomplished</h4>
+<p>You now have a real Linux server running in Amazon's data center. It has a public IP address. It is connected to the internet. It is waiting for you to connect. In Part 3, we will SSH into this server from your local machine and start navigating the Linux environment inside it.</p>
 
-<h4>Important Thinking</h4>
-<p>
-This server is public.
-Anything open is a risk.
-Linux responsibility starts now.
-</p>
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
-<a href="aws-linux-combo-part-3.html" class="btn">
-Next: Users, Permissions & SSH Security →
-</a>
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never share your private key (.pem) file.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Servers Are Responsibility</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

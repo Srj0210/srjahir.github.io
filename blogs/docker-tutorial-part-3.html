@@ -4,41 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>Docker Tutorial Part 3 — Docker Architecture | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Docker tutorial part 3 by SRJahir Tech. Understand Docker architecture including Docker Client, Docker Daemon, Images, and Containers." />
-  <meta name="keywords" content="Docker architecture, Docker client daemon, Docker images containers explained" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>Docker Tutorial Part 3 — Writing Dockerfiles | SRJahir Tech</title>
+  <meta name="description" content="Learn to write Dockerfiles from scratch. Build custom Docker images, understand layers, optimize image size, and run your own containerized apps." />
+  <meta name="keywords" content="Dockerfile tutorial, write Dockerfile, Docker build custom image, Docker layers explained" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-3.html" />
-
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 3 — Writing Dockerfiles | SRJahir Tech" />
+  <meta property="og:description" content="Learn to write Dockerfiles from scratch. Build custom Docker images, understand layers, optimize image size, and run your own containerized apps." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-3.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 3 — Writing Dockerfiles | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn to write Dockerfiles from scratch. Build custom Docker images, understand layers, optimize image size, and run your own containerized apps."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -48,124 +45,148 @@
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 3: Writing Dockerfiles</h3>
+<p>In Part 2 we pulled existing images and ran containers. Now we go one step further — we will write our own Dockerfile and build custom images. This is where Docker transforms from a curiosity into a real tool you can use in projects.</p>
 
-  <h3>Docker Full Tutorial — Part 3</h3>
+<h4>What is a Dockerfile?</h4>
+<p>A Dockerfile is a plain text file with a specific name (literally <code>Dockerfile</code> — no extension) that contains instructions for building a Docker image. Think of it as a recipe. Each instruction in the Dockerfile creates a new layer in the image. When you run <code>docker build</code>, Docker reads the Dockerfile and executes each instruction in order, building your custom image layer by layer.</p>
+<p>The beauty of a Dockerfile is reproducibility. Anyone with your Dockerfile can build the exact same image on any machine. No more "it works on my computer" excuses.</p>
 
-  <p>
-    In this part, we will understand Docker architecture.
-    This is where many beginners get confused —
-    so we will keep it simple and logical.
-  </p>
+<h4>Basic Dockerfile Structure</h4>
+<p>Let us start with a simple but real example — containerizing a Python web application:</p>
+<div class="code-title">Simple Dockerfile</div>
+<pre><code class="language-bash"># Start from an official Python base image
+FROM python:3.11-slim
 
-  <h4>Main Components of Docker</h4>
+# Set working directory inside the container
+WORKDIR /app
 
-  <ul>
-    <li>Docker Client</li>
-    <li>Docker Daemon</li>
-    <li>Docker Images</li>
-    <li>Docker Containers</li>
-  </ul>
+# Copy requirements file first (for layer caching)
+COPY requirements.txt .
 
-  <h4>Docker Client</h4>
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-  <p>
-    Docker Client is what you interact with.
-    Every time you type a Docker command,
-    you are talking to the Docker Client.
-  </p>
+# Copy the rest of your application code
+COPY . .
 
-  <div class="code-title">Example</div>
-  <pre><code class="language-bash">
-docker ps
-docker run hello-world
-  </code></pre>
+# Tell Docker which port the app uses
+EXPOSE 5000
 
-  <p>
-    The client does not do heavy work.
-    It only sends instructions.
-  </p>
+# Command to run when container starts
+CMD ["python", "app.py"]</code></pre>
 
-  <h4>Docker Daemon</h4>
+<h4>Understanding Each Instruction</h4>
+<ul>
+  <li><strong>FROM</strong> — Every Dockerfile starts with FROM. It specifies the base image you are building on top of. <code>python:3.11-slim</code> is an official Python image with a minimal footprint.</li>
+  <li><strong>WORKDIR</strong> — Sets the working directory inside the container. All subsequent commands run from this path.</li>
+  <li><strong>COPY</strong> — Copies files from your local machine into the container image.</li>
+  <li><strong>RUN</strong> — Executes a command during the build process. Used for installing dependencies, running scripts, creating directories, etc.</li>
+  <li><strong>EXPOSE</strong> — Documents which port the container application uses. This does not actually publish the port — that happens when you run the container with <code>-p</code>.</li>
+  <li><strong>CMD</strong> — The default command to run when a container starts. Only one CMD per Dockerfile.</li>
+</ul>
 
-  <p>
-    Docker Daemon is the brain.
-    It runs in the background and does the actual work.
-  </p>
+<h4>Building Your Image</h4>
+<p>Create a directory, add the Dockerfile, and build:</p>
+<div class="code-title">Build Docker Image</div>
+<pre><code class="language-bash"># Build image with a tag (name:version)
+docker build -t my-python-app:1.0 .
 
-  <ul>
-    <li>Builds images</li>
-    <li>Runs containers</li>
-    <li>Manages networks and volumes</li>
-  </ul>
+# The dot (.) means use current directory as build context
+# Docker sends all files in this directory to the Docker daemon
 
-  <h4>Docker Image</h4>
+# List your images
+docker images</code></pre>
+<p>You will see Docker executing each step, printing layer IDs. After the build completes, your custom image appears in the list with the tag you gave it.</p>
 
-  <p>
-    A Docker image is a blueprint.
-    It is a read-only template used to create containers.
-  </p>
+<h4>Understanding Docker Layers</h4>
+<p>Every instruction in a Dockerfile creates a layer. Layers are cached. This is important because it directly affects how fast your builds are. Docker checks each layer — if the instruction and its context have not changed since the last build, Docker reuses the cached layer instead of rebuilding it.</p>
+<p>This is why we copy <code>requirements.txt</code> first and install dependencies before copying the rest of the code. Dependencies change infrequently. Your application code changes constantly. If we copied everything together first, every code change would invalidate the dependency installation layer, forcing Docker to reinstall packages on every build. By separating them, we only reinstall dependencies when <code>requirements.txt</code> actually changes.</p>
 
-  <p>
-    Image contains:
-  </p>
+<h4>Optimizing Image Size</h4>
+<p>Smaller images build faster, push and pull faster, and reduce attack surface. Here are key techniques:</p>
+<div class="code-title">Optimized Dockerfile</div>
+<pre><code class="language-bash"># Use slim or alpine variants
+FROM python:3.11-slim   # smaller than python:3.11
+FROM python:3.11-alpine # even smaller but may need extra packages
 
-  <ul>
-    <li>Base OS layer</li>
-    <li>Application code</li>
-    <li>Dependencies</li>
-  </ul>
+# Combine RUN commands to reduce layers
+RUN apt-get update && apt-get install -y     curl     git     && rm -rf /var/lib/apt/lists/*
 
-  <h4>Docker Container</h4>
+# Clean up in the same layer where you install
+RUN pip install --no-cache-dir -r requirements.txt</code></pre>
+<p>The <code>--no-cache-dir</code> flag tells pip not to store downloaded packages locally, reducing image size. Combining multiple <code>apt-get</code> commands into one RUN instruction with <code>&&</code> reduces the number of layers.</p>
 
-  <p>
-    A container is a running instance of an image.
-    One image can create many containers.
-  </p>
+<h4>Using .dockerignore</h4>
+<p>Just like <code>.gitignore</code>, a <code>.dockerignore</code> file tells Docker which files to exclude from the build context. This prevents large or sensitive files from accidentally being added to the image.</p>
+<div class="code-title">.dockerignore</div>
+<pre><code class="language-bash">__pycache__/
+*.pyc
+*.pyo
+.git/
+.env
+node_modules/
+*.log
+README.md</code></pre>
 
-  <h4>Simple Flow</h4>
+<h4>ENV and ARG — Variables in Dockerfile</h4>
+<p>You can define variables in your Dockerfile using ENV (environment variables available at runtime) and ARG (variables available only during build time):</p>
+<div class="code-title">ENV and ARG Example</div>
+<pre><code class="language-bash"># Build-time variable
+ARG APP_VERSION=1.0
 
-  <ol>
-    <li>You run a Docker command</li>
-    <li>Client sends request</li>
-    <li>Daemon processes it</li>
-    <li>Container starts from image</li>
-  </ol>
+# Runtime environment variable
+ENV APP_PORT=5000
+ENV ENVIRONMENT=production
 
-  <h4>Why This Architecture Matters</h4>
+# Use them
+EXPOSE $APP_PORT
+RUN echo "Building version $APP_VERSION"</code></pre>
 
-  <p>
-    Understanding this helps you:
-  </p>
+<h4>Running Your Custom Image</h4>
+<div class="code-title">Run Custom Image</div>
+<pre><code class="language-bash"># Run with port mapping
+docker run -d -p 5000:5000 --name my-app my-python-app:1.0
 
-  <ul>
-    <li>Debug issues</li>
-    <li>Understand errors</li>
-    <li>Work confidently in production</li>
-  </ul>
+# Run with environment variable override
+docker run -d -p 5000:5000 -e ENVIRONMENT=dev my-python-app:1.0
 
-  <p>
-    In Part 4, we will:
-  </p>
+# Run with volume mount (for development)
+docker run -d -p 5000:5000 -v $(pwd):/app my-python-app:1.0</code></pre>
 
-  <ul>
-    <li>Install Docker</li>
-    <li>Verify installation</li>
-    <li>Run first real container</li>
-  </ul>
-
+<p>In Part 4, we will learn Docker Volumes — how to persist data across container restarts, which is essential for databases and stateful applications.</p>
 </section>
+<h4>Multi-Stage Builds — Keeping Images Small</h4>
+<p>One of the most powerful Dockerfile features is multi-stage builds — using multiple FROM instructions in a single Dockerfile. The pattern is: use a large build image with all development tools to compile your application, then copy only the built artifacts into a small runtime image. This produces final images that are dramatically smaller and contain no build tools that could be a security risk:</p>
+<div class="code-title">Multi-Stage Build Example</div>
+<pre><code class="language-dockerfile"># Stage 1: Build
+FROM node:18 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Runtime (only what's needed to run)
+FROM node:18-alpine AS runtime
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["node", "dist/index.js"]</code></pre>
+<p>The <code>--from=builder</code> syntax copies files from the named build stage. The final image contains only Alpine Linux, Node runtime, and your built application — no npm, no build tools, no source code. This pattern routinely reduces image sizes by 60-80%.</p>
+<h4>Dockerfile Best Practices Summary</h4>
+<p>Use specific base image tags rather than <code>latest</code> for reproducibility. Order instructions from least to most frequently changing — dependencies before application code — to maximize layer cache effectiveness. Use <code>.dockerignore</code> to exclude unnecessary files from the build context. Combine related RUN commands with <code>&amp;&amp;</code> to reduce layer count. Run as a non-root user by creating a dedicated user in the Dockerfile. Scan images for vulnerabilities using <code>docker scout</code> or Trivy before deploying to production.</p>
+<h4>Practice Exercise</h4>
+<p>Write a Dockerfile for a simple web application of your choice (a Python Flask app, Node Express app, or static site). Build it, run it, verify it works, then check the image size with <code>docker images</code>. Then convert it to a multi-stage build and compare the final image size. The reduction should be substantial for compiled languages and measurable even for interpreted languages.</p>
 
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Practice is required to master Docker.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

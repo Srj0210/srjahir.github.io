@@ -20,6 +20,13 @@
     gtag('js', new Date());
     gtag('config', 'G-93D0PKZM2L');
   </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
 </head>
 
 <body>
@@ -34,40 +41,28 @@
 </header>
 
 <section class="content-block blog-article">
-  <h1>Cloud Security for Non-Security People</h1>
-  <p class="blog-meta">SRJahir Tech · 2025</p>
-
-  <p>
-    Cloud security is not a separate job.
-    It is a responsibility shared by everyone who uses the platform.
-  </p>
-
-  <h2>Security Starts With Access</h2>
-  <p>
-    Identity and permissions matter more than firewalls.
-    Over-permission is the most common risk.
-  </p>
-
-  <h2>Shared Responsibility Model</h2>
-  <p>
-    Cloud providers secure the platform.
-    Users secure what they deploy.
-  </p>
-
-  <h2>Simple Practices That Matter</h2>
-  <ul>
-    <li>Use least privilege access</li>
-    <li>Enable logging</li>
-    <li>Rotate credentials</li>
-    <li>Monitor activity</li>
-  </ul>
-
-  <p>
-    Security is not about fear.
-    It is about awareness and discipline.
-  </p>
-
-  <a href="../blog.html" class="btn">← Back to Blog</a>
+<h3>Cloud Security for Non-Security People</h3>
+<p>Security in the cloud is not just a job for the security team. Every developer who deploys code, every engineer who configures infrastructure, every analyst who accesses data — all of them make security decisions every day, often without realizing it. Understanding the basics of cloud security is no longer optional for anyone working in technology.</p>
+<p>This article is written for the developer who thinks security is someone else's job, the student learning cloud who skips the IAM section, and the professional who is not sure what least privilege actually means in practice. By the end, you will have a solid mental model of how cloud security works and what you personally need to pay attention to.</p>
+<h4>Why Cloud Security Is Different</h4>
+<p>In the old world of on-premises servers, security was largely physical. Put the servers in a locked room, control who gets access to the building, and you have covered a significant portion of your security perimeter. The attack surface was limited because the systems were physically isolated.</p>
+<p>Cloud changes everything. Your infrastructure is now accessible from anywhere on the internet. Your data is stored in shared data centers. Your services communicate over public networks. The configuration of your infrastructure is done through APIs and web consoles that are also accessible from anywhere. This does not make cloud less secure — in many ways, cloud providers have better physical security, more sophisticated monitoring, and more rigorous processes than most companies could afford on their own. But it does mean that the security responsibility shifts. The cloud provider secures the underlying hardware and network. You are responsible for everything you build and configure on top of it. AWS calls this the Shared Responsibility Model.</p>
+<h4>Identity and Access Management — The Most Critical Topic</h4>
+<p>IAM (Identity and Access Management) is where most cloud security breaches begin. More data breaches in cloud environments are caused by misconfigured permissions than by sophisticated attacks. Understanding IAM basics is the single most important security skill for non-security cloud users.</p>
+<p>The core concept is simple: every action in the cloud is performed by an identity — a user or a service — and every identity has a set of permissions defining what it is allowed to do. IAM is the system that manages these identities and permissions. The golden rule of IAM is least privilege: every identity should have exactly the permissions it needs to do its job, and nothing more. If your application only reads from an S3 bucket, its service account should only have read access to that specific bucket — not write access, not access to other buckets, not access to any other AWS services.</p>
+<p>Common mistakes that create security vulnerabilities: using the root account for daily tasks (never do this), creating IAM users with administrator permissions when they only need specific access, using long-lived access keys that never rotate, sharing credentials between services or people, and not enabling multi-factor authentication (MFA) on privileged accounts.</p>
+<h4>Data Security: Encryption at Rest and in Transit</h4>
+<p>Data security in the cloud has two primary dimensions: protecting data while it is stored (at rest) and protecting data while it is moving between systems (in transit). Encryption at rest means your data is stored in an encrypted format on disk. Even if someone physically accessed the storage media, they would not be able to read your data without the encryption keys. Most cloud storage services offer encryption at rest by default or with a simple configuration option. Enable it. Always.</p>
+<p>Encryption in transit means your data is encrypted as it travels over the network. This is what HTTPS provides for web traffic. For internal service-to-service communication in the cloud, use TLS everywhere. Never transmit sensitive data over unencrypted connections, even within a private network. Key management is critically important. Your encryption is only as strong as the protection of your encryption keys. Cloud providers offer dedicated key management services — AWS KMS, Google Cloud KMS, Azure Key Vault — that store keys securely and control who can use them. Use these services instead of managing keys yourself in application code or configuration files.</p>
+<h4>Network Security: VPCs, Security Groups, and Private Subnets</h4>
+<p>When you deploy resources in the cloud, you can control the network environment they run in through Virtual Private Clouds (VPCs) — isolated network environments that you define and control. Public subnets are network segments where resources can directly communicate with the internet. Private subnets are where your databases, internal services, and sensitive components should live — they cannot receive direct inbound traffic from the internet.</p>
+<p>Security groups act as firewalls for your cloud resources. They define what traffic is allowed in and out. A common mistake is opening security groups too broadly — for example, allowing SSH access from 0.0.0.0/0 (all IP addresses) to your servers. This is almost never necessary and creates significant exposure. Always restrict access to specific IP ranges or specific other security groups.</p>
+<h4>Monitoring and Logging</h4>
+<p>One of the most powerful security capabilities of the cloud is the ability to log and monitor everything. Cloud providers capture detailed audit logs of every API call, every authentication event, every resource change. Enable audit logging from day one. In AWS, this is CloudTrail. In GCP, it is Cloud Audit Logs. In Azure, it is Azure Monitor and Activity Log. Configure alerts for suspicious activity: root account usage, IAM policy changes, security group modifications, failed authentication attempts. Set up centralized log storage and make sure logs cannot be deleted or modified by the accounts they are monitoring.</p>
+<h4>Common Security Mistakes and How to Avoid Them</h4>
+<p>S3 bucket misconfigurations have caused some of the largest data breaches in recent years. Never make a bucket public unless you have a specific reason like hosting a public static website. Enable S3 Block Public Access at the account level as a safeguard. Hardcoded credentials in code are another major vulnerability — never put API keys, passwords, or other credentials directly in your application code. Use environment variables, cloud-native secrets management, or IAM roles that grant permissions without needing explicit credentials at all.</p>
+<p>Unused resources are a security risk. Old servers, forgotten databases, unused IAM users, deprecated API keys — these are all potential attack surfaces. Conduct regular audits of your cloud environment and remove anything that is not actively needed. Security is not a one-time task. It is a habit of thinking — asking who can access this and what is the minimum access needed every time you configure a new resource. Develop that habit and you will naturally build more secure systems.</p>
+<a href="../blog.html" class="btn">← Back to Blog</a>
 </section>
 
 <div class="blog-disclaimer">

@@ -1,185 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 2 — Distributions & Installation | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 2 by SRJahir Tech. Learn Linux distributions, types of Linux OS, how to choose the right distro, and safe installation options for beginners." />
-  <meta name="keywords" content="Linux distributions, Linux tutorial part 2, Ubuntu vs Fedora, Linux installation guide" />
-  <meta name="author" content="SRJahir Tech" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-2.html" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<!-- ===== ARTICLE START ===== -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-2.html">
+<meta property="og:title" content="Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 2: File Navigation &amp; Management</h3>
+<p>The Linux file system is the foundation of everything. Every configuration, every log, every running program — it all lives in the directory tree. Navigating and managing files efficiently is the first practical skill every Linux user must master. Once this becomes natural, every other Linux task gets easier.</p>
+<h4>The Directory Tree</h4>
+<p>Linux uses a single tree structure starting from root (<code>/</code>). There are no drive letters. Everything mounts somewhere in this tree.</p>
+<div class="code-title">Important System Directories</div>
+<pre><code class="language-bash">/home/username   # Your personal files and config
+/etc             # System-wide configuration files
+/var/log         # Application and system logs
+/var/www         # Web server files (common convention)
+/usr/bin         # Installed program executables
+/tmp             # Temporary files — cleared on reboot
+/opt             # Manually installed optional software
+/proc            # Virtual filesystem — process and kernel info
+/dev             # Device files (disks, terminals, etc.)</code></pre>
+<h4>Navigation Commands</h4>
+<div class="code-title">Essential Navigation</div>
+<pre><code class="language-bash">pwd                    # Print working directory — where am I?
+ls                     # List files in current directory
+ls -la                 # Long listing including hidden files
+ls -lh                 # Human-readable sizes (KB, MB, GB)
+ls -lt                 # Sort by last modified time
+cd /var/log            # Go to absolute path
+cd ../config           # Go relative — up one level then into config
+cd ~                   # Go to your home directory
+cd -                   # Go back to previous directory</code></pre>
+<h4>Creating and Organizing Files</h4>
+<div class="code-title">Create Files and Directories</div>
+<pre><code class="language-bash">mkdir projects                        # Create directory
+mkdir -p projects/web/backend/api     # Create nested path at once
+touch app.py config.json README.md    # Create empty files
+echo "Hello Linux" > notes.txt        # Create file with content
+echo "More content" >> notes.txt      # Append to file</code></pre>
+<h4>Viewing File Contents</h4>
+<div class="code-title">File Reading Commands</div>
+<pre><code class="language-bash">cat file.txt           # Display entire file
+less file.txt          # Scroll through (q to quit, / to search)
+head -20 file.txt      # First 20 lines
+tail -30 file.txt      # Last 30 lines
+tail -f /var/log/app.log  # Follow file in real time (great for logs)</code></pre>
+<h4>Copying and Moving</h4>
+<div class="code-title">cp and mv</div>
+<pre><code class="language-bash">cp source.txt destination.txt         # Copy file
+cp -r source_dir/ backup_dir/         # Copy directory
+mv oldname.txt newname.txt            # Rename file
+mv file.txt /home/suraj/Documents/    # Move to directory
+mv *.py /home/suraj/python_files/     # Move all Python files</code></pre>
+<h4>Deleting Files and Directories</h4>
+<div class="code-title">rm — Be Careful</div>
+<pre><code class="language-bash">rm file.txt               # Delete file
+rm -r directory/          # Delete directory recursively
+rm -i important.txt       # Ask for confirmation first
+rm *.tmp                  # Delete all .tmp files</code></pre>
+<p><strong>Important:</strong> Linux has no recycle bin. Deleted files are immediately gone. Always double-check before running <code>rm</code> with wildcards or <code>-r</code> flag. A common safe practice: run <code>ls</code> with the same pattern first to see what will be affected before deleting.</p>
+<h4>Searching for Files</h4>
+<div class="code-title">find Command</div>
+<pre><code class="language-bash">find / -name "nginx.conf"             # Find file by exact name
+find /home -name "*.py"               # Find all Python files
+find /var/log -size +50M              # Find files over 50MB
+find . -mtime -7                      # Modified in last 7 days
+find /tmp -type f -mtime +30 -delete  # Clean old temp files</code></pre>
+<h4>Symbolic Links</h4>
+<p>Symbolic links (symlinks) are like shortcuts — they point to another file or directory:</p>
+<div class="code-title">Symbolic Links</div>
+<pre><code class="language-bash">ln -s /var/www/myapp /home/suraj/myapp   # Create symlink
+ls -la | grep " -> "                      # See symlinks
+readlink /home/suraj/myapp                # Where does symlink point?</code></pre>
+<h4>File Information</h4>
+<div class="code-title">File Details</div>
+<pre><code class="language-bash">file document.pdf          # Detect actual file type
+stat file.txt              # Detailed file metadata
+du -sh directory/          # Size of directory
+du -sh /var/* | sort -h    # Sizes of all /var contents, sorted
+df -h                      # Disk usage by mounted filesystem</code></pre>
+<h4>Why This Matters Day to Day</h4>
+<p>Every server task — deploying an application, reading logs, updating configuration, cleaning up disk space — starts with file system navigation. System administrators spend a significant portion of their day at the command line moving through directories and managing files. DevOps engineers write automation scripts that create, read, copy, and delete files programmatically. These commands are not beginner exercises — they are professional daily tools.</p>
+<p>Practice by navigating through <code>/etc</code> and reading configuration files. Look at what is in <code>/var/log</code>. Explore the <code>/proc</code> filesystem to see running process information. The more you explore, the more familiar the system becomes. In Part 3, we will cover permissions — the security model that controls who can do what with every file.</p>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-  <h3>Linux Tutorial — Part 2: Distributions & Installation</h3>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-  <p>
-    In Part 1, we understood what Linux is and why it matters.
-    In this part, we will understand something that confuses most beginners:
-    <strong>Linux distributions</strong>.
-  </p>
-
-  <p>
-    Linux is not a single operating system.
-    It is a family of operating systems built around the Linux kernel.
-  </p>
-
-  <h4>What Is a Linux Distribution?</h4>
-  <p>
-    A Linux distribution (distro) is a complete operating system
-    built using the Linux kernel, system tools, package managers,
-    and desktop environments.
-  </p>
-
-  <p>
-    Different distributions exist because different users
-    have different needs.
-  </p>
-
-  <h4>Major Types of Linux Distributions</h4>
-
-  <h4>1️⃣ Beginner-Friendly Distributions</h4>
-  <ul>
-    <li>Ubuntu</li>
-    <li>Linux Mint</li>
-    <li>Zorin OS</li>
-  </ul>
-
-  <p>
-    These are designed for learning and daily use.
-    They focus on stability, simplicity, and large community support.
-  </p>
-
-  <h4>2️⃣ Professional & Server Distributions</h4>
-  <ul>
-    <li>Ubuntu Server</li>
-    <li>Red Hat Enterprise Linux (RHEL)</li>
-    <li>CentOS / Rocky Linux</li>
-  </ul>
-
-  <p>
-    These are commonly used in cloud environments,
-    data centers, and production systems.
-  </p>
-
-  <h4>3️⃣ Advanced & Customization-Focused Distributions</h4>
-  <ul>
-    <li>Arch Linux</li>
-    <li>Gentoo</li>
-  </ul>
-
-  <p>
-    These require deeper system understanding.
-    Beginners should not start here.
-  </p>
-
-  <h4>Which Linux Distribution Should You Choose?</h4>
-  <p>
-    If you are learning Linux seriously,
-    <strong>Ubuntu is the best starting point</strong>.
-  </p>
-
-  <p>
-    Ubuntu is widely used in cloud platforms,
-    documentation is excellent,
-    and almost every Linux concept applies directly to it.
-  </p>
-
-  <h4>Safe Ways to Install Linux (Recommended Order)</h4>
-
-  <h4>Option 1: Virtual Machine (Safest)</h4>
-  <p>
-    Install Linux inside a virtual machine using tools like VirtualBox.
-    This allows learning Linux without affecting your main system.
-  </p>
-
-  <h4>Option 2: Dual Boot</h4>
-  <p>
-    Linux and Windows coexist on the same system.
-    This requires careful partitioning and backup.
-  </p>
-
-  <h4>Option 3: Cloud Server</h4>
-  <p>
-    Learning Linux on a cloud VM
-    mirrors real-world usage and is highly recommended.
-  </p>
-
-  <h4>What You Should NOT Do</h4>
-  <ul>
-    <li>Do not install advanced distros first</li>
-    <li>Do not skip backups</li>
-    <li>Do not copy random commands blindly</li>
-  </ul>
-
-  <h4>Important Mindset Rule</h4>
-  <p>
-    Linux rewards understanding.
-    Every command has a purpose.
-    Blind execution leads to broken systems.
-  </p>
-
-  <p>
-    In the next part,
-    we will understand the Linux file system structure
-    and how Linux organizes data internally.
-  </p>
-
-  <a href="linux-tutorial-part-3.html" class="btn">
-    Next: Linux File System Structure →
-  </a>
-
-</section>
-
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Practice Linux commands in a safe environment.
-  SRJahir Tech is not responsible for system damage
-  caused by misuse of commands.
-</div>
-
-<footer>
-  <p>© 2025 SRJahir Tech — Learn Systems, Not Just Commands</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

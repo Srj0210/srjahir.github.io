@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 5 — Shell Scripting for DevOps | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 5 by SRJahir Tech. Learn shell scripting for DevOps, bash scripts, variables, loops, conditions, and real automation examples." />
-<meta name="keywords" content="DevOps shell scripting, bash scripting for DevOps, Linux automation tutorial" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech</title>
+  <meta name="description" content="Master Git for DevOps. Learn branching strategies, Git workflows, rebasing, cherry-picking, resolving merge conflicts, and Git best practices used in professional DevOps teams." />
+  <meta name="keywords" content="Git DevOps tutorial, Git branching strategy, Git workflow, merge conflict resolution, Git rebase" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech" />
+  <meta property="og:description" content="Master Git for DevOps. Learn branching strategies, Git workflows, rebasing, cherry-picking, resolving merge conflicts, and Git best practices used in professional DevOps teams." />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -45,188 +42,153 @@ gtag('config', 'G-93D0PKZM2L');
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 5: Git &amp; Version Control for DevOps</h3>
+<p>Git is not just a tool for software developers. DevOps engineers use Git constantly — for infrastructure code (Terraform, Ansible), CI/CD pipeline configurations, Kubernetes manifests, scripts, and documentation. If you are managing infrastructure as code, Git is how you track changes, collaborate with teammates, and roll back when something breaks. This part goes beyond basics to cover Git usage at a professional DevOps level.</p>
 
-<h3>DevOps Roadmap — Part 5: Shell Scripting for DevOps</h3>
+<h4>Git Fundamentals — The Mental Model</h4>
+<p>Git tracks changes as snapshots, not differences. Each commit is a snapshot of your entire project at a point in time, along with a pointer to the previous snapshot. This is why Git is so reliable — you can always go back to any previous state. The three areas you work with constantly are the working directory (where you edit files), the staging area (where you prepare what goes into the next commit), and the repository (the full history of snapshots).</p>
+<div class="code-title">Essential Git Commands</div>
+<pre><code class="language-bash"># Initialize a repo
+git init
 
-<p>
-DevOps ka real kaam yahan se start hota hai.
-</p>
+# Configure identity
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
 
-<p>
-Jo kaam tum manually 10 baar kar rahe ho,
-DevOps usko <strong>script likh ke 1 baar</strong> karta hai.
-</p>
+# Check what has changed
+git status
+git diff                  # unstaged changes
+git diff --staged         # staged changes
 
-<hr>
+# Stage and commit
+git add filename
+git add .                 # stage everything
+git commit -m "descriptive message"
 
-<h4>What Is Shell Scripting?</h4>
+# View history
+git log --oneline
+git log --graph --oneline --all  # visual branch graph</code></pre>
 
-<p>
-Shell scripting means:
-</p>
+<h4>Branching — The Core of Team Workflows</h4>
+<p>Branches allow parallel development without interfering with each other. In a DevOps context, branches represent different environments or features being worked on simultaneously.</p>
+<div class="code-title">Branch Operations</div>
+<pre><code class="language-bash"># Create and switch to new branch
+git checkout -b feature/add-monitoring
+# Modern syntax:
+git switch -c feature/add-monitoring
 
-<ul>
-  <li>Linux commands ko ek file me likhna</li>
-  <li>Repeatable automation banana</li>
-  <li>Human error kam karna</li>
-</ul>
+# List all branches
+git branch -a
 
-<p>
-DevOps engineer ka sabse pehla automation tool = <strong>Bash</strong>
-</p>
+# Switch to existing branch
+git checkout main
+git switch main
 
-<hr>
+# Merge branch into main
+git checkout main
+git merge feature/add-monitoring
 
-<h4>Your First Shell Script</h4>
+# Delete branch after merging
+git branch -d feature/add-monitoring</code></pre>
 
-<div class="code-title">Create script file</div>
-<pre><code class="language-bash">nano hello.sh</code></pre>
+<h4>Git Workflows for DevOps Teams</h4>
+<p><strong>GitFlow</strong> — Uses main, develop, feature, release, and hotfix branches. Structured but heavy. Good for scheduled releases.</p>
+<p><strong>GitHub Flow</strong> — Simpler: main branch is always deployable, all work happens in feature branches, merged via pull requests. Better for continuous deployment.</p>
+<p><strong>Trunk-Based Development</strong> — Everyone commits to main frequently, using feature flags to hide incomplete work. Used by high-performing DevOps teams for maximum CI/CD velocity.</p>
 
-<div class="code-title">hello.sh</div>
-<pre><code class="language-bash">#!/bin/bash
-echo "Hello DevOps World"</code></pre>
+<h4>Remote Repositories</h4>
+<div class="code-title">Remote Operations</div>
+<pre><code class="language-bash"># Clone a repository
+git clone https://github.com/user/repo.git
 
-<div class="code-title">Run script</div>
-<pre><code class="language-bash">chmod +x hello.sh
-./hello.sh</code></pre>
+# Add remote
+git remote add origin https://github.com/user/repo.git
 
-<p>
-<code>#!/bin/bash</code> batata hai kaunsa shell use hoga.
-</p>
+# Push to remote
+git push origin main
+git push -u origin feature/new-feature  # set upstream
 
-<hr>
+# Pull latest changes
+git pull origin main
 
-<h4>Variables — Store Information</h4>
+# Fetch without merging
+git fetch origin
 
-<div class="code-title">Example</div>
-<pre><code class="language-bash">#!/bin/bash
-NAME="Suraj"
-echo "Hello $NAME"</code></pre>
+# See remote info
+git remote -v</code></pre>
 
-<p>
-Variables help DevOps scripts become flexible.
-</p>
+<h4>Resolving Merge Conflicts</h4>
+<p>Merge conflicts happen when two branches modify the same part of a file. Git cannot automatically decide which change wins — you must resolve it manually. This is a skill every DevOps engineer needs because Infrastructure as Code files are frequently modified by multiple team members.</p>
+<div class="code-title">Resolve Merge Conflict</div>
+<pre><code class="language-bash"># When merge fails with conflicts
+git merge feature/branch
 
-<hr>
+# Git marks conflicted files
+git status
 
-<h4>Taking User Input</h4>
+# Open conflicted file - you'll see markers like:
+# <<<<<<< HEAD
+# your version
+# =======
+# their version
+# >>>>>>> feature/branch
 
-<div class="code-title">Input Example</div>
-<pre><code class="language-bash">#!/bin/bash
-echo "Enter your name:"
-read USER
-echo "Welcome $USER"</code></pre>
+# Edit the file to keep what you want
+# Remove the conflict markers
+nano conflicted-file.yml
 
-<p>
-Scripts can interact with humans or systems.
-</p>
+# Stage the resolved file
+git add conflicted-file.yml
 
-<hr>
+# Complete the merge
+git commit</code></pre>
 
-<h4>Conditions — Decision Making</h4>
+<h4>Git Rebase — Clean History</h4>
+<div class="code-title">Rebase</div>
+<pre><code class="language-bash"># Rebase feature branch onto main
+git checkout feature/my-feature
+git rebase main
 
-<div class="code-title">if condition</div>
-<pre><code class="language-bash">#!/bin/bash
-if [ -f "/etc/passwd" ]; then
-  echo "File exists"
-else
-  echo "File missing"
-fi</code></pre>
+# Interactive rebase (clean up commits)
+git rebase -i HEAD~3   # edit last 3 commits
 
-<p>
-Production scripts are full of conditions.
-</p>
+# Squash commits (combine multiple into one)
+# In interactive rebase, change 'pick' to 'squash'</code></pre>
 
-<hr>
+<h4>Undoing Mistakes</h4>
+<div class="code-title">Undo Operations</div>
+<pre><code class="language-bash"># Undo last commit (keep changes staged)
+git reset --soft HEAD~1
 
-<h4>Loops — Automation Power</h4>
+# Undo last commit (keep changes unstaged)
+git reset HEAD~1
 
-<div class="code-title">For loop</div>
-<pre><code class="language-bash">#!/bin/bash
-for i in 1 2 3 4 5
-do
-  echo "Deployment step $i"
-done</code></pre>
+# Undo last commit (discard changes - DANGEROUS)
+git reset --hard HEAD~1
 
-<p>
-Imagine deploying 50 servers without loops — impossible.
-</p>
+# Revert a commit (creates new undo commit, safe for shared branches)
+git revert abc1234
 
-<hr>
+# Stash work in progress
+git stash
+git stash pop</code></pre>
 
-<h4>Real DevOps Script Example</h4>
-
-<p>
-Check disk usage and alert.
-</p>
-
-<div class="code-title">Disk Check Script</div>
-<pre><code class="language-bash">#!/bin/bash
-USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
-
-if [ $USAGE -gt 80 ]; then
-  echo "Warning: Disk usage above 80%"
-else
-  echo "Disk usage normal"
-fi</code></pre>
-
-<p>
-This is real-world DevOps thinking.
-</p>
-
-<hr>
-
-<h4>Why Shell Scripting Is Mandatory</h4>
-
-<ul>
-  <li>CI/CD pipelines use shell</li>
-  <li>Server automation uses shell</li>
-  <li>Cloud init scripts use shell</li>
-</ul>
-
-<p>
-Without shell scripting,
-DevOps engineer incomplete hai.
-</p>
-
-<hr>
-
-<h4>Practice Daily (Very Important)</h4>
-
-<ul>
-  <li>Write 1 script daily</li>
-  <li>Automate boring tasks</li>
-  <li>Break scripts and fix them</li>
-</ul>
-
-<hr>
-
-<h4>Next Step in DevOps Roadmap</h4>
-
-<p>
-Now we need team collaboration.
-That means <strong>Git & Version Control</strong>.
-</p>
-
-<a href="devops-roadmap-part-6.html" class="btn">
-Next Part → Git & Version Control
-</a>
-
+<p>In Part 6, we will learn CI/CD fundamentals — what continuous integration and continuous deployment mean in practice, and how to set up basic pipelines that automate testing and deployment.</p>
 </section>
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
 
-<!-- ===== DISCLAIMER ===== -->
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
+
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always test shell scripts on local or test servers.
-Never run unverified scripts on production systems.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Automate Everything</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

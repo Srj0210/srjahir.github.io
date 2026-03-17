@@ -1,173 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 6 — Searching Text with grep | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 6 by SRJahir Tech. Learn how to search text inside files using grep, pipes, and filters with real-world Linux examples." />
-  <meta name="keywords" content="Linux grep command, Linux search text, grep tutorial, Linux tutorial part 6" />
-  <meta name="author" content="SRJahir Tech" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-6.html" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<!-- ===== ARTICLE START ===== -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 6 — Networking Commands | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-6.html">
+<meta property="og:title" content="Linux Tutorial Part 6 — Networking Commands | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 6 — Networking Commands | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 6: Networking Commands</h3>
+<p>In cloud environments and DevOps work, understanding Linux networking is essential. You need to configure network interfaces, diagnose connectivity problems, check open ports, test DNS resolution, and manage firewall rules — all from the command line. This part covers the networking tools you will use regularly in real operations work.</p>
+<h4>Network Interface Management</h4>
+<div class="code-title">Interface Commands</div>
+<pre><code class="language-bash">ip addr                       # Show all interfaces and IPs
+ip addr show eth0             # Specific interface details
+ip link                       # Show interface status (up/down)
+ip link set eth0 up           # Bring interface up
+ip route                      # Show routing table
+ip route show default         # Default gateway</code></pre>
+<h4>Connectivity Testing</h4>
+<div class="code-title">Testing Connections</div>
+<pre><code class="language-bash">ping google.com               # Test basic connectivity
+ping -c 4 192.168.1.1         # Ping 4 times only
+traceroute google.com         # Trace network path
+tracepath srjahir.in          # Path without root privileges
+mtr google.com                # Continuous traceroute (interactive)</code></pre>
+<h4>DNS Lookups</h4>
+<div class="code-title">DNS Commands</div>
+<pre><code class="language-bash">nslookup srjahir.in           # Basic DNS lookup
+dig srjahir.in                # Detailed DNS query
+dig srjahir.in MX             # Mail server records
+dig @8.8.8.8 srjahir.in       # Query specific DNS server
+host srjahir.in               # Quick DNS lookup
+cat /etc/resolv.conf          # Configured DNS servers</code></pre>
+<h4>Port and Connection Checking</h4>
+<div class="code-title">Port Commands</div>
+<pre><code class="language-bash">ss -tulnp                     # Open ports and listening services
+netstat -tulnp                # Alternative (older systems)
+lsof -i :80                   # What is using port 80
+lsof -i :443                  # What is using HTTPS port
+ss -s                         # Connection statistics summary</code></pre>
+<h4>HTTP Testing with curl</h4>
+<div class="code-title">curl Examples</div>
+<pre><code class="language-bash">curl https://srjahir.in                    # Fetch page
+curl -I https://srjahir.in                 # Headers only
+curl -v https://srjahir.in                 # Verbose — full request/response
+curl -o output.html https://srjahir.in     # Save to file
+curl -X POST -d '{"key":"value"}'   -H "Content-Type: application/json"   https://api.example.com/endpoint         # POST request
+curl -u user:pass https://secure-api.com   # Basic auth</code></pre>
+<h4>Firewall with ufw and iptables</h4>
+<div class="code-title">UFW Firewall Commands</div>
+<pre><code class="language-bash">sudo ufw status               # Firewall status
+sudo ufw enable               # Enable firewall
+sudo ufw allow 22             # Allow SSH
+sudo ufw allow 80             # Allow HTTP
+sudo ufw allow 443            # Allow HTTPS
+sudo ufw deny 3306            # Block MySQL from outside
+sudo ufw allow from 192.168.1.0/24  # Allow from subnet only
+sudo ufw status numbered      # Show rules with numbers
+sudo ufw delete 3             # Delete rule number 3</code></pre>
+<h4>SSH Configuration and Tunneling</h4>
+<div class="code-title">SSH Advanced Usage</div>
+<pre><code class="language-bash">ssh -L 8080:localhost:80 user@remote     # Local port forward
+ssh -R 9090:localhost:3000 user@remote   # Remote port forward
+ssh -N -f -L 5432:db-host:5432 bastion  # Background tunnel
 
-  <h3>Linux Tutorial — Part 6: Searching Text & Filtering Data</h3>
+# SSH config file (~/.ssh/config)
+Host production
+  HostName 54.1.2.3
+  User ubuntu
+  IdentityFile ~/.ssh/prod.pem
+  Port 22
 
-  <p>
-    In this part, we learn one of the most powerful Linux skills —
-    searching text inside files and command output.
-    This is where Linux becomes dangerous (in a good way).
-  </p>
+# Then just: ssh production</code></pre>
+<h4>Network File Transfer</h4>
+<div class="code-title">Transfer Commands</div>
+<pre><code class="language-bash">scp file.txt user@remote:/path/        # Secure copy to remote
+scp user@remote:/path/file.txt .       # Copy from remote
+rsync -avz --progress local/ remote:path/  # Sync with progress
+wget https://example.com/file.tar.gz   # Download file</code></pre>
+<h4>Practical Networking Workflow</h4>
+<p>When you encounter a connectivity problem in production, having a systematic approach saves time. Start with ping to check basic reachability. If ping fails, check if the interface is up with <code>ip addr</code>. If the interface is up, check the routing table. If routing looks right, check DNS with <code>dig</code>. If DNS resolves but the service is unreachable, check if the port is open with <code>ss</code> and if the firewall is blocking with <code>ufw status</code>. This top-down systematic approach resolves most network issues quickly.</p>
+<p>In Part 7, we will cover shell scripting — combining commands into automated scripts that do real work without manual intervention.</p>
+<h4>SSH Configuration and Key Management</h4>
+<p>SSH key authentication — using a public-private key pair rather than a password — is more secure and more convenient once configured. Generate an SSH key pair with <code>ssh-keygen -t ed25519 -C "your_comment"</code>. The private key stays on your machine in <code>~/.ssh/</code>. The public key is placed on the server in <code>~/.ssh/authorized_keys</code>. The <code>~/.ssh/config</code> file on your local machine can define shortcuts for frequently accessed servers:</p>
+<div class="code-title">SSH Config File</div>
+<pre><code class="language-bash">Host myserver
+    HostName 203.0.113.10
+    User ubuntu
+    IdentityFile ~/.ssh/my_key
+    Port 22</code></pre>
+<p>This allows <code>ssh myserver</code> instead of typing the full connection string every time. Always protect your private key — set permissions to 600 (<code>chmod 600 ~/.ssh/id_ed25519</code>) and never share it or commit it to version control.</p>
+<h4>Network Troubleshooting Workflow</h4>
+<p>When network connectivity fails, work through a systematic approach. First verify local config with <code>ip addr</code> and <code>ip route</code>. Test local network with <code>ping</code> to your gateway IP. Test internet connectivity with <code>ping 8.8.8.8</code>. If that works but hostnames fail, test DNS with <code>dig google.com</code> or <code>nslookup google.com</code>. If the host is reachable but a port is not responding, test with <code>nc -zv hostname 80</code> or <code>telnet hostname 80</code>. Use <code>traceroute hostname</code> to trace where packets are being dropped. Use <code>ss -tulnp</code> to see all listening services on the local machine — useful for verifying that a service is actually bound to the expected port.</p>
+<h4>Practice Exercise</h4>
+<p>Use <code>ss -tulnp</code> to list all listening services. Identify three services by their port numbers. Use <code>curl -I https://google.com</code> to make an HTTP request and examine response headers. Practice the full troubleshooting workflow: check IP, check routing, ping gateway, ping internet IP, test DNS. If you have a cloud VM, set up SSH key authentication — copy your public key to <code>~/.ssh/authorized_keys</code> on the server and verify passwordless login works before disabling password authentication.</p>
 
-  <h4>1. grep — Search Text Inside Files</h4>
-  <p>
-    <code>grep</code> searches for matching text patterns.
-    It is used everywhere: logs, configs, scripts, pipelines.
-  </p>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-  <pre><code class="language-bash">grep "error" file.txt</code></pre>
-
-  <p>
-    This prints all lines containing the word <strong>error</strong>.
-  </p>
-
-  <h4>2. Case-Insensitive Search</h4>
-  <p>
-    Linux is case-sensitive by default.
-    Use <code>-i</code> to ignore case.
-  </p>
-
-  <pre><code class="language-bash">grep -i "error" file.txt</code></pre>
-
-  <h4>3. Search in Multiple Files</h4>
-  <pre><code class="language-bash">grep "failed" *.log</code></pre>
-
-  <p>
-    This searches across all log files.
-  </p>
-
-  <h4>4. Recursive Search (Folders)</h4>
-  <p>
-    Search inside directories using <code>-r</code>.
-  </p>
-
-  <pre><code class="language-bash">grep -r "password" /etc</code></pre>
-
-  <h4>⚠️ Warning</h4>
-  <p>
-    Recursive grep can be heavy.
-    Use it carefully on large directories.
-  </p>
-
-  <h4>5. grep with Line Numbers</h4>
-  <pre><code class="language-bash">grep -n "listen" nginx.conf</code></pre>
-
-  <p>
-    Shows exact line number — critical for debugging.
-  </p>
-
-  <h4>6. Pipes (|) — The Linux Superpower</h4>
-  <p>
-    Pipes send output of one command into another.
-  </p>
-
-  <pre><code class="language-bash">ls -l | grep ".log"</code></pre>
-
-  <p>
-    This filters only log files from directory listing.
-  </p>
-
-  <h4>7. grep with ps (Process Search)</h4>
-  <p>
-    Find running processes:
-  </p>
-
-  <pre><code class="language-bash">ps aux | grep nginx</code></pre>
-
-  <h4>8. Excluding Matches</h4>
-  <p>
-    Use <code>-v</code> to exclude matching lines.
-  </p>
-
-  <pre><code class="language-bash">ps aux | grep -v grep</code></pre>
-
-  <h4>9. Real-World Log Example</h4>
-  <pre><code class="language-bash">grep -i "error" /var/log/syslog</code></pre>
-
-  <p>
-    System admins live inside commands like this.
-  </p>
-
-  <h4>Important Mindset</h4>
-  <p>
-    Linux tools are simple alone,
-    unstoppable when combined.
-  </p>
-
-  <p>
-    If you master grep and pipes,
-    you control text — and Linux is mostly text.
-  </p>
-
-  <p>
-    In the next part,
-    we will learn about file permissions and ownership —
-    the most misunderstood Linux concept.
-  </p>
-
-  <a href="linux-tutorial-part-7.html" class="btn">
-    Next: File Permissions & Ownership →
-  </a>
-
-</section>
-
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  Some files require root access.
-  Always understand what you are searching before using sudo.
-</div>
-
-<footer>
-  <p>© 2025 SRJahir Tech — Control Text, Control Systems</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

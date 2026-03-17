@@ -1,125 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 4 by SRJahir Tech. Learn Docker volumes, bind mounts, and how to persist data safely." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech</title>
+  <meta name="description" content="Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker." />
+  <meta name="keywords" content="Docker volumes tutorial, Docker data persistence, Docker bind mount, Docker stateful apps" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-4.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech" />
+  <meta property="og:description" content="Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-4.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 4: Volumes &amp; Data Persistence</h3>
+<p>Here is a problem every Docker beginner runs into sooner or later: you run a database container, add some data, stop the container, start it again — and the data is gone. Everything you stored has vanished. This happens because containers are stateless by default. Docker volumes are the solution to this problem, and understanding them is essential for any real-world Docker usage.</p>
 
-<h3>Docker Tutorial — Part 4: Volumes & Data Persistence</h3>
+<h4>Why Containers Are Stateless</h4>
+<p>When you create a container, Docker gives it a writable layer on top of the read-only image layers. Any files you write inside the container go into this writable layer. When the container is stopped and removed, that writable layer is deleted along with it. The image itself is unchanged — it is the container's individual state that disappears.</p>
+<p>For stateless applications like web servers that do not store data locally, this is fine. But for databases, log files, uploaded files, or any data that must survive container restarts, you need a way to store data outside the container's lifecycle. That is exactly what volumes provide.</p>
 
-<p>
-By default, Docker containers are <strong>temporary</strong>.
-If a container is deleted — all its data is gone.
-This is dangerous for databases and real applications.
-</p>
-
-<h4>Why Data Persistence Matters</h4>
+<h4>Three Ways to Persist Data in Docker</h4>
+<p>Docker gives you three storage options, each suited for different situations:</p>
 <ul>
-<li>Databases need permanent storage</li>
-<li>Logs should survive container restarts</li>
-<li>Production systems must not lose data</li>
+  <li><strong>Named Volumes</strong> — Managed by Docker, stored in Docker's internal storage area. Best for databases and production data.</li>
+  <li><strong>Bind Mounts</strong> — Map a specific directory from your host machine into the container. Best for development where you want live code changes.</li>
+  <li><strong>tmpfs Mounts</strong> — Stored in host memory only. Data is not written to disk and disappears when the container stops. Best for sensitive temporary data.</li>
 </ul>
 
-<h4>What is a Docker Volume?</h4>
-<p>
-A Docker volume is a storage location managed by Docker
-outside the container lifecycle.
-</p>
+<h4>Named Volumes</h4>
+<p>Named volumes are the recommended approach for production data. Docker manages their location and lifecycle independently of containers.</p>
+<div class="code-title">Working with Named Volumes</div>
+<pre><code class="language-bash"># Create a named volume
+docker volume create my-data
 
-<h4>Create a Volume</h4>
-<pre><code class="language-bash">docker volume create mydata</code></pre>
+# List all volumes
+docker volume ls
 
-<h4>List Volumes</h4>
-<pre><code class="language-bash">docker volume ls</code></pre>
+# Inspect a volume (find where it is stored)
+docker volume inspect my-data
 
-<h4>Use Volume in a Container</h4>
-<pre><code class="language-bash">
-docker run -d \
--v mydata:/data \
---name test-container \
-nginx
-</code></pre>
+# Run container with named volume
+docker run -d   --name my-postgres   -e POSTGRES_PASSWORD=mysecretpassword   -v my-data:/var/lib/postgresql/data   postgres:15
 
-<p>
-Now anything stored in <code>/data</code>
-will survive container deletion.
-</p>
+# The format is: -v volume_name:container_path</code></pre>
+<p>Now if you stop and remove the container, then create a new one using the same volume, all your database data will still be there. The volume persists independently of any container.</p>
 
-<h4>Bind Mount (Host Directory)</h4>
-<p>
-Bind mounts directly map a host folder.
-Useful during development.
-</p>
+<h4>Bind Mounts</h4>
+<p>Bind mounts map a host directory directly into the container. This is extremely useful during development because any change you make to files on your host is immediately visible inside the container — no rebuild required.</p>
+<div class="code-title">Bind Mount for Development</div>
+<pre><code class="language-bash"># Map current directory into container
+docker run -d   -p 5000:5000   -v $(pwd):/app   --name dev-server   my-python-app:1.0
 
-<pre><code class="language-bash">
-docker run -d \
--v $(pwd):/app \
---name dev-container \
-node
-</code></pre>
+# On Windows PowerShell
+docker run -d -p 5000:5000 -v ${PWD}:/app my-python-app:1.0</code></pre>
+<p>With this setup, you edit code on your local machine using your preferred editor, and the changes are instantly available inside the running container. This makes local development with Docker smooth and fast.</p>
 
-<h4>Volume vs Bind Mount</h4>
-<ul>
-<li><strong>Volume</strong> → safer, managed by Docker</li>
-<li><strong>Bind mount</strong> → flexible, dev friendly</li>
-</ul>
+<h4>Real Example — MySQL with Persistent Volume</h4>
+<p>Let us run a MySQL database with persistent storage:</p>
+<div class="code-title">MySQL with Volume</div>
+<pre><code class="language-bash"># Run MySQL with named volume
+docker run -d   --name mysql-db   -e MYSQL_ROOT_PASSWORD=rootpass   -e MYSQL_DATABASE=myapp   -e MYSQL_USER=appuser   -e MYSQL_PASSWORD=apppass   -p 3306:3306   -v mysql-data:/var/lib/mysql   mysql:8.0
 
-<h4>Inspect Volume</h4>
-<pre><code class="language-bash">docker volume inspect mydata</code></pre>
+# Connect to MySQL inside the container
+docker exec -it mysql-db mysql -u root -p
 
-<p>
-Volumes are a **must** for databases, backend apps,
-and production workloads.
-</p>
+# Stop and remove the container
+docker stop mysql-db
+docker rm mysql-db
 
-<a href="docker-tutorial-part-5.html" class="btn">
-Next: Docker Networking →
-</a>
+# Start a NEW container using the SAME volume
+docker run -d   --name mysql-db-new   -e MYSQL_ROOT_PASSWORD=rootpass   -p 3306:3306   -v mysql-data:/var/lib/mysql   mysql:8.0
 
+# Your data is still there!</code></pre>
+
+<h4>Sharing Data Between Containers</h4>
+<p>Multiple containers can mount the same volume, enabling them to share data. This is useful for scenarios like a web application and a background worker both needing access to uploaded files.</p>
+<div class="code-title">Shared Volume Between Containers</div>
+<pre><code class="language-bash"># Both containers share the same uploads volume
+docker run -d --name web-app -v uploads:/app/uploads my-web:1.0
+docker run -d --name worker -v uploads:/app/uploads my-worker:1.0</code></pre>
+
+<h4>Volume Backup and Restore</h4>
+<p>Since volumes contain important data, knowing how to back them up is critical. Docker does not have a built-in backup command, but this pattern works reliably:</p>
+<div class="code-title">Backup Volume</div>
+<pre><code class="language-bash"># Backup: create a tar archive of the volume
+docker run --rm   -v my-data:/source   -v $(pwd):/backup   ubuntu tar czf /backup/my-data-backup.tar.gz -C /source .
+
+# Restore: extract archive back into volume
+docker run --rm   -v my-data:/target   -v $(pwd):/backup   ubuntu tar xzf /backup/my-data-backup.tar.gz -C /target</code></pre>
+
+<h4>Cleaning Up Volumes</h4>
+<div class="code-title">Volume Cleanup</div>
+<pre><code class="language-bash"># Remove a specific volume (only if no container uses it)
+docker volume rm my-data
+
+# Remove all unused volumes
+docker volume prune</code></pre>
+<p><strong>Warning:</strong> Removing a volume permanently deletes all data it contains. Always back up before removing production volumes.</p>
+
+<p>In Part 5, we will learn Docker Networking — how containers talk to each other and to the outside world. This is essential for multi-container applications.</p>
 </section>
+<h4>Bind Mounts vs Named Volumes</h4>
+<p>Docker supports two main types of mounts, each suited to different use cases. Bind mounts map a specific path on the host machine into the container: <code>docker run -v /host/path:/container/path image</code>. They are useful for development — mounting your source code directory into a container so code changes are reflected immediately without rebuilding. Named volumes are managed entirely by Docker: <code>docker run -v myvolume:/container/path image</code>. Docker creates and manages the storage location. Named volumes are the right choice for persistent application data in production — they are not dependent on host directory structure and are easier to backup and migrate.</p>
+<div class="code-title">Volume Usage Examples</div>
+<pre><code class="language-bash"># Named volume for database persistence
+docker run -d   --name postgres_db   -v postgres_data:/var/lib/postgresql/data   -e POSTGRES_PASSWORD=secret   postgres:15
+
+# Bind mount for development (reflects local changes immediately)
+docker run -d   --name myapp_dev   -v $(pwd)/src:/app/src   -p 3000:3000   myapp:dev
+
+# Inspect a volume
+docker volume inspect postgres_data
+
+# Backup a volume
+docker run --rm -v postgres_data:/data -v $(pwd):/backup   alpine tar czf /backup/postgres_backup.tar.gz /data</code></pre>
+<h4>Practice Exercise</h4>
+<p>Run a PostgreSQL container with a named volume. Connect to it and create a database with some test data. Stop and remove the container. Start a new PostgreSQL container using the same named volume and verify your data is still there. This exercise demonstrates the fundamental purpose of volumes — data that outlives the container that created it.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never store critical production data without volumes.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Data Must Survive</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

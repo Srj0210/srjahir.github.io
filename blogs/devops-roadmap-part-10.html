@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 10 — Cloud for DevOps | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 10 by SRJahir Tech. Learn cloud fundamentals for DevOps using AWS, Azure, and GCP. Understand EC2, IAM, networking, storage, and real DevOps cloud usage." />
-<meta name="keywords" content="DevOps cloud tutorial, AWS for DevOps beginners, Azure DevOps basics, GCP DevOps roadmap" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech</title>
+  <meta name="description" content="Learn Kubernetes fundamentals for DevOps. Understand pods, deployments, services, namespaces, kubectl commands, and how Kubernetes manages containerized applications at scale." />
+  <meta name="keywords" content="Kubernetes tutorial DevOps, Kubernetes pods deployments, kubectl commands, K8s fundamentals, Kubernetes services" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech" />
+  <meta property="og:description" content="Learn Kubernetes fundamentals for DevOps. Understand pods, deployments, services, namespaces, kubectl commands, and how Kubernetes manages containerized applications at scale." />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -45,227 +42,170 @@ gtag('config', 'G-93D0PKZM2L');
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 10: Kubernetes Fundamentals</h3>
+<p>Kubernetes (K8s) is the platform that runs most of the world's containerized production workloads. Netflix, Google, Airbnb, LinkedIn — they all run on Kubernetes. It is complex, but it solves real problems: automatically restarting failed containers, distributing load across many servers, rolling out updates without downtime, and scaling up or down based on traffic. This part gives you a practical foundation.</p>
 
-<h3>DevOps Roadmap — Part 10: Cloud for DevOps</h3>
+<h4>What Kubernetes Solves</h4>
+<p>Docker alone runs containers on a single machine. Kubernetes orchestrates containers across a cluster of machines. When you deploy to Kubernetes, you tell it what you want — "I want 5 replicas of this container, always running, with 512MB memory each" — and Kubernetes makes it happen. If a node (server) crashes, Kubernetes reschedules the containers on healthy nodes. If a container crashes, Kubernetes restarts it. It manages the complexity so you can focus on your application.</p>
 
-<p>
-Modern DevOps bina cloud ke incomplete hai.
-Servers kharidna, setup karna, maintain karna —
-ye sab cloud ne simple bana diya.
-</p>
-
-<hr>
-
-<h4>What Is Cloud (Simple Meaning)</h4>
-
-<p>
-Cloud matlab:
-<strong>Internet pe available computers</strong>
-jo tum rent pe use karte ho.
-</p>
-
+<h4>Core Concepts</h4>
 <ul>
-  <li>No hardware buying</li>
-  <li>Pay only for usage</li>
-  <li>Scale anytime</li>
+  <li><strong>Cluster</strong> — A set of machines (nodes) managed by Kubernetes</li>
+  <li><strong>Node</strong> — A single server in the cluster (can be a VM or physical machine)</li>
+  <li><strong>Pod</strong> — The smallest deployable unit. Contains one or more containers that share network and storage.</li>
+  <li><strong>Deployment</strong> — Manages a set of identical pods and ensures the desired number are always running</li>
+  <li><strong>Service</strong> — Provides a stable network endpoint to access pods (pods come and go, services stay stable)</li>
+  <li><strong>Namespace</strong> — Virtual cluster inside a cluster. Used to separate environments (dev, staging, prod)</li>
 </ul>
 
-<hr>
+<h4>Installing kubectl</h4>
+<div class="code-title">Install kubectl</div>
+<pre><code class="language-bash"># Linux
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
 
-<h4>Why DevOps Needs Cloud</h4>
+# Verify
+kubectl version --client
 
-<p>
-DevOps ka goal hai:
-</p>
+# For local development: install minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+chmod +x minikube-linux-amd64
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+minikube start</code></pre>
 
-<ul>
-  <li>Fast deployments</li>
-  <li>Automation</li>
-  <li>Reliability</li>
-</ul>
+<h4>Essential kubectl Commands</h4>
+<div class="code-title">kubectl Basics</div>
+<pre><code class="language-bash"># Get cluster info
+kubectl cluster-info
+kubectl get nodes
 
-<p>
-Cloud ye sab naturally support karta hai.
-</p>
+# Work with pods
+kubectl get pods
+kubectl get pods -n kube-system    # in a specific namespace
+kubectl describe pod pod-name
+kubectl logs pod-name
+kubectl logs -f pod-name           # follow logs
+kubectl exec -it pod-name -- bash  # enter pod shell
 
-<hr>
+# Work with deployments
+kubectl get deployments
+kubectl describe deployment my-app
 
-<h4>Main Cloud Providers</h4>
+# Work with services
+kubectl get services
+kubectl get all                    # everything in default namespace</code></pre>
 
-<ul>
-  <li><strong>AWS</strong> – market leader</li>
-  <li><strong>Azure</strong> – Microsoft ecosystem</li>
-  <li><strong>GCP</strong> – Google infrastructure</li>
-</ul>
+<h4>Your First Deployment</h4>
+<div class="code-title">deployment.yml</div>
+<pre><code class="language-bash">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: yourusername/my-app:v1.0.0
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  selector:
+    app: my-app
+  ports:
+  - port: 80
+    targetPort: 5000
+  type: LoadBalancer</code></pre>
+<div class="code-title">Apply and Manage</div>
+<pre><code class="language-bash"># Apply the configuration
+kubectl apply -f deployment.yml
 
-<p>
-Concepts almost same hote hain —
-sirf names different.
-</p>
+# Scale deployment
+kubectl scale deployment my-app --replicas=5
 
-<hr>
+# Rolling update (update image)
+kubectl set image deployment/my-app my-app=yourusername/my-app:v2.0.0
 
-<h4>Core Cloud Concepts for DevOps</h4>
+# Watch rollout progress
+kubectl rollout status deployment/my-app
 
-<h4>1. Virtual Machines</h4>
-<p>
-AWS me EC2, Azure me VM, GCP me Compute Engine.
-</p>
+# Rollback if something goes wrong
+kubectl rollout undo deployment/my-app</code></pre>
 
-<div class="code-title">Linux VM Example (AWS EC2)</div>
-<pre><code class="language-bash">ssh -i key.pem ubuntu@public-ip</code></pre>
-
-<p>
-DevOps engineers mostly Linux VMs use karte hain.
-</p>
-
-<hr>
-
-<h4>2. Identity & Access Management (IAM)</h4>
-
-<p>
-IAM batata hai:
-</p>
-
-<ul>
-  <li>Kaun access kare?</li>
-  <li>Kya access kare?</li>
-</ul>
-
-<p>
-<strong>Never use root user</strong> — industry rule.
-</p>
-
-<hr>
-
-<h4>3. Networking Basics</h4>
-
-<ul>
-  <li>VPC / Virtual Network</li>
-  <li>Subnets</li>
-  <li>Security Groups / Firewalls</li>
-</ul>
-
-<p>
-Networking misunderstanding = security issues.
-</p>
-
-<hr>
-
-<h4>4. Storage Types</h4>
-
-<ul>
-  <li>Block Storage (EBS)</li>
-  <li>Object Storage (S3)</li>
-  <li>File Storage (EFS)</li>
-</ul>
-
-<p>
-DevOps mostly:
-<strong>S3 + EBS</strong> use karta hai.
-</p>
-
-<hr>
-
-<h4>5. Cloud + Docker + Kubernetes</h4>
-
-<p>
-Real-world flow:
-</p>
-
-<ul>
-  <li>Code → Git</li>
-  <li>Build → CI pipeline</li>
-  <li>Image → Docker</li>
-  <li>Deploy → Kubernetes on cloud</li>
-</ul>
-
-<p>
-Cloud infra bina manual effort ke provision hota hai.
-</p>
-
-<hr>
-
-<h4>Infrastructure as Code (Preview)</h4>
-
-<p>
-Manual clicking DevOps nahi hai.
-</p>
-
-<p>
-DevOps engineers infra ko bhi code ki tarah likhte hain:
-</p>
-
-<ul>
-  <li>Terraform</li>
-  <li>CloudFormation</li>
-  <li>ARM templates</li>
-</ul>
-
-<p>
-Ispe next parts me focus aayega.
-</p>
-
-<hr>
-
-<h4>Common Beginner Mistakes</h4>
-
-<ul>
-  <li>Everything public expose karna</li>
-  <li>IAM ignore karna</li>
-  <li>Billing alerts na lagana</li>
-</ul>
-
-<p>
-Cloud power hai — responsibility bhi.
-</p>
-
-<hr>
-
-<h4>Reality of DevOps + Cloud Jobs</h4>
-
-<p>
-Interviewers expect:
-</p>
-
-<ul>
-  <li>Basic AWS services knowledge</li>
-  <li>Linux + networking clarity</li>
-  <li>Deployment understanding</li>
-</ul>
-
-<p>
-Certifications help,
-<strong>hands-on matters more</strong>.
-</p>
-
-<hr>
-
-<h4>What Comes Next?</h4>
-
-<p>
-Systems chal rahe hain,
-par unko observe kaise kare?
-</p>
-
-<a href="devops-roadmap-part-11.html" class="btn">
-Next Part → Monitoring & Logging
-</a>
-
+<p>In Part 11, we will cover cloud platforms — AWS, GCP, and Azure fundamentals that every DevOps engineer needs to navigate modern infrastructure.</p>
 </section>
+<h4>Core Kubernetes Objects</h4>
+<p>Kubernetes manages containerized applications through a set of declarative objects defined in YAML files. Understanding the core objects is the foundation of Kubernetes work. A Pod is the smallest deployable unit — one or more containers that share network and storage. Pods are ephemeral; do not create them directly. A Deployment manages a set of identical Pod replicas, handles rolling updates, and automatically restarts failed Pods. A Service provides a stable network endpoint for a set of Pods — even as individual Pods are created and destroyed, the Service IP and DNS name remain constant. A ConfigMap stores non-sensitive configuration data as key-value pairs. A Secret stores sensitive data (encrypted at rest) like passwords and API keys. A PersistentVolumeClaim requests storage that outlives individual Pods.</p>
+<div class="code-title">Basic Deployment YAML</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:1.0
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"</code></pre>
+<h4>Practice Exercise</h4>
+<p>Install minikube or kind to run a local Kubernetes cluster. Deploy a simple application: write a Deployment YAML for nginx with 3 replicas, a Service YAML of type NodePort to expose it, and apply both with <code>kubectl apply -f</code>. Verify the deployment with <code>kubectl get pods</code>, <code>kubectl get deployments</code>, and <code>kubectl get services</code>. Scale the deployment to 5 replicas with <code>kubectl scale deployment myapp --replicas=5</code>. Simulate a pod failure by deleting one pod and observe Kubernetes automatically creating a replacement.</p>
 
-<!-- ===== DISCLAIMER ===== -->
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
+
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
+
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Cloud services may incur costs. Always use free-tier accounts and billing alerts while learning.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Cloud Is the New Data Center</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

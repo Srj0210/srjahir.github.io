@@ -1,234 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 3 — Linux Users, Processes & System Control | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 3 by SRJahir Tech. Learn Linux users, groups, processes, system control, and how DevOps engineers manage servers safely." />
-<meta name="keywords" content="DevOps Linux users, Linux processes tutorial, Linux system management DevOps" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-3.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps Roadmap Part 3 — Git & Version Control | SRJahir Tech</title>
+  <meta name="description" content="Master Git for DevOps — repositories, branching strategy, merge vs rebase, GitFlow, pull requests, and collaboration workflows." />
+  <meta name="keywords" content="Git tutorial DevOps, Git branching strategy, Git commands, GitFlow, Git pull request, version control" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-3.html" />
+  <meta property="og:title" content="DevOps Roadmap Part 3 — Git & Version Control | SRJahir Tech" /><meta property="og:description" content="Master Git for DevOps — repositories, branching strategy, merge vs rebase, GitFlow, pull requests, and collaboration workflows." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 3 — Git & Version Control | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 3: Git &amp; Version Control</h3>
+<p>Git is not optional in modern software development. Every CI/CD pipeline starts with a Git event — a push, a merge, a tag. If you do not understand Git deeply, you cannot build proper DevOps pipelines. This part teaches Git from a DevOps perspective, not just the basic commands.</p>
+<h4>Why Git Matters in DevOps</h4>
+<p>Git is the source of truth for everything: application code, infrastructure configurations (Terraform, Ansible), CI/CD pipeline definitions, Kubernetes manifests, Docker files. When a DevOps engineer says "version control everything," they mean: if it matters to your system, it should be in Git.</p>
+<h4>Git Core Concepts</h4>
+<div class="code-title">Git Setup</div>
+<pre><code class="language-bash">git config --global user.name "Suraj Ahir"
+git config --global user.email "suraj@srjahir.in"
+git config --global core.editor vim
 
-<h3>DevOps Roadmap — Part 3: Linux Users, Processes & System Control</h3>
+# Initialize a new repository
+git init my-project
+cd my-project
 
-<p>
-DevOps engineers do not work as “admin always”.
-They work with **users, permissions, and controlled access**.
-</p>
+# Clone an existing repository
+git clone https://github.com/Srj0210/srjahir.github.io.git</code></pre>
+<h4>The Git Workflow</h4>
+<div class="code-title">Daily Git Workflow</div>
+<pre><code class="language-bash">git status                   # What changed?
+git diff                     # See exact changes
 
-<p>
-Understanding users and processes is what separates
-a beginner from a production engineer.
-</p>
+git add file.py              # Stage specific file
+git add .                    # Stage all changes
 
-<hr>
+git commit -m "Add user authentication feature"
+git commit --amend           # Fix last commit message
 
-<h4>Linux Users — Why They Exist</h4>
+git push origin main         # Push to remote
+git pull origin main         # Pull latest changes</code></pre>
+<h4>Branching Strategy</h4>
+<p>Professional teams never commit directly to main. They use branches:</p>
+<div class="code-title">Branching Commands</div>
+<pre><code class="language-bash">git branch                        # List branches
+git checkout -b feature/user-auth # Create and switch to new branch
+git checkout main                  # Switch to main
 
-<p>
-Linux is a multi-user operating system.
-That means:
-</p>
+git merge feature/user-auth       # Merge branch into current
+git rebase main                   # Rebase current branch on main
 
+git branch -d feature/user-auth   # Delete merged branch
+git push origin --delete feature/user-auth  # Delete remote branch</code></pre>
+<h4>GitFlow — The Production Branching Model</h4>
+<p>GitFlow is a branching strategy designed for teams releasing software on a regular schedule:</p>
 <ul>
-  <li>Many people can use the same server</li>
-  <li>Each user has limited permissions</li>
-  <li>Security depends on user separation</li>
+  <li><strong>main</strong> — Production-ready code only. Every commit here is deployable.</li>
+  <li><strong>develop</strong> — Integration branch. Features merge here first.</li>
+  <li><strong>feature/*</strong> — Individual feature branches. Created from develop.</li>
+  <li><strong>release/*</strong> — Preparation for a release. Bug fixes only.</li>
+  <li><strong>hotfix/*</strong> — Emergency fixes to production. Created from main.</li>
 </ul>
-
-<p>
-DevOps engineers NEVER run everything as root.
-</p>
-
-<hr>
-
-<h4>Check Current User</h4>
-
-<div class="code-title">Who am I?</div>
-<pre><code class="language-bash">whoami</code></pre>
-
-<p>
-This command tells which user is currently logged in.
-</p>
-
-<hr>
-
-<h4>Important System Users</h4>
-
-<ul>
-  <li><strong>root</strong> → superuser (full control)</li>
-  <li><strong>ubuntu / ec2-user</strong> → cloud default users</li>
-  <li><strong>service users</strong> → apps like nginx, mysql</li>
-</ul>
-
-<p>
-Running applications as root is dangerous.
-</p>
-
-<hr>
-
-<h4>Switching Users Safely</h4>
-
-<div class="code-title">Switch to root (if allowed)</div>
-<pre><code class="language-bash">sudo su</code></pre>
-
-<div class="code-title">Run single command as root</div>
-<pre><code class="language-bash">sudo apt update</code></pre>
-
-<p>
-<strong>sudo</strong> is the heart of DevOps safety.
-</p>
-
-<hr>
-
-<h4>Linux Processes — Programs in Action</h4>
-
-<p>
-Every running program is a process.
-</p>
-
-<p>
-Web servers, databases, containers —
-everything runs as processes.
-</p>
-
-<div class="code-title">View running processes</div>
-<pre><code class="language-bash">ps aux</code></pre>
-
-<div class="code-title">Live process monitoring</div>
-<pre><code class="language-bash">top</code></pre>
-
-<p>
-If a server is slow,
-process analysis is the first step.
-</p>
-
-<hr>
-
-<h4>Killing a Process (Carefully)</h4>
-
-<div class="code-title">Kill process by PID</div>
-<pre><code class="language-bash">kill 1234</code></pre>
-
-<div class="code-title">Force kill (dangerous)</div>
-<pre><code class="language-bash">kill -9 1234</code></pre>
-
-<p>
-Wrong kill command can crash production.
-Always double-check.
-</p>
-
-<hr>
-
-<h4>System Services (Background Programs)</h4>
-
-<p>
-Linux servers run services like:
-</p>
-
-<ul>
-  <li>nginx</li>
-  <li>docker</li>
-  <li>ssh</li>
-</ul>
-
-<div class="code-title">Check service status</div>
-<pre><code class="language-bash">systemctl status ssh</code></pre>
-
-<div class="code-title">Start service</div>
-<pre><code class="language-bash">sudo systemctl start nginx</code></pre>
-
-<div class="code-title">Enable on boot</div>
-<pre><code class="language-bash">sudo systemctl enable nginx</code></pre>
-
-<hr>
-
-<h4>Why This Matters for DevOps</h4>
-
-<p>
-CI/CD pipelines,
-containers,
-and cloud services
-all rely on:
-</p>
-
-<ul>
-  <li>Correct users</li>
-  <li>Healthy processes</li>
-  <li>Stable services</li>
-</ul>
-
-<p>
-If you skip this knowledge,
-DevOps becomes copy-paste chaos.
-</p>
-
-<hr>
-
-<h4>Next Step in Roadmap</h4>
-
-<p>
-Now that you understand Linux control,
-we move into networking —
-how servers talk to the world.
-</p>
-
-<a href="devops-roadmap-part-4.html" class="btn">
-Next Part → Linux Networking for DevOps
-</a>
-
+<h4>Git Tags — Marking Releases</h4>
+<div class="code-title">Tagging Releases</div>
+<pre><code class="language-bash">git tag v1.0.0                       # Create lightweight tag
+git tag -a v1.0.0 -m "Release 1.0"  # Annotated tag
+git push origin v1.0.0              # Push tag to remote
+git push origin --tags              # Push all tags</code></pre>
+<h4>Undoing Mistakes</h4>
+<div class="code-title">Git Recovery Commands</div>
+<pre><code class="language-bash">git checkout -- file.py          # Discard unstaged changes
+git reset HEAD file.py           # Unstage a file
+git reset --soft HEAD~1          # Undo last commit (keep changes staged)
+git reset --hard HEAD~1          # Undo last commit (discard changes)
+git revert abc123                # Create new commit that undoes abc123</code></pre>
+<h4>.gitignore — What Not to Track</h4>
+<div class="code-title">.gitignore Example</div>
+<pre><code class="language-bash">.env
+venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+build/
+*.log
+.terraform/
+*.tfstate
+*.tfvars</code></pre>
+<p>In Part 4, we will learn Docker — the containerization technology that changed how software is deployed.</p>
 </section>
+<h4>Git Branching Strategies for Teams</h4>
+<p>How a team manages branches determines how smoothly work integrates and how safely releases are made. GitFlow uses long-lived main and develop branches with feature branches, release branches, and hotfix branches. It provides clear structure but can create large, difficult merges. Trunk-based development has everyone committing to a single main branch (or very short-lived feature branches), using feature flags to hide incomplete work. It enables faster integration and is favored by high-performing engineering teams with strong automated testing. GitHub Flow is a simplified version: main is always deployable, work happens in feature branches, and pull requests trigger code review and CI before merging. Most modern teams use GitHub Flow or trunk-based development.</p>
+<h4>Pull Requests and Code Review</h4>
+<p>Pull requests (PRs) or merge requests (MRs) are how code changes are reviewed before merging. A good pull request is small enough to review thoroughly (under 400 lines of change where possible), includes a clear description of what changed and why, links to the relevant ticket or issue, and passes all automated checks before requesting review. Good code review comments are specific, actionable, and explain the reasoning behind requested changes. Reviewing others' code carefully is one of the most valuable learning activities available — you see patterns, approaches, and mistakes you would not encounter just writing your own code.</p>
+<h4>Practice Exercise</h4>
+<p>Create a Git repository for a small project. Practice the complete GitHub Flow: create a feature branch, make changes, write a meaningful commit message following conventional commits format (feat:, fix:, docs:, refactor:), push the branch, and create a pull request on GitHub. Add a <code>.gitignore</code> file appropriate for your project type. Practice resolving a merge conflict by creating two branches that modify the same line, merging one into main, then attempting to merge the other and resolving the conflict manually.</p>
 
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never experiment with kill commands or root access on production servers.
-Practice on local VM or cloud free tier only.
-</div>
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
 
-<footer>
-<p>© 2025 SRJahir Tech — Control Before Automation</p>
-</footer>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

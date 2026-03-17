@@ -1,213 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-
-  <title>Linux Tutorial Part 7 — File Permissions & Ownership | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Linux Tutorial Part 7 by SRJahir Tech. Learn Linux file permissions, chmod, chown, users, groups, and permission logic with real-world examples." />
-  <meta name="keywords" content="Linux permissions, chmod tutorial, chown Linux, Linux file ownership, Linux tutorial part 7" />
-  <meta name="author" content="SRJahir Tech" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-7.html" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
-</head>
-
-<body>
-
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<!-- ===== ARTICLE START ===== -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech</title><meta name="robots" content="index,follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-7.html">
+<meta property="og:title" content="Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+</head><body>
+<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
+<a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
+</nav></header>
 <section class="content-block">
+<h3>Linux Tutorial — Part 7: Shell Scripting</h3>
+<p>Shell scripting is where the Linux command line transforms from interactive tool to automation engine. Scripts let you combine commands, add logic, schedule tasks, and automate entire workflows. Every DevOps and system administration role requires shell scripting. This is the skill that saves hours every week.</p>
+<h4>Creating Your First Script</h4>
+<div class="code-title">Hello World Script</div>
+<pre><code class="language-bash">#!/bin/bash
+# The shebang line tells Linux which interpreter to use
 
-  <h3>Linux Tutorial — Part 7: File Permissions & Ownership</h3>
+echo "Hello from my first script!"
+echo "Today is: $(date)"
+echo "You are logged in as: $USER"
+echo "Your home directory is: $HOME"</code></pre>
+<div class="code-title">Make It Executable and Run</div>
+<pre><code class="language-bash">chmod +x hello.sh     # Make executable
+./hello.sh            # Run it
+bash hello.sh         # Alternative: run with bash directly</code></pre>
+<h4>Variables in Scripts</h4>
+<div class="code-title">Variables</div>
+<pre><code class="language-bash">#!/bin/bash
+APP_NAME="MyWebApp"
+VERSION="2.1.0"
+DEPLOY_DIR="/var/www/$APP_NAME"
 
-  <p>
-    File permissions are the backbone of Linux security.
-    If you misunderstand this topic,
-    you will break systems — or expose them.
-  </p>
+echo "Deploying $APP_NAME version $VERSION to $DEPLOY_DIR"
 
-  <h4>1. Why Linux Permissions Exist</h4>
-  <p>
-    Linux is a multi-user operating system.
-    Not every user should be able to read, modify,
-    or execute every file.
-  </p>
+# Command substitution — capture command output
+CURRENT_DATE=$(date +%Y-%m-%d)
+DISK_USAGE=$(df -h / | awk 'NR==2 {print $5}')
+echo "Deployment date: $CURRENT_DATE"
+echo "Disk usage: $DISK_USAGE"</code></pre>
+<h4>Reading User Input</h4>
+<div class="code-title">read Command</div>
+<pre><code class="language-bash">#!/bin/bash
+echo "Enter your name:"
+read NAME
 
-  <p>
-    Permissions answer three questions:
-  </p>
-  <ul>
-    <li>Who owns the file?</li>
-    <li>Who belongs to the file’s group?</li>
-    <li>What can others do?</li>
-  </ul>
+echo "Enter environment (dev/staging/prod):"
+read -r ENV
 
-  <h4>2. Viewing Permissions</h4>
-  <pre><code class="language-bash">ls -l</code></pre>
+echo "Hello $NAME! Deploying to $ENV environment."</code></pre>
+<h4>Conditionals in Scripts</h4>
+<div class="code-title">if-else in Bash</div>
+<pre><code class="language-bash">#!/bin/bash
+DISK_PERCENT=$(df / | awk 'NR==2 {gsub(/%/,""); print $5}')
 
-  <p>
-    Example output:
-  </p>
+if [ $DISK_PERCENT -gt 90 ]; then
+    echo "CRITICAL: Disk at $DISK_PERCENT% — immediate action needed"
+elif [ $DISK_PERCENT -gt 75 ]; then
+    echo "WARNING: Disk at $DISK_PERCENT% — clean up soon"
+else
+    echo "OK: Disk at $DISK_PERCENT%"
+fi</code></pre>
+<h4>Loops in Scripts</h4>
+<div class="code-title">for and while Loops</div>
+<pre><code class="language-bash">#!/bin/bash
 
-  <pre><code class="language-bash">-rw-r--r-- 1 user group file.txt</code></pre>
+# Loop through list
+for SERVER in web1 web2 web3 db1; do
+    echo "Checking $SERVER..."
+    ping -c 1 $SERVER > /dev/null 2>&1 && echo "$SERVER: UP" || echo "$SERVER: DOWN"
+done
 
-  <h4>3. Understanding Permission Symbols</h4>
-  <p>
-    The permission string has three sections:
-  </p>
+# Loop through files
+for FILE in /var/log/*.log; do
+    LINES=$(wc -l < "$FILE")
+    echo "$FILE has $LINES lines"
+done
 
-  <ul>
-    <li><strong>User (owner)</strong></li>
-    <li><strong>Group</strong></li>
-    <li><strong>Others</strong></li>
-  </ul>
+# While loop
+COUNTER=1
+while [ $COUNTER -le 5 ]; do
+    echo "Attempt $COUNTER"
+    COUNTER=$((COUNTER + 1))
+done</code></pre>
+<h4>Functions in Scripts</h4>
+<div class="code-title">Bash Functions</div>
+<pre><code class="language-bash">#!/bin/bash
 
-  <p>
-    Each section contains:
-  </p>
-  <ul>
-    <li><code>r</code> → read</li>
-    <li><code>w</code> → write</li>
-    <li><code>x</code> → execute</li>
-  </ul>
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
 
-  <h4>4. chmod — Changing Permissions</h4>
-  <p>
-    <code>chmod</code> controls what actions are allowed.
-  </p>
+check_service() {
+    SERVICE=$1
+    if systemctl is-active --quiet $SERVICE; then
+        log "$SERVICE is running"
+        return 0
+    else
+        log "$SERVICE is NOT running"
+        return 1
+    fi
+}
 
-  <pre><code class="language-bash">chmod u+x script.sh</code></pre>
+# Use the functions
+log "Starting health check"
+check_service nginx
+check_service postgresql
+log "Health check complete"</code></pre>
+<h4>A Real Deployment Script</h4>
+<div class="code-title">Production-Style Deployment Script</div>
+<pre><code class="language-bash">#!/bin/bash
+set -e  # Exit immediately on any error
 
-  <p>
-    Adds execute permission for the owner.
-  </p>
+APP="srjahir-tech"
+DEPLOY_DIR="/var/www/$APP"
+BACKUP_DIR="/var/backups/$APP"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
-  <h4>5. Numeric Permission System</h4>
-  <p>
-    Linux also uses numbers:
-  </p>
+log() { echo "[INFO] $(date +%T) $1"; }
+error() { echo "[ERROR] $1" >&2; exit 1; }
 
-  <ul>
-    <li>r = 4</li>
-    <li>w = 2</li>
-    <li>x = 1</li>
-  </ul>
+log "Starting deployment of $APP"
 
-  <p>
-    Example:
-  </p>
+# Check required tools
+command -v git > /dev/null || error "git not found"
+command -v python3 > /dev/null || error "python3 not found"
 
-  <pre><code class="language-bash">chmod 755 script.sh</code></pre>
+# Backup current version
+log "Creating backup..."
+cp -r $DEPLOY_DIR $BACKUP_DIR/backup_$TIMESTAMP
 
-  <p>
-    Meaning:
-  </p>
-  <ul>
-    <li>User: read, write, execute</li>
-    <li>Group: read, execute</li>
-    <li>Others: read, execute</li>
-  </ul>
+# Pull latest code
+log "Pulling latest code..."
+cd $DEPLOY_DIR
+git pull origin main
 
-  <h4>6. chown — Changing Ownership</h4>
-  <p>
-    Ownership controls responsibility.
-  </p>
+# Install dependencies
+log "Installing dependencies..."
+pip3 install -r requirements.txt -q
 
-  <pre><code class="language-bash">sudo chown user file.txt</code></pre>
+# Restart service
+log "Restarting $APP service..."
+sudo systemctl restart $APP
 
-  <p>
-    Change owner and group:
-  </p>
+sleep 2
+systemctl is-active --quiet $APP && log "Deployment successful!" || error "Service failed to start"</code></pre>
+<p>In Part 8, we cover cron jobs — how to schedule scripts to run automatically at specified intervals.</p>
+<h4>Functions in Shell Scripts</h4>
+<p>Shell scripts support functions — named, reusable blocks of code that make scripts organized and maintainable:</p>
+<div class="code-title">Shell Functions</div>
+<pre><code class="language-bash">#!/bin/bash
 
-  <pre><code class="language-bash">sudo chown user:group file.txt</code></pre>
+log_message() {
+    local level="$1"
+    local message="$2"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [$level] $message"
+}
 
-  <h4>7. Directories vs Files</h4>
-  <p>
-    Permissions behave differently on directories.
-  </p>
+check_disk_space() {
+    local threshold=${1:-80}
+    local usage=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
+    if [ "$usage" -gt "$threshold" ]; then
+        log_message "WARN" "Disk usage ${usage}% exceeds threshold ${threshold}%"
+        return 1
+    fi
+    log_message "INFO" "Disk usage ${usage}% is within limit"
+    return 0
+}
 
-  <ul>
-    <li><code>r</code> → list files</li>
-    <li><code>w</code> → create/delete files</li>
-    <li><code>x</code> → access directory</li>
-  </ul>
+check_disk_space 75</code></pre>
+<p>In bash, functions use <code>local</code> to declare local variables. The return value is a numeric exit code — 0 for success, non-zero for failure. To return data from a function, <code>echo</code> the value inside the function and capture it with: <code>result=$(my_function)</code>.</p>
+<h4>Script Debugging and Best Practices</h4>
+<p>Use <code>bash -n script.sh</code> to check syntax without executing. Use <code>bash -x script.sh</code> to run with execution tracing — every command prints before executing with variables expanded. Add <code>set -e</code> at the top to exit immediately if any command fails. Add <code>set -u</code> to treat unset variables as errors. Add <code>set -o pipefail</code> to catch failures in pipes. These three together (<code>set -euo pipefail</code>) are the standard defensive shell scripting header that prevents silent failures.</p>
+<h4>Practice Exercise</h4>
+<p>Write a system health check script using functions: one function checks disk usage and warns above 85%, another checks if memory available is below 500MB, another checks if a specified service is running using <code>systemctl is-active</code>. The main script calls all three functions, logs results to a file with timestamps, and exits with code 1 if any check fails. Test with different thresholds to verify both pass and fail paths.</p>
 
-  <h4>8. Recursive Permission Changes</h4>
-  <pre><code class="language-bash">chmod -R 755 myfolder</code></pre>
+<h4>Linux in Your Daily Engineering Practice</h4>
+<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
-  <p>
-    Applies permissions to all files and subfolders.
-  </p>
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
-  <h4>⚠️ Critical Warning</h4>
-  <p>
-    Never blindly use:
-  </p>
-
-  <pre><code class="language-bash">chmod -R 777 /</code></pre>
-
-  <p>
-    This destroys system security.
-  </p>
-
-  <h4>Real-World Mindset</h4>
-  <p>
-    Permissions are not about convenience.
-    They are about control, accountability, and safety.
-  </p>
-
-  <p>
-    In the next part,
-    we will learn about users, groups, and sudo —
-    who is allowed to do what in Linux.
-  </p>
-
-  <a href="linux-tutorial-part-8.html" class="btn">
-    Next: Users, Groups & sudo →
-  </a>
-
-</section>
-
-<!-- ===== DISCLAIMER ===== -->
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  Incorrect permission changes can break systems.
-  Always understand the impact before using sudo or chmod recursively.
-</div>
-
-<footer>
-  <p>© 2025 SRJahir Tech — Secure Systems Start with Permissions</p>
-</footer>
-
-</body>
-</html>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
+<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</body></html>

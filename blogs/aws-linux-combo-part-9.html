@@ -4,133 +4,192 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>AWS + Linux Combo Part 9 — Production Server Setup | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="AWS + Linux Combo Part 9 by SRJahir Tech. Learn real production server setup, SSH hardening, users, folders, and best practices." />
-  <meta name="keywords" content="AWS Linux production server, Linux server setup, SSH hardening, cloud server best practices" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>AWS + Linux Combo — Part 9: Master the AWS CLI on Linux | SRJahir Tech</title>
+  <meta name="description" content="Learn the AWS CLI in depth — manage EC2, S3, IAM, and more from your Linux terminal. Practical commands for real cloud operations." />
+  <meta name="keywords" content="AWS CLI commands, AWS command line Linux, EC2 CLI, S3 CLI, IAM CLI AWS" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-9.html" />
-
-  <!-- Icons -->
-  <link rel="icon" href="../logo.png">
-
-  <!-- CSS -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 9: Master the AWS CLI on Linux | SRJahir Tech" />
+  <meta property="og:description" content="Learn the AWS CLI in depth — manage EC2, S3, IAM, and more from your Linux terminal. Practical commands for real cloud operations." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-9.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 9: Master the AWS CLI on Linux","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn the AWS CLI in depth — manage EC2, S3, IAM, and more from your Linux terminal. Practical commands for real cloud operations."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
     <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 9<br>Production Server Setup</h3>
+<h3>AWS + Linux Combo — Part 9: Master the AWS CLI on Linux</h3>
 
-<p>
-This part moves you from practice mode to <strong>real production thinking</strong>.
-Production servers are not playgrounds.
-Every decision here affects security, uptime, and trust.
-</p>
+<p>The AWS console is fine for exploring, but professionals manage infrastructure through the command line. The AWS CLI lets you do everything the console can do — and more — directly from your Linux terminal. It is scriptable, fast, and essential for automation. In this part, we explore the most important AWS CLI commands across the services we have covered.</p>
 
-<h4>What Is a Production Server?</h4>
-<p>
-A production server is a system that serves real users.
-If it goes down, business stops.
-That is why discipline matters more than shortcuts.
-</p>
+<h4>AWS CLI Basics</h4>
+<p>The AWS CLI follows a consistent structure for all commands:</p>
+<div class="code-title">CLI Command Structure</div>
+<pre><code class="language-bash"># Pattern: aws [service] [action] [options]
+aws ec2 describe-instances
+aws s3 ls
+aws iam list-users
+aws s3 cp file.txt s3://bucket/
 
-<h4>Golden Rules of Production Servers</h4>
-<ul>
-  <li>No experiments directly on live server</li>
-  <li>No root login for daily work</li>
-  <li>No unnecessary software installed</li>
-  <li>Logs must always be readable</li>
-</ul>
+# Get help for any command
+aws help
+aws ec2 help
+aws ec2 describe-instances help
 
-<h4>Create a Non-Root User</h4>
-<pre><code class="language-bash">adduser appuser
-usermod -aG sudo appuser</code></pre>
+# Use --output to change format (json, text, table)
+aws ec2 describe-instances --output table
+aws iam list-users --output text
 
-<p>
-Root should be used only for emergencies.
-Daily work should always be done via a limited user.
-</p>
+# Use --query to filter output (JMESPath)
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress'</code></pre>
 
-<h4>Disable Root SSH Login</h4>
-<pre><code class="language-bash">nano /etc/ssh/sshd_config</code></pre>
+<h4>EC2 Management via CLI</h4>
+<div class="code-title">EC2 CLI Commands</div>
+<pre><code class="language-bash"># List all instances with key details
+aws ec2 describe-instances   --query 'Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress,Tags[?Key==`Name`].Value|[0]]'   --output table
 
-<p>Change:</p>
-<pre><code class="language-bash">PermitRootLogin no</code></pre>
+# Start/stop instances
+aws ec2 start-instances --instance-ids i-0abc123def456789
+aws ec2 stop-instances --instance-ids i-0abc123def456789
 
-<p>Restart SSH:</p>
-<pre><code class="language-bash">systemctl restart ssh</code></pre>
+# Get instance status
+aws ec2 describe-instance-status --instance-ids i-0abc123def456789
 
-<h4>Production Folder Structure</h4>
-<pre><code class="language-bash">/var/www        → application code
-/etc            → configuration files
-/opt            → optional tools
-/var/log        → logs</code></pre>
+# Create a snapshot of EBS volume
+aws ec2 create-snapshot   --volume-id vol-0abc123   --description "Backup $(date +%Y-%m-%d)"
 
-<p>
-Random folders and messy structure is a sign of beginner setup.
-Professionals keep servers predictable.
-</p>
+# List security groups
+aws ec2 describe-security-groups --output table</code></pre>
 
-<h4>Why Security Comes First</h4>
-<p>
-Open servers are scanned automatically by bots.
-You are not attacked because you are important —
-you are attacked because you exist.
-</p>
+<h4>S3 CLI Deep Dive</h4>
+<div class="code-title">Advanced S3 CLI</div>
+<pre><code class="language-bash"># List bucket sizes
+aws s3 ls s3://my-bucket/ --recursive --human-readable --summarize
 
-<h4>Mindset Shift</h4>
-<p>
-Production server is not your laptop.
-It is a shared responsibility between you, your team, and the business.
-</p>
+# Copy with metadata
+aws s3 cp myfile.txt s3://my-bucket/   --content-type "text/plain"   --metadata "author=suraj,date=2026-03-17"
 
-<a href="aws-linux-combo-part-10.html" class="btn">
-Next: IAM & Linux Permissions →
-</a>
+# Set storage class (Standard is default, IA is cheaper for infrequent access)
+aws s3 cp archive.tar.gz s3://my-bucket/archives/   --storage-class STANDARD_IA
+
+# Enable versioning on a bucket
+aws s3api put-bucket-versioning   --bucket my-bucket   --versioning-configuration Status=Enabled
+
+# List object versions
+aws s3api list-object-versions --bucket my-bucket</code></pre>
+
+<h4>IAM via CLI</h4>
+<div class="code-title">IAM CLI Commands</div>
+<pre><code class="language-bash"># List users and their creation dates
+aws iam list-users --query 'Users[*].[UserName,CreateDate]' --output table
+
+# Check current identity
+aws sts get-caller-identity
+
+# List roles
+aws iam list-roles --query 'Roles[*].[RoleName,CreateDate]' --output table
+
+# Get my account ID
+aws sts get-caller-identity --query Account --output text</code></pre>
+
+<h4>CloudWatch Logs via CLI</h4>
+<div class="code-title">CloudWatch CLI</div>
+<pre><code class="language-bash"># List log groups
+aws logs describe-log-groups
+
+# Get recent log events
+aws logs get-log-events   --log-group-name /aws/ec2/myserver   --log-stream-name mystream   --limit 50
+
+# Filter logs for errors
+aws logs filter-log-events   --log-group-name /var/log/nginx   --filter-pattern "ERROR"</code></pre>
+
+<h4>Using Profiles for Multiple Accounts</h4>
+<div class="code-title">AWS Profiles</div>
+<pre><code class="language-bash"># Configure a named profile
+aws configure --profile production
+aws configure --profile staging
+
+# Use a specific profile
+aws s3 ls --profile production
+aws ec2 describe-instances --profile staging
+
+# Set default profile
+export AWS_PROFILE=production</code></pre>
+
+<h4>Useful CLI Shortcuts and Tips</h4>
+<div class="code-title">Pro Tips</div>
+<pre><code class="language-bash"># Enable CLI auto-completion
+complete -C '/usr/local/bin/aws_completer' aws
+
+# Dry run to check permissions without actually doing it
+aws ec2 start-instances --instance-ids i-123 --dry-run
+
+# Use jq to parse JSON output (install: sudo dnf install jq -y)
+aws ec2 describe-instances | jq '.Reservations[].Instances[].PublicIpAddress'
+
+# Get your current public IP
+aws ec2 describe-instances   --filters "Name=instance-state-name,Values=running"   --query 'Reservations[*].Instances[*].PublicIpAddress'   --output text</code></pre>
+<p>The AWS CLI becomes increasingly powerful as you combine it with Bash scripts, cron jobs, and conditionals. In Part 10, we cover networking — VPC, subnets, security groups, and how AWS networking actually works.</p>
+
+<h4>AWS CLI Configuration and Profiles</h4>
+<p>The AWS CLI stores configuration in <code>~/.aws/config</code> and credentials in <code>~/.aws/credentials</code>. For work with multiple AWS accounts or regions, use named profiles: <code>aws configure --profile production</code> sets up a production profile. Use a profile with any CLI command: <code>aws s3 ls --profile production</code>. Set a default profile for a session: <code>export AWS_PROFILE=production</code>. For EC2 instances with attached IAM roles, no credentials file is needed — the CLI automatically uses the instance metadata service to retrieve temporary credentials. This is the correct approach for applications running on EC2 — never store long-lived credentials on instances.</p>
+<h4>Output Formats and JQ for JSON Processing</h4>
+<p>The AWS CLI supports multiple output formats: JSON (default), table, text, and YAML. For scripting, JSON combined with <code>jq</code> is extremely powerful. <code>jq</code> is a command-line JSON processor that enables filtering, transformation, and extraction of data from JSON output:</p>
+<div class="code-title">AWS CLI with jq</div>
+<pre><code class="language-bash"># Get just the instance IDs of running instances
+aws ec2 describe-instances     --filters "Name=instance-state-name,Values=running"     --query 'Reservations[].Instances[].InstanceId'     --output text
+
+# Using jq for more complex transformations
+aws ec2 describe-instances |     jq '.Reservations[].Instances[] | {id: .InstanceId, type: .InstanceType, state: .State.Name}'
+
+# Get the public IP of a specific instance
+aws ec2 describe-instances     --instance-ids i-1234567890abcdef0     --query 'Reservations[0].Instances[0].PublicIpAddress'     --output text</code></pre>
+<h4>Practice Exercise</h4>
+<p>Write a shell script that uses the AWS CLI with <code>--query</code> and <code>--output text</code> to generate a simple inventory report: list all running EC2 instances with their names (from the Name tag), instance types, and public IPs. Use <code>aws ec2 describe-instances</code> with appropriate filters. Format the output as a table using <code>column -t</code>. Save the report to a file with the current date in the filename. This is a simplified version of the asset inventory scripts used in real operations.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never test risky commands on production servers.
-Always verify changes on staging before deployment.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Production Is Discipline</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

@@ -4,124 +4,202 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>Python Tutorial Part 11 — File Handling | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Python tutorial part 11 by SRJahir Tech. Learn file handling in Python including read, write, append, file modes, and real-world use cases." />
-  <meta name="keywords" content="python file handling, python read write file, python open file" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech</title>
+  <meta name="description" content="Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples." />
+  <meta name="keywords" content="Python OOP, Python classes, Python objects, Python inheritance, Python encapsulation" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-11.html" />
-
-  <link rel="icon" href="../logo.png">
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech" />
+  <meta property="og:description" content="Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-11.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
     <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 
 <section class="content-block">
-  <h3>Python Full Tutorial — Part 11</h3>
 
-  <p>
-    Real applications store data.
-    File handling is how Python talks to files on your system.
-  </p>
+<h3>Python Full Tutorial — Part 11: Object Oriented Programming</h3>
+<p>OOP is how large, complex programs stay organized and manageable. Almost every production codebase — web frameworks, AI libraries, game engines — is built using OOP. Understanding this changes how you think about code structure.</p>
+<h4>What is OOP?</h4>
+<p>Object Oriented Programming is a way of organizing code around <em>objects</em> that contain both data (attributes) and behavior (methods). Instead of writing loose functions and variables, you model real-world concepts as classes.</p>
+<h4>Classes and Objects</h4>
+<div class="code-title">Your First Class</div>
+<pre><code class="language-python">class Student:
+    def __init__(self, name, age, grade):
+        self.name = name
+        self.age = age
+        self.grade = grade
+    
+    def introduce(self):
+        print(f"Hi, I am {self.name}, age {self.age}, grade {self.grade}")
+    
+    def is_passing(self):
+        return self.grade >= 50
 
-  <h4>1. Opening a File</h4>
-  <pre><code class="language-python">
-file = open("data.txt", "r")
-content = file.read()
-file.close()
-  </code></pre>
+# Creating objects
+s1 = Student("Suraj", 22, 88)
+s2 = Student("Priya", 21, 45)
 
-  <h4>2. File Modes</h4>
-  <ul>
-    <li><code>r</code> — Read</li>
-    <li><code>w</code> — Write (overwrite)</li>
-    <li><code>a</code> — Append</li>
-    <li><code>x</code> — Create</li>
-  </ul>
+s1.introduce()
+print(s1.is_passing())   # True
+print(s2.is_passing())   # False</code></pre>
+<h4>Inheritance — Reusing and Extending Classes</h4>
+<div class="code-title">Inheritance Example</div>
+<pre><code class="language-python">class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        print(f"{self.name} makes a sound")
 
-  <h4>3. Writing to a File</h4>
-  <pre><code class="language-python">
-file = open("log.txt", "w")
-file.write("Hello Python\n")
-file.close()
-  </code></pre>
+class Dog(Animal):
+    def speak(self):      # Override parent method
+        print(f"{self.name} barks: Woof!")
 
-  <h4>4. Appending Data</h4>
-  <pre><code class="language-python">
-file = open("log.txt", "a")
-file.write("New entry\n")
-file.close()
-  </code></pre>
+class Cat(Animal):
+    def speak(self):
+        print(f"{self.name} meows: Meow!")
 
-  <h4>5. Using with (Best Practice)</h4>
-  <pre><code class="language-python">
-with open("data.txt", "r") as file:
-    print(file.read())
-  </code></pre>
+dog = Dog("Bruno")
+cat = Cat("Whiskers")
+dog.speak()   # Bruno barks: Woof!
+cat.speak()   # Whiskers meows: Meow!</code></pre>
+<h4>Encapsulation — Protecting Data</h4>
+<div class="code-title">Private Attributes</div>
+<pre><code class="language-python">class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.__balance = balance  # Private attribute
 
-  <h4>6. Reading Line by Line</h4>
-  <pre><code class="language-python">
-with open("data.txt") as file:
-    for line in file:
-        print(line.strip())
-  </code></pre>
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
 
-  <h4>7. Real Use Cases</h4>
-  <ul>
-    <li>Logs</li>
-    <li>Configurations</li>
-    <li>Reports</li>
-    <li>Data processing</li>
-  </ul>
+    def withdraw(self, amount):
+        if amount <= self.__balance:
+            self.__balance -= amount
+        else:
+            print("Insufficient funds")
 
-  <h4>Key Takeaway</h4>
-  <p>
-    File handling is the bridge between programs and persistence.
-  </p>
+    def get_balance(self):
+        return self.__balance
 
-  <p>
-    Next: <strong>Virtual Environments & pip</strong>
-  </p>
+acc = BankAccount("Suraj", 5000)
+acc.deposit(2000)
+print(acc.get_balance())   # 7000</code></pre>
+<h4>Class Methods and Static Methods</h4>
+<div class="code-title">Class and Static Methods</div>
+<pre><code class="language-python">class Company:
+    company_name = "SRJahir Tech"
+    employee_count = 0
+
+    def __init__(self, name):
+        self.name = name
+        Company.employee_count += 1
+
+    @classmethod
+    def get_company(cls):
+        return cls.company_name
+
+    @staticmethod
+    def work_hours():
+        return "9 AM to 6 PM"
+
+print(Company.get_company())   # SRJahir Tech
+print(Company.work_hours())    # 9 AM to 6 PM</code></pre>
+<p>OOP is a deep topic. The key is to practice — model things around you as classes. A Library, a Hospital, an E-commerce system. In Part 12, we finish the series with virtual environments and best practices for real project setup.</p>
+
+
+  <h4>Common Mistakes Beginners Make</h4>
+  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
+  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
+  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
+  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
+
+  <h4>How This Topic Appears in Real Projects</h4>
+  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
+  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
+
+  <h4>Practice Exercise</h4>
+  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
+
+  <h4>Class Methods and Static Methods</h4>
+<p>Beyond regular instance methods, Python classes support two additional method types with distinct behaviors and use cases:</p>
+<div class="code-title">Class and Static Methods</div>
+<pre><code class="language-python">class Employee:
+    company_name = "TechCorp"
+    employee_count = 0
+    
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.employee_count += 1
+    
+    def get_info(self):  # Instance method - has access to self
+        return f"{self.name} at {Employee.company_name}"
+    
+    @classmethod
+    def get_count(cls):  # Class method - has access to class, not instance
+        return f"Total employees: {cls.employee_count}"
+    
+    @staticmethod
+    def validate_salary(salary):  # Static method - no access to class or instance
+        return salary > 0
+
+# Usage
+emp1 = Employee("Alice", 80000)
+emp2 = Employee("Bob", 90000)
+
+print(emp1.get_info())          # Instance method
+print(Employee.get_count())     # Class method
+print(Employee.validate_salary(50000))  # Static method</code></pre>
+<p>Use class methods for factory patterns or operations on class-level state. Use static methods for utility functions that logically belong to the class but do not need access to instance or class state.</p>
+<h4>Dunder Methods for Pythonic Classes</h4>
+<p>Python's special methods (double underscore methods, called dunder methods) allow your classes to integrate naturally with Python's built-in operations. Implementing <code>__str__</code> defines how the object looks when printed. Implementing <code>__len__</code> allows <code>len(obj)</code> to work. Implementing <code>__eq__</code> defines equality comparison. Understanding and implementing appropriate dunder methods makes your classes feel like first-class Python objects rather than awkward foreign constructs.</p>
+<h4>Practice Exercise</h4>
+<p>Design a simple library management system with a <code>Book</code> class and a <code>Library</code> class. Books should have title, author, and availability status. The Library should support adding books, checking out books (marking unavailable), returning books, and listing all available books. Implement <code>__str__</code> on both classes for readable output, and use a class variable on Library to track total books added.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
+
 </section>
 
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  File operations can modify system data. Always handle carefully.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-  <p>© 2025 SRJahir Tech</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

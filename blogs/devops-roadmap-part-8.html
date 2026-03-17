@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 8 — CI/CD Pipelines | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 8 by SRJahir Tech. Learn CI/CD pipelines, Continuous Integration, Continuous Delivery, Jenkins, GitHub Actions basics." />
-<meta name="keywords" content="CI CD tutorial DevOps, Jenkins basics, GitHub Actions DevOps, DevOps pipeline" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-8.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>DevOps Roadmap Part 8 — Ansible for Configuration Management | SRJahir Tech</title>
+  <meta name="description" content="Learn Ansible for server automation and configuration management. Write playbooks, use inventories, manage roles, and automate deployment tasks across multiple servers." />
+  <meta name="keywords" content="Ansible tutorial DevOps, Ansible playbook, configuration management, server automation, Ansible roles" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-8.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 8 — Ansible for Configuration Management | SRJahir Tech" />
+  <meta property="og:description" content="Learn Ansible for server automation and configuration management. Write playbooks, use inventories, manage roles, and automate deployment tasks across multiple servers." />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-8.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 8 — Ansible for Configuration Management | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -45,227 +42,194 @@ gtag('config', 'G-93D0PKZM2L');
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 8: Ansible for Configuration Management</h3>
+<p>Terraform creates infrastructure. Ansible configures it. After Terraform provisions your servers, someone has to install software on them, configure services, manage users, and keep everything consistent as the infrastructure scales. Doing this manually does not scale. Ansible automates server configuration using simple YAML files called playbooks, and it does this without requiring any agent software on the target servers — it works over SSH.</p>
 
-<h3>DevOps Roadmap — Part 8: CI/CD Pipelines</h3>
+<h4>Why Ansible?</h4>
+<p>Ansible's main advantage is simplicity. It uses YAML, which reads almost like English. It is agentless — no software needs to be installed on the servers you manage. It is idempotent — running the same playbook twice produces the same result without causing unintended changes. For DevOps teams, this means configuration is self-documenting, version-controllable, and repeatable.</p>
 
-<p>
-DevOps ka real power yahan se start hota hai.
-Agar Docker muscles hai,
-toh <strong>CI/CD pipelines uska nervous system</strong> hain.
-</p>
+<h4>Installing Ansible</h4>
+<div class="code-title">Install Ansible</div>
+<pre><code class="language-bash"># Ubuntu/Debian
+sudo apt update
+sudo apt install ansible
 
-<hr>
+# Or via pip
+pip install ansible
 
-<h4>What Is CI/CD?</h4>
+# Verify installation
+ansible --version</code></pre>
 
-<ul>
-  <li><strong>CI — Continuous Integration</strong></li>
-  <li><strong>CD — Continuous Delivery / Deployment</strong></li>
-</ul>
+<h4>Inventory — Defining Your Servers</h4>
+<p>An inventory file lists the servers Ansible will manage. You can group servers logically by function, environment, or region.</p>
+<div class="code-title">inventory.ini</div>
+<pre><code class="language-bash"># inventory.ini
+[webservers]
+web1.srjahir.in
+web2.srjahir.in
+192.168.1.10
 
-<p>
-Simple words me:
-code likho → test ho → build ho → deploy ho  
-<strong>automatically</strong>.
-</p>
+[databases]
+db1.srjahir.in ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa
 
-<hr>
+[staging]
+staging.srjahir.in
 
-<h4>Problem Before CI/CD</h4>
+[production:children]
+webservers
+databases</code></pre>
 
-<ul>
-  <li>Manual testing</li>
-  <li>Manual deployment</li>
-  <li>Night-time production issues</li>
-  <li>Blame game between dev & ops</li>
-</ul>
+<h4>Ad-hoc Commands — Quick Tasks</h4>
+<div class="code-title">Ad-hoc Commands</div>
+<pre><code class="language-bash"># Ping all servers
+ansible all -i inventory.ini -m ping
 
-<p>
-CI/CD ne ye sab khatam kar diya.
-</p>
+# Run a command on all webservers
+ansible webservers -i inventory.ini -m command -a "uptime"
 
-<hr>
+# Install a package on all servers
+ansible all -i inventory.ini -m apt -a "name=nginx state=present" --become
 
-<h4>Continuous Integration (CI)</h4>
+# Copy a file to servers
+ansible webservers -i inventory.ini -m copy   -a "src=./config.conf dest=/etc/nginx/nginx.conf" --become
 
-<p>
-CI ka matlab:
-</p>
+# Restart a service
+ansible webservers -i inventory.ini -m service   -a "name=nginx state=restarted" --become</code></pre>
 
-<ul>
-  <li>Har code change version control me push hota hai</li>
-  <li>Automatically build hota hai</li>
-  <li>Tests run hote hain</li>
-</ul>
+<h4>Playbooks — Automation in YAML</h4>
+<div class="code-title">deploy-webserver.yml</div>
+<pre><code class="language-bash">---
+- name: Configure Web Servers
+  hosts: webservers
+  become: yes          # run as sudo
+  vars:
+    nginx_port: 80
+    app_user: webuser
 
-<p>
-Agar test fail → deploy ruk jata hai.
-</p>
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
 
-<hr>
+    - name: Install required packages
+      apt:
+        name:
+          - nginx
+          - python3
+          - python3-pip
+        state: present
 
-<h4>Continuous Delivery vs Deployment</h4>
+    - name: Create application user
+      user:
+        name: "{{ app_user }}"
+        shell: /bin/bash
+        create_home: yes
 
-<ul>
-  <li><strong>Delivery:</strong> deploy ready, manual approval</li>
-  <li><strong>Deployment:</strong> auto deploy without approval</li>
-</ul>
+    - name: Copy Nginx configuration
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/myapp
+      notify: Reload Nginx
 
-<p>
-Beginners ke liye pehle <strong>Delivery</strong> best hai.
-</p>
+    - name: Enable site
+      file:
+        src: /etc/nginx/sites-available/myapp
+        dest: /etc/nginx/sites-enabled/myapp
+        state: link
 
-<hr>
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
 
-<h4>Popular CI/CD Tools</h4>
+  handlers:
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded</code></pre>
+<div class="code-title">Run Playbook</div>
+<pre><code class="language-bash"># Run a playbook
+ansible-playbook -i inventory.ini deploy-webserver.yml
 
-<ul>
-  <li>Jenkins</li>
-  <li>GitHub Actions</li>
-  <li>GitLab CI</li>
-  <li>CircleCI</li>
-</ul>
+# Dry run (check mode - no actual changes)
+ansible-playbook -i inventory.ini deploy-webserver.yml --check
 
-<p>
-Industry me Jenkins + GitHub Actions sabse common.
-</p>
+# Run with verbose output
+ansible-playbook -i inventory.ini deploy-webserver.yml -v
 
-<hr>
+# Run only specific tasks using tags
+ansible-playbook -i inventory.ini deploy-webserver.yml --tags "install"</code></pre>
 
-<h4>CI/CD Pipeline Flow</h4>
+<h4>Roles — Reusable Ansible Components</h4>
+<p>As playbooks grow, organizing tasks into roles keeps things manageable. A role is a standardized file structure for grouping related tasks, templates, and variables.</p>
+<div class="code-title">Role Structure</div>
+<pre><code class="language-bash">roles/
+  nginx/
+    tasks/
+      main.yml        # Task list
+    templates/
+      nginx.conf.j2   # Jinja2 template
+    vars/
+      main.yml        # Variables
+    defaults/
+      main.yml        # Default variables
+    handlers/
+      main.yml        # Handlers</code></pre>
 
-<ol>
-  <li>Developer pushes code</li>
-  <li>Pipeline triggers</li>
-  <li>Build starts</li>
-  <li>Tests run</li>
-  <li>Docker image build</li>
-  <li>Deploy to server/cloud</li>
-</ol>
-
-<hr>
-
-<h4>Basic Jenkins Pipeline Example</h4>
-
-<div class="code-title">Jenkinsfile</div>
-<pre><code class="language-groovy">pipeline {
-  agent any
-
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building application'
-      }
-    }
-
-    stage('Test') {
-      steps {
-        echo 'Running tests'
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        echo 'Deploying application'
-      }
-    }
-  }
-}</code></pre>
-
-<p>
-Ye file batati hai Jenkins ko:
-kya, kab aur kaise karna hai.
-</p>
-
-<hr>
-
-<h4>GitHub Actions Example</h4>
-
-<div class="code-title">.github/workflows/ci.yml</div>
-<pre><code class="language-yaml">name: CI Pipeline
-
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Run build
-      run: echo "Build successful"</code></pre>
-
-<p>
-Code push hote hi pipeline start ho jata hai.
-</p>
-
-<hr>
-
-<h4>CI/CD + Docker = Real DevOps</h4>
-
-<ul>
-  <li>Pipeline Docker image banata hai</li>
-  <li>Image registry me push hoti hai</li>
-  <li>Server image pull karta hai</li>
-</ul>
-
-<p>
-Manual kaam almost zero.
-</p>
-
-<hr>
-
-<h4>Why CI/CD Is Mandatory</h4>
-
-<ul>
-  <li>Fast delivery</li>
-  <li>Less human errors</li>
-  <li>Reliable releases</li>
-  <li>Easy rollback</li>
-</ul>
-
-<p>
-Without CI/CD → DevOps incomplete.
-</p>
-
-<hr>
-
-<h4>Common Beginner Mistakes</h4>
-
-<ul>
-  <li>No tests in pipeline</li>
-  <li>Secrets hardcode karna</li>
-  <li>Single giant pipeline</li>
-</ul>
-
-<hr>
-
-<h4>What Comes Next?</h4>
-
-<p>
-Jab containers + pipelines ho jaye,
-toh next step hota hai:
-<strong>container orchestration</strong>.
-</p>
-
-<a href="devops-roadmap-part-9.html" class="btn">
-Next Part → Kubernetes Basics
-</a>
-
+<p>In Part 9, we will cover monitoring and observability — how DevOps teams use Prometheus, Grafana, and logging tools to know what is happening inside their systems at all times.</p>
 </section>
+<h4>Ansible Inventory and Variable Management</h4>
+<p>Ansible's inventory defines the hosts and groups that playbooks target. Dynamic inventory is essential for cloud environments where servers are created and destroyed frequently — cloud provider plugins automatically generate inventory from your actual running instances rather than maintaining a static list. Variables in Ansible follow a precedence hierarchy: host variables override group variables, which override inventory variables, which override role defaults. Understanding this hierarchy prevents unexpected behavior when the same variable is defined in multiple places. Use <code>ansible-vault</code> to encrypt sensitive variables — passwords, API keys — rather than storing them in plaintext in your repository.</p>
+<div class="code-title">Ansible Playbook Example</div>
+<pre><code class="language-yaml">---
+- name: Configure web server
+  hosts: webservers
+  become: yes
+  vars:
+    nginx_port: 80
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+    
+    - name: Start and enable nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+    
+    - name: Deploy configuration
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: Reload nginx
+  
+  handlers:
+    - name: Reload nginx
+      systemd:
+        name: nginx
+        state: reloaded</code></pre>
+<h4>Practice Exercise</h4>
+<p>Write an Ansible playbook that configures a web server: install nginx, deploy a simple HTML page using a template, configure a systemd service, and verify the service is running. Run it against a local Docker container or a cloud VM. Then modify the playbook to be idempotent — verify that running it twice produces no changes on the second run. Idempotency is a fundamental Ansible principle: running a playbook should bring the system to the desired state regardless of its starting state.</p>
 
-<!-- ===== DISCLAIMER ===== -->
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
+
+<h4>Putting It All Together</h4>
+<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
+<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
+
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always secure secrets using environment variables or secret managers in CI/CD pipelines.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Automation Is the Real Power</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

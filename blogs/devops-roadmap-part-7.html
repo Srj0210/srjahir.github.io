@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-
-<title>DevOps Roadmap Part 7 — Docker & Containers | SRJahir Tech</title>
-
-<!-- SEO -->
-<meta name="description" content="DevOps Roadmap Part 7 by SRJahir Tech. Learn Docker and containers from basics, images, containers, Dockerfile, real DevOps usage." />
-<meta name="keywords" content="Docker tutorial DevOps, containers for beginners, Docker DevOps roadmap" />
-<meta name="author" content="SRJahir Tech" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
-
-<!-- Icon -->
-<link rel="icon" type="image/png" href="../logo.png">
-
-<!-- CSS -->
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech</title>
+  <meta name="description" content="Learn Terraform and Infrastructure as Code concepts. Provision AWS resources, manage state, use modules, and understand how DevOps teams manage cloud infrastructure through code." />
+  <meta name="keywords" content="Terraform tutorial DevOps, Infrastructure as Code IaC, Terraform AWS, Terraform state management" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech" />
+  <meta property="og:description" content="Learn Terraform and Infrastructure as Code concepts. Provision AWS resources, manage state, use modules, and understand how DevOps teams manage cloud infrastructure through code." />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -45,208 +42,152 @@ gtag('config', 'G-93D0PKZM2L');
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
+<h3>DevOps Roadmap — Part 7: Terraform &amp; Infrastructure as Code</h3>
+<p>Before Infrastructure as Code, setting up a server meant logging into a web console, clicking through menus, filling forms, and hoping you remembered every step when you need to replicate it. One engineer could set up a dev environment completely differently from production. Changes were undocumented. Rollbacks were manual and scary. Infrastructure as Code (IaC) changed all of this. Terraform is the tool that made IaC accessible to everyone.</p>
 
-<h3>DevOps Roadmap — Part 7: Docker & Containers</h3>
+<h4>What is Infrastructure as Code?</h4>
+<p>Infrastructure as Code means your servers, databases, networks, load balancers, and every other infrastructure component are described in code files. You commit those files to Git just like application code. You can review changes with pull requests, roll back to previous states, recreate identical environments on demand, and ensure dev and production are always consistent. The infrastructure becomes reproducible, auditable, and collaborative.</p>
 
-<p>
-Agar DevOps ka heart Git hai,
-toh <strong>Docker uski muscle power</strong> hai.
-</p>
+<h4>What is Terraform?</h4>
+<p>Terraform is an open-source IaC tool created by HashiCorp. It uses a declarative language called HCL (HashiCorp Configuration Language) to describe infrastructure. You write what you want — "I want an EC2 instance with these specifications" — and Terraform figures out how to create it, update it, or delete it. Terraform works with AWS, GCP, Azure, and hundreds of other providers.</p>
 
-<p>
-Docker ne ek sabse bada problem solve kiya:
-<strong>"It works on my machine"</strong>.
-</p>
-
-<hr>
-
-<h4>What Is a Container?</h4>
-
-<p>
-Container ek lightweight environment hota hai
-jisme:
-</p>
-
+<h4>Core Terraform Concepts</h4>
 <ul>
-  <li>Application</li>
-  <li>Dependencies</li>
-  <li>Configuration</li>
+  <li><strong>Provider</strong> — Plugin that talks to a cloud platform (AWS, GCP, Azure)</li>
+  <li><strong>Resource</strong> — A piece of infrastructure (EC2 instance, S3 bucket, RDS database)</li>
+  <li><strong>State</strong> — Terraform's record of what it has created and how it matches your code</li>
+  <li><strong>Plan</strong> — Preview of what Terraform will create, change, or delete</li>
+  <li><strong>Apply</strong> — Execute the planned changes</li>
 </ul>
 
-<p>
-sab ek sath pack hota hai.
-</p>
+<h4>Your First Terraform Config — AWS EC2</h4>
+<div class="code-title">main.tf</div>
+<pre><code class="language-bash"># Configure AWS provider
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
 
-<p>
-Laptop, server, cloud — sab jagah same behavior.
-</p>
+provider "aws" {
+  region = "ap-south-1"
+}
 
-<hr>
+# Create an EC2 instance
+resource "aws_instance" "web_server" {
+  ami           = "ami-0f5ee92e2d63afc18"  # Ubuntu 22.04 in Mumbai
+  instance_type = "t2.micro"
 
-<h4>Docker vs Virtual Machine</h4>
+  tags = {
+    Name        = "MyWebServer"
+    Environment = "Development"
+    ManagedBy   = "Terraform"
+  }
+}
 
-<ul>
-  <li>VM = heavy, full OS</li>
-  <li>Container = lightweight, shared kernel</li>
-</ul>
+# Create an S3 bucket
+resource "aws_s3_bucket" "app_storage" {
+  bucket = "my-app-storage-bucket-unique-name"
 
-<p>
-Isliye containers fast, cheap aur scalable hote hain.
-</p>
+  tags = {
+    Name = "AppStorage"
+  }
+}</code></pre>
 
-<hr>
+<h4>Terraform Workflow</h4>
+<div class="code-title">Core Commands</div>
+<pre><code class="language-bash"># Initialize (download providers)
+terraform init
 
-<h4>Install Docker (Linux)</h4>
+# Preview changes (no actual changes made)
+terraform plan
 
-<div class="code-title">Install Docker</div>
-<pre><code class="language-bash">sudo apt update
-sudo apt install docker.io -y</code></pre>
+# Apply changes (creates/updates infrastructure)
+terraform apply
 
-<div class="code-title">Start Docker</div>
-<pre><code class="language-bash">sudo systemctl start docker
-sudo systemctl enable docker</code></pre>
+# Apply without confirmation prompt (for CI/CD)
+terraform apply -auto-approve
 
-<div class="code-title">Verify</div>
-<pre><code class="language-bash">docker --version</code></pre>
+# Destroy all resources
+terraform destroy
 
-<hr>
+# Show current state
+terraform show
 
-<h4>Docker Images vs Containers</h4>
+# List resources in state
+terraform state list</code></pre>
 
-<ul>
-  <li><strong>Image</strong> = blueprint</li>
-  <li><strong>Container</strong> = running instance</li>
-</ul>
+<h4>Variables — Make Configs Reusable</h4>
+<div class="code-title">variables.tf and terraform.tfvars</div>
+<pre><code class="language-bash"># variables.tf
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t2.micro"
+}
 
-<p>
-Image se multiple containers ban sakte hain.
-</p>
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
 
-<hr>
+# Use variables in main.tf
+resource "aws_instance" "web" {
+  instance_type = var.instance_type
+  tags = {
+    Environment = var.environment
+  }
+}
 
-<h4>Your First Docker Container</h4>
+# terraform.tfvars (never commit to git if contains secrets)
+instance_type = "t2.small"
+environment   = "production"</code></pre>
 
-<div class="code-title">Run hello-world</div>
-<pre><code class="language-bash">docker run hello-world</code></pre>
+<h4>Remote State — Essential for Teams</h4>
+<p>By default Terraform stores state locally. This does not work for teams — two engineers running Terraform simultaneously can corrupt the state. Remote state in S3 with DynamoDB locking solves this:</p>
+<div class="code-title">Remote State Config</div>
+<pre><code class="language-bash">terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "production/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+  }
+}</code></pre>
 
-<p>
-Agar ye chala,
-Docker correctly installed hai.
-</p>
-
-<hr>
-
-<h4>Running a Real Container</h4>
-
-<div class="code-title">Run Nginx server</div>
-<pre><code class="language-bash">docker run -d -p 8080:80 nginx</code></pre>
-
-<p>
-Browser me open karo:
-</p>
-
-<pre><code class="language-bash">http://localhost:8080</code></pre>
-
-<p>
-Congratulations 🎉  
-Aapka first containerized server live hai.
-</p>
-
-<hr>
-
-<h4>Basic Docker Commands</h4>
-
-<div class="code-title">List running containers</div>
-<pre><code class="language-bash">docker ps</code></pre>
-
-<div class="code-title">List all containers</div>
-<pre><code class="language-bash">docker ps -a</code></pre>
-
-<div class="code-title">Stop container</div>
-<pre><code class="language-bash">docker stop container_id</code></pre>
-
-<div class="code-title">Remove container</div>
-<pre><code class="language-bash">docker rm container_id</code></pre>
-
-<hr>
-
-<h4>Dockerfile — Automation Begins</h4>
-
-<p>
-Dockerfile ek instruction file hoti hai
-jo image banati hai.
-</p>
-
-<div class="code-title">Simple Dockerfile</div>
-<pre><code class="language-docker">FROM ubuntu
-RUN apt update && apt install -y nginx
-CMD ["nginx", "-g", "daemon off;"]</code></pre>
-
-<p>
-Ye DevOps ka real kaam hai —
-manual nahi, automated setup.
-</p>
-
-<hr>
-
-<h4>Build Image</h4>
-
-<pre><code class="language-bash">docker build -t my-nginx .</code></pre>
-
-<div class="code-title">Run Image</div>
-<pre><code class="language-bash">docker run -d -p 8081:80 my-nginx</code></pre>
-
-<hr>
-
-<h4>Why Docker Is Mandatory for DevOps</h4>
-
-<ul>
-  <li>CI/CD pipelines Docker use karti hain</li>
-  <li>Kubernetes containers manage karta hai</li>
-  <li>Cloud native apps Docker-based hoti hain</li>
-</ul>
-
-<p>
-Docker skip = DevOps incomplete.
-</p>
-
-<hr>
-
-<h4>Common Beginner Mistakes</h4>
-
-<ul>
-  <li>Running containers as root</li>
-  <li>Huge images banana</li>
-  <li>No Dockerfile versioning</li>
-</ul>
-
-<hr>
-
-<h4>What Comes Next?</h4>
-
-<p>
-Containers ke baad aata hai
-<strong>Automation pipelines</strong>.
-</p>
-
-<a href="devops-roadmap-part-8.html" class="btn">
-Next Part → CI/CD Pipelines
-</a>
-
+<p>In Part 8, we will cover Ansible — configuration management and server automation, the tool DevOps teams use to keep server configurations consistent and apply changes across fleets of servers.</p>
 </section>
+<h4>Terraform State Management</h4>
+<p>Terraform maintains a state file that maps your configuration to real infrastructure resources. This state file is critical — losing it means Terraform loses track of what it created. For team use, store state remotely in an S3 bucket (AWS), GCS bucket (GCP), or Terraform Cloud, never in local files or version control. Remote state also enables state locking — preventing two team members from running <code>terraform apply</code> simultaneously and creating conflicts. Use workspaces or separate state files for different environments (dev, staging, production) to isolate changes and reduce the blast radius of mistakes.</p>
+<div class="code-title">Remote State Configuration</div>
+<pre><code class="language-hcl">terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "production/terraform.tfstate"
+    region         = "ap-south-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}</code></pre>
+<h4>Modules for Reusable Infrastructure</h4>
+<p>Terraform modules are reusable packages of infrastructure configuration — similar to functions in programming. A well-designed module accepts input variables, creates a set of related resources, and exposes output values. Creating modules for common patterns — a standard VPC layout, an EC2 instance with monitoring, an RDS database with proper security groups — allows consistent, auditable infrastructure across multiple projects and environments. The Terraform Registry provides community modules for common use cases; evaluate them carefully before using in production.</p>
+<h4>Practice Exercise</h4>
+<p>Write a Terraform configuration that creates a VPC with public and private subnets, an EC2 instance in the public subnet with a security group allowing SSH from your IP, and outputs the instance's public IP. Use variables for configurable values like instance type and your IP address. Run <code>terraform plan</code> to preview changes before applying. After creating the infrastructure, verify you can SSH to the instance, then destroy everything with <code>terraform destroy</code>.</p>
 
-<!-- ===== DISCLAIMER ===== -->
+<h4>The Continuous Improvement Mindset</h4>
+<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
+
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always scan Docker images and avoid running unknown containers in production.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Containers Changed Everything</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

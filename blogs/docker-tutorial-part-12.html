@@ -1,102 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 12 — Career & Next Steps | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 12 by SRJahir Tech. Learn how Docker fits into careers, roles, and what to learn next." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech</title>
+  <meta name="description" content="Build a complete real-world Docker project from scratch. Deploy a full-stack web application with Docker Compose, Nginx, Flask, PostgreSQL, and automated CI/CD using everything learned in this series." />
+  <meta name="keywords" content="Docker real world project, Docker full stack deployment, Docker Compose production, Docker Flask PostgreSQL Nginx" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-12.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech" />
+  <meta property="og:description" content="Build a complete real-world Docker project from scratch. Deploy a full-stack web application with Docker Compose, Nginx, Flask, PostgreSQL, and automated CI/CD using everything learned in this series." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-12.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 12: Real-World Docker Project</h3>
+<p>This is the final part of the Docker tutorial series. Instead of new concepts, we are going to build a complete, production-ready application from scratch using everything we have learned across all twelve parts. This is how Docker is actually used in the real world — not isolated examples, but a complete system working together.</p>
 
-<h3>Docker Tutorial — Part 12: Career & Roadmap</h3>
-
-<p>
-Docker is not an end skill.
-It is a foundation skill.
-</p>
-
-<h4>Jobs That Use Docker</h4>
+<h4>What We Are Building</h4>
+<p>A full-stack web application with four components:</p>
 <ul>
-<li>DevOps Engineer</li>
-<li>Cloud Engineer</li>
-<li>Backend Developer</li>
-<li>Platform Engineer</li>
+  <li><strong>Nginx</strong> — Reverse proxy and static file server (Port 80)</li>
+  <li><strong>Flask API</strong> — Backend REST API (internal, not exposed directly)</li>
+  <li><strong>PostgreSQL</strong> — Database with persistent storage</li>
+  <li><strong>Redis</strong> — Caching layer for performance</li>
 </ul>
+<p>All four run as Docker containers, managed by Docker Compose, with proper networking, volumes, secrets, health checks, and a GitHub Actions CI/CD pipeline.</p>
 
-<h4>What to Learn After Docker</h4>
-<ul>
-<li>Linux internals</li>
-<li>Networking basics</li>
-<li>Kubernetes</li>
-<li>Cloud platforms (AWS, GCP)</li>
-</ul>
+<h4>Project Directory Structure</h4>
+<div class="code-title">Project Structure</div>
+<pre><code class="language-bash">my-docker-app/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── app.py
+├── nginx/
+│   ├── Dockerfile
+│   └── nginx.conf
+├── docker-compose.yml
+├── docker-compose.dev.yml
+├── .env.example
+└── .dockerignore</code></pre>
 
-<h4>Common Beginner Mistake</h4>
-<p>
-Learning commands without understanding systems.
-Docker works best with Linux knowledge.
-</p>
+<h4>Backend Dockerfile — Multi-Stage</h4>
+<div class="code-title">backend/Dockerfile</div>
+<pre><code class="language-bash">FROM python:3.11-slim AS base
+WORKDIR /app
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-<h4>Real Advice</h4>
-<p>
-Practice.
-Break things.
-Fix them.
-That is how engineers grow.
-</p>
+FROM base AS production
+COPY --chown=appuser:appuser . .
+USER appuser
+EXPOSE 5000
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3   CMD curl -f http://localhost:5000/health || exit 1
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000", "--workers", "4"]</code></pre>
 
-<h4>Docker Mindset Summary</h4>
-<ul>
-<li>Containers are disposable</li>
-<li>Infrastructure is code</li>
-<li>Automation is essential</li>
-</ul>
+<h4>Docker Compose — Production</h4>
+<div class="code-title">docker-compose.yml</div>
+<pre><code class="language-bash">version: '3.8'
 
-<p>
-This completes the Docker tutorial series.
-You now have real-world Docker understanding.
-</p>
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [app-net]
+    restart: unless-stopped
 
-<a href="../blog.html" class="btn">
-Back to Blog →
-</a>
+  backend:
+    build:
+      context: ./backend
+      target: production
+    environment:
+      DATABASE_URL: postgresql://appuser:${DB_PASSWORD}@db:5432/appdb
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [app-net]
+    restart: unless-stopped
 
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [app-net]
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks: [app-net]
+    restart: unless-stopped
+
+volumes:
+  db-data:
+
+networks:
+  app-net:
+    driver: bridge</code></pre>
+
+<h4>Nginx Configuration</h4>
+<div class="code-title">nginx/nginx.conf</div>
+<pre><code class="language-bash">upstream backend {
+    server backend:5000;
+}
+
+server {
+    listen 80;
+    server_name _;
+
+    location /api {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location /health {
+        proxy_pass http://backend/health;
+    }
+
+    location / {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /index.html;
+    }
+}</code></pre>
+
+<h4>Deployment Commands</h4>
+<div class="code-title">Full Deployment</div>
+<pre><code class="language-bash"># Copy .env.example to .env and fill in values
+cp .env.example .env
+nano .env
+
+# Build all images
+docker compose build
+
+# Start everything
+docker compose up -d
+
+# Check all services are healthy
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Deploy new version with zero downtime
+docker compose pull
+docker compose up -d --no-deps --build backend
+
+# Rollback if needed
+docker compose up -d --no-deps my-app:previous-tag</code></pre>
+
+<h4>What You Have Learned in This Series</h4>
+<p>Over twelve parts, you have gone from understanding what Docker is to building a production-ready multi-container application. You understand images and containers, Dockerfiles and layers, volumes and networking, Docker Compose, registries, multi-stage builds, security, CI/CD, and Swarm orchestration. This is a complete foundation. The next step is to take a real project you are building and containerize it. That hands-on experience will solidify everything from this series into real skill.</p>
+<p>From here, the natural progression is learning Kubernetes for more advanced orchestration, and cloud-native deployment patterns on AWS, GCP, or Azure.</p>
 </section>
+<h4>Production Deployment Checklist</h4>
+<p>Before deploying a Dockerized application to production, work through these essential checks. Images should use specific version tags, not <code>latest</code>. All sensitive configuration (passwords, API keys) should come from environment variables or secrets management, not baked into the image. Resource limits (memory, CPU) should be set for every container. Health checks should be defined so orchestration tools know when a container is ready and when it needs restarting. The application should run as a non-root user inside the container. Images should be scanned for vulnerabilities. Logging should be configured to send to a centralized location rather than relying on <code>docker logs</code>. Volumes should be used for any data that needs to persist across container restarts.</p>
+<h4>Observability in Docker Environments</h4>
+<p>Running applications in containers introduces new observability challenges. Container logs are accessible via <code>docker logs container_name</code> but this does not scale to many containers. In production, configure a logging driver to forward logs to a centralized system — the <code>awslogs</code> driver sends logs to AWS CloudWatch, the <code>fluentd</code> driver sends to Fluentd. For metrics, Prometheus with cAdvisor provides container-level CPU, memory, and network metrics. Grafana dashboards visualize these metrics. For distributed tracing across multiple containers, tools like Jaeger or Zipkin help trace requests as they flow through services. Investing in observability from the beginning saves enormous debugging time when issues occur in production.</p>
+<h4>Practice Exercise</h4>
+<p>Build a complete production-ready application stack: a web API with a database backend, configured using Docker Compose with proper health checks, resource limits, environment variable management via .env file, named volumes for data persistence, and a reverse proxy (nginx) in front of the API. Write a <code>README.md</code> documenting how to build, run, and deploy the stack. This final project brings together everything from the Docker tutorial series into a realistic, deployable application.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Tools change. Fundamentals stay.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Systems Over Syntax</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

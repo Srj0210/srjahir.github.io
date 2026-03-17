@@ -1,124 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 7 — Dockerfile & Images | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 7 by SRJahir Tech. Learn Dockerfile, image layers, build custom Docker images." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-docker.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech</title>
+  <meta name="description" content="Learn Docker registry, push and pull images from Docker Hub, use private registries, tag images properly, and manage image versions in real projects." />
+  <meta name="keywords" content="Docker registry tutorial, Docker Hub push pull, Docker image tagging, private Docker registry" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-7.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech" />
+  <meta property="og:description" content="Learn Docker registry, push and pull images from Docker Hub, use private registries, tag images properly, and manage image versions in real projects." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-7.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 7: Docker Registry &amp; Image Management</h3>
+<p>So far we have been building and running Docker images locally. But in real teams and production environments, you need to share images across machines. A developer builds an image on their laptop, and that same image needs to run on a test server, a staging environment, and eventually production. Docker registries are what make this possible.</p>
 
-<h3>Docker Tutorial — Part 7: Dockerfile & Image Building</h3>
+<h4>What is a Docker Registry?</h4>
+<p>A Docker registry is a storage and distribution system for Docker images. Think of it as GitHub, but instead of storing code, it stores Docker images. When you run <code>docker pull nginx</code>, Docker downloads that image from Docker Hub — the world's largest public Docker registry, operated by Docker Inc.</p>
+<p>There are two types of registries: public registries (Docker Hub, GitHub Container Registry, Quay.io) where anyone can pull images, and private registries where access is controlled by your organization.</p>
 
-<p>
-Until now, we used prebuilt images.
-Real engineers build their own images.
-This is where Docker becomes powerful.
-</p>
+<h4>Docker Hub — Getting Started</h4>
+<p>Docker Hub is free for public images and has a free tier for private images. Create an account at hub.docker.com, then log in from your terminal:</p>
+<div class="code-title">Login to Docker Hub</div>
+<pre><code class="language-bash"># Login (prompts for username and password)
+docker login
 
-<h4>What is a Dockerfile?</h4>
-<p>
-A Dockerfile is a blueprint.
-It tells Docker how to build an image step by step.
-</p>
+# Or login with credentials inline
+docker login -u yourusername -p yourpassword
 
-<h4>Basic Dockerfile Example</h4>
+# Logout when done
+docker logout</code></pre>
 
-<pre><code class="language-dockerfile">
-FROM node:18
+<h4>Tagging Images Correctly</h4>
+<p>Before pushing to Docker Hub, your image must be tagged with your Docker Hub username and repository name:</p>
+<div class="code-title">Tag and Push Image</div>
+<pre><code class="language-bash"># Build image
+docker build -t my-app .
 
-WORKDIR /app
+# Tag for Docker Hub
+# Format: docker tag local-image:tag dockerhub-username/repo-name:tag
+docker tag my-app:latest yourusername/my-app:latest
+docker tag my-app:latest yourusername/my-app:v1.0.0
 
-COPY . .
+# Push to Docker Hub
+docker push yourusername/my-app:latest
+docker push yourusername/my-app:v1.0.0
 
-RUN npm install
+# Pull from Docker Hub (on any machine)
+docker pull yourusername/my-app:v1.0.0</code></pre>
 
-CMD ["node", "app.js"]
-</code></pre>
-
-<h4>Explanation</h4>
+<h4>Image Tagging Strategy</h4>
+<p>Tagging is more important than it seems. Bad tagging causes production incidents. Here are professional tagging strategies:</p>
 <ul>
-<li><code>FROM</code> → base image</li>
-<li><code>WORKDIR</code> → working directory</li>
-<li><code>COPY</code> → copy files</li>
-<li><code>RUN</code> → execute commands</li>
-<li><code>CMD</code> → container start command</li>
+  <li><strong>Semantic versioning</strong> — <code>v1.0.0</code>, <code>v1.1.0</code>, <code>v2.0.0</code>. Clear, predictable.</li>
+  <li><strong>Git commit SHA</strong> — <code>app:a1b2c3d</code>. Ties every image to an exact code commit. Used in CI/CD.</li>
+  <li><strong>Branch name</strong> — <code>app:main</code>, <code>app:develop</code>. Useful for staging environments.</li>
+  <li><strong>latest tag</strong> — Always points to the most recent build. Convenient but risky in production — <code>latest</code> on Monday may be different from <code>latest</code> on Friday.</li>
 </ul>
+<div class="code-title">Professional Tagging</div>
+<pre><code class="language-bash"># Tag with git commit SHA
+GIT_SHA=$(git rev-parse --short HEAD)
+docker build -t yourusername/my-app:${GIT_SHA} .
+docker build -t yourusername/my-app:latest .
+docker push yourusername/my-app:${GIT_SHA}
+docker push yourusername/my-app:latest</code></pre>
 
-<h4>Build the Image</h4>
-<pre><code class="language-bash">docker build -t myapp .</code></pre>
+<h4>Private Registry — AWS ECR Example</h4>
+<p>AWS Elastic Container Registry (ECR) is a popular private registry for teams using AWS. The workflow is similar but authentication uses AWS credentials:</p>
+<div class="code-title">AWS ECR Push</div>
+<pre><code class="language-bash"># Authenticate to ECR
+aws ecr get-login-password --region ap-south-1 |   docker login --username AWS --password-stdin   123456789.dkr.ecr.ap-south-1.amazonaws.com
 
-<h4>Run the Image</h4>
-<pre><code class="language-bash">docker run -d myapp</code></pre>
+# Tag for ECR
+docker tag my-app:latest   123456789.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
 
-<h4>Understanding Image Layers</h4>
-<p>
-Each Dockerfile instruction creates a layer.
-Good Dockerfiles are:
-</p>
-<ul>
-<li>Small</li>
-<li>Cached</li>
-<li>Secure</li>
-</ul>
+# Push to ECR
+docker push 123456789.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest</code></pre>
 
-<h4>Common Beginner Mistakes</h4>
-<ul>
-<li>Huge images</li>
-<li>Hard-coding secrets</li>
-<li>Running everything as root</li>
-</ul>
+<h4>Running a Local Private Registry</h4>
+<p>For teams that cannot use cloud registries, Docker itself provides an official registry image you can self-host:</p>
+<div class="code-title">Self-Hosted Registry</div>
+<pre><code class="language-bash"># Run local registry on port 5000
+docker run -d -p 5000:5000 --name registry registry:2
 
-<p>
-Next, we will learn Docker security
-and best practices used in production.
-</p>
+# Push to local registry
+docker tag my-app:latest localhost:5000/my-app:latest
+docker push localhost:5000/my-app:latest
 
-<a href="docker-tutorial-part-8.html" class="btn">
-Next: Docker Security Basics →
-</a>
+# Pull from local registry
+docker pull localhost:5000/my-app:latest</code></pre>
 
+<h4>Inspecting Remote Images</h4>
+<div class="code-title">Image Inspection</div>
+<pre><code class="language-bash"># View image history (all layers)
+docker history yourusername/my-app:latest
+
+# Detailed image information
+docker inspect yourusername/my-app:latest
+
+# Check image size
+docker images --format "table {{.Repository}}	{{.Tag}}	{{.Size}}"</code></pre>
+
+<p>In Part 8, we will learn multi-stage builds — a powerful technique to dramatically reduce Docker image sizes while keeping the build process clean and organized.</p>
 </section>
+<h4>Image Tagging Strategy</h4>
+<p>A clear image tagging strategy is essential for production workflows. Avoid relying on the <code>latest</code> tag in production — it is ambiguous and makes rollbacks difficult. Use semantic versioning (<code>myapp:1.2.3</code>) for releases, git commit SHA tags (<code>myapp:abc1234</code>) for traceability, and environment tags (<code>myapp:staging</code>, <code>myapp:production</code>) to track what is deployed where. A common CI/CD pattern builds an image tagged with the git SHA, runs tests against it, then tags it with both the version number and environment tag on successful promotion:</p>
+<div class="code-title">Tagging and Pushing</div>
+<pre><code class="language-bash"># Tag with multiple tags
+docker build -t myregistry/myapp:1.2.3 -t myregistry/myapp:latest .
+
+# Tag an existing image
+docker tag myregistry/myapp:1.2.3 myregistry/myapp:production
+
+# Push all tags
+docker push myregistry/myapp:1.2.3
+docker push myregistry/myapp:production
+
+# List images and their sizes
+docker images myregistry/myapp</code></pre>
+<h4>Private Container Registries</h4>
+<p>Docker Hub is the default public registry, but production workloads typically use private registries: AWS Elastic Container Registry (ECR), Google Artifact Registry, Azure Container Registry, or self-hosted options like Harbor. Private registries provide access control, vulnerability scanning, and geographic proximity to your deployment environment. Authenticate with a private registry using <code>docker login registry_url</code> before pulling or pushing. In CI/CD systems, use environment variables for credentials rather than storing them in scripts or configuration files.</p>
+<h4>Practice Exercise</h4>
+<p>Create a Docker Hub account if you do not have one. Build an image of a simple application, tag it with your Docker Hub username and a version number. Log in with <code>docker login</code> and push the image. Pull it on another machine or after removing the local copy to verify it is accessible from the registry. Also practice pulling a specific version tag versus latest to understand the difference.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never store secrets directly inside Dockerfiles.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Build Once, Run Anywhere</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

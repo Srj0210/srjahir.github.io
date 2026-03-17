@@ -4,135 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>AWS + Linux Combo Part 11 — CI/CD & Deployment | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="AWS + Linux Combo Part 11 by SRJahir Tech. Learn CI/CD concepts, deployment flow, automation mindset, and real DevOps thinking." />
-  <meta name="keywords" content="AWS CI CD Linux, deployment pipeline basics, devops beginner guide" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>AWS + Linux Combo — Part 11: Monitoring with CloudWatch | SRJahir Tech</title>
+  <meta name="description" content="Set up AWS CloudWatch monitoring for your EC2 Linux instance. Learn metrics, alarms, dashboards, and log agents for real-time cloud observability." />
+  <meta name="keywords" content="AWS CloudWatch monitoring, EC2 CloudWatch alarms, CloudWatch logs Linux, AWS observability, EC2 metrics" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-11.html" />
-
-  <link rel="icon" href="../logo.png">
-
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 11: Monitoring with CloudWatch | SRJahir Tech" />
+  <meta property="og:description" content="Set up AWS CloudWatch monitoring for your EC2 Linux instance. Learn metrics, alarms, dashboards, and log agents for real-time cloud observability." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-11.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 11: Monitoring with CloudWatch","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Set up AWS CloudWatch monitoring for your EC2 Linux instance. Learn metrics, alarms, dashboards, and log agents for real-time cloud observability."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
     <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 11<br>CI/CD & Deployment Thinking</h3>
+<h3>AWS + Linux Combo — Part 11: Monitoring with CloudWatch</h3>
 
-<p>
-This part explains how code moves from laptop
-to production <strong>safely and repeatedly</strong>.
-This is where engineers become DevOps-minded.
-</p>
+<p>A server you cannot see is a server you cannot trust. Monitoring tells you what is happening inside your EC2 instances and across your AWS infrastructure — CPU usage, memory, disk, network traffic, application errors, and more. AWS CloudWatch is the built-in monitoring service that integrates with every AWS service. Learning to use it well is what separates reactive operations from proactive ones.</p>
 
-<h4>What Is CI/CD?</h4>
+<h4>What is CloudWatch?</h4>
+<p>CloudWatch is AWS's monitoring and observability platform. It collects metrics from AWS services automatically, stores logs from your applications and OS, lets you set alarms that notify you or trigger automated actions, and provides dashboards to visualize your infrastructure health. Every EC2 instance automatically sends basic metrics to CloudWatch — CPU utilization, network in/out, disk I/O. For more detailed metrics like memory usage, you need to install the CloudWatch agent.</p>
+
+<h4>Default EC2 Metrics in CloudWatch</h4>
+<p>Without any setup, CloudWatch automatically tracks these EC2 metrics every 5 minutes (1 minute with detailed monitoring enabled):</p>
 <ul>
-  <li><strong>CI</strong> — Continuous Integration</li>
-  <li><strong>CD</strong> — Continuous Deployment</li>
+  <li><strong>CPUUtilization</strong> — Percentage of CPU capacity used</li>
+  <li><strong>NetworkIn / NetworkOut</strong> — Bytes transferred in and out</li>
+  <li><strong>DiskReadOps / DiskWriteOps</strong> — Disk read/write operations per second</li>
+  <li><strong>StatusCheckFailed</strong> — Instance and system status checks</li>
 </ul>
+<div class="code-title">View Metrics via CLI</div>
+<pre><code class="language-bash"># Get CPU metrics for the last hour
+aws cloudwatch get-metric-statistics   --namespace AWS/EC2   --metric-name CPUUtilization   --dimensions Name=InstanceId,Value=i-0abc123   --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ)   --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ)   --period 300   --statistics Average</code></pre>
 
-<p>
-It means:
-</p>
-<ul>
-  <li>Code is tested automatically</li>
-  <li>Deployments are repeatable</li>
-  <li>Human errors are reduced</li>
-</ul>
+<h4>Installing the CloudWatch Agent</h4>
+<p>To get memory usage, disk usage by path, and custom metrics, install the CloudWatch agent:</p>
+<div class="code-title">Install CloudWatch Agent</div>
+<pre><code class="language-bash"># Install on Amazon Linux 2023
+sudo dnf install amazon-cloudwatch-agent -y
 
-<h4>Basic Deployment Flow</h4>
-<ol>
-  <li>Developer pushes code</li>
-  <li>Pipeline runs tests</li>
-  <li>Build is created</li>
-  <li>Server pulls new version</li>
-</ol>
+# Create agent configuration
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
 
-<h4>Why Manual Deployments Fail</h4>
-<ul>
-  <li>Forgotten steps</li>
-  <li>Wrong commands</li>
-  <li>Inconsistent environments</li>
-</ul>
+# Start the agent
+sudo systemctl start amazon-cloudwatch-agent
+sudo systemctl enable amazon-cloudwatch-agent</code></pre>
+<p>The configuration wizard asks what metrics you want to collect. Choose to collect memory, disk, and optionally Nginx access logs.</p>
 
-<h4>Linux Role in CI/CD</h4>
-<p>
-Linux servers execute:
-</p>
-<ul>
-  <li>Build scripts</li>
-  <li>Deployment scripts</li>
-  <li>Service restarts</li>
-</ul>
+<h4>Setting Up CloudWatch Alarms</h4>
+<p>Alarms notify you when a metric crosses a threshold. Let us create an alarm for high CPU usage:</p>
+<div class="code-title">Create CPU Alarm</div>
+<pre><code class="language-bash"># First, create an SNS topic for notifications
+aws sns create-topic --name ec2-alerts
 
-<h4>Simple Deployment Example</h4>
-<pre><code class="language-bash">git pull origin main
-npm install
-pm2 restart app</code></pre>
+# Subscribe your email
+aws sns subscribe   --topic-arn arn:aws:sns:ap-south-1:123456:ec2-alerts   --protocol email   --notification-endpoint your@email.com
 
-<p>
-Automation replaces panic.
-</p>
+# Create alarm: alert if CPU > 80% for 2 consecutive 5-min periods
+aws cloudwatch put-metric-alarm   --alarm-name "High-CPU-EC2"   --alarm-description "CPU above 80%"   --metric-name CPUUtilization   --namespace AWS/EC2   --dimensions Name=InstanceId,Value=i-0abc123   --period 300   --evaluation-periods 2   --threshold 80   --comparison-operator GreaterThanThreshold   --statistic Average   --alarm-actions arn:aws:sns:ap-south-1:123456:ec2-alerts</code></pre>
 
-<h4>Real Engineer Mindset</h4>
-<p>
-If deployment scares you,
-your system is fragile.
-Strong systems make deployments boring.
-</p>
+<h4>Streaming Nginx Logs to CloudWatch</h4>
+<p>You can send your application logs to CloudWatch Logs for centralized storage and searching:</p>
+<div class="code-title">CloudWatch Agent Log Config</div>
+<pre><code class="language-bash"># Add to CloudWatch agent config file
+# /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+{
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/nginx/access.log",
+            "log_group_name": "/ec2/nginx/access",
+            "log_stream_name": "{instance_id}"
+          },
+          {
+            "file_path": "/var/log/nginx/error.log",
+            "log_group_name": "/ec2/nginx/error",
+            "log_stream_name": "{instance_id}"
+          }
+        ]
+      }
+    }
+  }
+}</code></pre>
 
-<h4>What Comes Next?</h4>
-<p>
-Next we combine everything into
-<strong>end-to-end real cloud project thinking</strong>.
-</p>
+<h4>CloudWatch Dashboards</h4>
+<p>Go to CloudWatch → Dashboards → Create dashboard. Add widgets for your key metrics — CPU, memory, network, and any custom metrics. A good dashboard gives you at-a-glance health visibility for your entire infrastructure without having to click through multiple pages. In production, dashboards are displayed on monitors in operations centers so the team can immediately spot issues.</p>
+<p>In Part 12, we bring everything together — deploying a complete application on EC2 end to end.</p>
 
-<a href="aws-linux-combo-part-12.html" class="btn">
-Next: Final Project & Career Path →
-</a>
+<h4>CloudWatch Logs and Log Insights</h4>
+<p>CloudWatch Logs stores log data from EC2 instances, Lambda functions, containers, and other AWS services. The CloudWatch agent on EC2 instances collects application and system logs and sends them to CloudWatch. Configure the agent by editing <code>/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json</code> to specify which log files to collect and which log groups to create. CloudWatch Log Insights provides a query language for analyzing log data at scale — querying across millions of log events in seconds. For example, finding the top error messages in your application logs: <code>fields @timestamp, @message | filter @message like /ERROR/ | stats count(*) by @message | sort by count desc | limit 20</code>.</p>
+<h4>Creating Effective CloudWatch Alarms</h4>
+<p>CloudWatch alarms monitor metrics and trigger actions when thresholds are breached. Effective alarm design requires choosing the right metric (CPU utilization is rarely the right thing to alarm on directly — request error rate or latency is more meaningful), setting appropriate thresholds (alarm on sustained problems, not brief spikes — use evaluation periods of several consecutive data points), and choosing the right actions (SNS notification for human-response alarms, Auto Scaling actions for capacity management, Lambda for automated remediation). Avoid alarm fatigue — too many alarms, especially noisy ones that fire frequently without requiring action, cause teams to ignore all alarms including important ones.</p>
+<h4>Practice Exercise</h4>
+<p>Set up basic monitoring for your EC2 instance: install and configure the CloudWatch agent to send the instance's system metrics (CPU, memory, disk) and a log file to CloudWatch. Create a CloudWatch dashboard showing these metrics. Create an alarm that triggers when CPU utilization exceeds 80% for five consecutive minutes, sending a notification to an SNS topic. Subscribe your email to the SNS topic and simulate high CPU with <code>stress --cpu 2</code> to trigger the alarm and receive the notification.</p>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Always test pipelines in staging before production.
-Automation multiplies both good and bad decisions.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Automation Is Calm</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

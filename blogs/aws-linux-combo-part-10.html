@@ -4,132 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>AWS + Linux Combo Part 10 — IAM & Permissions | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="AWS + Linux Combo Part 10 by SRJahir Tech. Learn IAM, Linux permissions, chmod, chown, least privilege, and security mindset." />
-  <meta name="keywords" content="AWS IAM Linux permissions, chmod chown explained, cloud security basics" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>AWS + Linux Combo — Part 10: VPC, Networking & Security Groups | SRJahir Tech</title>
+  <meta name="description" content="Understand AWS VPC, subnets, routing, internet gateways, and Security Groups. Learn how cloud networking works and how to secure your EC2 instances." />
+  <meta name="keywords" content="AWS VPC explained, security groups EC2, VPC subnets, internet gateway AWS, cloud networking" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-10.html" />
-
-  <link rel="icon" href="../logo.png">
-
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AWS + Linux Combo — Part 10: VPC, Networking & Security Groups | SRJahir Tech" />
+  <meta property="og:description" content="Understand AWS VPC, subnets, routing, internet gateways, and Security Groups. Learn how cloud networking works and how to secure your EC2 instances." />
+  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-10.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"AWS + Linux Combo — Part 10: VPC, Networking & Security Groups","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Understand AWS VPC, subnets, routing, internet gateways, and Security Groups. Learn how cloud networking works and how to secure your EC2 instances."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo" alt="SRJahir Tech Logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
     <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block">
 
-<h3>AWS + Linux Combo — Part 10<br>IAM & Linux Permissions</h3>
+<h3>AWS + Linux Combo — Part 10: VPC, Networking &amp; Security Groups</h3>
 
-<p>
-This part explains one of the most misunderstood areas in cloud engineering:
-<strong>permissions</strong>.
-Most breaches happen because of bad permission design.
-</p>
+<p>Every EC2 instance you launch exists inside a network. That network is called a VPC — Virtual Private Cloud. Understanding how VPCs, subnets, and security groups work is what separates someone who just launches instances from someone who can design and secure real cloud infrastructure. This knowledge is tested in every cloud certifications and asked in every cloud engineering interview.</p>
 
-<h4>AWS IAM vs Linux Users</h4>
+<h4>What is a VPC?</h4>
+<p>A VPC is your own private network inside AWS. Think of it as renting a section of AWS's massive data center network and making it yours. You control the IP address range, the subnets, the routing, and what can communicate with what. When you create an AWS account, AWS automatically creates a default VPC in each region with sensible settings so you can immediately launch instances. But for production, you should design your own VPC.</p>
+
+<h4>Key VPC Components</h4>
 <ul>
-  <li>AWS IAM controls cloud access</li>
-  <li>Linux users control server access</li>
-  <li>Both must follow least privilege</li>
+  <li><strong>CIDR Block</strong> — The IP address range for your VPC, e.g., 10.0.0.0/16 gives you 65,536 IP addresses.</li>
+  <li><strong>Subnets</strong> — Subdivisions of your VPC. A subnet lives in one Availability Zone. Resources in a subnet share that zone's network.</li>
+  <li><strong>Public Subnet</strong> — A subnet connected to an Internet Gateway. Resources here can have public IPs and be reached from the internet.</li>
+  <li><strong>Private Subnet</strong> — No direct internet access. Used for databases, backend services, and anything that should not be public.</li>
+  <li><strong>Internet Gateway (IGW)</strong> — The connection between your VPC and the internet. Without an IGW, nothing in your VPC can reach the internet.</li>
+  <li><strong>Route Table</strong> — Rules that determine where network traffic goes. Public subnets have a route sending 0.0.0.0/0 traffic to the IGW.</li>
+  <li><strong>NAT Gateway</strong> — Allows instances in private subnets to initiate outbound internet connections (for software updates, for example) without being reachable from the internet.</li>
 </ul>
 
-<h4>Linux Permission Model</h4>
-<p>
-Every file has:
-</p>
-<ul>
-  <li>Owner</li>
-  <li>Group</li>
-  <li>Others</li>
-</ul>
+<h4>Security Groups In Depth</h4>
+<p>Security Groups are stateful firewalls attached to EC2 instances. Stateful means if you allow inbound traffic on a port, the response traffic is automatically allowed — you do not need to add an outbound rule for it.</p>
+<div class="code-title">Manage Security Groups via CLI</div>
+<pre><code class="language-bash"># Create a security group
+aws ec2 create-security-group   --group-name web-server-sg   --description "Security group for web server"   --vpc-id vpc-0abc123
 
-<pre><code class="language-bash">ls -l</code></pre>
+# Allow HTTP from anywhere
+aws ec2 authorize-security-group-ingress   --group-id sg-0abc123   --protocol tcp   --port 80   --cidr 0.0.0.0/0
 
-<h4>chmod Explained Simply</h4>
-<pre><code class="language-bash">chmod 640 config.env</code></pre>
+# Allow HTTPS from anywhere
+aws ec2 authorize-security-group-ingress   --group-id sg-0abc123   --protocol tcp   --port 443   --cidr 0.0.0.0/0
 
-<ul>
-  <li>Owner: read + write</li>
-  <li>Group: read</li>
-  <li>Others: no access</li>
-</ul>
+# Allow SSH from your IP only
+aws ec2 authorize-security-group-ingress   --group-id sg-0abc123   --protocol tcp   --port 22   --cidr $(curl -s ifconfig.me)/32
 
-<h4>chown for Ownership</h4>
-<pre><code class="language-bash">chown appuser:www-data app/</code></pre>
+# List inbound rules
+aws ec2 describe-security-groups --group-ids sg-0abc123</code></pre>
 
-<p>
-Ownership mistakes cause most deployment failures.
-</p>
+<h4>Network ACLs vs Security Groups</h4>
+<p>While Security Groups protect individual instances, Network ACLs (NACLs) protect entire subnets. Key differences: Security Groups are stateful, NACLs are stateless (you need both inbound and outbound rules). Security Groups only allow traffic — they cannot deny specific IPs. NACLs support both allow and deny rules with numbered priorities. For most use cases, Security Groups are sufficient. NACLs add an extra layer for environments with strict compliance requirements.</p>
 
-<h4>Least Privilege Principle</h4>
-<p>
-Give only what is needed — nothing more.
-This applies to:
-</p>
-<ul>
-  <li>IAM roles</li>
-  <li>Linux users</li>
-  <li>Services</li>
-</ul>
+<h4>VPC Peering and Private Communication</h4>
+<p>VPC Peering lets two VPCs communicate with each other privately — traffic never goes over the public internet. This is used when you have separate VPCs for different environments (dev, staging, production) and need them to communicate:</p>
+<div class="code-title">VPC Peering via CLI</div>
+<pre><code class="language-bash"># Create peering connection
+aws ec2 create-vpc-peering-connection   --vpc-id vpc-111   --peer-vpc-id vpc-222
 
-<h4>Common Beginner Mistakes</h4>
-<ul>
-  <li>chmod 777 everywhere</li>
-  <li>Running everything as root</li>
-  <li>Sharing AWS root account</li>
-</ul>
+# Accept the peering request
+aws ec2 accept-vpc-peering-connection   --vpc-peering-connection-id pcx-0abc123</code></pre>
 
-<h4>Professional Mindset</h4>
-<p>
-If permissions are boring to you,
-you are not ready for production systems yet.
-</p>
+<h4>Checking Network Configuration on Linux</h4>
+<div class="code-title">Linux Network Commands</div>
+<pre><code class="language-bash"># View network interfaces
+ip addr show
+ifconfig   # older systems
 
-<a href="aws-linux-combo-part-11.html" class="btn">
-Next: CI/CD & Deployment Thinking →
-</a>
+# View routing table
+ip route show
+route -n
+
+# Check open ports
+ss -tlnp
+netstat -tlnp
+
+# Test connectivity
+ping google.com
+curl -I https://srjahir.in
+traceroute 8.8.8.8</code></pre>
+<p>In Part 11, we will cover monitoring and logging — using CloudWatch to track your server's health and set up alerts for when things go wrong.</p>
+
+<h4>Security Groups vs NACLs</h4>
+<p>AWS has two layers of network access control that work together. Security Groups are stateful firewalls attached to individual resources (EC2 instances, RDS databases, load balancers). Stateful means return traffic is automatically allowed — you only need to define inbound rules for incoming connections, and the response traffic is automatically permitted. Security Groups can reference other Security Groups as sources, enabling patterns like "allow traffic from the web server security group to the database security group" without specifying IP addresses. Network ACLs (NACLs) are stateless firewalls attached to subnets. Stateless means you must explicitly allow both inbound and outbound traffic for each connection. NACLs process rules in order by rule number and stop at the first match. Use NACLs for broad subnet-level controls and Security Groups for resource-specific access control.</p>
+<h4>VPC Peering and Transit Gateway</h4>
+<p>When resources in different VPCs need to communicate, VPC Peering creates a direct network connection between two VPCs — traffic routes through the AWS backbone without going over the internet. Peering is limited to two VPCs and does not support transitive routing (if A peers with B and B peers with C, A cannot reach C through B). For connecting many VPCs, AWS Transit Gateway acts as a central hub — each VPC connects to Transit Gateway and can reach any other connected VPC. This hub-and-spoke model simplifies management as the number of VPCs grows and supports more complex routing policies.</p>
+<h4>Practice Exercise</h4>
+<p>Create a VPC with one public subnet and one private subnet from scratch using the AWS console or CLI. Create an Internet Gateway and attach it to the VPC. Configure route tables: the public subnet route table should have a route to the Internet Gateway for 0.0.0.0/0. Create security groups for a web server (allow HTTP/HTTPS from internet, SSH from your IP) and a database (allow port 5432 from the web server security group only). Launch EC2 instances in both subnets and verify the web server can reach the internet but the database instance cannot. Draw a diagram of what you built.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Never use 777 permissions in production.
-Security mistakes cost more than downtime.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Permissions Are Power</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

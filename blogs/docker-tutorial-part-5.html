@@ -1,117 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Docker Tutorial Part 5 — Networking Basics | SRJahir Tech</title>
-
-<meta name="description" content="Docker Tutorial Part 5 by SRJahir Tech. Learn Docker networks, bridge mode, container communication." />
-
-<link rel="icon" href="../logo.png">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date()); gtag('config','G-93D0PKZM2L');
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Docker Tutorial Part 5 — Docker Networking Explained | SRJahir Tech</title>
+  <meta name="description" content="Understand Docker networking from scratch. Learn about bridge networks, host networks, container communication, port mapping, and custom networks for multi-container apps." />
+  <meta name="keywords" content="Docker networking tutorial, Docker bridge network, Docker container communication, Docker port mapping" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-5.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Docker Tutorial Part 5 — Docker Networking Explained | SRJahir Tech" />
+  <meta property="og:description" content="Understand Docker networking from scratch. Learn about bridge networks, host networks, container communication, port mapping, and custom networks for multi-container apps." />
+  <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-5.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 5 — Docker Networking Explained | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Understand Docker networking from scratch. Learn about bridge networks, host networks, container communication, port mapping, and custom networks for multi-container apps."}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
-<img src="../logo.png" class="top-logo">
-
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav">
-<h1>SRJahir<span>Tech</span></h1>
-<nav class="menu-bar">
-<a href="../index.html">Home</a>
-<a href="../blog.html">Blog</a>
-</nav>
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
 </header>
-
 <section class="content-block">
+<h3>Docker Full Tutorial — Part 5: Docker Networking</h3>
+<p>When you run multiple containers — say a web application, a database, and a cache — they need to communicate with each other. Docker networking is what makes this possible. Understanding how Docker handles networking will help you build reliable multi-container systems and troubleshoot connectivity issues when they arise.</p>
 
-<h3>Docker Tutorial — Part 5: Networking Basics</h3>
-
-<p>
-Containers do not live alone.
-They talk to databases, APIs, and other services.
-Docker networking makes this possible.
-</p>
-
-<h4>Default Docker Network</h4>
-<p>
-Docker automatically creates a <strong>bridge network</strong>.
-All containers can communicate inside it.
-</p>
-
-<h4>List Docker Networks</h4>
-<pre><code class="language-bash">docker network ls</code></pre>
-
-<h4>Create Custom Network</h4>
-<pre><code class="language-bash">docker network create mynetwork</code></pre>
-
-<h4>Run Containers in Same Network</h4>
-<pre><code class="language-bash">
-docker run -d --name backend --network mynetwork nginx
-docker run -d --name frontend --network mynetwork nginx
-</code></pre>
-
-<p>
-Now containers can talk using container names:
-</p>
-
-<pre><code class="language-bash">
-curl http://backend
-</code></pre>
-
-<h4>Why Custom Networks Matter</h4>
+<h4>Docker Network Drivers</h4>
+<p>Docker supports several networking modes, each with different use cases:</p>
 <ul>
-<li>Clean service isolation</li>
-<li>Easy container-to-container communication</li>
-<li>Required for microservices</li>
+  <li><strong>bridge</strong> — The default network. Containers on the same bridge network can communicate with each other. Best for single-host multi-container apps.</li>
+  <li><strong>host</strong> — The container shares the host's network stack directly. No network isolation. Useful for performance-critical apps.</li>
+  <li><strong>none</strong> — Container has no network interface. Completely isolated.</li>
+  <li><strong>overlay</strong> — Connects containers across multiple Docker hosts. Used with Docker Swarm for distributed systems.</li>
 </ul>
 
-<h4>Port Mapping (Host Access)</h4>
-<pre><code class="language-bash">docker run -d -p 8080:80 nginx</code></pre>
+<h4>The Default Bridge Network</h4>
+<p>When you run a container without specifying a network, it connects to the default bridge network. Containers on this network can communicate using IP addresses, but not by container names. This is a limitation of the default bridge network.</p>
+<div class="code-title">Inspect Default Bridge</div>
+<pre><code class="language-bash"># List all Docker networks
+docker network ls
 
-<p>
-This maps host port <code>8080</code> to container port <code>80</code>.
-</p>
+# Inspect the default bridge network
+docker network inspect bridge
 
-<h4>Security Tip</h4>
-<p>
-Only expose ports that are required.
-Every open port is a risk.
-</p>
+# Run two containers and check their IPs
+docker run -d --name container1 nginx
+docker run -d --name container2 nginx
+docker inspect container1 | grep IPAddress</code></pre>
 
-<p>
-Next, we move towards multi-container setups
-using Docker Compose.
-</p>
+<h4>Custom Bridge Networks — The Right Way</h4>
+<p>User-defined bridge networks are much better than the default bridge. The key advantage: containers can communicate using container names as hostnames, not just IP addresses. IP addresses change when containers are recreated; names do not.</p>
+<div class="code-title">Custom Network</div>
+<pre><code class="language-bash"># Create a custom network
+docker network create my-app-network
 
-<a href="docker-tutorial-part-6.html" class="btn">
-Next: Docker Compose →
-</a>
+# Run containers on the custom network
+docker run -d --name web --network my-app-network nginx
+docker run -d --name db --network my-app-network postgres:15
 
+# Containers can now communicate using names
+# The web container can reach the database using hostname "db"
+# ping db  ← works inside the web container</code></pre>
+
+<h4>Port Mapping — Exposing Containers to the Outside</h4>
+<p>By default, containers are isolated from the outside world. To access a container's service from your browser or from other machines, you map a host port to a container port.</p>
+<div class="code-title">Port Mapping</div>
+<pre><code class="language-bash"># Map host port 8080 to container port 80
+docker run -d -p 8080:80 nginx
+
+# Map to a specific interface
+docker run -d -p 127.0.0.1:8080:80 nginx  # localhost only
+
+# Map multiple ports
+docker run -d -p 8080:80 -p 443:443 my-web-app
+
+# Publish all exposed ports (random host ports)
+docker run -d -P nginx</code></pre>
+<p>The format is always <code>host_port:container_port</code>. Remember this order: left side is your machine, right side is inside the container.</p>
+
+<h4>Container DNS Resolution</h4>
+<p>Docker has a built-in DNS server that resolves container names to IP addresses within custom networks. This is transparent — you do not need to configure anything. When container A wants to reach container B on the same user-defined network, it simply uses B's name as the hostname.</p>
+<div class="code-title">DNS Resolution Test</div>
+<pre><code class="language-bash"># Enter the web container
+docker exec -it web bash
+
+# Test DNS resolution (inside the container)
+ping db
+nslookup db
+curl http://db:5432  # reach the database by name</code></pre>
+
+<h4>Practical Example — Web App + Database</h4>
+<div class="code-title">Multi-Container Networking</div>
+<pre><code class="language-bash"># Create network
+docker network create webapp-net
+
+# Start database
+docker run -d   --name postgres-db   --network webapp-net   -e POSTGRES_PASSWORD=dbpass   -e POSTGRES_DB=appdb   postgres:15
+
+# Start web application (it connects to postgres-db by name)
+docker run -d   --name flask-app   --network webapp-net   -p 5000:5000   -e DATABASE_URL="postgresql://postgres:dbpass@postgres-db:5432/appdb"   my-flask-app:1.0</code></pre>
+<p>The Flask app connects to the database using <code>postgres-db</code> as the hostname. Docker resolves this name to the container's IP automatically.</p>
+
+<h4>Network Troubleshooting</h4>
+<div class="code-title">Networking Debug Commands</div>
+<pre><code class="language-bash"># Check container network settings
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container
+
+# Check which ports a container has open
+docker port my-container
+
+# Check network details
+docker network inspect my-app-network</code></pre>
+
+<p>In Part 6, we will learn Docker Compose — the tool that lets you define and run multi-container applications with a single file and a single command.</p>
 </section>
+<h4>Container DNS and Service Discovery</h4>
+<p>When containers are on the same user-defined network, Docker provides automatic DNS resolution — containers can reach each other by their container names. This is a critical feature for multi-container applications. On the default bridge network, DNS resolution by container name does not work (you must use IP addresses). On user-defined networks, it works automatically:</p>
+<div class="code-title">Container DNS Example</div>
+<pre><code class="language-bash"># Create a network
+docker network create myapp_network
+
+# Start backend container on the network
+docker run -d --name api_server --network myapp_network my_api_image
+
+# Start frontend — can reach backend by name "api_server"
+docker run -d --name frontend --network myapp_network   -e API_URL=http://api_server:8080   my_frontend_image
+
+# Verify DNS resolution from inside a container
+docker exec frontend ping api_server</code></pre>
+<p>This is why Docker Compose and Kubernetes use service names as hostnames — the underlying mechanism is container DNS on isolated networks. Understanding this helps you configure multi-container applications correctly and debug connectivity issues between containers.</p>
+<h4>Network Inspection and Troubleshooting</h4>
+<p>Use <code>docker network inspect network_name</code> to see detailed network configuration including which containers are attached and their IP addresses. Use <code>docker exec container_name ip addr</code> to see a container's network interfaces from inside. If containers on the same network cannot communicate, check that they are actually on the same network with <code>docker inspect container_name | grep -A 20 Networks</code>. For debugging network issues inside containers, install tools temporarily: <code>docker exec -it container bash</code> then <code>apt-get install -y curl ping</code>.</p>
+<h4>Practice Exercise</h4>
+<p>Create a two-container application: a Python Flask API that responds to HTTP requests, and a second container that periodically calls the API using curl. Put both on a user-defined network and verify the second container can reach the API using the container name as hostname. Then disconnect one container from the network using <code>docker network disconnect</code> and verify the connection breaks, then reconnect with <code>docker network connect</code>.</p>
 
 <div class="blog-disclaimer">
-<strong>Disclaimer:</strong><br>
-Networking mistakes can expose services publicly.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
-
 <footer>
-<p>© 2025 SRJahir Tech — Containers Communicate</p>
+  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>

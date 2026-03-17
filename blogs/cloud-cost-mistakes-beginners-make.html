@@ -20,6 +20,13 @@
     gtag('js', new Date());
     gtag('config', 'G-93D0PKZM2L');
   </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
 </head>
 
 <body>
@@ -34,55 +41,26 @@
 </header>
 
 <section class="content-block blog-article">
-  <h1>Cloud Cost Mistakes Beginners Make</h1>
-  <p class="blog-meta">SRJahir Tech · 2025</p>
-
-  <p>
-    Cloud platforms are powerful, but they are not forgiving.
-    Most beginners don’t overspend because cloud is expensive.
-    They overspend because they don’t understand responsibility.
-  </p>
-
-  <h2>1. Leaving Resources Running</h2>
-  <p>
-    Virtual machines, databases, and storage continue billing even
-    when you are not actively using them.
-  </p>
-
-  <h2>2. Ignoring Regions and Pricing Models</h2>
-  <p>
-    Different regions have different prices.
-    Choosing the wrong region without understanding cost impact
-    is a common mistake.
-  </p>
-
-  <h2>3. No Budgets or Alerts</h2>
-  <p>
-    If you don’t set alerts, the bill becomes the notification.
-    Budgets are not optional — they are protection.
-  </p>
-
-  <h2>4. Treating Cloud Like Hosting</h2>
-  <p>
-    Cloud is not shared hosting.
-    Every request, storage operation, and data transfer costs money.
-  </p>
-
-  <h2>How to Avoid These Mistakes</h2>
-  <ul>
-    <li>Shut down unused resources</li>
-    <li>Use budgets and alerts from day one</li>
-    <li>Start small and scale slowly</li>
-    <li>Understand cost as a feature, not a surprise</li>
-  </ul>
-
-  <p>
-    Cloud is fair. It charges for what you use.
-    Respect the platform, and it will respect your wallet.
-  </p>
-
-  <a href="../blog.html" class="btn">← Back to Blog</a>
+<h3>Cloud Cost Mistakes Beginners Make</h3>
+<p>One of the most shocking experiences for beginners working with cloud platforms is opening their billing dashboard and finding unexpected charges. What started as a learning project on the free tier suddenly results in a surprise bill. In more extreme cases — usually involving accidental exposure of credentials or forgetting running instances — the bills can be thousands of dollars. These experiences are common and preventable.</p>
+<h4>Mistake 1: Leaving Resources Running</h4>
+<p>The most common and costly mistake is simple: you spin up resources to experiment with something, forget about them, and they keep running. Unlike a computer you own that has already been paid for, cloud resources charge you continuously while they exist. An EC2 instance left running for a week can easily cost Rs 500-2000 depending on the instance type. A GPU instance left running for even a few hours can be very expensive. A NAT Gateway that you forgot about charges both hourly and per gigabyte of data transferred.</p>
+<p>The solution requires both technical and behavioral changes. Technically: set up billing alerts immediately when you create a cloud account, use cloud cost monitoring tools like AWS Cost Explorer or GCP Billing Reports, and set up automated shutdown schedules for development resources. Behaviorally: make it a habit to review your running resources before ending any working session, and do a weekly audit of everything you have deployed.</p>
+<h4>Mistake 2: Not Understanding the Free Tier Limits</h4>
+<p>Cloud providers offer free tiers to let learners experiment without cost. But the free tiers have specific limits that are easy to accidentally exceed. AWS Free Tier offers 750 hours per month of EC2 t2.micro or t3.micro instances. That covers exactly one instance running 24/7 for a month. If you spin up two instances and both run all month, you have used 1,500 hours — 750 free, 750 charged. Data transfer charges are a particularly common surprise. Ingress (data coming in) is generally free. Egress (data leaving AWS) is charged at rates higher than most beginners expect. Building something that transfers a lot of data out of the cloud can create significant charges even if the compute is within free tier limits. Read the free tier limits carefully for every service you use. Set up billing alerts at low thresholds so you are notified immediately if something unexpected starts accruing charges.</p>
+<h4>Mistake 3: Oversized Instances</h4>
+<p>When choosing a server or database instance size, beginners often pick something larger than necessary to be safe. But in cloud environments, overprovisioning is genuinely wasteful — you pay for every hour of capacity whether you use it or not. A practical approach: start small and scale up if needed. Cloud platforms make it relatively easy to resize instances. An application that runs fine on a t3.small does not need to run on an m5.xlarge. Right-sizing is also something to review regularly for production systems. Cloud providers have tools like AWS Compute Optimizer that analyze your actual usage patterns and suggest more appropriately sized resources.</p>
+<h4>Mistake 4: Ignoring Data Transfer Costs</h4>
+<p>Data transfer is consistently one of the least understood and most surprising sources of cloud costs. The pricing structures are complex and vary by direction and destination. Moving data between AWS services in the same region is usually free or very cheap. Moving data between regions is more expensive. Moving data out to the internet is expensive and can add up quickly for applications that serve a lot of content. For applications that transfer a lot of data — video streaming, large file downloads, real-time data applications — content delivery networks like CloudFront (AWS), Cloud CDN (GCP), or Azure CDN are essential. CDNs cache content at edge locations close to users, which both improves performance and can significantly reduce origin data transfer costs.</p>
+<h4>Mistake 5: Not Using Spot/Preemptible Instances</h4>
+<p>Cloud providers offer significant discounts — often 60-90% off on-demand prices — for spare capacity that can be interrupted. AWS calls these Spot Instances, GCP calls them Preemptible VMs, and Azure has Spot Virtual Machines. These instances can be terminated by the cloud provider with short notice when they need the capacity. This makes them inappropriate for stateful applications that cannot handle interruption. But for many workloads — batch data processing, model training, CI/CD pipelines, development environments — they are perfectly suitable and dramatically cheaper. Learning to architect workloads to use spot instances where appropriate is one of the highest-value cloud cost optimization skills.</p>
+<h4>Mistake 6: Not Monitoring Costs in Real Time</h4>
+<p>Cloud bills are generated after the fact — you use resources, then you get billed. Without real-time monitoring, you can accumulate significant charges before you even notice. Every cloud account should have billing alerts configured from day one. Set a low threshold that will alert you before costs get serious. AWS Budgets, GCP Billing Budgets and Alerts, and Azure Cost Management all provide this functionality. Also review your detailed billing regularly. Many people look only at the total bill and do not dig into what actually generated those charges. The fundamental principle of cloud cost management is: treat cloud resources like water from a tap, not water from a bottle you already bought. You pay for what flows. Every resource you do not need should be turned off. Every resource you do need should be right-sized for actual usage.</p>
+<a href="../blog.html" class="btn">← Back to Blog</a>
 </section>
+
+<h4>Building Cloud Intuition Over Time</h4>
+<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
 
 <div class="blog-disclaimer">
   <p>

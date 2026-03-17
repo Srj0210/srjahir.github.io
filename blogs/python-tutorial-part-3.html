@@ -4,43 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-
-  <title>Python Tutorial Part 3 — Operators & Input Output | SRJahir Tech</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Python tutorial part 3 by SRJahir Tech. Learn operators, expressions, comparisons, logical thinking, and input/output in Python with clear examples." />
-  <meta name="keywords" content="Python operators, Python input output, Python expressions, Python comparison operators" />
-  <meta name="author" content="SRJahir Tech" />
+  <title>Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech</title>
+  <meta name="description" content="Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output." />
+  <meta name="keywords" content="Python operators, Python arithmetic, Python comparison operators, Python input output, Python beginners" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-3.html" />
-
-  <!-- Icons -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech" />
+  <meta property="og:description" content="Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-3.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output."}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-
-  <!-- Prism.js -->
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
-
 <body>
-
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
@@ -51,182 +46,148 @@
   </nav>
 </header>
 
-<!-- ===== ARTICLE START ===== -->
 <section class="content-block">
 
-  <h3>Python Full Tutorial — Part 3</h3>
+<h3>Python Full Tutorial — Part 3: Operators &amp; Input/Output</h3>
+<p>You know how to store data. Now let us make Python do things with that data. Operators are how Python performs actions — calculations, comparisons, logical decisions. This is where your programs start to do real work.</p>
 
-  <p>
-    In Part 2, we understood variables and data types.
-    Now we move to the next core layer:
-    <strong>how Python performs actions and decisions</strong>.
-  </p>
+<h4>1. Arithmetic Operators</h4>
+<p>These perform mathematical calculations:</p>
+<div class="code-title">Arithmetic Operators</div>
+<pre><code class="language-python">a = 20
+b = 6
 
-  <h4>What is an Operator?</h4>
-  <p>
-    Operators are symbols that tell Python
-    <strong>what action to perform</strong> on values.
-    Without operators, programs cannot think or decide.
-  </p>
+print(a + b)   # 26  — Addition
+print(a - b)   # 14  — Subtraction
+print(a * b)   # 120 — Multiplication
+print(a / b)   # 3.333... — Division (always returns float)
+print(a // b)  # 3   — Floor division (removes decimal)
+print(a % b)   # 2   — Modulo (remainder after division)
+print(a ** 2)  # 400 — Exponent (a to the power 2)</code></pre>
+<p>The modulo operator <code>%</code> is very useful in programming. It tells you if a number is even or odd, helps with cycling through lists, and has many other practical uses.</p>
 
-  <h4>Arithmetic Operators</h4>
-
-  <ul>
-    <li><code>+</code> Addition</li>
-    <li><code>-</code> Subtraction</li>
-    <li><code>*</code> Multiplication</li>
-    <li><code>/</code> Division</li>
-    <li><code>//</code> Floor Division</li>
-    <li><code>%</code> Modulus</li>
-    <li><code>**</code> Power</li>
-  </ul>
-
-  <div class="code-title">Arithmetic Example</div>
-  <pre><code class="language-python">
-a = 10
-b = 3
-
-print(a + b)
-print(a - b)
-print(a * b)
-print(a / b)
-print(a // b)
-print(a % b)
-print(a ** b)
-  </code></pre>
-
-  <h4>Why Floor Division Matters</h4>
-  <p>
-    Floor division removes decimal part.
-    This is critical in pagination, indexing, and memory calculations.
-  </p>
-
-  <h4>Comparison Operators</h4>
-
-  <ul>
-    <li><code>==</code> Equal to</li>
-    <li><code>!=</code> Not equal</li>
-    <li><code>></code> Greater than</li>
-    <li><code><</code> Less than</li>
-    <li><code>>=</code> Greater or equal</li>
-    <li><code><=</code> Less or equal</li>
-  </ul>
-
-  <div class="code-title">Comparison Example</div>
-  <pre><code class="language-python">
-age = 18
-
-print(age >= 18)
-print(age == 21)
-  </code></pre>
-
-  <p>
-    Comparison operators always return
-    <strong>True or False</strong>.
-  </p>
-
-  <h4>Logical Operators</h4>
-
-  <ul>
-    <li><code>and</code></li>
-    <li><code>or</code></li>
-    <li><code>not</code></li>
-  </ul>
-
-  <div class="code-title">Logical Thinking Example</div>
-  <pre><code class="language-python">
-age = 20
-has_id = True
-
-print(age >= 18 and has_id)
-print(age < 18 or has_id)
-print(not has_id)
-  </code></pre>
-
-  <p>
-    Logical operators are the foundation
-    of authentication, permissions, and decision systems.
-  </p>
-
-  <h4>What is an Expression?</h4>
-  <p>
-    An expression is a combination of values and operators
-    that produces a result.
-  </p>
-
-  <div class="code-title">Expression Example</div>
-  <pre><code class="language-python">
-result = (10 + 5) * 2
-print(result)
-  </code></pre>
-
-  <h4>Input from User</h4>
-  <p>
-    Python allows programs to accept input
-    using the <code>input()</code> function.
-  </p>
-
-  <div class="code-title">Basic Input Example</div>
-  <pre><code class="language-python">
-name = input("Enter your name: ")
-print("Hello", name)
-  </code></pre>
-
-  <p>
-    Important:
-    <code>input()</code> always returns a string.
-  </p>
-
-  <h4>Converting Input Type</h4>
-
-  <div class="code-title">Type Conversion</div>
-  <pre><code class="language-python">
-age = int(input("Enter your age: "))
-print(age + 1)
-  </code></pre>
-
-  <p>
-    Without conversion, calculations will fail.
-  </p>
-
-  <h4>Output with print()</h4>
-
-  <div class="code-title">Multiple Output Styles</div>
-  <pre><code class="language-python">
-x = 10
+<h4>2. Comparison Operators</h4>
+<p>These compare two values and always return True or False:</p>
+<div class="code-title">Comparison Operators</div>
+<pre><code class="language-python">x = 10
 y = 20
 
-print(x, y)
-print("Sum =", x + y)
-  </code></pre>
+print(x == y)   # False — Equal to
+print(x != y)   # True  — Not equal to
+print(x > y)    # False — Greater than
+print(x < y)    # True  — Less than
+print(x >= 10)  # True  — Greater than or equal
+print(y <= 20)  # True  — Less than or equal</code></pre>
 
-  <h4>Why This Part is Critical</h4>
-  <p>
-    Operators and expressions define
-    how programs think, compare, and decide.
-    Every API, AI model, and backend logic
-    depends on this layer.
-  </p>
+<h4>3. Logical Operators</h4>
+<p>Logical operators combine multiple conditions:</p>
+<div class="code-title">Logical Operators</div>
+<pre><code class="language-python">age = 22
+has_id = True
 
-  <p>
-    Next part will introduce
-    <strong>control flow</strong> —
-    if, else, and decision-making structures.
-  </p>
+# and — Both conditions must be True
+print(age >= 18 and has_id)   # True
+
+# or — At least one condition must be True
+print(age < 18 or has_id)     # True
+
+# not — Reverses the boolean
+print(not has_id)              # False</code></pre>
+
+<h4>4. Assignment Operators</h4>
+<p>Shorthand for updating variable values:</p>
+<div class="code-title">Assignment Operators</div>
+<pre><code class="language-python">score = 100
+
+score += 10   # score = score + 10 → 110
+score -= 5    # score = score - 5  → 105
+score *= 2    # score = score * 2  → 210
+score //= 3   # score = score // 3 → 70
+score %= 9    # score = score % 9  → 7</code></pre>
+
+<h4>Taking Input from the User</h4>
+<p>Real programs interact with users. Python's <code>input()</code> function pauses the program and waits for the user to type something and press Enter:</p>
+<div class="code-title">Input Function</div>
+<pre><code class="language-python">name = input("What is your name? ")
+print("Hello, " + name + "!")</code></pre>
+<p>Important: <code>input()</code> always returns a <strong>string</strong>, even if the user types a number. If you need to do math with the input, you must convert it:</p>
+<div class="code-title">Input with Type Conversion</div>
+<pre><code class="language-python">age_input = input("Enter your age: ")
+age = int(age_input)  # Convert string to integer
+
+birth_year = 2025 - age
+print("You were born in:", birth_year)</code></pre>
+
+<h4>Formatted Output with f-strings</h4>
+<p>Python's f-strings are the cleanest way to include variables inside printed text. Just put an <code>f</code> before the quote and use curly braces:</p>
+<div class="code-title">f-string Formatting</div>
+<pre><code class="language-python">name = "Suraj"
+age = 22
+city = "Rajkot"
+
+print(f"Name: {name}")
+print(f"Age: {age}")
+print(f"I live in {city} and I am {age} years old.")
+print(f"Next year I will be {age + 1}")</code></pre>
+<p>F-strings are not just cleaner — they are also faster than older string formatting methods. Use them as your default.</p>
+
+<h4>Practical Example — Simple Calculator</h4>
+<p>Let us combine everything from this part into one small program:</p>
+<div class="code-title">Simple Calculator</div>
+<pre><code class="language-python">print("Simple Python Calculator")
+
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+print(f"Addition: {num1 + num2}")
+print(f"Subtraction: {num1 - num2}")
+print(f"Multiplication: {num1 * num2}")
+
+if num2 != 0:
+    print(f"Division: {num1 / num2:.2f}")
+else:
+    print("Cannot divide by zero")</code></pre>
+<p>Notice <code>:.2f</code> inside the f-string — this formats the float to 2 decimal places. Small details like this make your output much more professional.</p>
+
+<h4>Operator Precedence</h4>
+<p>When multiple operators appear in one expression, Python follows a specific order: parentheses first, then exponents, then multiplication/division, then addition/subtraction. This is the same as standard math (PEMDAS/BODMAS). When in doubt, use parentheses to be explicit:</p>
+<div class="code-title">Operator Precedence</div>
+<pre><code class="language-python">result1 = 2 + 3 * 4     # 14 — multiplication first
+result2 = (2 + 3) * 4   # 20 — parentheses first
+print(result1, result2)</code></pre>
+
+<h4>What We Have Built So Far</h4>
+<p>Think about what you can already do: store data in variables, perform calculations, compare values, take input from users, and display formatted output. That is not nothing — that is the core of a huge number of small utility programs. In Part 4, we will add the ability to make decisions using if-else statements, which is where programs start to feel truly intelligent.</p>
+
+<h4>Short-Circuit Evaluation in Logical Operators</h4>
+<p>Python's <code>and</code> and <code>or</code> operators use short-circuit evaluation — a behavior that has both performance and practical implications. With <code>and</code>, if the first condition is False, Python does not evaluate the second condition because the overall result is already determined to be False. With <code>or</code>, if the first condition is True, the second is not evaluated. This matters when the second condition involves a function call or an operation that has side effects. Understanding short-circuit evaluation lets you write more efficient conditions and use a common Python pattern: <code>result = value or default_value</code>, which returns <code>value</code> if it is truthy, and <code>default_value</code> otherwise.</p>
+<h4>Formatted Output with f-strings</h4>
+<p>Python's f-strings (formatted string literals, introduced in Python 3.6) are the most modern and readable way to embed variables and expressions in output strings. Instead of string concatenation or the older <code>.format()</code> method, you prefix the string with <code>f</code> and place variables or expressions directly in curly braces:</p>
+<div class="code-title">f-string Examples</div>
+<pre><code class="language-python">name = "Suraj"
+score = 92.5
+print(f"Student {name} scored {score:.1f}%")
+# Output: Student Suraj scored 92.5%
+
+items = 7
+price = 49.99
+print(f"Total for {items} items: Rs {items * price:.2f}")
+# Output: Total for 7 items: Rs 349.93</code></pre>
+<p>f-strings are the recommended approach for string formatting in modern Python. They are faster than older methods and significantly more readable for complex outputs.</p>
+<h4>Practice Exercise</h4>
+<p>Write a simple Python calculator that takes two numbers as user input using <code>input()</code>, converts them to floats, and then prints the result of all four arithmetic operations (addition, subtraction, multiplication, division). Handle the edge case of division by zero using a simple conditional check. Use f-strings for the output formatting.</p>
+
+<div class="ad-container" style="text-align:center;margin:32px 0;">
+</div>
 
 </section>
 
-<!-- ===== DISCLAIMER ===== -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong><br>
-  This tutorial is for educational purposes only.
-  Practice is required to master programming concepts.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
-
 <footer>
   <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
-
 </body>
 </html>
