@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="680" height="280">
+  <rect width="680" height="280" rx="12" fill="#f8f8fa"/>
+  <text x="340" y="35" fill="#1d1d1f" font-family="sans-serif" font-size="18" font-weight="600" text-anchor="middle">Syntax vs Thinking</text>
+  <rect x="20" y="50" width="310" height="28" rx="6" fill="#86868b" opacity="0.15"/>
+  <text x="175" y="69" fill="#86868b" font-family="sans-serif" font-size="13" font-weight="600" text-anchor="middle">Memorizing Syntax</text>
+  <rect x="350" y="50" width="310" height="28" rx="6" fill="#0071e3" opacity="0.15"/>
+  <text x="505" y="69" fill="#0071e3" font-family="sans-serif" font-size="13" font-weight="600" text-anchor="middle">Building Thinking</text>
+  <line x1="340" y1="50" x2="340" y2="260" stroke="#d1d1d6" stroke-width="1"/>
+  <text x="36" y="98" fill="#515154" font-family="sans-serif" font-size="12">• Remembers function names</text>
+  <text x="36" y="130" fill="#515154" font-family="sans-serif" font-size="12">• Copies code patterns</text>
+  <text x="36" y="162" fill="#515154" font-family="sans-serif" font-size="12">• Stuck without docs</text>
+  <text x="36" y="194" fill="#515154" font-family="sans-serif" font-size="12">• Language-dependent</text>
+  <text x="366" y="98" fill="#515154" font-family="sans-serif" font-size="12">• Breaks problems into parts</text>
+  <text x="366" y="130" fill="#515154" font-family="sans-serif" font-size="12">• Designs solutions first</text>
+  <text x="366" y="162" fill="#515154" font-family="sans-serif" font-size="12">• Adapts to any language</text>
+  <text x="366" y="194" fill="#515154" font-family="sans-serif" font-size="12">• Debugs systematically</text>
+  <text x="366" y="226" fill="#515154" font-family="sans-serif" font-size="12">• Thinks in abstractions</text>
+</svg>

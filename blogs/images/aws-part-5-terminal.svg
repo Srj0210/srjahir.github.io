@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 349" width="680" height="349">
+  <defs>
+    <linearGradient id="tb_aws-part-5-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="349" rx="10" fill="url(#tb_aws-part-5-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">AWS + Linux — EBS & File Systems</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#98989d" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">[ec2-user ~]$ lsblk</text>
+    <text x="20" y="77" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">NAME    SIZE  TYPE  MOUNTPOINT</text>
+    <text x="20" y="99" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">xvda     20G  disk</text>
+    <text x="20" y="121" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">xvda1    20G  part  /</text>
+    <text x="20" y="143" fill="#febc2e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">xvdf     50G  disk</text>
+    <text x="20" y="165" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
+    <text x="20" y="187" fill="#98989d" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">[ec2-user ~]$ sudo mkfs.ext4 /dev/xvdf</text>
+    <text x="20" y="209" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Creating filesystem with 13107200 blocks</text>
+    <text x="20" y="231" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
+    <text x="20" y="253" fill="#98989d" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">[ec2-user ~]$ sudo mount /dev/xvdf /data</text>
+    <text x="20" y="275" fill="#98989d" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">[ec2-user ~]$ df -h /data</text>
+    <text x="20" y="297" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">/dev/xvdf   50G  52M  47G  1%  /data</text>
+</svg>

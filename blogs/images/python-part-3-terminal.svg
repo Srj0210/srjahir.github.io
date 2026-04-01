@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 327" width="680" height="327">
+  <defs>
+    <linearGradient id="tb_python-part-3-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="327" rx="10" fill="url(#tb_python-part-3-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Python — Python Control Flow</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">&gt;&gt;&gt; for i in range(5):</text>
+    <text x="20" y="77" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">...     print(f'Step {i}')</text>
+    <text x="20" y="99" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Step 0</text>
+    <text x="20" y="121" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Step 1</text>
+    <text x="20" y="143" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Step 2</text>
+    <text x="20" y="165" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Step 3</text>
+    <text x="20" y="187" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Step 4</text>
+    <text x="20" y="209" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
+    <text x="20" y="231" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">&gt;&gt;&gt; if age &gt;= 18:</text>
+    <text x="20" y="253" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">...     print('Adult')</text>
+    <text x="20" y="275" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Adult</text>
+</svg>

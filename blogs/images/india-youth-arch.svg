@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 306" width="680" height="306">
+  <rect width="680" height="306" rx="12" fill="#f8f8fa"/>
+  <text x="340" y="35" fill="#1d1d1f" font-family="sans-serif" font-size="18" font-weight="600" text-anchor="middle">India's Youth Advantage</text>
+  <rect x="20" y="60" width="640" height="56" rx="10" fill="#0071e3" opacity="0.08"/>
+  <rect x="20" y="60" width="640" height="56" rx="10" fill="none" stroke="#0071e3" stroke-width="1.5" opacity="0.4"/>
+  <text x="36" y="82" fill="#0071e3" font-family="sans-serif" font-size="12" font-weight="700" text-transform="uppercase">Scale</text>
+  <text x="36" y="102" fill="#515154" font-family="sans-serif" font-size="12">500M+ under 25 · World's youngest workforce</text>
+  <line x1="340" y1="116" x2="340" y2="132" stroke="#c7c7cc" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="20" y="132" width="640" height="56" rx="10" fill="#e63946" opacity="0.08"/>
+  <rect x="20" y="132" width="640" height="56" rx="10" fill="none" stroke="#e63946" stroke-width="1.5" opacity="0.4"/>
+  <text x="36" y="154" fill="#e63946" font-family="sans-serif" font-size="12" font-weight="700" text-transform="uppercase">Digital Native</text>
+  <text x="36" y="174" fill="#515154" font-family="sans-serif" font-size="12">Smartphone adoption · UPI payments · Social media reach</text>
+  <line x1="340" y1="188" x2="340" y2="204" stroke="#c7c7cc" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="20" y="204" width="640" height="56" rx="10" fill="#28a745" opacity="0.08"/>
+  <rect x="20" y="204" width="640" height="56" rx="10" fill="none" stroke="#28a745" stroke-width="1.5" opacity="0.4"/>
+  <text x="36" y="226" fill="#28a745" font-family="sans-serif" font-size="12" font-weight="700" text-transform="uppercase">Opportunity</text>
+  <text x="36" y="246" fill="#515154" font-family="sans-serif" font-size="12">Startup ecosystem · Global IT services · AI/Tech adoption</text>
+</svg>

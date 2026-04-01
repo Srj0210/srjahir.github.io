@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 327" width="680" height="327">
+  <defs>
+    <linearGradient id="tb_devops-part-3-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="327" rx="10" fill="url(#tb_devops-part-3-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">CI/CD Pipeline</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Pipeline: deploy-production</text>
+    <text x="20" y="77" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
+    <text x="20" y="99" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 1: Build        ✓ passed  (42s)</text>
+    <text x="20" y="121" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 2: Unit Tests   ✓ passed  (1m 15s)</text>
+    <text x="20" y="143" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 3: Integration  ✓ passed  (2m 30s)</text>
+    <text x="20" y="165" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 4: Security     ✓ passed  (55s)</text>
+    <text x="20" y="187" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 5: Deploy Stg   ✓ passed  (1m 02s)</text>
+    <text x="20" y="209" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 6: Smoke Tests  ✓ passed  (30s)</text>
+    <text x="20" y="231" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Stage 7: Deploy Prod  ✓ passed  (1m 45s)</text>
+    <text x="20" y="253" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
+    <text x="20" y="275" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Pipeline completed in 8m 39s</text>
+</svg>
