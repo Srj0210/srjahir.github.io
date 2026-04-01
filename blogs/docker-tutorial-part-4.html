@@ -10,6 +10,12 @@
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-4.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-13" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech" />
   <meta property="og:description" content="Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker." />
@@ -17,7 +23,7 @@
   <meta property="og:image" content="https://srjahir.in/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker."}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker.", "datePublished": "2025-11-13", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-4.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-4.html"}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -40,13 +46,31 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
+    
+<div class="series-nav">
+  <a href="docker-tutorial-part-3.html">← Part 3</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 4 of 12</strong>
+  <a href="docker-tutorial-part-5.html">Part 5 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a>
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>Docker Full Tutorial — Part 4: Volumes &amp; Data Persistence</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 13, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/docker-part-4-terminal.svg" alt="Docker — Dockerfile" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Dockerfile</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="docker-tutorial-part-3.html">← Part 3</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 4 of 12</strong>
+  <a href="docker-tutorial-part-5.html">Part 5 →</a>
+</div>
 <p>Here is a problem every Docker beginner runs into sooner or later: you run a database container, add some data, stop the container, start it again — and the data is gone. Everything you stored has vanished. This happens because containers are stateless by default. Docker volumes are the solution to this problem, and understanding them is essential for any real-world Docker usage.</p>
 
 <h4>Why Containers Are Stateless</h4>
@@ -133,7 +157,6 @@ docker volume prune</code></pre>
 <p><strong>Warning:</strong> Removing a volume permanently deletes all data it contains. Always back up before removing production volumes.</p>
 
 <p>In Part 5, we will learn Docker Networking — how containers talk to each other and to the outside world. This is essential for multi-container applications.</p>
-</section>
 <h4>Bind Mounts vs Named Volumes</h4>
 <p>Docker supports two main types of mounts, each suited to different use cases. Bind mounts map a specific path on the host machine into the container: <code>docker run -v /host/path:/container/path image</code>. They are useful for development — mounting your source code directory into a container so code changes are reflected immediately without rebuilding. Named volumes are managed entirely by Docker: <code>docker run -v myvolume:/container/path image</code>. Docker creates and manages the storage location. Named volumes are the right choice for persistent application data in production — they are not dependent on host directory structure and are easier to backup and migrate.</p>
 <div class="code-title">Volume Usage Examples</div>
@@ -154,8 +177,10 @@ docker run --rm -v postgres_data:/data -v $(pwd):/backup   alpine tar czf /backu
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
+</section>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
 </body>

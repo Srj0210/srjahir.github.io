@@ -10,6 +10,12 @@
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-10.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-12-07" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech" />
   <meta property="og:description" content="Learn to use Docker in CI/CD pipelines with GitHub Actions. Automate image builds, run tests in containers, push to registries, and deploy automatically." />
@@ -17,7 +23,7 @@
   <meta property="og:image" content="https://srjahir.in/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 10 — Docker in CI/CD Pipelines | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-07", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-10.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-10.html"}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -40,13 +46,31 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
+    
+<div class="series-nav">
+  <a href="docker-tutorial-part-9.html">← Part 9</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 10 of 12</strong>
+  <a href="docker-tutorial-part-11.html">Part 11 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a>
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>Docker Full Tutorial — Part 10: Docker in CI/CD Pipelines</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 07, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/docker-part-10-terminal.svg" alt="Docker — Docker Security" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Docker Security</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="docker-tutorial-part-9.html">← Part 9</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 10 of 12</strong>
+  <a href="docker-tutorial-part-11.html">Part 11 →</a>
+</div>
 <p>Building Docker images manually on your laptop works fine for personal projects. But in a professional team, every code change should automatically trigger a build, test run, and deployment. This is CI/CD — Continuous Integration and Continuous Deployment. Docker fits perfectly into CI/CD pipelines because containers make builds reproducible and deployments consistent.</p>
 
 <h4>What CI/CD Means in the Docker World</h4>
@@ -153,7 +177,6 @@ jobs:
             docker run -d               --name my-app               -p 5000:5000               --restart unless-stopped               yourusername/my-app:${{ github.sha }}</code></pre>
 
 <p>In Part 11, we will explore Docker Swarm — Docker's built-in container orchestration for running containers across multiple servers with load balancing and automatic failover.</p>
-</section>
 <h4>GitHub Actions Docker Integration</h4>
 <p>GitHub Actions is one of the most widely used CI/CD platforms and has excellent Docker support. A typical workflow builds, tests, and pushes a Docker image on every push to main:</p>
 <div class="code-title">GitHub Actions Docker Workflow</div>
@@ -195,8 +218,10 @@ jobs:
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
+</section>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
 </body>

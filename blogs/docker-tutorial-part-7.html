@@ -10,6 +10,12 @@
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-7.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-25" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech" />
   <meta property="og:description" content="Learn Docker registry, push and pull images from Docker Hub, use private registries, tag images properly, and manage image versions in real projects." />
@@ -17,7 +23,7 @@
   <meta property="og:image" content="https://srjahir.in/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 7 — Docker Registry & Image Management | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-25", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-7.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-7.html"}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -40,13 +46,31 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
+    
+<div class="series-nav">
+  <a href="docker-tutorial-part-6.html">← Part 6</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 7 of 12</strong>
+  <a href="docker-tutorial-part-8.html">Part 8 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a>
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>Docker Full Tutorial — Part 7: Docker Registry &amp; Image Management</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 25, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/docker-part-7-terminal.svg" alt="Docker — Docker Compose" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Docker Compose</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="docker-tutorial-part-6.html">← Part 6</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 7 of 12</strong>
+  <a href="docker-tutorial-part-8.html">Part 8 →</a>
+</div>
 <p>So far we have been building and running Docker images locally. But in real teams and production environments, you need to share images across machines. A developer builds an image on their laptop, and that same image needs to run on a test server, a staging environment, and eventually production. Docker registries are what make this possible.</p>
 
 <h4>What is a Docker Registry?</h4>
@@ -136,7 +160,6 @@ docker inspect yourusername/my-app:latest
 docker images --format "table {{.Repository}}	{{.Tag}}	{{.Size}}"</code></pre>
 
 <p>In Part 8, we will learn multi-stage builds — a powerful technique to dramatically reduce Docker image sizes while keeping the build process clean and organized.</p>
-</section>
 <h4>Image Tagging Strategy</h4>
 <p>A clear image tagging strategy is essential for production workflows. Avoid relying on the <code>latest</code> tag in production — it is ambiguous and makes rollbacks difficult. Use semantic versioning (<code>myapp:1.2.3</code>) for releases, git commit SHA tags (<code>myapp:abc1234</code>) for traceability, and environment tags (<code>myapp:staging</code>, <code>myapp:production</code>) to track what is deployed where. A common CI/CD pattern builds an image tagged with the git SHA, runs tests against it, then tags it with both the version number and environment tag on successful promotion:</p>
 <div class="code-title">Tagging and Pushing</div>
@@ -163,8 +186,10 @@ docker images myregistry/myapp</code></pre>
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
+</section>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
 </body>

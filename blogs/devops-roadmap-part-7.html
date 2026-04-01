@@ -10,12 +10,19 @@
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-08" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech" />
   <meta property="og:description" content="Learn Terraform and Infrastructure as Code concepts. Provision AWS resources, manage state, use modules, and understand how DevOps teams manage cloud infrastructure through code." />
   <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-7.html" />
   <meta property="og:image" content="https://srjahir.in/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 7 — Terraform & Infrastructure as Code | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-08", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-7.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-7.html"}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
@@ -37,13 +44,31 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
+    
+<div class="series-nav">
+  <a href="devops-roadmap-part-6.html">← Part 6</a>
+  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 7 of 12</strong>
+  <a href="devops-roadmap-part-8.html">Part 8 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a>
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>DevOps Roadmap — Part 7: Terraform &amp; Infrastructure as Code</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 08, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/devops-part-7-terminal.svg" alt="Monitoring & Alerting" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Monitoring & Alerting</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="devops-roadmap-part-6.html">← Part 6</a>
+  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 7 of 12</strong>
+  <a href="devops-roadmap-part-8.html">Part 8 →</a>
+</div>
 <p>Before Infrastructure as Code, setting up a server meant logging into a web console, clicking through menus, filling forms, and hoping you remembered every step when you need to replicate it. One engineer could set up a dev environment completely differently from production. Changes were undocumented. Rollbacks were manual and scary. Infrastructure as Code (IaC) changed all of this. Terraform is the tool that made IaC accessible to everyone.</p>
 
 <h4>What is Infrastructure as Code?</h4>
@@ -161,7 +186,6 @@ environment   = "production"</code></pre>
 }</code></pre>
 
 <p>In Part 8, we will cover Ansible — configuration management and server automation, the tool DevOps teams use to keep server configurations consistent and apply changes across fleets of servers.</p>
-</section>
 <h4>Terraform State Management</h4>
 <p>Terraform maintains a state file that maps your configuration to real infrastructure resources. This state file is critical — losing it means Terraform loses track of what it created. For team use, store state remotely in an S3 bucket (AWS), GCS bucket (GCP), or Terraform Cloud, never in local files or version control. Remote state also enables state locking — preventing two team members from running <code>terraform apply</code> simultaneously and creating conflicts. Use workspaces or separate state files for different environments (dev, staging, production) to isolate changes and reduce the blast radius of mistakes.</p>
 <div class="code-title">Remote State Configuration</div>
@@ -185,8 +209,10 @@ environment   = "production"</code></pre>
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
+</section>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
 </body>

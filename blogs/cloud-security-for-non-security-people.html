@@ -2,14 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#ffffff" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cloud Security for Non-Security People — SRJahir Tech</title>
 
   <meta name="description" content="A simple explanation of cloud security basics for people without a security background." />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
 
   <link rel="canonical" href="https://srjahir.in/blogs/cloud-security-for-non-security-people.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cloud Security for Non-Security People" />
+  <meta property="og:description" content="A simple explanation of cloud security basics for people without a security background." />
+  <meta property="og:url" content="https://srjahir.in/blogs/cloud-security-for-non-security-people.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cloud Security for Non-Security People" />
+  <meta name="twitter:description" content="A simple explanation of cloud security basics for people without a security background." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <meta property="article:published_time" content="2025-10-08" />
+  <meta property="article:author" content="Suraj Ahir" />
   <link rel="icon" href="../logo.png" />
   <link rel="stylesheet" href="../assets/css/style.css" />
 
@@ -27,6 +45,11 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Security for Non-Security People", "description": "A simple explanation of cloud security basics for people without a security background.", "url": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html", "datePublished": "2025-10-08", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html"}}
+  </script>
 </head>
 
 <body>
@@ -42,6 +65,16 @@
 
 <section class="content-block blog-article">
 <h3>Cloud Security for Non-Security People</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 08, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<div class="author-note">
+<strong>From the author:</strong> Security used to intimidate me. It took working on real cloud projects to realise that most security fundamentals are actually straightforward once you understand the reasoning behind them.
+</div>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/cloud-security-layers.svg" alt="Cloud Security Layers" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Cloud Security Layers</figcaption>
+</figure>
 <p>Security in the cloud is not just a job for the security team. Every developer who deploys code, every engineer who configures infrastructure, every analyst who accesses data — all of them make security decisions every day, often without realizing it. Understanding the basics of cloud security is no longer optional for anyone working in technology.</p>
 <p>This article is written for the developer who thinks security is someone else's job, the student learning cloud who skips the IAM section, and the professional who is not sure what least privilege actually means in practice. By the end, you will have a solid mental model of how cloud security works and what you personally need to pay attention to.</p>
 <h4>Why Cloud Security Is Different</h4>
@@ -63,8 +96,6 @@
 <p>S3 bucket misconfigurations have caused some of the largest data breaches in recent years. Never make a bucket public unless you have a specific reason like hosting a public static website. Enable S3 Block Public Access at the account level as a safeguard. Hardcoded credentials in code are another major vulnerability — never put API keys, passwords, or other credentials directly in your application code. Use environment variables, cloud-native secrets management, or IAM roles that grant permissions without needing explicit credentials at all.</p>
 <p>Unused resources are a security risk. Old servers, forgotten databases, unused IAM users, deprecated API keys — these are all potential attack surfaces. Conduct regular audits of your cloud environment and remove anything that is not actively needed. Security is not a one-time task. It is a habit of thinking — asking who can access this and what is the minimum access needed every time you configure a new resource. Develop that habit and you will naturally build more secure systems.</p>
 <a href="../blog.html" class="btn">← Back to Blog</a>
-</section>
-
 <div class="blog-disclaimer">
   <p>
     <strong>Disclaimer:</strong><br>
@@ -73,9 +104,11 @@
     Always follow official provider documentation.
   </p>
 </div>
+</section>
 
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
 </footer>
 </body>
 </html>

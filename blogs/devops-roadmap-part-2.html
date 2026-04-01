@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech</title>
   <meta name="description" content="Learn essential Linux skills for DevOps — file navigation, permissions, process management, systemd services, and shell scripting basics." />
   <meta name="keywords" content="Linux DevOps, Linux for engineers, Linux commands DevOps, systemd services Linux" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-2.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-2.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-10-19" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:title" content="DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech" /><meta property="og:description" content="Learn essential Linux skills for DevOps — file navigation, permissions, process management, systemd services, and shell scripting basics." />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DevOps Roadmap Part 2 — Linux for DevOps" />
+  <meta name="twitter:description" content="Learn essential Linux skills for DevOps — file navigation, permissions, process management, systemd services, and shell scripting basics." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 2 — Linux for DevOps | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-10-19", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-2.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-2.html"}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
@@ -29,12 +46,30 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../index.html">Home</a>
+<div class="series-nav">
+  <a href="devops-roadmap-part-1.html">← Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 2 of 12</strong>
+  <a href="devops-roadmap-part-3.html">Part 3 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>DevOps Roadmap — Part 2: Linux for DevOps</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 19, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/devops-part-2-terminal.svg" alt="Git Fundamentals" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Git Fundamentals</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="devops-roadmap-part-1.html">← Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 2 of 12</strong>
+  <a href="devops-roadmap-part-3.html">Part 3 →</a>
+</div>
 <p>Every DevOps engineer lives in Linux. Your CI/CD servers run Linux. Your Docker containers run Linux. Your Kubernetes nodes run Linux. Your cloud VMs run Linux. There is no DevOps without Linux. This part focuses specifically on Linux skills that matter most in a DevOps context — not general Linux, but the parts you will use every single day on the job.</p>
 <h4>SSH — The DevOps Lifeline</h4>
 <p>SSH (Secure Shell) is how you connect to and manage remote servers. This is one of the most used tools in DevOps:</p>
@@ -125,7 +160,6 @@ journalctl --since "1 hour ago"  # Recent logs
 tail -f /var/log/nginx/access.log  # Follow nginx access log
 grep "500" /var/log/nginx/error.log | tail -20</code></pre>
 <p>In Part 3, we will deep dive into Git — the version control system that is the foundation of every CI/CD pipeline.</p>
-</section>
 <h4>Essential Linux Skills for DevOps Work</h4>
 <p>Beyond basic navigation, DevOps engineers rely on specific Linux skills daily. Process management — knowing how to find resource-hungry processes with <code>top</code> and <code>ps aux</code>, kill stuck processes, and understand system load — is fundamental for production troubleshooting. Systemd service management — starting, stopping, enabling, and checking the status of services with <code>systemctl</code> — is how applications are managed on modern Linux systems. Log inspection with <code>journalctl</code> for systemd-managed services and direct log file reading with <code>tail -f</code> and <code>grep</code> are the first tools used in incident response. Network diagnostics with <code>ss</code>, <code>curl</code>, <code>ping</code>, and <code>dig</code> are used to diagnose connectivity issues between services.</p>
 <h4>Shell Scripting for Automation</h4>
@@ -141,5 +175,7 @@ grep "500" /var/log/nginx/error.log | tail -20</code></pre>
 <p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
 
 <div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
-<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</section>
+
+<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
 </body></html>

@@ -2,13 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#ffffff" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cloud Cost Mistakes Beginners Make — SRJahir Tech</title>
 
   <meta name="description" content="Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud." />
-  <meta name="author" content="SRJahir Tech" />
+  <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cloud Cost Mistakes Beginners Make" />
+  <meta property="og:description" content="Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud." />
+  <meta property="og:url" content="https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cloud Cost Mistakes Beginners Make" />
+  <meta name="twitter:description" content="Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <meta property="article:published_time" content="2025-08-05" />
+  <meta property="article:author" content="Suraj Ahir" />
 
   <link rel="icon" href="../logo.png" />
   <link rel="stylesheet" href="../assets/css/style.css" />
@@ -27,6 +45,11 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Cost Mistakes Beginners Make", "description": "Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud.", "url": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html", "datePublished": "2025-08-05", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html"}}
+  </script>
 </head>
 
 <body>
@@ -42,6 +65,16 @@
 
 <section class="content-block blog-article">
 <h3>Cloud Cost Mistakes Beginners Make</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> August 05, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<div class="author-note">
+<strong>From the author:</strong> I made most of these mistakes myself when I started with AWS. Learning cloud cost management the hard way is painful, so I want to help others avoid the same traps I fell into.
+</div>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/cloud-cost-terminal.svg" alt="AWS Cost Alert — Common Mistakes" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS Cost Alert — Common Mistakes</figcaption>
+</figure>
 <p>One of the most shocking experiences for beginners working with cloud platforms is opening their billing dashboard and finding unexpected charges. What started as a learning project on the free tier suddenly results in a surprise bill. In more extreme cases — usually involving accidental exposure of credentials or forgetting running instances — the bills can be thousands of dollars. These experiences are common and preventable.</p>
 <h4>Mistake 1: Leaving Resources Running</h4>
 <p>The most common and costly mistake is simple: you spin up resources to experiment with something, forget about them, and they keep running. Unlike a computer you own that has already been paid for, cloud resources charge you continuously while they exist. An EC2 instance left running for a week can easily cost Rs 500-2000 depending on the instance type. A GPU instance left running for even a few hours can be very expensive. A NAT Gateway that you forgot about charges both hourly and per gigabyte of data transferred.</p>
@@ -57,10 +90,13 @@
 <h4>Mistake 6: Not Monitoring Costs in Real Time</h4>
 <p>Cloud bills are generated after the fact — you use resources, then you get billed. Without real-time monitoring, you can accumulate significant charges before you even notice. Every cloud account should have billing alerts configured from day one. Set a low threshold that will alert you before costs get serious. AWS Budgets, GCP Billing Budgets and Alerts, and Azure Cost Management all provide this functionality. Also review your detailed billing regularly. Many people look only at the total bill and do not dig into what actually generated those charges. The fundamental principle of cloud cost management is: treat cloud resources like water from a tap, not water from a bottle you already bought. You pay for what flows. Every resource you do not need should be turned off. Every resource you do need should be right-sized for actual usage.</p>
 <a href="../blog.html" class="btn">← Back to Blog</a>
-</section>
-
 <h4>Building Cloud Intuition Over Time</h4>
 <p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+
+
+<div class="key-takeaway">
+<strong>Key Takeaway:</strong> The most common cloud cost mistake is leaving resources running after testing. Always set billing alerts and review your usage regularly.
+</div>
 
 <div class="blog-disclaimer">
   <p>
@@ -71,9 +107,11 @@
     Always verify details from official documentation.
   </p>
 </div>
+</section>
 
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
 </footer>
 </body>
 </html>

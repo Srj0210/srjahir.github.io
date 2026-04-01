@@ -10,6 +10,12 @@
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-05" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech" />
   <meta property="og:description" content="Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker." />
@@ -17,7 +23,7 @@
   <meta property="og:image" content="https://srjahir.in/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"},"description":"Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker."}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker.", "datePublished": "2025-11-05", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-2.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-2.html"}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -40,13 +46,31 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
     <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
+    
+<div class="series-nav">
+  <a href="docker-tutorial-part-1.html">← Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 2 of 12</strong>
+  <a href="docker-tutorial-part-3.html">Part 3 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a>
     <a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>Docker Full Tutorial — Part 2: Installation &amp; First Containers</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 05, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/docker-part-2-terminal.svg" alt="Docker — Docker Images" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Docker Images</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="docker-tutorial-part-1.html">← Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 2 of 12</strong>
+  <a href="docker-tutorial-part-3.html">Part 3 →</a>
+</div>
 <p>In Part 1 we understood why Docker exists and what problem it solves. Now we get hands-on. We will install Docker, understand its architecture, and run our first real containers. By the end of this part, you will have a working Docker setup and understand what actually happens when you type <code>docker run</code>.</p>
 
 <h4>Installing Docker on Ubuntu/Debian</h4>
@@ -174,12 +198,13 @@ docker image prune
 docker system prune</code></pre>
 
 <p>In Part 3, we will learn to write our own Dockerfile and build custom images — this is where Docker becomes truly powerful for real projects.</p>
-</section>
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
 </div>
+</section>
+
 <footer>
-  <p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p>
+  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
 </footer>
 </body>

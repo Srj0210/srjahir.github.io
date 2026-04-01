@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech</title>
   <meta name="description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
   <meta name="keywords" content="Linux grep sed awk find, Linux text processing, Linux search files, Linux command line tools" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-4.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-4.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-27" />
+  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:title" content="Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech" /><meta property="og:description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech"}}</script>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find" />
+  <meta name="twitter:description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-27", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-4.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-4.html"}
+  </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
@@ -29,12 +46,30 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../index.html">Home</a>
+<div class="series-nav">
+  <a href="linux-tutorial-part-3.html">← Part 3</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 4 of 12</strong>
+  <a href="linux-tutorial-part-5.html">Part 5 →</a>
+</div>
+<a href="../blog.html">Blog</a>
     <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
 <section class="content-block">
 <h3>Linux Tutorial — Part 4: Text Processing Tools</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 27, 2025 <span class="meta-dot"></span> 6 min read</p>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/linux-part-4-terminal.svg" alt="Linux — Text Processing" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Text Processing</figcaption>
+</figure>
+
+<div class="series-nav">
+  <a href="linux-tutorial-part-3.html">← Part 3</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 4 of 12</strong>
+  <a href="linux-tutorial-part-5.html">Part 5 →</a>
+</div>
 <p>Linux systems generate enormous amounts of text data — logs, configuration files, code, data exports. The ability to search, filter, transform, and extract information from text files using command-line tools is a superpower. These tools are used daily by system administrators, DevOps engineers, and developers.</p>
 <h4>grep — Search for Patterns</h4>
 <p>grep searches files for lines matching a pattern:</p>
@@ -125,10 +160,11 @@ awk '{printf "Name: %-20s Score: %d
 <h4>Practice Exercise</h4>
 <p>Download a sample log file or generate one using: <code>for i in {1..100}; do echo "$(date) INFO Process $((RANDOM % 10)) completed task $i"; done > sample.log</code>. Then use grep, cut, awk, and sort in combination to: extract all unique process numbers, count how many times each process number appears, and display the results sorted by frequency. This exercise builds practical text processing skill in a realistic scenario.</p>
 
-</section>
 <h4>Linux in Your Daily Engineering Practice</h4>
 <p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
 
 <div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
-<footer><p>© 2025 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+</section>
+
+<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
 </body></html>
