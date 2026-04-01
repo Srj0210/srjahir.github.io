@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>5 Python Projects That Boost Your DevOps Career — SRJahir Tech</title>
+  <meta name="description" content="Build these 5 practical Python projects to strengthen your DevOps skills. From server health monitors to deployment automators, each project teaches real engineering." />
+  <meta name="keywords" content="Python DevOps projects, Python automation, DevOps career, Python scripts, infrastructure automation" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/python-projects-devops-career.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="5 Python Projects That Boost Your DevOps Career" />
+  <meta property="og:description" content="Build these 5 practical Python projects to strengthen your DevOps skills. From server health monitors to deployment automators, each project teaches real engineering." />
+  <meta property="og:url" content="https://srjahir.in/blogs/python-projects-devops-career.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-03-28" />
+  <meta property="article:author" content="Suraj Ahir" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="5 Python Projects That Boost Your DevOps Career" />
+  <meta name="twitter:description" content="Build these 5 practical Python projects to strengthen your DevOps skills. From server health monitors to deployment automators, each project teaches real engineering." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "5 Python Projects That Boost Your DevOps Career", "description": "Build these 5 practical Python projects to strengthen your DevOps skills. From server health monitors to deployment automators, each project teaches real engineering.", "url": "https://srjahir.in/blogs/python-projects-devops-career.html", "datePublished": "2026-03-28", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-projects-devops-career.html"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+</head>
+<body>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block blog-article">
+<h3>5 Python Projects That Boost Your DevOps Career</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 28, 2026 <span class="meta-dot"></span> 8 min read</p>
+
+<div class="author-note">
+<strong>From the author:</strong> I have built variations of every project on this list during my own work with cloud infrastructure. These are not theoretical exercises — they are the kind of tools that real DevOps teams use daily. Building them taught me more about infrastructure than any certification course.
+</div>
+
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/python-devops-projects.svg" alt="5 Python Projects for DevOps Engineers" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">5 Python Projects for DevOps Engineers</figcaption>
+</figure>
+
+<p>If you are learning DevOps and wondering how Python fits in, here is the honest answer: Python is the glue that holds modern infrastructure together. It is not about building web apps or doing data science — in DevOps, Python is how you automate the tedious work, monitor systems, deploy code, and make infrastructure behave the way you want it to.</p>
+
+<p>But reading about Python is not the same as using Python. You need to build real things. Here are five projects that will genuinely improve your DevOps skills and give you something concrete to show on your resume and GitHub profile.</p>
+
+<h4>Project 1: Server Health Monitor</h4>
+
+<p>This is the first project every DevOps engineer should build. The idea is simple: write a Python script that checks the health of one or more servers and alerts you when something is wrong. Start with the basics — check CPU usage, memory consumption, disk space, and whether specific services are running. Use the <code>psutil</code> library for local system metrics and <code>paramiko</code> for checking remote servers over SSH.</p>
+
+<div class="code-title">server_health.py</div>
+<pre><code class="language-python">import psutil
+import smtplib
+from datetime import datetime
+
+def check_health():
+    cpu = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage('/').percent
+
+    alerts = []
+    if cpu > 80:
+        alerts.append("CPU usage critical: " + str(cpu) + "%")
+    if memory > 85:
+        alerts.append("Memory usage high: " + str(memory) + "%")
+    if disk > 90:
+        alerts.append("Disk space low: " + str(disk) + "% used")
+
+    return alerts
+
+if __name__ == "__main__":
+    issues = check_health()
+    for issue in issues:
+        print("[ALERT]", issue)</code></pre>
+
+<p><strong>What this teaches you:</strong> System monitoring fundamentals, working with system APIs, alerting patterns, and the basics of observability. Every monitoring tool — Prometheus, Datadog, Nagios — works on the same principles you will learn here.</p>
+
+<p><strong>Take it further:</strong> Add a simple Flask dashboard that shows system health in real time. Store historical data in SQLite. Set it up as a cron job that runs every 5 minutes.</p>
+
+<h4>Project 2: Automated Deployment Script</h4>
+
+<p>Deployment is one of the core responsibilities of DevOps. Build a script that takes your application code, runs tests, builds it, and deploys it to a server. This is essentially a simplified CI/CD pipeline in pure Python.</p>
+
+<div class="code-title">deploy.py</div>
+<pre><code class="language-python">import subprocess
+import sys
+from datetime import datetime
+
+def run(cmd, description):
+    print("[DEPLOY]", description, "...")
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("[FAILED]", description)
+        print(result.stderr)
+        sys.exit(1)
+    print("[OK]", description)
+
+def deploy():
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run("git pull origin main", "Pulling latest code")
+    run("pip install -r requirements.txt", "Installing dependencies")
+    run("python -m pytest tests/ -v", "Running tests")
+    run("cp -r /var/www/app /var/www/backup_" + ts, "Creating backup")
+    run("sudo systemctl restart myapp", "Restarting application")
+    print("\n[SUCCESS] Deployed at", ts)
+
+if __name__ == "__main__":
+    deploy()</code></pre>
+
+<p><strong>What this teaches you:</strong> The deployment pipeline pattern — pull, test, build, backup, deploy. You will understand exactly what Jenkins, GitHub Actions, and GitLab CI do under the hood.</p>
+
+<h4>Project 3: AWS Resource Manager</h4>
+
+<p>Cloud infrastructure management is a daily DevOps task. Build a Python tool using <code>boto3</code> that lists, creates, and manages cloud resources. Start simple — list all EC2 instances and their states.</p>
+
+<div class="code-title">aws_manager.py</div>
+<pre><code class="language-python">import boto3
+from tabulate import tabulate
+
+def list_instances():
+    ec2 = boto3.client('ec2')
+    response = ec2.describe_instances()
+
+    instances = []
+    for reservation in response['Reservations']:
+        for inst in reservation['Instances']:
+            name = "unnamed"
+            for tag in inst.get('Tags', []):
+                if tag['Key'] == 'Name':
+                    name = tag['Value']
+            instances.append({
+                'Name': name,
+                'ID': inst['InstanceId'],
+                'State': inst['State']['Name'],
+                'Type': inst['InstanceType'],
+                'IP': inst.get('PublicIpAddress', 'N/A')
+            })
+
+    print(tabulate(instances, headers="keys", tablefmt="grid"))
+
+if __name__ == "__main__":
+    list_instances()</code></pre>
+
+<p><strong>What this teaches you:</strong> Working with cloud provider APIs, understanding resource management, cost optimization. This is exactly how Terraform and Pulumi interact with cloud providers.</p>
+
+<h4>Project 4: Log Analyzer</h4>
+
+<p>Every production system generates logs. Build a tool that reads log files, extracts patterns, and generates useful summaries. This is the skill you need at 2 AM when production is down and you are scanning through thousands of log lines.</p>
+
+<div class="code-title">log_analyzer.py</div>
+<pre><code class="language-python">import re
+from collections import Counter
+
+def analyze_logs(filepath):
+    status_codes = Counter()
+    ips = Counter()
+    errors = []
+
+    with open(filepath) as f:
+        for line in f:
+            status_match = re.search(r'" (\d{3}) ', line)
+            if status_match:
+                code = status_match.group(1)
+                status_codes[code] += 1
+                if code.startswith('5'):
+                    errors.append(line.strip())
+
+            ip_match = re.search(r'^(\d+\.\d+\.\d+\.\d+)', line)
+            if ip_match:
+                ips[ip_match.group(1)] += 1
+
+    print("=== Status Codes ===")
+    for code, count in status_codes.most_common():
+        print("  " + code + ": " + str(count))
+
+    print("\n=== Top 5 IPs ===")
+    for ip, count in ips.most_common(5):
+        print("  " + ip + ": " + str(count) + " requests")
+
+if __name__ == "__main__":
+    analyze_logs("/var/log/nginx/access.log")</code></pre>
+
+<p><strong>What this teaches you:</strong> Regular expressions, file processing, data aggregation, pattern recognition in system behavior.</p>
+
+<h4>Project 5: Infrastructure Drift Detector</h4>
+
+<p>This is the most advanced project on the list. Infrastructure drift happens when the actual state of your cloud resources does not match what your Terraform code says. Build a tool that detects this by comparing expected configuration against actual cloud state using the AWS API.</p>
+
+<p><strong>What this teaches you:</strong> Infrastructure as Code principles, state management, configuration comparison. This is the exact problem that <code>terraform plan</code> solves — you are building a simplified version of the same concept.</p>
+
+<h4>How to Present These Projects</h4>
+
+<p>Building the projects is only half the value. Create a GitHub repository for each with a clean README that explains what it does, how to use it, and what you learned building it. When you mention these in interviews, talk about the real problems they solve. Do not say "I built a Python script." Say "I built an automated deployment pipeline that reduced deployment time from 15 minutes of manual work to a single command."</p>
+
+<div class="key-takeaway">
+<strong>Key Takeaway:</strong> The best way to learn DevOps Python is to build tools that solve real infrastructure problems. Each project here teaches a core DevOps concept — monitoring, deployment, cloud management, log analysis, and infrastructure compliance.
+</div>
+
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+</div>
+</section>
+<footer>
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
+</footer>
+</body>
+</html>

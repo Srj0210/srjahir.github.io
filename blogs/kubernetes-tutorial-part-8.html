@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS | SRJahir Tech</title>
+  <meta name="description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
+  <meta name="keywords" content="Kubernetes Ingress, nginx ingress controller, TLS, cert-manager, HTTPS" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-8.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS" />
+  <meta property="og:description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
+  <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-8.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-03-29" />
+  <meta property="article:author" content="Suraj Ahir" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS" />
+  <meta name="twitter:description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 8 \u2014 Ingress Controllers and HTTPS", "description": "Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-8.html", "datePublished": "2026-03-29", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-8.html"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+</head>
+<body>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block blog-article">
+<h3>Kubernetes Tutorial — Part 8: Ingress Controllers and HTTPS</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 29, 2026 <span class="meta-dot"></span> 8 min read</p>
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-7.html">&larr; Part 7</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 8 of 12</strong>
+  <a href="kubernetes-tutorial-part-9.html">Part 9 &rarr;</a>
+</div>
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/k8s-part-8-terminal.svg" alt="Kubernetes - Ingress Controllers and HTTPS" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Ingress Controllers and HTTPS</figcaption>
+</figure>
+<p>Services expose your application, but Ingress lets you route traffic based on hostnames and paths — <code>api.example.com</code> goes to the API, <code>app.example.com</code> goes to the frontend.</p>
+
+<div class="code-title">Install nginx-ingress</div>
+<pre><code class="language-bash">helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install nginx-ingress ingress-nginx/ingress-nginx</code></pre>
+
+<div class="code-title">ingress.yaml</div>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - app.example.com
+    secretName: app-tls
+  rules:
+  - host: app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80</code></pre>
+
+<p>With cert-manager, Kubernetes automatically provisions and renews TLS certificates. In Part 9, we add health checks to make applications genuinely self-healing.</p>
+
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-7.html">&larr; Part 7</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 8 of 12</strong>
+  <a href="kubernetes-tutorial-part-9.html">Part 9 &rarr;</a>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+</div>
+</section>
+<footer>
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
+</footer>
+</body>
+</html>

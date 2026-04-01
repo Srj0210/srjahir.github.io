@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kubernetes Tutorial Part 1 — What Is Kubernetes and Why It Exists | SRJahir Tech</title>
+  <meta name="description" content="Understand what Kubernetes is, why it was created, how it solves real infrastructure problems, and why every DevOps engineer needs to learn it." />
+  <meta name="keywords" content="Kubernetes tutorial, what is Kubernetes, K8s beginners, container orchestration" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-1.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Tutorial Part 1 — What Is Kubernetes and Why It Exists" />
+  <meta property="og:description" content="Understand what Kubernetes is, why it was created, how it solves real infrastructure problems, and why every DevOps engineer needs to learn it." />
+  <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-1.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-03-01" />
+  <meta property="article:author" content="Suraj Ahir" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Tutorial Part 1 — What Is Kubernetes and Why It Exists" />
+  <meta name="twitter:description" content="Understand what Kubernetes is, why it was created, how it solves real infrastructure problems, and why every DevOps engineer needs to learn it." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 1 \u2014 What Is Kubernetes and Why It Exists", "description": "Understand what Kubernetes is, why it was created, how it solves real infrastructure problems, and why every DevOps engineer needs to learn it.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-1.html", "datePublished": "2026-03-01", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-1.html"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+</head>
+<body>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block blog-article">
+<h3>Kubernetes Tutorial — Part 1: What Is Kubernetes and Why It Exists</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 01, 2026 <span class="meta-dot"></span> 7 min read</p>
+<div class="series-nav">
+  <span></span>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 1 of 12</strong>
+  <a href="kubernetes-tutorial-part-2.html">Part 2 &rarr;</a>
+</div>
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/k8s-part-1-terminal.svg" alt="Kubernetes - What Is Kubernetes and Why It Exists" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - What Is Kubernetes and Why It Exists</figcaption>
+</figure>
+<p>Kubernetes is one of those technologies that sounds intimidating until you actually understand what problem it solves. And the problem is surprisingly simple: when you have more than a few containers running in production, managing them by hand becomes impossible. You need something that handles scheduling, scaling, networking, and recovery automatically. That something is Kubernetes.</p>
+
+<p>I remember the first time I tried to manage a multi-container application manually. I had a web server, a database, a cache, and a background worker — all running in Docker containers. It worked fine on my laptop. But deploying it to production meant I had to figure out which containers go on which servers, how they talk to each other, what happens when one crashes, and how to update without downtime. That is when Kubernetes started making sense to me.</p>
+
+<h4>The Problem Before Kubernetes</h4>
+
+<p>Before container orchestration, deploying applications at scale was painful. If you had ten servers running your application and one went down, someone had to notice, log in, and fix it manually. If traffic spiked, someone had to manually spin up more instances. Companies built custom scripts and internal tools to handle all of this, but every team was solving the same problem differently.</p>
+
+<p>Docker made packaging applications consistent, but it did not solve the orchestration problem. Running <code>docker run</code> on one server is easy. Running and coordinating hundreds of containers across dozens of servers is a completely different challenge.</p>
+
+<h4>What Kubernetes Actually Does</h4>
+
+<p>Kubernetes is a container orchestration platform. In practical terms, it decides which server should run each container based on available resources. It automatically restarts containers that crash. It scales your application up or down based on demand. It manages networking so containers can find and talk to each other. It handles rolling updates so you can deploy new versions without downtime. And it stores configuration and secrets securely.</p>
+
+<p>You describe what you want — three copies of my web server, connected to one database, with this much CPU and memory — and Kubernetes figures out how to make it happen. If something breaks, Kubernetes automatically fixes it to match what you described. This declarative approach is what makes Kubernetes powerful.</p>
+
+<h4>Key Concepts</h4>
+
+<p>A <strong>cluster</strong> is a set of machines that Kubernetes manages. A <strong>pod</strong> is the smallest unit — one or more containers that run together. A <strong>deployment</strong> tells Kubernetes how many copies of a pod to run. A <strong>service</strong> provides a stable network address for a set of pods. And <strong>kubectl</strong> is the command-line tool you use to interact with Kubernetes.</p>
+
+<p>Do not try to memorize all of this right now. These concepts will become concrete as we work through the series. In Part 2, we will set up a local Kubernetes environment and deploy your first application.</p>
+
+<div class="series-nav">
+  <span></span>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 1 of 12</strong>
+  <a href="kubernetes-tutorial-part-2.html">Part 2 &rarr;</a>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+</div>
+</section>
+<footer>
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
+</footer>
+</body>
+</html>

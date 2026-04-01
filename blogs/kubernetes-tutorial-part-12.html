@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together | SRJahir Tech</title>
+  <meta name="description" content="Deploy a complete multi-service application with all production best practices." />
+  <meta name="keywords" content="Kubernetes production, K8s best practices, complete deployment, DevOps K8s" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-12.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together" />
+  <meta property="og:description" content="Deploy a complete multi-service application with all production best practices." />
+  <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-12.html" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-04-14" />
+  <meta property="article:author" content="Suraj Ahir" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together" />
+  <meta name="twitter:description" content="Deploy a complete multi-service application with all production best practices." />
+  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 12 \u2014 Production Deployment \u2014 Putting It All Together", "description": "Deploy a complete multi-service application with all production best practices.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-12.html", "datePublished": "2026-04-14", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-12.html"}}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+</head>
+<body>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block blog-article">
+<h3>Kubernetes Tutorial — Part 12: Production Deployment — Putting It All Together</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 14, 2026 <span class="meta-dot"></span> 9 min read</p>
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-11.html">&larr; Part 11</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 12 of 12</strong>
+  <span></span>
+</div>
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/k8s-part-12-terminal.svg" alt="Kubernetes - Production Deployment — Putting It All Together" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Production Deployment — Putting It All Together</figcaption>
+</figure>
+<p>This final part brings everything together. We deploy a complete multi-service application using every concept from the series.</p>
+
+<div class="code-title">Deploy Production Stack</div>
+<pre><code class="language-bash">kubectl create namespace production
+kubectl create namespace monitoring
+
+helm install postgres bitnami/postgresql -n production
+helm install redis bitnami/redis -n production
+kubectl apply -f k8s/production/ -n production
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
+kubectl apply -f k8s/ingress.yaml</code></pre>
+
+<h4>Production Checklist</h4>
+
+<p>Before going live, verify: all pods passing health checks, resource limits set on every container, secrets not hardcoded, persistent storage provisioned, monitoring dashboards working, alerting rules configured, TLS certificates valid, namespaces separating environments, resource quotas preventing runaway consumption.</p>
+
+<h4>What Comes Next</h4>
+
+<p>After mastering these fundamentals, explore GitOps with ArgoCD, service meshes with Istio, custom operators, and multi-cluster management. The key to getting good at Kubernetes is using it for real work — deploy your own projects, break things, and fix them. That debugging experience is irreplaceable.</p>
+
+<div class="key-takeaway">
+<strong>Key Takeaway:</strong> Kubernetes is an entire platform for running applications reliably at scale. This 12-part series covered everything from your first pod to production deployment. The next step is building and deploying your own applications.
+</div>
+
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-11.html">&larr; Part 11</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 12 of 12</strong>
+  <span></span>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+</div>
+</section>
+<footer>
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
+</footer>
+</body>
+</html>
