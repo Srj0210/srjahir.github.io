@@ -9,17 +9,17 @@
   <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
   <circle cx="38" cy="16" r="6" fill="#febc2e"/>
   <circle cx="58" cy="16" r="6" fill="#28c840"/>
-  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Monitoring & Alerting</text>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Monitoring &amp; Alerting</text>
   <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
-    <text x="20" y="55" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Prometheus Query: rate(http_requests_total[5m])</text>
-    <text x="20" y="77" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
-    <text x="20" y="99" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  web-01:  245 req/s  ✓</text>
-    <text x="20" y="121" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  web-02:  238 req/s  ✓</text>
-    <text x="20" y="143" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  api-01:   89 req/s  ✓</text>
-    <text x="20" y="165" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
-    <text x="20" y="187" fill="#ff5f57" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Alert: HighErrorRate</text>
-    <text x="20" y="209" fill="#febc2e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  Severity: warning</text>
-    <text x="20" y="231" fill="#ff5f57" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  Current: 5.2% (threshold: 5%)</text>
-    <text x="20" y="253" fill="#febc2e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  Duration: 3m</text>
-    <text x="20" y="275" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">  Action: Check /var/log/app/error.log</text>
+    <text x="20" y="55" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Prometheus Query: rate(http_requests_total[5m])</text>
+    <text x="20" y="77" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="99" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  web-01:  245 req/s  ✓</text>
+    <text x="20" y="121" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  web-02:  238 req/s  ✓</text>
+    <text x="20" y="143" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  api-01:   89 req/s  ✓</text>
+    <text x="20" y="165" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="187" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Alert: HighErrorRate</text>
+    <text x="20" y="209" fill="#febc2e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Severity: warning</text>
+    <text x="20" y="231" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Current: 5.2% (threshold: 5%)</text>
+    <text x="20" y="253" fill="#febc2e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Duration: 3m</text>
+    <text x="20" y="275" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Action: Check /var/log/app/error.log</text>
 </svg>

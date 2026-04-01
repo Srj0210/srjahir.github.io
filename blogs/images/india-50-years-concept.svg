@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380">
   <rect width="680" height="380" rx="12" fill="#f8f8fa"/>
-  <text x="340" y="35" fill="#1d1d1f" font-family="sans-serif" font-size="18" font-weight="600" text-anchor="middle">India's Growth Drivers</text>
+  <text x="340" y="35" fill="#1d1d1f" font-family="sans-serif" font-size="18" font-weight="600" text-anchor="middle">India&apos;s Growth Drivers</text>
   <circle cx="340" cy="200" r="52" fill="#e63946" opacity="0.1"/>
   <circle cx="340" cy="200" r="52" fill="none" stroke="#e63946" stroke-width="2"/>
   <text x="340" y="205" fill="#e63946" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">India 2075</text>

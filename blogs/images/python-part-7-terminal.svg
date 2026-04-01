@@ -11,13 +11,13 @@
   <circle cx="58" cy="16" r="6" fill="#28c840"/>
   <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Python — Python Error Handling</text>
   <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
-    <text x="20" y="55" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">&gt;&gt;&gt; try:</text>
-    <text x="20" y="77" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">...     result = 10 / 0</text>
-    <text x="20" y="99" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">... except ZeroDivisionError as e:</text>
-    <text x="20" y="121" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">...     print(f'Error: {e}')</text>
-    <text x="20" y="143" fill="#ff5f57" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Error: division by zero</text>
-    <text x="20" y="165" fill="#fff" font-family="'SF Mono', 'Fira Code', monospace" font-size="13"></text>
-    <text x="20" y="187" fill="#86868b" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">&gt;&gt;&gt; # Program continues running</text>
-    <text x="20" y="209" fill="#f7df1e" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">&gt;&gt;&gt; print('Still alive!')</text>
-    <text x="20" y="231" fill="#28c840" font-family="'SF Mono', 'Fira Code', monospace" font-size="13">Still alive!</text>
+    <text x="20" y="55" fill="#f7df1e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">&gt;&gt;&gt; try:</text>
+    <text x="20" y="77" fill="#f7df1e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">...     result = 10 / 0</text>
+    <text x="20" y="99" fill="#f7df1e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">... except ZeroDivisionError as e:</text>
+    <text x="20" y="121" fill="#f7df1e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">...     print(f&apos;Error: {e}&apos;)</text>
+    <text x="20" y="143" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Error: division by zero</text>
+    <text x="20" y="165" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="187" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">&gt;&gt;&gt; # Program continues running</text>
+    <text x="20" y="209" fill="#f7df1e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">&gt;&gt;&gt; print(&apos;Still alive!&apos;)</text>
+    <text x="20" y="231" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Still alive!</text>
 </svg>
