@@ -1,207 +1,204 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 5 — Loops (for & while) | SRJahir Tech</title>
-  <meta name="description" content="Learn Python loops — for loop, while loop, break, continue, and range(). Understand how to repeat actions and process collections of data." />
-  <meta name="keywords" content="Python for loop, Python while loop, Python loops tutorial, Python break continue, Python range" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-5.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-17" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 5 — Loops (for & while) | SRJahir Tech" />
-  <meta property="og:description" content="Learn Python loops — for loop, while loop, break, continue, and range(). Understand how to repeat actions and process collections of data." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-5.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 5 — Loops (for & while) | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Python loops — for loop, while loop, break, continue, and range(). Understand how to repeat actions and process collections of data.", "datePublished": "2025-12-17", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-5.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-5.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 5 - Loops: for, while, range, enumerate | SRJahir Tech</title>
+<meta name="description" content="Master Python for and while loops. Learn range(), enumerate(), zip(), break, continue, list comprehensions, and efficient iteration patterns."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-5.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 5 - Loops: for, while, range, enumerate"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-5.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-5-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-17"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 5 - Loops: for, while, range, enumerate","url":"https://srjahir.in/blogs/python-tutorial-part-5.html","datePublished":"2025-12-17","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="python-tutorial-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 5 of 12</strong>
-  <a href="python-tutorial-part-6.html">Part 6 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<section class="content-block">
-
-<h3>Python Full Tutorial — Part 5: Loops</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 17, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-5-terminal.svg" alt="Python — Python Data Structures" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Data Structures</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="python-tutorial-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 5 of 12</strong>
-  <a href="python-tutorial-part-6.html">Part 6 →</a>
-</div>
-<p>Real programs deal with repetition. Process 1000 records. Send emails to 500 users. Check 10000 stock prices. Writing the same code line by line for each item is not programming — it is madness. Loops solve this elegantly.</p>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 5: Loops</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-17 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 5 of 12</strong><a href="python-tutorial-part-6.html">Part 6 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-5-terminal.svg" alt="Python Full Tutorial -- Part 5: Loops" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Loops are what make programs powerful. Without them, you would need to write one line of code per item -- 10 items means 10 lines, 10,000 items means 10,000 lines. With loops, the same code handles any number of items. Python has elegant loop syntax and several built-in helpers that make common patterns clean and concise.</p>
 <h4>The for Loop</h4>
-<p>The for loop iterates over a sequence — a list, string, range, or any iterable:</p>
-<div class="code-title">Basic for Loop</div>
-<pre><code class="language-python">fruits = ["apple", "mango", "banana", "orange"]
+<div class="code-title">Iterating over collections</div>
+<pre><code class="language-bash">fruits = ["apple", "mango", "banana", "papaya"]
+
 for fruit in fruits:
-    print(f"I like {fruit}")</code></pre>
-<p>The variable <code>fruit</code> takes the value of each item in the list, one at a time, and runs the indented block for each.</p>
-<h4>range() — Looping a Set Number of Times</h4>
-<div class="code-title">range() Examples</div>
-<pre><code class="language-python">for i in range(5):       # 0, 1, 2, 3, 4
+    print(fruit)
+
+# Iterate string characters
+for char in "Python":
+    print(char)
+
+# Iterate dictionary
+person = {"name": "Suraj", "age": 25, "city": "Mumbai"}
+for key, value in person.items():
+    print(f"  {key}: {value}")
+
+# Iterate with index using enumerate
+for i, fruit in enumerate(fruits, start=1):
+    print(f"{i}. {fruit}")</code></pre>
+<h4>range() -- Generating Number Sequences</h4>
+<div class="code-title">range() variations</div>
+<pre><code class="language-bash">for i in range(5):          # 0, 1, 2, 3, 4
     print(i)
 
-for i in range(1, 6):    # 1, 2, 3, 4, 5
+for i in range(1, 6):       # 1, 2, 3, 4, 5
     print(i)
 
-for i in range(0, 20, 5):  # 0, 5, 10, 15
-    print(i)</code></pre>
-<h4>The while Loop</h4>
-<p>The while loop keeps running as long as a condition is True:</p>
-<div class="code-title">while Loop</div>
-<pre><code class="language-python">count = 1
-while count <= 5:
-    print(f"Count: {count}")
-    count += 1
-print("Loop finished")</code></pre>
-<p>Be careful with while loops — if the condition never becomes False, the loop runs forever (infinite loop). Always make sure something inside the loop will eventually make the condition False.</p>
-<h4>break — Exit the Loop Early</h4>
-<div class="code-title">break Statement</div>
-<pre><code class="language-python">for num in range(1, 100):
-    if num == 10:
-        print("Found 10, stopping!")
+for i in range(0, 20, 5):   # 0, 5, 10, 15
+    print(i)
+
+for i in range(10, 0, -1):  # 10, 9, 8, ... 1 (countdown)
+    print(i)
+
+# Sum 1 to 100
+total = sum(range(1, 101))
+print(total)  # 5050</code></pre>
+<h4>zip() -- Iterate Two Lists Together</h4>
+<div class="code-title">Parallel iteration</div>
+<pre><code class="language-bash">names  = ["Suraj", "Raj", "Priya"]
+scores = [95, 87, 92]
+cities = ["Mumbai", "Delhi", "Bangalore"]
+
+for name, score in zip(names, scores):
+    print(f"{name}: {score}/100")
+
+# Three lists at once
+for name, score, city in zip(names, scores, cities):
+    print(f"{name} from {city}: {score}")</code></pre>
+<h4>break and continue</h4>
+<div class="code-title">Loop flow control</div>
+<pre><code class="language-bash"># break -- exit loop when target found
+numbers = [3, 7, 2, 9, 1, 5]
+target = 9
+for num in numbers:
+    if num == target:
+        print(f"Found {target}!")
         break
-    print(num)</code></pre>
-<h4>continue — Skip to Next Iteration</h4>
-<div class="code-title">continue Statement</div>
-<pre><code class="language-python">for i in range(1, 11):
-    if i % 2 == 0:  # Skip even numbers
-        continue
-    print(i)  # Only prints odd numbers</code></pre>
-<h4>Nested Loops</h4>
-<div class="code-title">Nested Loops — Multiplication Table</div>
-<pre><code class="language-python">for i in range(1, 4):
-    for j in range(1, 4):
-        print(f"{i} x {j} = {i*j}")
-    print("---")</code></pre>
-<h4>enumerate() — Loop with Index</h4>
-<div class="code-title">enumerate()</div>
-<pre><code class="language-python">cities = ["Mumbai", "Delhi", "Bangalore", "Rajkot"]
-for index, city in enumerate(cities, start=1):
-    print(f"{index}. {city}")</code></pre>
-<h4>List Comprehension — Pythonic Loops</h4>
-<p>Python has a beautiful shorthand for creating lists from loops:</p>
-<div class="code-title">List Comprehension</div>
-<pre><code class="language-python"># Traditional way
+    print(f"Checking {num}...")
+
+# continue -- skip unwanted items
+for n in range(1, 11):
+    if n % 2 == 0:
+        continue       # Skip even numbers
+    print(n)           # Prints: 1 3 5 7 9
+
+# for-else -- else runs if no break occurred
+for num in [1, 3, 5, 7]:
+    if num % 2 == 0:
+        print("Found even")
+        break
+else:
+    print("No even numbers found")  # This runs</code></pre>
+<h4>The while Loop</h4>
+<div class="code-title">Loop until condition is False</div>
+<pre><code class="language-bash"># Countdown
+count = 5
+while count > 0:
+    print(f"Countdown: {count}")
+    count -= 1
+print("Launch!")
+
+# Input validation loop
+while True:
+    raw = input("Enter a positive number: ")
+    if raw.isdigit() and int(raw) > 0:
+        number = int(raw)
+        break
+    print("Invalid. Try again.")
+print(f"Got: {number}")</code></pre>
+<h4>List Comprehensions</h4>
+<div class="code-title">Concise loop-based list creation</div>
+<pre><code class="language-bash">numbers = range(1, 11)
+
+# Standard loop
 squares = []
-for n in range(1, 6):
-    squares.append(n ** 2)
+for n in numbers:
+    squares.append(n**2)
 
-# Pythonic way — one line
-squares = [n ** 2 for n in range(1, 6)]
-print(squares)  # [1, 4, 9, 16, 25]
+# Comprehension (same result, one line)
+squares = [n**2 for n in numbers]
+evens   = [n for n in numbers if n % 2 == 0]
 
-# With condition
-even_squares = [n**2 for n in range(1, 11) if n % 2 == 0]
-print(even_squares)  # [4, 16, 36, 64, 100]</code></pre>
-<p>List comprehensions are faster and more readable once you get comfortable with them. In Part 6, we cover data structures — lists, tuples, sets, and dictionaries — where loops become truly powerful.</p>
+print(squares)  # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+print(evens)    # [2, 4, 6, 8, 10]
 
+# Dict comprehension
+word_lengths = {w: len(w) for w in ["Python", "Docker", "Linux"]}
+print(word_lengths)  # {Python: 6, Docker: 6, Linux: 5}
 
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
-
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
-
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>List Comprehensions — Pythonic Looping</h4>
-<p>One of the most distinctive features of Python is the list comprehension — a concise, readable way to create a new list by applying an expression to each item in an existing iterable, with optional filtering:</p>
-<div class="code-title">List Comprehension</div>
-<pre><code class="language-python"># Traditional loop to create list of squares
-squares = []
-for n in range(1, 6):
-    squares.append(n ** 2)
-# Result: [1, 4, 9, 16, 25]
-
-# Same result with list comprehension
-squares = [n ** 2 for n in range(1, 6)]
-
-# With filtering — only even squares
-even_squares = [n ** 2 for n in range(1, 11) if n % 2 == 0]
-# Result: [4, 16, 36, 64, 100]
-
-# Transforming strings
-names = ["suraj", "priya", "rahul"]
-capitalized = [name.title() for name in names]
-# Result: ["Suraj", "Priya", "Rahul"]</code></pre>
-<p>List comprehensions are a hallmark of idiomatic Python. They are typically faster than equivalent for loops and much more concise. Learn to read and write them — they appear throughout professional Python code.</p>
-<h4>The enumerate() Function</h4>
-<p>When looping through a list and needing both the index and the value, avoid manually tracking a counter variable. Python's built-in <code>enumerate()</code> function provides both:</p>
-<div class="code-title">enumerate() Usage</div>
-<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
-
-# Without enumerate — clunky
-for i in range(len(fruits)):
-    print(f"{i}: {fruits[i]}")
-
-# With enumerate — clean and Pythonic
-for index, fruit in enumerate(fruits):
-    print(f"{index}: {fruit}")</code></pre>
-<h4>Practice Exercise</h4>
-<p>Write a program that generates the first 20 Fibonacci numbers using a while loop and stores them in a list. Then use a for loop with enumerate() to print each number with its position. Finally, use a list comprehension to create a new list containing only the even Fibonacci numbers from your list.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+# Set comprehension
+first_letters = {w[0] for w in ["Python", "Perl", "Docker"]}
+print(first_letters)  # {P, D}</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">for vs while: which should I use?</h5><p>Use for when iterating over a known collection or range. Use while when the loop must continue until a condition changes -- like reading input until valid data is received.</p>
+<h5 style="margin-bottom:8px;">How does range() work?</h5><p>range(stop) generates 0 to stop-1. range(start, stop) generates start to stop-1. range(start, stop, step) with step increment. range() is lazy -- it generates numbers on demand without creating a full list in memory.</p>
+<h5 style="margin-bottom:8px;">What do break and continue do?</h5><p>break immediately exits the loop. continue skips the rest of the current iteration and moves to the next one. Both work in for and while loops.</p>
+<h5 style="margin-bottom:8px;">What is enumerate()?</h5><p>enumerate(iterable) yields (index, value) pairs. for i, item in enumerate(my_list) gives both index and value without maintaining a manual counter. Start counting from 1 with enumerate(items, start=1).</p>
+<h5 style="margin-bottom:8px;">What is a list comprehension?</h5><p>[expression for item in iterable if condition] creates a new list. More readable and often faster than a loop appending to a list. Keep them simple and readable -- complex logic belongs in a regular loop.</p>
 </div>
+<p>In <a href="python-tutorial-part-6.html">Part 6</a>, we go deeper on data structures -- advanced list techniques, dict patterns, and the collections module.</p>
+<div class="series-nav"><a href="python-tutorial-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 5 of 12</strong><a href="python-tutorial-part-6.html">Part 6 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<h4>Advanced Iteration Patterns</h4>
+<div class="code-title">Generator functions for memory-efficient processing</div>
+<pre><code class="language-bash">def read_large_file(filepath):
+    """Process large files without loading everything into memory."""
+    with open(filepath) as f:
+        for line in f:
+            yield line.strip()  # Generator -- one line at a time
+
+# Process 10GB log file without running out of memory
+for line in read_large_file("/var/log/massive.log"):
+    if "ERROR" in line:
+        print(line)
+
+# Generator expressions (like list comprehensions but lazy)
+error_lines = (line for line in read_large_file("app.log") if "ERROR" in line)
+first_10_errors = list(itertools.islice(error_lines, 10))</code></pre>
+
+<h4>itertools for Advanced Looping</h4>
+<div class="code-title">Python itertools patterns</div>
+<pre><code class="language-bash">import itertools
+
+# Chain multiple iterables
+combined = list(itertools.chain([1,2,3], [4,5,6], [7,8,9]))
+print(combined)  # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Generate all combinations
+skills = ["Python", "Docker", "K8s"]
+for combo in itertools.combinations(skills, 2):
+    print(combo)
+# ('Python', 'Docker'), ('Python', 'K8s'), ('Docker', 'K8s')
+
+# Chunk a list into batches
+def batched(iterable, n):
+    it = iter(iterable)
+    while batch := list(itertools.islice(it, n)):
+        yield batch
+
+items = list(range(1, 25))
+for batch in batched(items, 5):
+    print(f"Processing batch: {batch}")</code></pre>
+
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

@@ -1,229 +1,323 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech</title>
-  <meta name="description" content="Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples." />
-  <meta name="keywords" content="Python OOP, Python classes, Python objects, Python inheritance, Python encapsulation" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-11.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-01-10" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech" />
-  <meta property="og:description" content="Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-11.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 11 — Object Oriented Programming (OOP) | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Python OOP — classes, objects, constructors, inheritance, encapsulation, and polymorphism with real-world examples.", "datePublished": "2026-01-10", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-11.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-11.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 11 - Object Oriented Programming | SRJahir Tech</title>
+<meta name="description" content="Learn Python OOP: classes, __init__, inheritance, polymorphism, properties, dunder methods, and dataclasses for clean Python code."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-11.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 11 - Object Oriented Programming"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-11.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-11-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2026-01-10"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 11 - Object Oriented Programming","url":"https://srjahir.in/blogs/python-tutorial-part-11.html","datePublished":"2026-01-10","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 11: Object Oriented Programming</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2026-01-10 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 11 of 12</strong><a href="python-tutorial-part-12.html">Part 12 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-11-terminal.svg" alt="Python Full Tutorial -- Part 11: Object Oriented Programming" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Object-Oriented Programming lets you model real-world concepts as objects that combine data (attributes) and behaviour (methods). Python's OOP is flexible -- classes are optional, you can mix OOP and functional styles freely. But understanding OOP is essential for reading framework code, writing reusable components, and working in team projects where shared data structures are the norm.</p>
+<h4>Defining Classes</h4>
+<div class="code-title">Class with attributes and methods</div>
+<pre><code class="language-bash">class BankAccount:
+    interest_rate = 0.05  # Class attribute (shared)
     
-<div class="series-nav">
-  <a href="python-tutorial-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 11 of 12</strong>
-  <a href="python-tutorial-part-12.html">Part 12 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<section class="content-block">
-
-<h3>Python Full Tutorial — Part 11: Object Oriented Programming</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> January 10, 2026 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-11-terminal.svg" alt="Python — Python Testing" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Testing</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="python-tutorial-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 11 of 12</strong>
-  <a href="python-tutorial-part-12.html">Part 12 →</a>
-</div>
-<p>OOP is how large, complex programs stay organized and manageable. Almost every production codebase — web frameworks, AI libraries, game engines — is built using OOP. Understanding this changes how you think about code structure.</p>
-<h4>What is OOP?</h4>
-<p>Object Oriented Programming is a way of organizing code around <em>objects</em> that contain both data (attributes) and behavior (methods). Instead of writing loose functions and variables, you model real-world concepts as classes.</p>
-<h4>Classes and Objects</h4>
-<div class="code-title">Your First Class</div>
-<pre><code class="language-python">class Student:
-    def __init__(self, name, age, grade):
-        self.name = name
-        self.age = age
-        self.grade = grade
+    def __init__(self, owner, balance=0):
+        self.owner = owner      # Instance attribute
+        self.balance = balance
     
-    def introduce(self):
-        print(f"Hi, I am {self.name}, age {self.age}, grade {self.grade}")
+    def deposit(self, amount):
+        if amount &lt;= 0:
+            raise ValueError("Amount must be positive")
+        self.balance += amount
+        return self.balance
     
-    def is_passing(self):
-        return self.grade >= 50
+    def __str__(self):
+        return f"Account[{self.owner}]: Rs.{self.balance:,.2f}"
 
-# Creating objects
-s1 = Student("Suraj", 22, 88)
-s2 = Student("Priya", 21, 45)
-
-s1.introduce()
-print(s1.is_passing())   # True
-print(s2.is_passing())   # False</code></pre>
-<h4>Inheritance — Reusing and Extending Classes</h4>
-<div class="code-title">Inheritance Example</div>
-<pre><code class="language-python">class Animal:
+acc = BankAccount("Suraj", 10000)
+acc.deposit(5000)
+print(acc)           # Account[Suraj]: Rs.15,000.00
+print(acc.interest_rate)  # 0.05</code></pre>
+<h4>Inheritance</h4>
+<div class="code-title">Extending parent classes</div>
+<pre><code class="language-bash">class Animal:
     def __init__(self, name):
         self.name = name
-    
     def speak(self):
-        print(f"{self.name} makes a sound")
+        raise NotImplementedError
+    def __str__(self):
+        return f"{self.name} ({self.__class__.__name__})"
 
 class Dog(Animal):
-    def speak(self):      # Override parent method
-        print(f"{self.name} barks: Woof!")
+    def speak(self):
+        return f"{self.name} says: Woof!"
 
 class Cat(Animal):
     def speak(self):
-        print(f"{self.name} meows: Meow!")
+        return f"{self.name} says: Meow!"
 
-dog = Dog("Bruno")
-cat = Cat("Whiskers")
-dog.speak()   # Bruno barks: Woof!
-cat.speak()   # Whiskers meows: Meow!</code></pre>
-<h4>Encapsulation — Protecting Data</h4>
-<div class="code-title">Private Attributes</div>
-<pre><code class="language-python">class BankAccount:
-    def __init__(self, owner, balance):
-        self.owner = owner
-        self.__balance = balance  # Private attribute
-
-    def deposit(self, amount):
-        if amount > 0:
-            self.__balance += amount
-
-    def withdraw(self, amount):
-        if amount <= self.__balance:
-            self.__balance -= amount
-        else:
-            print("Insufficient funds")
-
-    def get_balance(self):
-        return self.__balance
-
-acc = BankAccount("Suraj", 5000)
-acc.deposit(2000)
-print(acc.get_balance())   # 7000</code></pre>
-<h4>Class Methods and Static Methods</h4>
-<div class="code-title">Class and Static Methods</div>
-<pre><code class="language-python">class Company:
-    company_name = "SRJahir Tech"
-    employee_count = 0
-
-    def __init__(self, name):
-        self.name = name
-        Company.employee_count += 1
-
-    @classmethod
-    def get_company(cls):
-        return cls.company_name
-
-    @staticmethod
-    def work_hours():
-        return "9 AM to 6 PM"
-
-print(Company.get_company())   # SRJahir Tech
-print(Company.work_hours())    # 9 AM to 6 PM</code></pre>
-<p>OOP is a deep topic. The key is to practice — model things around you as classes. A Library, a Hospital, an E-commerce system. In Part 12, we finish the series with virtual environments and best practices for real project setup.</p>
-
-
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
-
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
-
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>Class Methods and Static Methods</h4>
-<p>Beyond regular instance methods, Python classes support two additional method types with distinct behaviors and use cases:</p>
-<div class="code-title">Class and Static Methods</div>
-<pre><code class="language-python">class Employee:
-    company_name = "TechCorp"
-    employee_count = 0
+# Polymorphism
+animals = [Dog("Rex"), Cat("Whiskers"), Dog("Max")]
+for animal in animals:
+    print(animal.speak())</code></pre>
+<h4>Properties for Validation</h4>
+<div class="code-title">@property for controlled access</div>
+<pre><code class="language-bash">class Temperature:
+    def __init__(self, celsius=0):
+        self._celsius = celsius
     
-    def __init__(self, name, salary):
-        self.name = name
-        self.salary = salary
-        Employee.employee_count += 1
+    @property
+    def celsius(self):
+        return self._celsius
     
-    def get_info(self):  # Instance method - has access to self
-        return f"{self.name} at {Employee.company_name}"
+    @celsius.setter
+    def celsius(self, value):
+        if value &lt; -273.15:
+            raise ValueError("Below absolute zero!")
+        self._celsius = value
     
-    @classmethod
-    def get_count(cls):  # Class method - has access to class, not instance
-        return f"Total employees: {cls.employee_count}"
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9/5 + 32
+
+t = Temperature(25)
+print(t.fahrenheit)  # 77.0
+t.celsius = 100
+t.celsius = -300     # Raises ValueError</code></pre>
+<h4>Dataclasses</h4>
+<div class="code-title">Less boilerplate with @dataclass</div>
+<pre><code class="language-bash">from dataclasses import dataclass, field
+from typing import List
+
+@dataclass
+class User:
+    name: str
+    email: str
+    age: int
+    skills: List[str] = field(default_factory=list)
     
-    @staticmethod
-    def validate_salary(salary):  # Static method - no access to class or instance
-        return salary > 0
+    def __post_init__(self):
+        self.email = self.email.lower()
 
-# Usage
-emp1 = Employee("Alice", 80000)
-emp2 = Employee("Bob", 90000)
-
-print(emp1.get_info())          # Instance method
-print(Employee.get_count())     # Class method
-print(Employee.validate_salary(50000))  # Static method</code></pre>
-<p>Use class methods for factory patterns or operations on class-level state. Use static methods for utility functions that logically belong to the class but do not need access to instance or class state.</p>
-<h4>Dunder Methods for Pythonic Classes</h4>
-<p>Python's special methods (double underscore methods, called dunder methods) allow your classes to integrate naturally with Python's built-in operations. Implementing <code>__str__</code> defines how the object looks when printed. Implementing <code>__len__</code> allows <code>len(obj)</code> to work. Implementing <code>__eq__</code> defines equality comparison. Understanding and implementing appropriate dunder methods makes your classes feel like first-class Python objects rather than awkward foreign constructs.</p>
-<h4>Practice Exercise</h4>
-<p>Design a simple library management system with a <code>Book</code> class and a <code>Library</code> class. Books should have title, author, and availability status. The Library should support adding books, checking out books (marking unavailable), returning books, and listing all available books. Implement <code>__str__</code> on both classes for readable output, and use a class variable on Library to track total books added.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+u = User("Suraj", "SURAJ@EMAIL.COM", 25, ["Python"])
+print(u)  # User(name='Suraj', email='suraj@email.com', ...)
+print(u == User("Suraj", "suraj@email.com", 25, ["Python"]))  # True</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">When should I use classes?</h5><p>When you have data and behaviour that naturally belong together and will create multiple instances. User, Product, BankAccount are natural classes. Simple processing functions stay as functions.</p>
+<h5 style="margin-bottom:8px;">What is __init__?</h5><p>The initialiser called when creating an instance. Sets up instance attributes. self refers to the instance being created.</p>
+<h5 style="margin-bottom:8px;">What is inheritance?</h5><p>A subclass inherits all methods from a parent class and can add or override them. Call super().__init__() to run the parent's initialiser code.</p>
+<h5 style="margin-bottom:8px;">What are dunder methods?</h5><p>Special methods like __str__, __repr__, __eq__, __len__ that Python calls automatically. __str__ is called by print(). __eq__ by ==. Implementing these lets objects work naturally with Python built-ins.</p>
+<h5 style="margin-bottom:8px;">What is a dataclass?</h5><p>@dataclass (Python 3.7+) auto-generates __init__, __repr__, __eq__ for data-holding classes. Saves significant boilerplate. Use frozen=True for immutable instances.</p>
 </div>
+<p>In <a href="python-tutorial-part-12.html">Part 12</a>, we build a complete real Python project with virtual environment, tests, logging, and automation.</p>
+<div class="series-nav"><a href="python-tutorial-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 11 of 12</strong><a href="python-tutorial-part-12.html">Part 12 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<h4>Abstract Base Classes for Interfaces</h4>
+<div class="code-title">Define interfaces in Python</div>
+<pre><code class="language-bash">from abc import ABC, abstractmethod
+
+class StorageBackend(ABC):
+    @abstractmethod
+    def save(self, key: str, data: bytes) -> bool:
+        """Save data to storage. Returns True on success."""
+        pass
+    
+    @abstractmethod
+    def load(self, key: str) -> bytes:
+        """Load data from storage. Raises KeyError if not found."""
+        pass
+    
+    @abstractmethod
+    def delete(self, key: str) -> bool:
+        """Delete data. Returns True if existed."""
+        pass
+
+class S3Backend(StorageBackend):
+    def __init__(self, bucket):
+        import boto3
+        self.bucket = bucket
+        self.s3 = boto3.client("s3")
+    
+    def save(self, key, data):
+        self.s3.put_object(Bucket=self.bucket, Key=key, Body=data)
+        return True
+    
+    def load(self, key):
+        response = self.s3.get_object(Bucket=self.bucket, Key=key)
+        return response["Body"].read()
+    
+    def delete(self, key):
+        self.s3.delete_object(Bucket=self.bucket, Key=key)
+        return True
+
+class LocalBackend(StorageBackend):
+    def __init__(self, base_dir):
+        from pathlib import Path
+        self.base = Path(base_dir)
+        self.base.mkdir(exist_ok=True)
+    
+    def save(self, key, data):
+        (self.base / key).write_bytes(data)
+        return True
+    
+    def load(self, key):
+        return (self.base / key).read_bytes()
+    
+    def delete(self, key):
+        (self.base / key).unlink(missing_ok=True)
+        return True</code></pre>
+
+<h4>Protocol Classes (Structural Subtyping)</h4>
+<div class="code-title">Duck typing with type hints</div>
+<pre><code class="language-bash">from typing import Protocol, runtime_checkable
+
+@runtime_checkable
+class Drawable(Protocol):
+    def draw(self) -> str: ...
+    def get_area(self) -> float: ...
+
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+    def draw(self): return f"Circle(r={self.radius})"
+    def get_area(self): return 3.14159 * self.radius**2
+
+class Square:
+    def __init__(self, side):
+        self.side = side
+    def draw(self): return f"Square(s={self.side})"
+    def get_area(self): return self.side**2
+
+def render(shape: Drawable):
+    print(f"Drawing: {shape.draw()}, Area: {shape.get_area():.2f}")
+
+render(Circle(5))   # Works -- Circle has draw() and get_area()
+render(Square(4))   # Works -- Square has draw() and get_area()</code></pre>
+
+
+<h4>Metaclasses and Class Decorators</h4>
+<div class="code-title">Advanced OOP for framework design</div>
+<pre><code class="language-bash"># Class decorator: add behaviour to all methods
+def log_all_methods(cls):
+    """Decorator that logs every method call."""
+    import functools, logging
+    logger = logging.getLogger(cls.__name__)
+    
+    for name, method in vars(cls).items():
+        if callable(method) and not name.startswith("_"):
+            @functools.wraps(method)
+            def logged_method(self, *args, _name=name, _method=method, **kwargs):
+                logger.info(f"Calling {_name}")
+                result = _method(self, *args, **kwargs)
+                logger.info(f"{_name} completed")
+                return result
+            setattr(cls, name, logged_method)
+    return cls
+
+@log_all_methods
+class PaymentService:
+    def process_payment(self, amount):
+        return {"status": "paid", "amount": amount}
+    
+    def refund(self, transaction_id):
+        return {"status": "refunded", "id": transaction_id}</code></pre>
+
+
+<h4>Design Patterns in Python</h4>
+<div class="code-title">Practical patterns used in real codebases</div>
+<pre><code class="language-bash">from typing import Optional
+
+# Singleton: one instance only
+class DatabaseConnection:
+    _instance: Optional["DatabaseConnection"] = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._connected = False
+        return cls._instance
+    
+    def connect(self, url: str):
+        if not self._connected:
+            print(f"Connecting to {url}")
+            self._connected = True
+
+db1 = DatabaseConnection()
+db2 = DatabaseConnection()
+print(db1 is db2)  # True -- same instance
+
+# Observer: notify multiple subscribers
+class EventEmitter:
+    def __init__(self):
+        self._listeners = {}
+    
+    def on(self, event: str, callback):
+        self._listeners.setdefault(event, []).append(callback)
+    
+    def emit(self, event: str, **kwargs):
+        for cb in self._listeners.get(event, []):
+            cb(**kwargs)
+
+emitter = EventEmitter()
+emitter.on("order_placed", lambda order_id, amount: print(f"Order {order_id}: Rs.{amount}"))
+emitter.on("order_placed", lambda order_id, **_: print(f"Send confirmation for {order_id}"))
+emitter.emit("order_placed", order_id=42, amount=999)</code></pre>
+
+<h4>Python Data Model: Dunder Methods</h4>
+<div class="code-title">Make custom objects behave like built-ins</div>
+<pre><code class="language-bash">class Money:
+    def __init__(self, amount, currency="INR"):
+        self.amount = round(float(amount), 2)
+        self.currency = currency
+    
+    def __repr__(self):
+        return f"Money({self.amount}, '{self.currency}')"
+    
+    def __str__(self):
+        return f"Rs.{self.amount:,.2f}"
+    
+    def __add__(self, other):
+        if self.currency != other.currency:
+            raise ValueError("Cannot add different currencies")
+        return Money(self.amount + other.amount, self.currency)
+    
+    def __mul__(self, factor):
+        return Money(self.amount * factor, self.currency)
+    
+    def __eq__(self, other):
+        return self.amount == other.amount and self.currency == other.currency
+    
+    def __lt__(self, other):
+        return self.amount < other.amount
+
+price = Money(999.99)
+tax   = Money(179.99)
+total = price + tax
+print(total)              # Rs.1,179.98
+print(total * 2)          # Rs.2,359.96
+prices = [Money(500), Money(200), Money(800)]
+print(sorted(prices))     # Sorted using __lt__</code></pre>
+
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

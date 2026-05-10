@@ -1,195 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 9 — Monitoring & Observability | SRJahir Tech</title>
-  <meta name="description" content="Learn DevOps monitoring with Prometheus and Grafana. Understand metrics, logs, alerts, dashboards, and how to build observability for production systems." />
-  <meta name="keywords" content="Prometheus Grafana tutorial, DevOps monitoring, application observability, alerting DevOps, Grafana dashboards" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-9.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 9 - Monitoring and Observability with Prometheus and Grafana | SRJahir Tech</title><meta name="description" content="Master DevOps monitoring: Prometheus metrics, Grafana dashboards, AlertManager, log aggregation with ELK, tracing, and the three pillars of observability."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-9.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 9 - Monitoring and Observability with Prometheus and Grafana"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-9.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-9-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-16"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 9 - Monitoring and Observability with Prometheus and Grafana","url":"https://srjahir.in/blogs/devops-roadmap-part-9.html","datePublished":"2025-11-16","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 9: Monitoring &amp; Observability</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-16 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-8.html">&larr; Part 8</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 9 of 12</strong><a href="devops-roadmap-part-10.html">Part 10 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-9-terminal.svg" alt="DevOps Roadmap -- Part 9: Monitoring &amp; Observability" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>You cannot manage what you cannot measure. Monitoring is not optional in production -- it is the difference between knowing your system is down and finding out from angry users. But modern observability goes beyond uptime monitoring. The three pillars -- metrics, logs, and traces -- give you a complete picture of what your distributed system is doing at any moment.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-16" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 9 — Monitoring & Observability | SRJahir Tech" />
-  <meta property="og:description" content="Learn DevOps monitoring with Prometheus and Grafana. Understand metrics, logs, alerts, dashboards, and how to build observability for production systems." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-9.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 9 — Monitoring & Observability | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-16", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-9.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-9.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-8.html">← Part 8</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 9 of 12</strong>
-  <a href="devops-roadmap-part-10.html">Part 10 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 9: Monitoring &amp; Observability</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 16, 2025 <span class="meta-dot"></span> 6 min read</p>
+<h4>The Three Pillars of Observability</h4>
+<p><strong>Metrics:</strong> Numerical measurements over time. CPU usage, request rate, error rate, response time. Ideal for alerting on quantifiable thresholds. Prometheus collects and stores metrics.</p>
+<p><strong>Logs:</strong> Timestamped text records of events. Application logs, system logs, audit logs. Ideal for debugging what happened. ELK Stack (Elasticsearch, Logstash, Kibana) or Loki aggregates logs.</p>
+<p><strong>Traces:</strong> Records of a request's journey through distributed services. Shows how long each service took and where errors occurred. Jaeger, Zipkin, or AWS X-Ray provide distributed tracing.</p>
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-9-terminal.svg" alt="Security in DevOps" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Security in DevOps</figcaption>
-</figure>
+<h4>Prometheus Setup</h4>
+<div class="code-title">Docker Compose with Prometheus and Grafana</div>
+<pre><code class="language-bash"># docker-compose.yml
+version: "3.8"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+  
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
 
-<div class="series-nav">
-  <a href="devops-roadmap-part-8.html">← Part 8</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 9 of 12</strong>
-  <a href="devops-roadmap-part-10.html">Part 10 →</a>
-</div>
-<p>You cannot manage what you cannot measure. A production system without monitoring is flying blind — you only find out something is wrong when users start complaining. By then, the problem has often been affecting performance for hours. Monitoring and observability give you eyes inside your systems so you know about problems before users do, understand why they happened, and prevent them from recurring.</p>
+volumes:
+  prometheus-data:
+  grafana-data:</code></pre>
 
-<h4>Monitoring vs Observability</h4>
-<p>These terms are related but distinct. <strong>Monitoring</strong> means watching predefined metrics and alerting when they cross thresholds — CPU above 90%, response time above 500ms, error rate above 1%. You know what to watch because you anticipated it. <strong>Observability</strong> means your system produces enough data (metrics, logs, traces) that you can answer any question about its internal state, including questions you did not anticipate asking. Highly observable systems make debugging much faster because the answers are already in the data.</p>
-
-<h4>The Three Pillars</h4>
-<ul>
-  <li><strong>Metrics</strong> — Numerical measurements over time: CPU, memory, request rate, error rate, latency. Good for alerting and dashboards.</li>
-  <li><strong>Logs</strong> — Timestamped records of events: application errors, user actions, system events. Good for debugging specific incidents.</li>
-  <li><strong>Traces</strong> — End-to-end journey of a request through your system. Good for finding bottlenecks in distributed systems.</li>
-</ul>
-
-<h4>Prometheus — Metrics Collection</h4>
-<p>Prometheus is the industry-standard metrics system in the cloud-native world. It scrapes (pulls) metrics from your applications and infrastructure at regular intervals and stores them in a time-series database. You query metrics using PromQL (Prometheus Query Language).</p>
-<div class="code-title">prometheus.yml</div>
+<div class="code-title">prometheus.yml configuration</div>
 <pre><code class="language-bash">global:
   scrape_interval: 15s
-  evaluation_interval: 15s
-
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets: ['alertmanager:9093']
-
-rule_files:
-  - "alert_rules.yml"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9090']
-
-  - job_name: 'node-exporter'
+      - targets: ["localhost:9090"]
+  
+  - job_name: "node"
     static_configs:
-      - targets: ['server1:9100', 'server2:9100']
-
-  - job_name: 'my-app'
+      - targets: ["node-exporter:9100"]
+  
+  - job_name: "myapp"
     static_configs:
-      - targets: ['app:5000']
-    metrics_path: '/metrics'</code></pre>
+      - targets: ["myapp:8000"]
+    metrics_path: /metrics</code></pre>
 
-<h4>Node Exporter — Server Metrics</h4>
-<div class="code-title">Install Node Exporter</div>
-<pre><code class="language-bash"># Run Node Exporter (exposes server metrics on port 9100)
-docker run -d   --name node-exporter   --net="host"   --pid="host"   -v "/:/host:ro,rslave"   prom/node-exporter   --path.rootfs=/host
+<h4>Key Metrics to Monitor</h4>
+<div class="code-title">Essential production metrics</div>
+<pre><code class="language-bash"># The RED Method (for services)
+# Rate:   Request rate per second
+sum(rate(http_requests_total[5m])) by (service)
 
-# Key metrics available:
-# node_cpu_seconds_total
-# node_memory_MemAvailable_bytes
-# node_filesystem_avail_bytes
-# node_network_receive_bytes_total</code></pre>
+# Errors: Error rate percentage
+sum(rate(http_requests_total{status=~"5.."}[5m])) /
+sum(rate(http_requests_total[5m])) * 100
 
-<h4>PromQL — Querying Metrics</h4>
-<div class="code-title">Useful PromQL Queries</div>
-<pre><code class="language-bash"># CPU usage percentage
-100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+# Duration: Response time percentiles
+histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.50, rate(http_request_duration_seconds_bucket[5m]))
 
-# Memory used
-(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100
+# Infrastructure metrics
+# CPU usage
+100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
 
-# HTTP request rate per second
-rate(http_requests_total[5m])
+# Memory usage
+(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
 
-# Error rate percentage
-rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100
+# Disk usage
+(1 - (node_filesystem_free_bytes / node_filesystem_size_bytes)) * 100</code></pre>
 
-# 95th percentile response time
-histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))</code></pre>
-
-<h4>Grafana — Visualization</h4>
-<p>Prometheus stores data. Grafana visualizes it. Grafana connects to Prometheus as a data source and lets you build beautiful dashboards. There are thousands of community-built dashboards available — for Node Exporter, databases, Kubernetes, and more — which you can import with a single click using their dashboard IDs.</p>
-<div class="code-title">Run Grafana</div>
-<pre><code class="language-bash">docker run -d   -p 3000:3000   --name grafana   -e GF_SECURITY_ADMIN_PASSWORD=admin   grafana/grafana
-
-# Access at http://localhost:3000
-# Add Prometheus as data source: http://prometheus:9090
-# Import dashboard ID 1860 for Node Exporter</code></pre>
-
-<h4>Alerting</h4>
-<div class="code-title">alert_rules.yml</div>
-<pre><code class="language-bash">groups:
-  - name: infrastructure
+<h4>AlertManager Rules</h4>
+<div class="code-title">Alert on critical conditions</div>
+<pre><code class="language-bash"># alerts.yml
+groups:
+  - name: production
     rules:
-      - alert: HighCPUUsage
-        expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) /
+          sum(rate(http_requests_total[5m])) > 0.05
         for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "High CPU on {{ $labels.instance }}"
-          description: "CPU is {{ $value }}% for 5 minutes"
-
-      - alert: DiskSpaceLow
-        expr: node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.1
-        for: 2m
         labels:
           severity: critical
         annotations:
-          summary: "Disk space below 10% on {{ $labels.instance }}"</code></pre>
+          summary: "High error rate on {{ $labels.service }}"
+          description: "Error rate {{ $value | humanizePercentage }}"
+      
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_free_bytes / node_filesystem_size_bytes) < 0.1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk space below 10%"</code></pre>
 
-<p>In Part 10, we will cover Kubernetes fundamentals — the container orchestration platform that runs the majority of the world's containerized production workloads.</p>
-<h4>The Three Pillars of Observability</h4>
-<p>Observability is the ability to understand the internal state of a system from its external outputs. The three pillars are metrics, logs, and traces. Metrics are numeric measurements over time — CPU usage, request count, error rate, latency percentiles. They are efficient to store and query, and ideal for dashboards and alerting. Logs are timestamped records of discrete events — an HTTP request completed, an error occurred, a user logged in. They provide rich context for debugging specific incidents. Distributed traces track a request as it flows through multiple services, showing exactly where time is spent and where failures occur. Each pillar provides different visibility; comprehensive observability requires all three.</p>
-<h4>The RED Method for Service Monitoring</h4>
-<p>The RED method (popularized by Weaveworks) provides a simple framework for monitoring any service: Rate (requests per second — how much traffic is the service handling?), Errors (error rate — what percentage of requests are failing?), and Duration (latency distribution — how long are requests taking, at P50, P95, P99?). These three metrics, monitored together, give you immediate visibility into service health. An alert on error rate above 1% and P99 latency above 500ms covers most production service health requirements. Pair the RED method with the USE method for resource monitoring: Utilization, Saturation, and Errors for CPU, memory, disk, and network.</p>
-<h4>Practice Exercise</h4>
-<p>Set up a basic monitoring stack using Docker Compose: run Prometheus (metrics collection), Grafana (visualization), and a simple application instrumented with Prometheus metrics. Configure Prometheus to scrape metrics from your application. In Grafana, create a dashboard showing the RED metrics for your service. Configure an alert rule that fires when the simulated error rate exceeds a threshold. This hands-on setup builds the practical skills needed for production monitoring work.</p>
-
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<p>Consistent application of the principles covered here, combined with ongoing learning and hands-on practice, is what separates those who understand technology conceptually from those who can build and operate real systems. The investment in depth pays dividends for years. Keep learning, keep building, and keep asking the questions that drive deeper understanding.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between monitoring and observability?</h5>
+  <p>Monitoring tells you when something goes wrong (alerting). Observability tells you why it went wrong (debugging). Monitoring is about known unknowns. Observability is about unknown unknowns -- being able to ask arbitrary questions about your system's state.</p>
+  <h5>What is the RED method?</h5>
+  <p>Rate (requests per second), Errors (error rate), Duration (response time). These three metrics cover the external behaviour of any service. If all three look good, users are probably happy. If any degrades, you have a problem to investigate.</p>
+  <h5>What is Grafana and how does it relate to Prometheus?</h5>
+  <p>Prometheus collects and stores time-series metrics. Grafana visualises them with dashboards. Prometheus has a built-in UI for queries, but Grafana provides production-quality dashboards, alerting, and the ability to combine data from multiple sources.</p>
+  <h5>How do I set up log aggregation?</h5>
+  <p>For small setups: Promtail + Loki + Grafana (the lightweight stack). For larger setups: Filebeat + Elasticsearch + Kibana (ELK stack). Promtail ships logs from servers, Loki stores them, Grafana queries and visualises them alongside metrics in one dashboard.</p>
+  <h5>What should I alert on?</h5>
+  <p>Alert on symptoms that affect users, not causes. Alert on: error rate above 1%, response time above 2 seconds, disk space below 15%, service down. Do not alert on CPU at 80% unless it is causing user impact. Every alert should require immediate action -- alert fatigue kills response.</p>
 </div>
-</section>
+<p>In <a href="devops-roadmap-part-10.html">Part 10</a>, we cover Kubernetes -- the container orchestration platform that runs containerised applications at scale.</p><div class="series-nav"><a href="devops-roadmap-part-8.html">&larr; Part 8</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 9 of 12</strong><a href="devops-roadmap-part-10.html">Part 10 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>SLIs, SLOs, and Error Budgets</h4>
+<p>Google's SRE framework introduced a disciplined approach to reliability that is now widely adopted. Service Level Indicators (SLIs) measure specific aspects of service behaviour. Service Level Objectives (SLOs) set targets for those indicators. Error Budgets define how much unreliability is acceptable before feature development must pause to focus on reliability work.</p>
+<div class="code-title">Defining SLIs and SLOs</div>
+<pre><code class="language-bash"># SLI: measurement of service behaviour
+Availability SLI   = successful_requests / total_requests
+Latency SLI        = requests_under_200ms / total_requests
+Error rate SLI     = 1 - (error_requests / total_requests)
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# SLO: target for the SLI (measured over a rolling window)
+Availability SLO   = 99.9% (over 30 days)
+Latency SLO        = 95% of requests under 200ms (p95)
+Error rate SLO     = error rate below 0.1%
+
+# Error budget = 100% - SLO
+# 99.9% SLO => 0.1% error budget = 43.8 minutes downtime/month
+
+# PromQL for availability SLO
+(1 - (
+  sum(rate(http_requests_total{status=~"5.."}[30d]))
+  /
+  sum(rate(http_requests_total[30d]))
+)) * 100</code></pre>
+
+<h4>Log-Based Alerting with Loki</h4>
+<div class="code-title">Alert on log patterns, not just metrics</div>
+<pre><code class="language-bash"># Loki alert rule in loki-rules.yml
+groups:
+  - name: app-alerts
+    rules:
+      - alert: HighErrorLogRate
+        expr: |
+          sum(rate({app="myapp"} |= "ERROR" [5m])) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error log rate for {{ $labels.app }}"
+      
+      - alert: DatabaseConnectionFailures
+        expr: |
+          count_over_time({app="myapp"} |= "connection refused" [5m]) > 5
+        for: 1m
+        labels:
+          severity: critical</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

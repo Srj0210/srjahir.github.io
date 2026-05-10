@@ -1,159 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 1 — What is DevOps & Why It Matters | SRJahir Tech</title>
-  <meta name="description" content="Understand DevOps from first principles. Learn what DevOps really is, how it changed software delivery, the core culture, and what skills the roadmap requires." />
-  <meta name="keywords" content="DevOps tutorial, what is DevOps, DevOps roadmap beginners, DevOps culture, DevOps for beginners" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-1.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learn what DevOps really means beyond the buzzword. Understand DevOps culture, practices, tools, CI/CD pipelines, and how DevOps engineers drive modern software delivery. | SRJahir Tech</title><meta name="description" content="12"/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-1.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Learn what DevOps really means beyond the buzzword. Understand DevOps culture, practices, tools, CI/CD pipelines, and how DevOps engineers drive modern software delivery."/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-1.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/DevOps Roadmap -- Part 1: What Is DevOps &amp; Why It Matters.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="DevOps Roadmap Part 1 - What is DevOps and Why It Matters"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Learn what DevOps really means beyond the buzzword. Understand DevOps culture, practices, tools, CI/CD pipelines, and how DevOps engineers drive modern software delivery.","url":"https://srjahir.in/blogs/devops-roadmap-part-1.html","datePublished":"DevOps Roadmap Part 1 - What is DevOps and Why It Matters","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3><p>I used to think DevOps was just another buzzword invented by consultants to charge more money. A fancy name for what used to be called sysadmin or operations work. I was wrong. When I joined a team that had genuinely adopted DevOps practices -- where developers and operations worked together, where deployments were automated, where the same team that wrote code was responsible for running it -- the difference was striking. We shipped features in hours that used to take weeks. When something broke, we fixed it in minutes rather than days. That transformation is what DevOps actually is.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-15" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="DevOps Roadmap Part 1 — What is DevOps & Why It Matters | SRJahir Tech" />
-  <meta property="og:description" content="Understand DevOps from first principles. Learn what DevOps really is, how it changed software delivery, the core culture, and what skills the roadmap requires." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-1.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 1 — What is DevOps & Why It Matters | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Understand DevOps from first principles. Learn what DevOps really is, how it changed software delivery, the core culture, and what skills the roadmap requires.", "datePublished": "2025-10-15", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-1.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-1.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <span></span>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 1 of 12</strong>
-  <a href="devops-roadmap-part-2.html">Part 2 →</a>
+<p>DevOps is not a job title, not a tool, and not a checklist. It is a set of cultural practices, technical patterns, and organisational changes that break down the wall between software development and operations. The core insight is simple: when the people who build software are also responsible for running it, they build it differently -- more reliably, more operationally aware, with better feedback loops.</p>
+
+<h4>The Problem DevOps Solves</h4>
+<p>Before DevOps, software development and operations worked in silos. Developers wrote code and threw it over the wall to operations. Operations ran the code and blamed developers when it broke. Deployments were infrequent, painful events -- often happening on Friday nights with everyone on standby hoping nothing would go wrong.</p>
+<p>The result: slow delivery, frequent failures, long recovery times, and deeply unhappy teams on both sides. Developers could not understand why operations was so conservative. Operations could not understand why developers shipped so many breaking changes. The handoff was the problem, and DevOps eliminates the handoff.</p>
+
+<h4>Core DevOps Practices</h4>
+<div class="code-title">The DevOps lifecycle</div>
+<pre><code class="language-bash"># The DevOps lifecycle has 8 stages:
+# 1. Plan    -- feature planning, requirements, sprint planning
+# 2. Code    -- writing and reviewing code (Git, GitHub/GitLab)
+# 3. Build   -- compiling, building artifacts (Maven, npm, pip)
+# 4. Test    -- automated unit, integration, security tests
+# 5. Release -- versioning, changelog, release notes
+# 6. Deploy  -- getting code to production (CI/CD pipelines)
+# 7. Operate -- running, monitoring, alerting
+# 8. Monitor -- metrics, logs, traces, feedback to planning</code></pre>
+
+<h4>CI/CD -- The Technical Heart of DevOps</h4>
+<p>Continuous Integration (CI) means every code change is automatically built and tested. Continuous Delivery (CD) means every passing build can be automatically deployed to production. Together they create a pipeline from code commit to running software that happens in minutes, not weeks.</p>
+<div class="code-title">Simple CI/CD pipeline concept</div>
+<pre><code class="language-bash">Developer pushes code to GitHub
+         |
+         v
+GitHub Actions triggers automatically
+         |
+         v
+Build: docker build -t myapp:latest .
+         |
+         v
+Test:  pytest tests/ (must pass 100%)
+         |
+         v
+Security: trivy image scan
+         |
+         v
+Deploy: docker push to registry
+         |
+         v
+Update: kubectl rollout restart deployment/myapp
+         |
+         v
+Monitor: Grafana + Prometheus alerts watch production</code></pre>
+
+<h4>Key DevOps Tools by Category</h4>
+<p><strong>Version Control:</strong> Git, GitHub, GitLab, Bitbucket. Every change tracked, every decision documented, every rollback possible.</p>
+<p><strong>CI/CD:</strong> GitHub Actions, Jenkins, GitLab CI, CircleCI, ArgoCD. Automate the path from commit to production.</p>
+<p><strong>Containerisation:</strong> Docker, Podman. Package applications with their dependencies for consistent environments.</p>
+<p><strong>Orchestration:</strong> Kubernetes, Docker Swarm. Run and scale containerised applications in production.</p>
+<p><strong>Infrastructure as Code:</strong> Terraform, Pulumi. Define cloud infrastructure in code, version it, review it, automate it.</p>
+<p><strong>Configuration Management:</strong> Ansible, Chef, Puppet. Automate server configuration across fleets of machines.</p>
+<p><strong>Monitoring:</strong> Prometheus, Grafana, Datadog, ELK Stack. Observe what your systems are doing in real time.</p>
+<p><strong>Cloud Platforms:</strong> AWS, GCP, Azure. The infrastructure layer where modern applications run.</p>
+
+<h4>What DevOps Engineers Actually Do</h4>
+<p>A DevOps engineer's day might include: reviewing a pull request that changes a Kubernetes deployment manifest, debugging a failing CI pipeline by reading GitHub Actions logs, writing a Terraform module to provision a new RDS database, setting up a Grafana dashboard to track a new application metric, updating an Ansible playbook to configure a new server, and helping a developer understand why their application is slower in production than on their laptop.</p>
+<p>The common thread is automation and visibility. Every manual process is a target for automation. Every part of the system should be observable -- you should know what it is doing without having to log in and look.</p>
+
+<h4>The DevOps Mindset</h4>
+<p>Three principles define DevOps thinking. <strong>Collaboration:</strong> developers and operations share responsibility for the entire lifecycle. <strong>Automation:</strong> if you do it more than twice, automate it. Manual work does not scale and is a source of inconsistency. <strong>Feedback:</strong> fast, continuous feedback at every stage -- from automated tests during development to production metrics after deployment.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between DevOps and SRE?</h5>
+  <p>DevOps is a culture and set of practices. SRE (Site Reliability Engineering) is Google's specific implementation of DevOps principles using software engineering to solve operations problems. SREs write code to automate operations, set error budgets, and run postmortems. The concepts overlap significantly -- learning either prepares you for the other.</p>
+  <h5>Do DevOps engineers need to know how to code?</h5>
+  <p>Yes. Modern DevOps is software engineering applied to infrastructure and operations. You will write Python for automation, YAML for Kubernetes manifests, HCL for Terraform, Bash for scripting, and Go for tooling. You do not need to be a full application developer, but you must be comfortable reading and writing code.</p>
+  <h5>What is Infrastructure as Code?</h5>
+  <p>IaC means defining your infrastructure (servers, networks, databases, load balancers) in code files that can be version controlled, reviewed, and automatically applied. Terraform is the most popular IaC tool. Instead of clicking in the AWS console, you write HCL that describes the desired state and Terraform creates it.</p>
+  <h5>How do I start learning DevOps?</h5>
+  <p>Start with Linux fundamentals, then Git, then Docker, then Kubernetes, then CI/CD with GitHub Actions, then Terraform for cloud infrastructure. Build real projects at each step. This series follows exactly that progression -- each part builds on the previous.</p>
+  <h5>What salaries do DevOps engineers earn?</h5>
+  <p>DevOps engineering is one of the highest-paying technical roles. In India, experienced DevOps engineers earn Rs.15-40 LPA. In the US, senior DevOps/SRE roles pay $130,000-200,000+. The combination of development and operations skills is rare and in high demand.</p>
 </div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
+<p>In <a href="devops-roadmap-part-2.html">Part 2</a>, we cover Linux for DevOps -- the foundational operating system knowledge every DevOps engineer needs.</p></h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> DevOps Roadmap Part 1 - What is DevOps and Why It Matters <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="2025-10-15">&larr; Part 0</a><strong style="color:#86868b;font-size:0.85rem;">devops-roadmap-part-2.html &middot; Part 1 of None</strong><a href="devops-part-1-terminal">Part 2 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/DevOps Roadmap -- Part 1: What Is DevOps &amp; Why It Matters.svg" alt="<p>I used to think DevOps was just another buzzword invented by consultants to charge more money. A fancy name for what used to be called sysadmin or operations work. I was wrong. When I joined a team that had genuinely adopted DevOps practices -- where developers and operations worked together, where deployments were automated, where the same team that wrote code was responsible for running it -- the difference was striking. We shipped features in hours that used to take weeks. When something broke, we fixed it in minutes rather than days. That transformation is what DevOps actually is.</p>
 
-<section class="content-block">
+<p>DevOps is not a job title, not a tool, and not a checklist. It is a set of cultural practices, technical patterns, and organisational changes that break down the wall between software development and operations. The core insight is simple: when the people who build software are also responsible for running it, they build it differently -- more reliably, more operationally aware, with better feedback loops.</p>
 
-<h3>DevOps Roadmap — Part 1: What is DevOps &amp; Why It Matters</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 15, 2025 <span class="meta-dot"></span> 6 min read</p>
+<h4>The Problem DevOps Solves</h4>
+<p>Before DevOps, software development and operations worked in silos. Developers wrote code and threw it over the wall to operations. Operations ran the code and blamed developers when it broke. Deployments were infrequent, painful events -- often happening on Friday nights with everyone on standby hoping nothing would go wrong.</p>
+<p>The result: slow delivery, frequent failures, long recovery times, and deeply unhappy teams on both sides. Developers could not understand why operations was so conservative. Operations could not understand why developers shipped so many breaking changes. The handoff was the problem, and DevOps eliminates the handoff.</p>
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-1-arch.svg" alt="DevOps Overview" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">DevOps Overview</figcaption>
-</figure>
+<h4>Core DevOps Practices</h4>
+<div class="code-title">The DevOps lifecycle</div>
+<pre><code class="language-bash"># The DevOps lifecycle has 8 stages:
+# 1. Plan    -- feature planning, requirements, sprint planning
+# 2. Code    -- writing and reviewing code (Git, GitHub/GitLab)
+# 3. Build   -- compiling, building artifacts (Maven, npm, pip)
+# 4. Test    -- automated unit, integration, security tests
+# 5. Release -- versioning, changelog, release notes
+# 6. Deploy  -- getting code to production (CI/CD pipelines)
+# 7. Operate -- running, monitoring, alerting
+# 8. Monitor -- metrics, logs, traces, feedback to planning</code></pre>
 
-<div class="series-nav">
-  <span></span>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 1 of 12</strong>
-  <a href="devops-roadmap-part-2.html">Part 2 →</a>
+<h4>CI/CD -- The Technical Heart of DevOps</h4>
+<p>Continuous Integration (CI) means every code change is automatically built and tested. Continuous Delivery (CD) means every passing build can be automatically deployed to production. Together they create a pipeline from code commit to running software that happens in minutes, not weeks.</p>
+<div class="code-title">Simple CI/CD pipeline concept</div>
+<pre><code class="language-bash">Developer pushes code to GitHub
+         |
+         v
+GitHub Actions triggers automatically
+         |
+         v
+Build: docker build -t myapp:latest .
+         |
+         v
+Test:  pytest tests/ (must pass 100%)
+         |
+         v
+Security: trivy image scan
+         |
+         v
+Deploy: docker push to registry
+         |
+         v
+Update: kubectl rollout restart deployment/myapp
+         |
+         v
+Monitor: Grafana + Prometheus alerts watch production</code></pre>
+
+<h4>Key DevOps Tools by Category</h4>
+<p><strong>Version Control:</strong> Git, GitHub, GitLab, Bitbucket. Every change tracked, every decision documented, every rollback possible.</p>
+<p><strong>CI/CD:</strong> GitHub Actions, Jenkins, GitLab CI, CircleCI, ArgoCD. Automate the path from commit to production.</p>
+<p><strong>Containerisation:</strong> Docker, Podman. Package applications with their dependencies for consistent environments.</p>
+<p><strong>Orchestration:</strong> Kubernetes, Docker Swarm. Run and scale containerised applications in production.</p>
+<p><strong>Infrastructure as Code:</strong> Terraform, Pulumi. Define cloud infrastructure in code, version it, review it, automate it.</p>
+<p><strong>Configuration Management:</strong> Ansible, Chef, Puppet. Automate server configuration across fleets of machines.</p>
+<p><strong>Monitoring:</strong> Prometheus, Grafana, Datadog, ELK Stack. Observe what your systems are doing in real time.</p>
+<p><strong>Cloud Platforms:</strong> AWS, GCP, Azure. The infrastructure layer where modern applications run.</p>
+
+<h4>What DevOps Engineers Actually Do</h4>
+<p>A DevOps engineer's day might include: reviewing a pull request that changes a Kubernetes deployment manifest, debugging a failing CI pipeline by reading GitHub Actions logs, writing a Terraform module to provision a new RDS database, setting up a Grafana dashboard to track a new application metric, updating an Ansible playbook to configure a new server, and helping a developer understand why their application is slower in production than on their laptop.</p>
+<p>The common thread is automation and visibility. Every manual process is a target for automation. Every part of the system should be observable -- you should know what it is doing without having to log in and look.</p>
+
+<h4>The DevOps Mindset</h4>
+<p>Three principles define DevOps thinking. <strong>Collaboration:</strong> developers and operations share responsibility for the entire lifecycle. <strong>Automation:</strong> if you do it more than twice, automate it. Manual work does not scale and is a source of inconsistency. <strong>Feedback:</strong> fast, continuous feedback at every stage -- from automated tests during development to production metrics after deployment.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between DevOps and SRE?</h5>
+  <p>DevOps is a culture and set of practices. SRE (Site Reliability Engineering) is Google's specific implementation of DevOps principles using software engineering to solve operations problems. SREs write code to automate operations, set error budgets, and run postmortems. The concepts overlap significantly -- learning either prepares you for the other.</p>
+  <h5>Do DevOps engineers need to know how to code?</h5>
+  <p>Yes. Modern DevOps is software engineering applied to infrastructure and operations. You will write Python for automation, YAML for Kubernetes manifests, HCL for Terraform, Bash for scripting, and Go for tooling. You do not need to be a full application developer, but you must be comfortable reading and writing code.</p>
+  <h5>What is Infrastructure as Code?</h5>
+  <p>IaC means defining your infrastructure (servers, networks, databases, load balancers) in code files that can be version controlled, reviewed, and automatically applied. Terraform is the most popular IaC tool. Instead of clicking in the AWS console, you write HCL that describes the desired state and Terraform creates it.</p>
+  <h5>How do I start learning DevOps?</h5>
+  <p>Start with Linux fundamentals, then Git, then Docker, then Kubernetes, then CI/CD with GitHub Actions, then Terraform for cloud infrastructure. Build real projects at each step. This series follows exactly that progression -- each part builds on the previous.</p>
+  <h5>What salaries do DevOps engineers earn?</h5>
+  <p>DevOps engineering is one of the highest-paying technical roles. In India, experienced DevOps engineers earn Rs.15-40 LPA. In the US, senior DevOps/SRE roles pay $130,000-200,000+. The combination of development and operations skills is rare and in high demand.</p>
 </div>
-<p>Before you learn any DevOps tool — Docker, Kubernetes, Jenkins, Terraform — you need to understand what DevOps actually is. Not the job title. Not the buzzword. The actual idea. Most people who call themselves DevOps engineers know tools but do not understand the philosophy. That gap shows in interviews, in day-to-day work, and in the way they communicate with teams. This part fixes that.</p>
-
-<h4>The Problem DevOps Solved</h4>
-<p>To understand DevOps, you first need to understand the pain it was created to solve. In traditional software organizations, there were two separate teams: Development and Operations.</p>
-<p>The development team wrote code and wanted to release it as fast as possible. The operations team managed servers and infrastructure, and they valued stability above everything. Their job was to make sure nothing broke in production. These two goals — speed vs stability — were constantly in conflict.</p>
-<p>Developers would finish a feature, hand it over to operations ("throw it over the wall"), and operations would spend days or weeks testing, configuring, and deploying it. Bugs that only appeared in production would get blamed on ops. Configuration differences between development and production environments caused mysterious failures. Deployments were risky events that happened at midnight to minimize user impact. This was slow, painful, and broken.</p>
-
-<h4>What DevOps Actually Is</h4>
-<p>DevOps is not a tool. It is not a job title. It is a cultural and technical movement that breaks down the wall between development and operations. The core idea: the people who build software should also be responsible for running it. Shared responsibility creates better outcomes.</p>
-<p>DevOps combines three things:</p>
-<ul>
-  <li><strong>Culture</strong> — Collaboration, shared responsibility, blameless post-mortems, continuous learning.</li>
-  <li><strong>Practices</strong> — Continuous Integration, Continuous Delivery, Infrastructure as Code, monitoring and observability.</li>
-  <li><strong>Tools</strong> — Git, Docker, Kubernetes, Jenkins, Terraform, Prometheus, and many more.</li>
-</ul>
-<p>The tools get all the attention, but culture and practices are what actually deliver results. Organizations that adopt DevOps tools without the culture just end up with expensive automated failures.</p>
-
-<h4>Key DevOps Principles</h4>
-<h5>1. Continuous Integration (CI)</h5>
-<p>Developers merge their code changes frequently — multiple times per day. Each merge triggers automated tests. If tests fail, the team fixes the problem immediately rather than letting issues accumulate. The result: smaller, safer changes and faster feedback.</p>
-
-<h5>2. Continuous Delivery (CD)</h5>
-<p>Code that passes tests is automatically deployed to staging and potentially to production. The goal is to make deployment so routine and automated that it is no longer a risky event. Companies like Netflix and Amazon deploy thousands of times per day using CD pipelines.</p>
-
-<h5>3. Infrastructure as Code (IaC)</h5>
-<p>Instead of manually configuring servers, you write code that defines your infrastructure. Tools like Terraform and Ansible let you version-control your infrastructure just like application code. This makes environments reproducible, consistent, and auditable.</p>
-
-<h5>4. Monitoring and Observability</h5>
-<p>You cannot improve what you cannot measure. DevOps teams invest heavily in monitoring — tracking application performance, error rates, latency, and infrastructure health. When something goes wrong, they can diagnose it quickly using logs, metrics, and traces.</p>
-
-<h5>5. Shift Left</h5>
-<p>"Shift left" means catching problems earlier in the development process. Security testing, performance testing, code quality checks — all of these happen during development, not after deployment. This saves enormous time and cost.</p>
-
-<h4>The DevOps Lifecycle</h4>
-<p>DevOps is often visualized as an infinite loop with these phases:</p>
-<ul>
-  <li><strong>Plan</strong> — Define features and requirements (Jira, Trello)</li>
-  <li><strong>Code</strong> — Write application code (Git, GitHub)</li>
-  <li><strong>Build</strong> — Compile and package the application (Maven, npm, Docker)</li>
-  <li><strong>Test</strong> — Automated testing (JUnit, Selenium, pytest)</li>
-  <li><strong>Release</strong> — Approve and tag the release</li>
-  <li><strong>Deploy</strong> — Push to production (Kubernetes, Ansible, Terraform)</li>
-  <li><strong>Operate</strong> — Manage running systems</li>
-  <li><strong>Monitor</strong> — Track performance and issues (Prometheus, Grafana, ELK stack)</li>
-</ul>
-
-<h4>What Makes a Good DevOps Engineer?</h4>
-<p>A DevOps engineer is not just someone who knows Kubernetes. The best DevOps professionals have a broad skill set that spans multiple areas:</p>
-<ul>
-  <li>Strong Linux command line skills</li>
-  <li>Scripting in Bash and Python for automation</li>
-  <li>Understanding of networking — TCP/IP, DNS, HTTP, load balancers</li>
-  <li>Container technology — Docker and Kubernetes</li>
-  <li>CI/CD pipeline design — Jenkins, GitLab CI, GitHub Actions</li>
-  <li>Cloud platforms — AWS, GCP, or Azure</li>
-  <li>Infrastructure as Code — Terraform, Ansible</li>
-  <li>Monitoring and logging — Prometheus, Grafana, ELK</li>
-  <li>Security awareness — not a security expert, but security-minded</li>
-</ul>
-
-<h4>DevOps vs SRE vs Platform Engineering</h4>
-<p>You will hear these terms and they overlap. Here is a simple distinction: DevOps is the cultural philosophy and broad set of practices. SRE (Site Reliability Engineering), created at Google, is a specific implementation of DevOps principles with a focus on reliability, SLOs (Service Level Objectives), and error budgets. Platform Engineering is a newer specialization focused on building internal developer platforms that make DevOps practices easier for all teams.</p>
-
-<h4>Is DevOps Right for You?</h4>
-<p>DevOps is a great career path if you enjoy working across the full technology stack, you like automation and problem solving, you are comfortable with ambiguity, and you enjoy both the coding side and the infrastructure side of software. The demand for DevOps skills is extremely high, and good DevOps engineers are well-compensated globally.</p>
-<p>In Part 2, we will start the technical journey with the most foundational skill for any DevOps engineer: Linux command line mastery.</p>
-
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
-</div>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<p>In <a href="devops-roadmap-part-2.html">Part 2</a>, we cover Linux for DevOps -- the foundational operating system knowledge every DevOps engineer needs.</p>" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>DevOps Roadmap<div class="series-nav"><a href="2025-10-15">&larr; Part 0</a><strong style="color:#86868b;font-size:0.85rem;">devops-roadmap-part-2.html &middot; Part 1 of None</strong><a href="devops-part-1-terminal">Part 2 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees.</div></section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

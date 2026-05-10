@@ -48,7 +48,7 @@
 
   <!-- Schema.org Article -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Security for Non-Security People", "description": "A simple explanation of cloud security basics for people without a security background.", "url": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html", "datePublished": "2025-10-08", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Security for Non-Security People", "description": "A simple explanation of cloud security basics for people without a security background.", "url": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html", "dateModified":"2026-05-08","datePublished": "2025-10-08", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-security-for-non-security-people.html"}}
   </script>
 </head>
 
@@ -104,6 +104,41 @@
     Always follow official provider documentation.
   </p>
 </div>
+<h4>The Cloud Security Mistakes That Cost Real Money</h4>
+<p>Cloud security failures are not hypothetical. S3 buckets left publicly accessible have exposed millions of customer records. IAM access keys accidentally committed to GitHub have been used to mine cryptocurrency at the account owner's expense (charges of $50,000+ before detection are documented cases). EC2 instances with weak passwords have been compromised and used for spam campaigns. These are not rare disasters -- they happen to organisations of all sizes, often from simple oversights.</p>
+<div class="code-title">The 10 most common cloud security mistakes</div>
+<pre><code class="language-bash">1. Public S3 buckets with sensitive data
+   Fix: Bucket ACL Block Public Access + bucket policy audit
+
+2. Hardcoded AWS credentials in code/GitHub
+   Fix: Use IAM roles, git-secrets pre-commit hook, AWS Secrets Manager
+
+3. Over-permissive IAM policies (AdministratorAccess everywhere)
+   Fix: Least privilege -- only the permissions actually needed
+
+4. Security groups allowing 0.0.0.0/0 for all ports
+   Fix: Allow only specific ports from specific IPs/CIDRs
+
+5. Root account used for daily operations
+   Fix: Create IAM users, enable MFA on root, lock root credentials
+
+6. No MFA on console accounts
+   Fix: Mandatory MFA for all IAM users
+
+7. Unencrypted EBS volumes and RDS instances
+   Fix: Enable encryption at rest for all storage
+
+8. No CloudTrail (audit log)
+   Fix: Enable CloudTrail in all regions, centralize to S3
+
+9. EC2 in public subnet with database exposed
+   Fix: Database in private subnet, only app tier in public
+
+10. Stale access keys never rotated
+    Fix: Rotate quarterly, delete keys not used in 90 days</code></pre>
+<h4>The Security Mindset for Cloud Engineers</h4>
+<p>Good cloud security is not about applying a checklist once. It is a continuous practice of: assuming breach (design systems assuming an attacker has some access -- limit what they can do), least privilege (every user and service has only the minimum access it needs), defence in depth (multiple security layers so that one failure does not compromise everything), and monitoring (you can only respond to what you detect).</p>
+<h4>More Questions Answered</h4><div style="margin-top:24px;"><h5 style="margin-bottom:8px;">How do I check if my S3 buckets are publicly accessible?</h5><p>In AWS Console: S3 > (each bucket) > Permissions > Block public access settings. Or use AWS Security Hub which provides a comprehensive security posture assessment. Or run: aws s3api list-buckets --query "Buckets[].Name" --output text | xargs -I {} aws s3api get-bucket-acl --bucket {}</p><h5 style="margin-bottom:8px;">What is AWS CloudTrail and why does it matter?</h5><p>CloudTrail logs every API call made to your AWS account -- who did what, when, from where. It is your audit log and the first thing you check after a security incident. Enable CloudTrail in every region, send logs to an S3 bucket, and set up alerts for sensitive actions like root account usage, IAM changes, and security group modifications.</p><h5 style="margin-bottom:8px;">How do I find accidentally exposed secrets in my code?</h5><p>Use git-secrets (AWS Labs tool) to scan git history. Install the pre-commit hook to prevent future commits of secrets. Use gitleaks for a comprehensive scan of any repository. If you find exposed credentials in git history, rotate them immediately -- removing them from history is complex and the credentials are already compromised.</p></div>
 </section>
 
 <footer>

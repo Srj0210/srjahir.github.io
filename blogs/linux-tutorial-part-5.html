@@ -1,130 +1,148 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux Tutorial Part 5 — Process Management | SRJahir Tech</title>
-  <meta name="description" content="Learn Linux process management. Master ps, top, kill, jobs, bg, fg and systemd for controlling services and monitoring system resources." /><meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-5.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 5 — Process Management" />
-  <meta property="og:description" content="Learn Linux process management. Master ps, top, kill, jobs, bg, fg and systemd for controlling services and monitoring system resources." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-5.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-27" />
-  <meta property="article:author" content="Suraj Ahir" />
-<meta property="og:title" content="Linux Tutorial Part 5 — Process Management | SRJahir Tech">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 5 — Process Management | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-01", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-5.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-5.html", "description": "Learn Linux process management. Master ps, top, kill, jobs, bg, fg and systemd for controlling services and monitoring system resources."}
-  </script>
-<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-<meta name="google-adsense-account" content="ca-pub-1041324645386243">
-<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 5 — Process Management" />
-  <meta name="twitter:description" content="Learn Linux process management. Master ps, top, kill, jobs, bg, fg and systemd for controlling services and monitoring system resources." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-</head><body>
-<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
-<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
-<a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 5 of 12</strong>
-  <a href="linux-tutorial-part-6.html">Part 6 →</a>
-</div>
-<a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-</nav></header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 5: Process Management</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 01, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-5-terminal.svg" alt="Linux — Process Management" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Process Management</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="linux-tutorial-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 5 of 12</strong>
-  <a href="linux-tutorial-part-6.html">Part 6 →</a>
-</div>
-<p>Every running program in Linux is a process. Understanding how to view, control, and manage processes is essential for system administration, performance tuning, and DevOps operations. When a web server stops responding, when a script runs out of control, when you need to free up CPU — process management is the skill you reach for.</p>
-<h4>What is a Process?</h4>
-<p>When you run a program, Linux creates a process — an instance of that program running in memory with its own PID (Process ID), memory space, and CPU allocation. Every process has a parent process. The very first process, init or systemd, has PID 1 and is the ancestor of all others.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux Full Tutorial Part 5 - Process Management and Systemd | SRJahir Tech</title><meta name="description" content="Master Linux process management: ps, top, htop, kill, nice, nohup, systemctl, journalctl, and managing services with systemd."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-5.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Linux Full Tutorial Part 5 - Process Management and Systemd"/><meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-5.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-5-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-12-01"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 5 - Process Management and Systemd","url":"https://srjahir.in/blogs/linux-tutorial-part-5.html","datePublished":"2025-12-01","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>Linux Full Tutorial -- Part 5: Process Management</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-01 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="linux-tutorial-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 5 of 12</strong><a href="linux-tutorial-part-6.html">Part 6 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-5-terminal.svg" alt="Linux Full Tutorial -- Part 5: Process Management" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Every running program in Linux is a process. Managing processes -- understanding what is running, how much resources each uses, how to control them, and how to make services start automatically -- is core Linux sysadmin and DevOps work. This part covers everything from the ps command to systemd service management.</p>
 <h4>Viewing Processes</h4>
-<div class="code-title">Process Viewing Commands</div>
-<pre><code class="language-bash">ps aux                    # All processes — snapshot
-ps aux | grep nginx       # Find specific process
-top                       # Real-time process monitor (q to quit)
-htop                      # Better interactive process monitor
-pstree                    # Process tree — parent/child relationships
-pgrep nginx               # Get PID of process by name
-pidof python3             # PID of running Python</code></pre>
-<h4>Understanding ps aux Output</h4>
-<div class="code-title">ps Output Columns</div>
-<pre><code class="language-bash">USER   PID  %CPU  %MEM   VSZ    RSS   STAT  START  TIME  COMMAND
-root     1   0.0   0.1  169936  13248  Ss   Jan01  0:05  /sbin/init
-www-data 1234 2.1  1.5  256789  45678  S    10:30  0:23  nginx: worker</code></pre>
-<p>Key columns: PID (process ID), %CPU (CPU usage), %MEM (memory usage), STAT (S=sleeping, R=running, Z=zombie), TIME (total CPU time used).</p>
-<h4>Stopping and Killing Processes</h4>
-<div class="code-title">Kill Signals</div>
-<pre><code class="language-bash">kill 1234              # Send SIGTERM — graceful shutdown
-kill -9 1234           # Send SIGKILL — force kill immediately
-kill -HUP 1234         # Send SIGHUP — reload configuration
-pkill nginx            # Kill by name
-killall python3        # Kill all processes with this name
-kill -l                # List all signal names</code></pre>
-<p>Always try graceful SIGTERM first. SIGKILL (-9) is the last resort — it gives the process no chance to clean up, which can leave files in inconsistent states or leave database transactions incomplete.</p>
-<h4>Background and Foreground Jobs</h4>
-<div class="code-title">Job Control</div>
-<pre><code class="language-bash">python app.py &          # Run in background
-Ctrl+C                   # Kill foreground process
-Ctrl+Z                   # Suspend foreground process
-jobs                     # List background jobs
-fg 1                     # Bring job 1 to foreground
-bg 1                     # Resume job 1 in background
-nohup python app.py &    # Run immune to hangup (survives logout)
-disown -h %1             # Detach job from shell</code></pre>
-<h4>Process Priority — nice and renice</h4>
-<div class="code-title">Process Priority</div>
-<pre><code class="language-bash">nice -n 10 python heavy_task.py    # Start with low priority
-nice -n -5 critical_task           # Start with higher priority (needs root)
-renice 15 -p 1234                  # Change priority of running process
-renice -5 -p 1234                  # Increase priority (needs root)</code></pre>
-<p>Nice values range from -20 (highest priority) to 19 (lowest). Default is 0. Use high nice values for background tasks that should not compete with important processes.</p>
-<h4>Memory Usage Investigation</h4>
-<div class="code-title">Memory Analysis</div>
-<pre><code class="language-bash">free -h                              # Total memory overview
-cat /proc/meminfo                    # Detailed memory stats
-ps aux --sort=-%mem | head -10       # Top 10 memory consumers
-cat /proc/1234/status                # Memory usage of specific process</code></pre>
-<h4>CPU Usage Investigation</h4>
-<div class="code-title">CPU Analysis</div>
-<pre><code class="language-bash">ps aux --sort=-%cpu | head -10    # Top 10 CPU consumers
-mpstat 1 5                        # CPU stats every second, 5 times
-uptime                            # Load averages (1, 5, 15 minutes)</code></pre>
-<h4>Why Process Management Matters in Operations</h4>
-<p>In production environments, processes behave unexpectedly. A memory leak slowly consumes all available RAM until the system kills processes randomly. A runaway script pins the CPU at 100% and makes everything else slow. A zombie process accumulates and exhausts the process table. Understanding how to identify, analyze, and resolve these situations is what separates a reactive engineer from a proactive one.</p>
-<p>Good process management skills also feed directly into capacity planning — understanding normal CPU and memory usage patterns helps you decide when to scale up infrastructure and when to optimize application code first.</p>
-<p>In Part 6, we will cover networking — how Linux connects to the world and how to troubleshoot network issues from the command line.</p>
-<h4>Process Signals — Communicating with Processes</h4>
-<p>Linux processes communicate through signals — notifications sent from the kernel, from other processes, or from users. The most important signals: <code>SIGTERM</code> (15) is the polite termination request — it asks the process to clean up and exit gracefully. <code>SIGKILL</code> (9) is the immediate, unblockable kill — the kernel terminates the process without giving it a chance to clean up. Use only when SIGTERM does not work. <code>SIGHUP</code> (1) is interpreted by many daemon processes as a request to reload configuration — useful for applying changes without restarting. <code>SIGINT</code> (2) is what Ctrl+C sends. Use <code>kill -SIGNAL PID</code> to send signals, or <code>kill -l</code> to list all available signals.</p>
-<h4>Understanding Load Average</h4>
-<p>The load average visible in <code>top</code> and <code>uptime</code> represents the average number of processes that are running or waiting for CPU time, measured over 1, 5, and 15 minute intervals. A load average equal to the number of CPU cores means the system is fully utilized. Above that means processes are waiting for CPU — the system is overloaded. Use <code>nproc</code> to see your core count. On a 4-core system, a load average of 2.0 means 50% utilization. A load average of 6.0 on that same system means the CPU is overloaded and processes are queuing. Always interpret load average relative to available cores, not as an absolute number.</p>
-<h4>Background and Foreground Job Control</h4>
-<p>Linux shells support job control — managing multiple processes from a single terminal. Run a command in the background by appending <code>&amp;</code>: <code>sleep 300 &amp;</code>. Use <code>jobs</code> to list background jobs with their job numbers. Bring a background job to the foreground with <code>fg %1</code> (where 1 is the job number). Send a foreground job to the background by pressing Ctrl+Z (which pauses it) then running <code>bg %1</code>. The <code>nohup</code> command runs a process that continues after you log out: <code>nohup long_script.sh &amp;</code>. For long-running processes on remote servers, use <code>tmux</code> or <code>screen</code> to create persistent terminal sessions that survive disconnection.</p>
-<h4>Practice Exercise</h4>
-<p>Run several background processes: <code>sleep 1000 &amp;</code> three times. Then use <code>ps aux | grep sleep</code> to find them, <code>jobs</code> to list them, and practice sending signals: <code>kill -15 PID</code> to one and <code>kill -9 PID</code> to another. Also try <code>killall sleep</code> to kill all sleep processes at once. Run <code>top</code> and observe the load average, CPU usage, and memory usage. Press <code>P</code> to sort by CPU and <code>M</code> to sort by memory. Press <code>k</code> to kill a process from within top.</p>
+<div class="code-title">Process monitoring commands</div>
+<pre><code class="language-bash">ps aux                    # All processes with details
+ps aux | grep nginx       # Find nginx processes
+ps -ef                    # All processes, full format
+pgrep nginx               # Get PID(s) of nginx
 
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
-</body></html>
+top                       # Live process monitor
+# In top: q=quit k=kill r=renice Shift+M=sort by memory
+
+htop                      # Better top (install first: apt install htop)
+# In htop: F3=search F4=filter F9=kill F10=quit
+
+watch -n 2 "ps aux | grep myapp"  # Repeat command every 2 seconds</code></pre>
+<h4>Killing Processes</h4>
+<div class="code-title">Signals and process termination</div>
+<pre><code class="language-bash">kill 1234               # SIGTERM (15) -- graceful shutdown
+kill -9 1234            # SIGKILL -- force kill (cannot be caught)
+kill -HUP 1234          # SIGHUP -- reload config
+pkill nginx             # Kill by name
+pkill -f "python app.py"  # Kill by full command
+killall python3         # Kill all processes named python3
+
+# Find and kill process using a port
+lsof -i :8080
+fuser -k 8080/tcp       # Kill process using TCP port 8080</code></pre>
+<h4>Background Processes</h4>
+<div class="code-title">Running processes in background</div>
+<pre><code class="language-bash">./script.sh &            # Run in background
+nohup ./script.sh &      # Immune to hangup (survives SSH disconnect)
+screen -S mysession      # Create a named screen session
+screen -r mysession      # Resume session
+tmux new -s work         # Create tmux session
+tmux attach -t work      # Attach to session
+
+jobs                     # List background jobs in current shell
+bg 1                     # Resume job 1 in background
+fg 1                     # Bring job 1 to foreground
+Ctrl+Z                   # Suspend current process</code></pre>
+<h4>systemd Service Management</h4>
+<div class="code-title">Managing services with systemctl</div>
+<pre><code class="language-bash">systemctl status nginx             # Check service status
+systemctl start nginx              # Start service
+systemctl stop nginx               # Stop service
+systemctl restart nginx            # Stop and start
+systemctl reload nginx             # Reload config (no downtime)
+systemctl enable nginx             # Start on boot
+systemctl disable nginx            # Do not start on boot
+systemctl is-active nginx          # Is it running?
+systemctl list-units --type=service  # All services
+
+# View service logs
+journalctl -u nginx                # All logs for nginx
+journalctl -u nginx --since "1 hour ago"  # Recent logs
+journalctl -f -u nginx             # Follow live logs</code></pre>
+<h4>Creating a systemd Service</h4>
+<div class="code-title">/etc/systemd/system/myapp.service</div>
+<pre><code class="language-bash">[Unit]
+Description=My Python Application
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/myapp
+ExecStart=/home/ubuntu/myapp/venv/bin/python app.py
+Restart=always
+RestartSec=5
+Environment=PORT=8000
+Environment=LOG_LEVEL=INFO
+
+[Install]
+WantedBy=multi-user.target
+
+# After creating the file:
+systemctl daemon-reload
+systemctl enable myapp
+systemctl start myapp</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">What is the difference between kill and kill -9?</h5><p>kill sends SIGTERM (15) -- asks the process to terminate gracefully, allowing cleanup. kill -9 sends SIGKILL -- the kernel immediately terminates the process with no cleanup. Always try SIGTERM first. Use SIGKILL only when the process does not respond.</p>
+<h5 style="margin-bottom:8px;">What is a zombie process?</h5><p>A zombie process has finished execution but its entry still exists in the process table because its parent has not acknowledged its exit. Zombies consume minimal resources but indicate a programming error in the parent process. Kill the parent to clean up zombies.</p>
+<h5 style="margin-bottom:8px;">What is the difference between service and systemctl?</h5><p>service is an older wrapper that calls init scripts. systemctl is the modern interface for systemd. On modern Ubuntu/Debian systems, systemctl is preferred. service nginx restart is equivalent to systemctl restart nginx on systemd systems.</p>
+<h5 style="margin-bottom:8px;">How do I see what processes use the most CPU/memory?</h5><p>top sorted by CPU by default. Press M in top to sort by memory. htop provides a better visual. ps aux --sort=-%cpu | head -10 for top CPU users. ps aux --sort=-%mem | head -10 for memory.</p>
+<h5 style="margin-bottom:8px;">What is a daemon process?</h5><p>A daemon is a background process that runs continuously, usually started at boot, providing a service. Web servers (nginx), databases (postgresql), SSH (sshd) are all daemons. systemd manages daemons on modern Linux systems.</p>
+</div>
+<p>In <a href="linux-tutorial-part-6.html">Part 6</a>, we cover Linux networking commands for configuring and debugging network connectivity.</p><div class="series-nav"><a href="linux-tutorial-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 5 of 12</strong><a href="linux-tutorial-part-6.html">Part 6 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Linux OOM Killer and Memory Management</h4>
+<div class="code-title">Understanding and managing OOM events</div>
+<pre><code class="language-bash"># OOM (Out Of Memory) killer: Linux kills processes when RAM is exhausted
+# Check if OOM killer has run recently
+dmesg | grep -i "oom\|killed process"
+grep "Out of memory" /var/log/syslog | tail -10
+
+# See OOM score of processes (higher = more likely to be killed)
+cat /proc/$(pgrep nginx)/oom_score
+cat /proc/$(pgrep postgres)/oom_score
+
+# Protect critical processes from OOM killer
+echo -1000 | sudo tee /proc/$(pgrep nginx)/oom_score_adj   # Never kill
+echo 500  | sudo tee /proc/$(pgrep chrome)/oom_score_adj   # Kill this first
+
+# Memory usage by process
+ps aux --sort=-%mem | head -10
+cat /proc/meminfo              # Detailed memory information</code></pre>
+
+<h4>ulimit: Resource Limits Per Process</h4>
+<div class="code-title">Controlling what processes can consume</div>
+<pre><code class="language-bash">ulimit -a                     # Show all limits for current shell
+
+# Common limits
+ulimit -n 65536               # Open files limit (critical for web servers)
+ulimit -u 4096                # Max processes
+ulimit -m 1048576             # Max memory (KB)
+
+# Permanent limits: /etc/security/limits.conf
+*    soft nofile 65536
+*    hard nofile 65536
+nginx soft nofile 131072
+nginx hard nofile 131072
+
+# Per-service in systemd:
+# [Service]
+# LimitNOFILE=65536
+# LimitNPROC=4096</code></pre>
+
+<h4>strace: Tracing System Calls</h4>
+<div class="code-title">Debug mysterious process behaviour</div>
+<pre><code class="language-bash"># Trace a command
+strace ls /tmp 2>&1 | head -30
+
+# Trace a running process
+strace -p 1234
+
+# Only show file-related calls
+strace -e trace=file ls /tmp
+
+# Trace with timestamps
+strace -t ls /tmp
+
+# Find why a process is slow (show time per syscall)
+strace -c -p 1234           # Summary after Ctrl+C
+
+# Find what files a process is reading
+strace -e openat ls /tmp 2>&1 | grep "openat"</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

@@ -1,182 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Linux Tutorial Part 1 — Introduction & Why Linux Matters | SRJahir Tech</title>
-  <meta name="description" content="Start learning Linux from scratch. Understand what Linux is, why it powers the internet, how the Linux kernel works, and why every developer must learn it." />
-  <meta name="keywords" content="Linux tutorial beginners, learn Linux, Linux basics, Linux for developers, Linux commands" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-1.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-15" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 1 — Introduction & Why Linux Matters | SRJahir Tech" />
-  <meta property="og:description" content="Start learning Linux from scratch. Understand what Linux is, why it powers the internet, how the Linux kernel works, and why every developer must learn it." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-1.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 1 — Introduction & Why Linux Matters | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Start learning Linux from scratch. Understand what Linux is, why it powers the internet, how the Linux kernel works, and why every developer must learn it.", "datePublished": "2025-11-15", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-1.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-1.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <span></span>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 1 of 12</strong>
-  <a href="linux-tutorial-part-2.html">Part 2 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-
-<section class="content-block">
-
-<h3>Linux Tutorial — Part 1: Introduction &amp; Why Linux Matters</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 15, 2025 <span class="meta-dot"></span> 7 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-1-terminal.svg" alt="Linux — Getting Started" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Getting Started</figcaption>
-</figure>
-
-<div class="series-nav">
-  <span></span>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 1 of 12</strong>
-  <a href="linux-tutorial-part-2.html">Part 2 →</a>
-</div>
-<p>If you are serious about technology — whether it is cloud computing, DevOps, cybersecurity, or software development — you cannot avoid Linux. It is not optional. Linux runs over 96% of the world's top web servers. Every major cloud platform — AWS, GCP, Azure — is built on Linux. Android, which runs on over 70% of mobile devices, is built on the Linux kernel. Learning Linux is not learning a tool. It is learning the foundation of modern computing.</p>
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux Full Tutorial Part 1 - Introduction to Linux and the Terminal | SRJahir Tech</title><meta name="description" content="Learn Linux from scratch. Understand what Linux is, explore the filesystem hierarchy, navigate the terminal, and run your first Linux commands."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-1.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Linux Full Tutorial Part 1 - Introduction to Linux and the Terminal"/><meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-1.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-1-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-15"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 1 - Introduction to Linux and the Terminal","url":"https://srjahir.in/blogs/linux-tutorial-part-1.html","datePublished":"2025-11-15","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>Linux Full Tutorial -- Part 1: Introduction to Linux</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-15 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><span></span><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 1 of 12</strong><a href="linux-tutorial-part-2.html">Part 2 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-1-terminal.svg" alt="Linux Full Tutorial -- Part 1: Introduction to Linux" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Linux powers 96% of the world's servers, all Android devices, supercomputers, cloud infrastructure, and most DevOps tooling. Whether you want to work in DevOps, cloud engineering, cybersecurity, or embedded systems, Linux knowledge is non-negotiable. The terminal that seems intimidating at first becomes the most powerful tool you have ever used.</p>
+<p>I remember my first time staring at a Linux terminal with no GUI, no icons, just a blinking cursor. Three months later I was navigating file systems, managing processes, writing shell scripts, and finding the terminal dramatically faster than any graphical interface. The learning curve is real but short.</p>
 <h4>What is Linux?</h4>
-<p>Linux is a free, open-source operating system. Unlike Windows or macOS, Linux was built on a philosophy of openness — the source code is public, anyone can view it, modify it, and distribute it. This is why there are hundreds of "distributions" (versions) of Linux — Ubuntu, CentOS, Debian, Arch, Fedora, and many more — each tailored for different use cases.</p>
-<p>Linux was created by Linus Torvalds in 1991. He was a Finnish student who wanted a free alternative to Unix. What started as a personal project became the most important operating system in the history of computing. Today, the Linux kernel has millions of lines of code contributed by thousands of developers worldwide.</p>
-
-<h4>Why Every Developer and Engineer Must Know Linux</h4>
-<ul>
-  <li><strong>Servers run Linux</strong> — When your code runs "in the cloud," it is running on a Linux machine. Understanding Linux means understanding your production environment.</li>
-  <li><strong>DevOps tools are Linux-native</strong> — Docker, Kubernetes, Ansible, Terraform — they all work best on Linux and are primarily designed for Linux environments.</li>
-  <li><strong>SSH and remote access</strong> — Managing remote servers means connecting via SSH and using Linux commands. This is a daily task for backend engineers and DevOps professionals.</li>
-  <li><strong>Security professionals need it</strong> — Most penetration testing tools run on Linux. Kali Linux is the industry standard for ethical hacking.</li>
-  <li><strong>It makes you a better programmer</strong> — Linux forces you to understand how things actually work — file systems, processes, permissions, networking. This makes your thinking sharper.</li>
-</ul>
-
-<h4>The Linux Architecture</h4>
-<p>Linux has four main layers:</p>
-<ul>
-  <li><strong>Hardware</strong> — The physical components: CPU, RAM, disk, network card.</li>
-  <li><strong>Kernel</strong> — The core of Linux. It manages hardware resources and acts as a bridge between software and hardware. When a program wants to read a file or send a network packet, it talks to the kernel.</li>
-  <li><strong>Shell</strong> — The interface between you and the kernel. When you type commands in a terminal, the shell interprets them and tells the kernel what to do. Bash (Bourne Again Shell) is the most common shell.</li>
-  <li><strong>Applications</strong> — Programs you use: text editors, web servers, databases, development tools.</li>
-</ul>
-
-<h4>Linux Distributions — Which One to Learn?</h4>
-<p>There are many Linux distributions, but for learning purposes, <strong>Ubuntu</strong> is the best starting point. It is user-friendly, has a large community, and most online tutorials use Ubuntu. For server environments, <strong>Ubuntu Server</strong> and <strong>CentOS/RHEL</strong> are the most common in production.</p>
-<p>Here is a quick overview of popular distros:</p>
-<ul>
-  <li><strong>Ubuntu</strong> — Best for beginners and developers. Large community, easy to use.</li>
-  <li><strong>CentOS / RHEL</strong> — Common in enterprise and production server environments.</li>
-  <li><strong>Debian</strong> — Stable and reliable. Ubuntu is actually based on Debian.</li>
-  <li><strong>Kali Linux</strong> — Specialized for security testing and ethical hacking.</li>
-  <li><strong>Arch Linux</strong> — For advanced users who want complete control.</li>
-</ul>
-
-<h4>The Terminal — Your New Best Friend</h4>
-<p>The terminal is where you interact with Linux using text commands. It might look intimidating at first, but it is actually faster and more powerful than clicking through a graphical interface. Once you get comfortable with the terminal, you will prefer it.</p>
-<p>Open a terminal in Ubuntu by pressing <code>Ctrl + Alt + T</code>. You will see a prompt that looks something like this:</p>
-<div class="code-title">Linux Terminal Prompt</div>
-<pre><code class="language-bash">suraj@ubuntu:~$</code></pre>
-<p>This tells you: the username is <code>suraj</code>, the machine is called <code>ubuntu</code>, and you are currently in the home directory (<code>~</code>). The <code>$</code> means you are a regular user (not root).</p>
-
-<h4>Your First Linux Commands</h4>
-<p>Let us run a few basic commands to get comfortable:</p>
-<div class="code-title">Basic Linux Commands</div>
-<pre><code class="language-bash"># Show current directory
-pwd
-
-# List files and folders
-ls
-ls -la   # detailed list with hidden files
-
-# Show username
-whoami
-
-# Show date and time
-date
-
-# Clear the terminal screen
-clear
-
-# Show system info
-uname -a</code></pre>
-
-<h4>The Linux File System — A Quick Overview</h4>
-<p>Linux organizes everything in a single directory tree starting from <code>/</code> (called root). Some important directories:</p>
-<ul>
-  <li><code>/home</code> — User home directories. Your personal files live here.</li>
-  <li><code>/etc</code> — System configuration files.</li>
-  <li><code>/var</code> — Variable data — logs, databases, cached files.</li>
-  <li><code>/usr</code> — User programs and utilities.</li>
-  <li><code>/bin</code> — Essential command binaries (like <code>ls</code>, <code>cp</code>).</li>
-  <li><code>/tmp</code> — Temporary files. Cleared on reboot.</li>
-</ul>
-<p>In Linux, <em>everything is a file</em>. Devices, processes, network connections — they all appear as files somewhere in this tree. This unified model makes Linux very powerful and consistent.</p>
-
-<h4>Installing Linux — Options</h4>
-<p>You have several options to start using Linux:</p>
-<ul>
-  <li><strong>Dual boot</strong> — Install Linux alongside Windows on your machine.</li>
-  <li><strong>Virtual machine</strong> — Run Linux inside VirtualBox or VMware on your existing OS. Safest for beginners.</li>
-  <li><strong>WSL (Windows Subsystem for Linux)</strong> — Run a Linux terminal directly inside Windows 10/11. Very convenient for developers.</li>
-  <li><strong>Cloud server</strong> — Create a free tier Ubuntu VM on AWS, GCP, or Azure and connect via SSH.</li>
-</ul>
-<p>In Part 2, we will go deep into file system navigation — the core skill that makes everything else possible in Linux.</p>
-
-<h4>Linux Distributions: Choosing the Right One</h4>
-<p>Linux is not a single operating system — it is a kernel around which many different distributions (distros) have been built. Each distro packages the kernel with different tools, package managers, and default configurations. Ubuntu and Debian use the <code>apt</code> package manager and are the most common in cloud environments and web servers. CentOS, Rocky Linux, and AlmaLinux use <code>dnf</code> or <code>yum</code> and are dominant in enterprise and corporate environments. Arch Linux is highly customizable and popular with developers who want full control. For learning purposes, Ubuntu is the recommended starting point — it has the largest community, the best documentation, and is the default for most cloud virtual machines on AWS, GCP, and Azure.</p>
-<h4>Linux in the Real World: Where It Powers Everything</h4>
-<p>Understanding the scale of Linux deployment helps motivate the learning investment. Over 96% of the world's top one million web servers run Linux. All of the top 500 supercomputers in the world run Linux. Android — running on billions of devices — is built on the Linux kernel. AWS, Google Cloud, and Azure all run their underlying infrastructure on Linux. Docker containers run Linux processes. Kubernetes orchestrates Linux containers. Every major cloud certification assumes Linux knowledge. The pattern is clear: if you work in technology professionally, you will work with Linux. There is no realistic path around it.</p>
-<h4>Practice Exercise</h4>
-<p>Set up a Linux environment to practice with. If you are on Windows, install Windows Subsystem for Linux (WSL2) — it provides a full Ubuntu environment inside Windows. If you prefer a cloud-based setup, create a free-tier AWS EC2 instance or GCP Compute Engine instance running Ubuntu. Once you have access to a terminal, run these commands to start exploring: <code>uname -a</code> (system information), <code>whoami</code> (current user), <code>pwd</code> (current directory), <code>ls -la</code> (list files with details), <code>df -h</code> (disk space usage), and <code>free -h</code> (memory usage).</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+<p>Linux is an open-source operating system kernel created by Linus Torvalds in 1991. A Linux distribution (distro) packages the Linux kernel with system utilities, package managers, and applications. Common distros: Ubuntu (most popular for beginners and servers), Debian (stable), CentOS/RHEL (enterprise), Fedora (cutting-edge), Arch (advanced). For DevOps, Ubuntu LTS is the standard recommendation.</p>
+<h4>The Linux Filesystem Hierarchy</h4>
+<div class="code-title">Standard Linux directory structure</div>
+<pre><code class="language-bash">/           # Root -- the top of the entire filesystem
+/bin        # Essential user binaries (ls, cp, mv, cat)
+/sbin       # System binaries (ifconfig, fdisk, reboot)
+/etc        # Configuration files (/etc/nginx/, /etc/ssh/)
+/home       # User home directories (/home/suraj/)
+/root       # Root user home directory
+/var        # Variable data: logs (/var/log/), databases
+/tmp        # Temporary files (cleared on reboot)
+/usr        # User programs (/usr/bin/, /usr/lib/)
+/opt        # Optional/third-party software
+/proc       # Virtual filesystem -- kernel/process info
+/dev        # Device files (disks, terminals)
+/mnt        # Mount point for temporary mounts
+/media      # Mount point for removable media</code></pre>
+<h4>Your First Terminal Commands</h4>
+<div class="code-title">Getting started</div>
+<pre><code class="language-bash">whoami          # Show current username
+hostname        # Show machine name
+uname -a        # Show kernel and OS info
+date            # Current date and time
+cal             # Calendar
+uptime          # System running time and load
+w               # Who is logged in
+history         # Show command history
+history | grep ssh  # Search command history
+!!              # Run last command again
+!ssh            # Run last command starting with ssh</code></pre>
+<h4>Getting Help</h4>
+<div class="code-title">Linux documentation system</div>
+<pre><code class="language-bash">man ls              # Manual page for ls command
+man -k search       # Search manual pages by keyword
+ls --help           # Brief help for a command
+info coreutils      # GNU info system (more detailed)
+type ls             # What kind of command is ls?
+which python3       # Where is python3 located?
+whereis nginx       # All locations for nginx</code></pre>
+<h4>Terminal Shortcuts</h4>
+<div class="code-title">Essential keyboard shortcuts</div>
+<pre><code class="language-bash">Ctrl+C          # Kill current process
+Ctrl+Z          # Suspend current process (background)
+Ctrl+D          # Exit/logout (EOF)
+Ctrl+L          # Clear screen (same as: clear)
+Ctrl+A          # Move cursor to start of line
+Ctrl+E          # Move cursor to end of line
+Ctrl+U          # Delete from cursor to start
+Ctrl+K          # Delete from cursor to end
+Ctrl+R          # Search command history
+Tab             # Autocomplete commands and paths
+Tab Tab         # Show all completion options
+Up/Down arrows  # Navigate command history</code></pre>
+<h4>Linux Distributions Compared</h4>
+<p><strong>Ubuntu/Debian:</strong> Large community, extensive documentation, best for beginners, widely used on AWS. Package manager: apt.</p>
+<p><strong>CentOS/RHEL/AlmaLinux:</strong> Enterprise-grade stability, used in corporate environments. Package manager: yum/dnf.</p>
+<p><strong>Arch Linux:</strong> Cutting-edge, minimal installation, learn-by-doing philosophy. For advanced users. Package manager: pacman.</p>
+<p><strong>Alpine Linux:</strong> Extremely small (5MB base image), used in Docker containers for minimal image sizes. Package manager: apk.</p>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">Do I need to learn Linux to work in DevOps?</h5><p>Yes, absolutely. All major cloud platforms run Linux. Docker containers run Linux. Kubernetes nodes run Linux. CI/CD runners run Linux. You will spend significant time working in Linux environments throughout your DevOps career.</p>
+<h5 style="margin-bottom:8px;">Which Linux distribution should I start with?</h5><p>Ubuntu 22.04 LTS or 24.04 LTS. It has the largest community, the most tutorials, and is widely used on AWS, Azure, and GCP. Once you know Ubuntu, you can transfer skills to other distros in days.</p>
+<h5 style="margin-bottom:8px;">What is the difference between a terminal, shell, and command line?</h5><p>Terminal: the application that provides a text interface. Shell: the program inside that interprets your commands (bash, zsh, fish). Command line: the interface for typing commands. In practice, these terms are often used interchangeably.</p>
+<h5 style="margin-bottom:8px;">How do I get a Linux environment to practice on?</h5><p>Install Ubuntu in VirtualBox or VMware on Windows. Use WSL2 on Windows 10/11 (Windows Subsystem for Linux). Use a free EC2 t2.micro instance on AWS. Use an online practice environment like killercoda.com or labs.play-with-docker.com.</p>
+<h5 style="margin-bottom:8px;">What is the sudo command?</h5><p>sudo (superuser do) runs a command with root/administrator privileges. Example: sudo apt install nginx. Use it only when necessary. Running everything as root is dangerous -- use your normal user account and sudo when elevated access is needed.</p>
 </div>
+<p>In <a href="linux-tutorial-part-2.html">Part 2</a>, we cover file system navigation -- moving around directories, listing files, and finding what you need.</p><div class="series-nav"><span></span><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 1 of 12</strong><a href="linux-tutorial-part-2.html">Part 2 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Linux in the Cloud: What You Will See Every Day</h4>
+<div class="code-title">Your first 5 minutes on any new Linux server</div>
+<pre><code class="language-bash">whoami && hostname          # Who am I, where am I?
+uname -a                    # What OS version is this?
+uptime                      # How long has it been running?
+free -h                     # How much memory?
+df -h                       # How much disk?
+ps aux | wc -l              # How many processes?
+ss -tlnp                    # What is listening on which ports?
+cat /etc/os-release         # Full OS information
+last | head                 # Who logged in recently?
+cat /var/log/auth.log | tail -20  # Recent authentication events</code></pre>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
+<h4>Essential Linux Concepts Every DevOps Engineer Must Know</h4>
+<p><strong>Everything is a file.</strong> Linux represents almost everything as a file: regular files, directories, devices (/dev/sda), processes (/proc/1234), network sockets. This uniform interface means the same tools (cat, ls, chmod) work across different types of "files."</p>
+<p><strong>Users and permissions.</strong> Every process runs as a user. Every file has an owner. Permissions determine what each user can do with each file. This is Linux's core security model.</p>
+<p><strong>Processes and signals.</strong> Every running program is a process with a PID. Processes communicate via signals. kill sends a signal. Ctrl+C sends SIGINT. Ctrl+Z sends SIGTSTP. Understanding signals is essential for process management.</p>
+<p><strong>Streams: stdin, stdout, stderr.</strong> Every process has three standard streams. Programs read from stdin (0), write output to stdout (1), and write errors to stderr (2). Pipes and redirection connect these streams between programs.</p>
+<div class="code-title">Pipes and redirection</div>
+<pre><code class="language-bash">ls -la | grep ".conf"              # Pipe stdout to grep
+ps aux | sort -k3 -rn | head -10  # Top CPU processes
+find /var/log -name "*.log" 2>/dev/null  # Redirect errors to /dev/null
+echo "hello" > file.txt           # Redirect stdout to file (overwrite)
+echo "world" >> file.txt          # Append stdout to file
+command 2>&1 | tee output.log     # Capture both stdout and stderr</code></pre>
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

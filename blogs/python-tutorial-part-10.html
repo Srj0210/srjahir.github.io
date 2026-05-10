@@ -1,189 +1,277 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 10 — Modules & Packages | SRJahir Tech</title>
-  <meta name="description" content="Learn Python modules and packages — import system, standard library, creating your own modules, and using pip to install third-party packages." />
-  <meta name="keywords" content="Python modules, Python packages, Python import, Python pip, Python standard library" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-10.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-01-06" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 10 — Modules & Packages | SRJahir Tech" />
-  <meta property="og:description" content="Learn Python modules and packages — import system, standard library, creating your own modules, and using pip to install third-party packages." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-10.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 10 — Modules & Packages | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Python modules and packages — import system, standard library, creating your own modules, and using pip to install third-party packages.", "datePublished": "2026-01-06", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-10.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-10.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 10 - Modules, Packages and pip | SRJahir Tech</title>
+<meta name="description" content="Learn Python modules, packages, pip, virtual environments, and the standard library. Organise code across files and use thousands of packages."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-10.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 10 - Modules, Packages and pip"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-10.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-10-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2026-01-06"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 10 - Modules, Packages and pip","url":"https://srjahir.in/blogs/python-tutorial-part-10.html","datePublished":"2026-01-06","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="python-tutorial-part-9.html">← Part 9</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 10 of 12</strong>
-  <a href="python-tutorial-part-11.html">Part 11 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 10: Modules &amp; Packages</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2026-01-06 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-9.html">&larr; Part 9</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 10 of 12</strong><a href="python-tutorial-part-11.html">Part 11 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-10-terminal.svg" alt="Python Full Tutorial -- Part 10: Modules &amp; Packages" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Python's module and package system is one of its greatest strengths. The standard library covers an enormous range of tasks with no extra installation. The PyPI ecosystem adds hundreds of thousands more packages. Understanding how to organise your own code into modules and how to use pip effectively is essential professional Python knowledge.</p>
+<h4>Creating and Importing Modules</h4>
+<div class="code-title">Module basics</div>
+<pre><code class="language-bash"># utils.py
+def calculate_tax(amount, rate=0.18):
+    return amount * rate
 
-<section class="content-block">
+SUPPORTED_CURRENCIES = ["INR", "USD", "EUR"]
 
-<h3>Python Full Tutorial — Part 10: Modules &amp; Packages</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> January 06, 2026 <span class="meta-dot"></span> 6 min read</p>
+# main.py
+import utils
+tax = utils.calculate_tax(1000)       # 180.0
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-10-terminal.svg" alt="Python — Python Decorators" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Decorators</figcaption>
-</figure>
+from utils import calculate_tax
+tax = calculate_tax(1000, rate=0.28)  # 280.0
 
-<div class="series-nav">
-  <a href="python-tutorial-part-9.html">← Part 9</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 10 of 12</strong>
-  <a href="python-tutorial-part-11.html">Part 11 →</a>
-</div>
-<p>Professional Python code is never one massive file. It is organized into modules and packages. This makes code reusable, testable, maintainable, and collaborative. Understanding the module system is essential before you start working on real projects.</p>
-<h4>What is a Module?</h4>
-<p>A module is simply a Python file (<code>.py</code>) containing functions, classes, and variables. Any Python file can be a module.</p>
-<div class="code-title">math_utils.py — Your Custom Module</div>
-<pre><code class="language-python"># math_utils.py
-def add(a, b):
-    return a + b
+import utils as u
+print(u.SUPPORTED_CURRENCIES)</code></pre>
+<h4>Package Structure</h4>
+<div class="code-title">Organising code into a package</div>
+<pre><code class="language-bash">myapp/
+    __init__.py          # Marks directory as package
+    models/
+        __init__.py
+        user.py
+        product.py
+    services/
+        __init__.py
+        payment.py
+    utils/
+        validators.py
+    main.py</code></pre>
+<div class="code-title">Import from package</div>
+<pre><code class="language-bash">from myapp.models.user import User
+from myapp.services.payment import process_payment
+from myapp.utils import validators</code></pre>
+<h4>Standard Library Highlights</h4>
+<div class="code-title">Essential standard library modules</div>
+<pre><code class="language-bash">import os, sys, json, re, datetime
+from pathlib import Path
+from collections import Counter, defaultdict
+import logging
 
-def multiply(a, b):
-    return a * b
+# os
+os.makedirs("logs", exist_ok=True)
+files = os.listdir(".")
+env_var = os.environ.get("HOME", "/tmp")
 
-PI = 3.14159</code></pre>
-<div class="code-title">Using Your Module</div>
-<pre><code class="language-python"># main.py
-import math_utils
-
-result = math_utils.add(5, 3)
-print(result)  # 8
-print(math_utils.PI)</code></pre>
-<h4>import Styles</h4>
-<div class="code-title">Different Import Ways</div>
-<pre><code class="language-python">import math                    # Full import
-print(math.sqrt(16))           # Use with prefix
-
-from math import sqrt, pi      # Import specific items
-print(sqrt(25))                # Use directly
-
-import numpy as np             # Import with alias
-arr = np.array([1, 2, 3])</code></pre>
-<h4>Python's Standard Library — Built-in Power</h4>
-<p>Python comes with a massive standard library. No installation needed:</p>
-<div class="code-title">Standard Library Examples</div>
-<pre><code class="language-python">import os
-print(os.getcwd())        # Current directory
-os.makedirs("data", exist_ok=True)  # Create folder
-
-import datetime
+# datetime
 now = datetime.datetime.now()
-print(now.strftime("%Y-%m-%d %H:%M:%S"))
+formatted = now.strftime("%Y-%m-%d %H:%M")
+tomorrow = now + datetime.timedelta(days=1)
 
-import random
-print(random.randint(1, 100))
-print(random.choice(["red", "blue", "green"]))
+# re (regular expressions)
+pattern = r"^[\w.-]+@[\w.-]+\.\w+$"
+print(bool(re.match(pattern, "suraj@example.com")))  # True</code></pre>
+<h4>Virtual Environments and pip</h4>
+<div class="code-title">Project dependency management</div>
+<pre><code class="language-bash"># Create virtual environment
+python3 -m venv venv
+source venv/bin/activate        # Linux/macOS
+.\venv\Scripts\activate         # Windows
 
-import json
-data = json.dumps({"name": "Suraj", "age": 22})
+# Install packages in venv
+pip install requests flask pandas pytest
 
+# Save dependencies
+pip freeze > requirements.txt
+
+# Install from file
+pip install -r requirements.txt
+
+# Useful commands
+pip list                   # List installed
+pip show requests          # Info about package
+pip install --upgrade pip  # Update pip itself</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">Module vs package?</h5><p>A module is a single .py file. A package is a directory with __init__.py containing multiple modules. Both are imported the same way.</p>
+<h5 style="margin-bottom:8px;">How does Python find modules?</h5><p>Python searches: sys.modules cache, built-in modules, then sys.path directories. sys.path includes current directory and site-packages where pip installs.</p>
+<h5 style="margin-bottom:8px;">How do I install packages?</h5><p>pip install package-name. Specific version: pip install requests==2.28. From file: pip install -r requirements.txt. Always use a virtual environment.</p>
+<h5 style="margin-bottom:8px;">What is the standard library?</h5><p>Modules included with every Python installation -- no pip needed. Covers os, sys, json, csv, datetime, re, pathlib, logging, threading, http, unittest, and hundreds more.</p>
+<h5 style="margin-bottom:8px;">Why use virtual environments?</h5><p>Each project gets its own isolated Python and packages. Prevents version conflicts between projects. Without venvs, all projects share one global Python and conflicts are inevitable.</p>
+</div>
+<p>In <a href="python-tutorial-part-11.html">Part 11</a>, we cover Object-Oriented Programming -- classes, inheritance, and the OOP patterns used in major Python frameworks.</p>
+<div class="series-nav"><a href="python-tutorial-part-9.html">&larr; Part 9</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 10 of 12</strong><a href="python-tutorial-part-11.html">Part 11 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
+
+<h4>Virtual Environments with pyenv</h4>
+<div class="code-title">Managing Python versions with pyenv</div>
+<pre><code class="language-bash"># Install pyenv (manages multiple Python versions)
+curl https://pyenv.run | bash
+
+# Install Python versions
+pyenv install 3.11.8
+pyenv install 3.12.2
+
+# Set default globally
+pyenv global 3.11.8
+
+# Set per project
+cd myproject
+pyenv local 3.12.2   # Creates .python-version file
+
+# Create virtual environment with specific version
+pyenv local 3.12.2
+python -m venv venv
+source venv/bin/activate</code></pre>
+
+<h4>Project Management with Poetry</h4>
+<div class="code-title">Modern Python dependency management</div>
+<pre><code class="language-bash">pip install poetry
+
+# Create new project
+poetry new myproject
+cd myproject
+
+# Add dependencies
+poetry add flask requests boto3
+poetry add --group dev pytest black mypy
+
+# pyproject.toml manages everything
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0"
+requests = "^2.31"
+
+# Install all dependencies
+poetry install
+
+# Run commands in virtual env
+poetry run python app.py
+poetry run pytest
+
+# Export to requirements.txt for compatibility
+poetry export -f requirements.txt --output requirements.txt</code></pre>
+
+
+<h4>Module Best Practices for Large Projects</h4>
+<div class="code-title">Organising Python code professionally</div>
+<pre><code class="language-bash">myapp/
+    __init__.py          # Keep minimal: just expose public API
+    config.py            # Configuration constants
+    models/
+        __init__.py      # from .user import User (re-export)
+        user.py
+        order.py
+    services/
+        __init__.py
+        email_service.py
+        payment_service.py
+    utils/
+        __init__.py
+        validators.py
+        formatters.py
+    tests/
+        conftest.py      # Shared pytest fixtures
+        test_models.py
+        test_services.py</code></pre>
+
+<div class="code-title">__init__.py pattern for clean imports</div>
+<pre><code class="language-bash"># models/__init__.py
+from .user import User
+from .order import Order, OrderStatus
+from .product import Product
+
+__all__ = ["User", "Order", "OrderStatus", "Product"]
+
+# Now users can do:
+from myapp.models import User, Order   # Clean import
+# Instead of:
+from myapp.models.user import User      # Exposes internal structure</code></pre>
+
+
+<h4>Import System Deep Dive</h4>
+<div class="code-title">How Python imports work</div>
+<pre><code class="language-bash">import sys
+
+# See where Python looks for modules
+print(sys.path)
+# ['', '/usr/lib/python3.11', '/usr/lib/python3.11/lib-dynload',
+#  '/home/suraj/.local/lib/python3.11/site-packages', ...]
+
+# Add a directory to search path
+sys.path.insert(0, '/home/suraj/mylibs')
+
+# See all cached (already imported) modules
+print(list(sys.modules.keys())[:10])
+
+# Reload a module after changing it (useful in REPL)
+import importlib
+importlib.reload(mymodule)
+
+# Conditional imports
+try:
+    import ujson as json  # Faster JSON if available
+except ImportError:
+    import json           # Fall back to stdlib
+
+# Lazy imports for startup performance
+def get_pandas():
+    import pandas as pd   # Only imported when first called
+    return pd</code></pre>
+
+<h4>Creating Executable Python Scripts</h4>
+<div class="code-title">CLI tools with argparse</div>
+<pre><code class="language-bash">#!/usr/bin/env python3
+"""
+disk-check: Check disk usage and alert if above threshold.
+Usage: disk-check --threshold 85 --path /
+"""
+import argparse
 import sys
-print(sys.version)
-print(sys.platform)</code></pre>
-<h4>pip — Installing Third-Party Packages</h4>
-<p>pip is Python's package manager. It connects to PyPI (Python Package Index), which has over 400,000 packages:</p>
-<div class="code-title">pip Commands</div>
-<pre><code class="language-bash">pip install requests          # Install a package
-pip install requests==2.28.0  # Install specific version
-pip uninstall requests        # Remove a package
-pip list                      # Show installed packages
-pip show requests             # Info about a package
-pip install -r requirements.txt  # Install from file</code></pre>
-<h4>requirements.txt — Sharing Dependencies</h4>
-<p>When sharing a project, list all dependencies:</p>
-<div class="code-title">requirements.txt</div>
-<pre><code class="language-bash">requests==2.28.2
-pandas==2.0.1
-flask==2.3.2
-python-dotenv==1.0.0</code></pre>
-<h4>Packages — Organized Collections of Modules</h4>
-<p>A package is a folder containing multiple modules and a special <code>__init__.py</code> file:</p>
-<div class="code-title">Package Structure</div>
-<pre><code class="language-bash">my_project/
-├── main.py
-├── utils/
-│   ├── __init__.py
-│   ├── math_utils.py
-│   └── string_utils.py
-└── data/
-    └── config.json</code></pre>
-<p>In Part 11, we cover Object-Oriented Programming — the paradigm that powers most production Python codebases.</p>
+import shutil
 
+def check_disk(path: str, threshold: int) -> int:
+    total, used, free = shutil.disk_usage(path)
+    pct = (used / total) * 100
+    
+    print(f"Path: {path}")
+    print(f"Total: {total / 1e9:.1f} GB")
+    print(f"Used:  {used  / 1e9:.1f} GB ({pct:.1f}%)")
+    print(f"Free:  {free  / 1e9:.1f} GB")
+    
+    if pct >= threshold:
+        print(f"ALERT: Disk usage {pct:.1f}% exceeds threshold {threshold}%")
+        return 1
+    return 0
 
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
+def main():
+    parser = argparse.ArgumentParser(description="Check disk usage")
+    parser.add_argument("--path",      default="/",  help="Path to check")
+    parser.add_argument("--threshold", type=int, default=85, help="Alert %")
+    args = parser.parse_args()
+    sys.exit(check_disk(args.path, args.threshold))
 
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
+if __name__ == "__main__":
+    main()</code></pre>
 
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>The Standard Library — Python's Hidden Wealth</h4>
-<p>Python ships with an extensive standard library — a collection of modules that cover an enormous range of common programming tasks without requiring any additional installation. Understanding what is available in the standard library prevents you from reinventing functionality that already exists and is well-tested. Key standard library modules worth knowing: <code>datetime</code> for date and time operations, <code>os</code> and <code>pathlib</code> for file system operations, <code>json</code> for JSON serialization, <code>csv</code> for CSV file handling, <code>collections</code> for specialized data structures like Counter, defaultdict, and namedtuple, <code>itertools</code> for efficient iteration tools, <code>functools</code> for higher-order functions, <code>re</code> for regular expressions, and <code>logging</code> for application logging.</p>
-<h4>Popular Third-Party Packages</h4>
-<p>Beyond the standard library, Python's ecosystem of third-party packages (installed via pip) is one of its greatest strengths. The most important packages to be aware of depend on your domain, but broadly useful ones include: <code>requests</code> for making HTTP requests to web APIs, <code>pandas</code> for data manipulation and analysis, <code>numpy</code> for numerical computing, <code>pytest</code> for testing, <code>python-dotenv</code> for managing environment variables and configuration, and <code>click</code> or <code>argparse</code> for building command-line tools. Learning to find, evaluate, and use third-party packages — checking PyPI, reading documentation, understanding dependency management — is an essential Python professional skill.</p>
-<h4>Practice Exercise</h4>
-<p>Write a Python script that uses the <code>os</code> module to list all files in a directory, the <code>datetime</code> module to format the current date and time, and the <code>collections.Counter</code> to count the frequency of file extensions in the directory. This exercise introduces the standard library in a practical, useful context that touches three different modules.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
-</div>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

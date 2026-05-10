@@ -1,160 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech</title>
-  <meta name="description" content="Understand Linux file permissions completely — read write execute, chmod, chown, sudo, user groups, and permission numbers explained." />
-  <meta name="keywords" content="Linux permissions, Linux chmod chown, Linux file ownership, Linux sudo, Linux users groups" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-3.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux Full Tutorial Part 3 - File Permissions and Ownership | SRJahir Tech</title><meta name="description" content="Master Linux file permissions: chmod, chown, chgrp, SUID, SGID, sticky bit, umask, and securing files and directories in Linux systems."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-3.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Linux Full Tutorial Part 3 - File Permissions and Ownership"/><meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-3.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-3-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-23"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 3 - File Permissions and Ownership","url":"https://srjahir.in/blogs/linux-tutorial-part-3.html","datePublished":"2025-11-23","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>Linux Full Tutorial -- Part 3: File Permissions</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-23 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="linux-tutorial-part-2.html">&larr; Part 2</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 3 of 12</strong><a href="linux-tutorial-part-4.html">Part 4 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-3-terminal.svg" alt="Linux Full Tutorial -- Part 3: File Permissions" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Linux permission system controls who can read, write, and execute every file and directory on the system. Understanding it is essential -- incorrect permissions are a major source of security vulnerabilities and operational problems. Applications fail because they cannot write logs. Web servers cannot serve files. SSH breaks because key files have wrong permissions.</p>
+<h4>Permission Structure</h4>
+<div class="code-title">Reading permissions</div>
+<pre><code class="language-bash">ls -la
+# -rw-r--r-- 1 suraj devs  1234 Jan 1 myfile.txt
+# drwxr-xr-x 2 root  root  4096 Jan 1 scripts/
+# ||||||||||    ^^^^^  ^^^^
+# ||||||||||    user   group
+# |||||||||+-- other: r--
+# ||||||+--- group: r-x
+# |||+--- user: rw-
+# |+-- type: - file, d directory, l symlink
+# r=4 w=2 x=1</code></pre>
+<h4>chmod</h4>
+<div class="code-title">Changing permissions</div>
+<pre><code class="language-bash">chmod 755 script.sh    # rwxr-xr-x
+chmod 644 config.txt   # rw-r--r--
+chmod 600 .ssh/id_rsa  # rw------- (SSH key must be this!)
+chmod 700 .ssh/        # rwx------
+chmod +x deploy.sh     # Add execute for all
+chmod -w file.txt      # Remove write from all
+chmod u+x,g-w file     # Add user execute, remove group write
+chmod -R 755 /app/     # Recursive: all files and directories</code></pre>
+<h4>chown and chgrp</h4>
+<div class="code-title">Changing ownership</div>
+<pre><code class="language-bash">chown ubuntu file.txt             # Change owner
+chown ubuntu:devs file.txt        # Change owner and group
+chown -R www-data:www-data /var/www/html/  # Recursive
+chgrp developers project/         # Change group only</code></pre>
+<h4>Special Permissions</h4>
+<div class="code-title">SUID, SGID, and Sticky Bit</div>
+<pre><code class="language-bash"># SUID (Set User ID) -- run as owner, not caller
+chmod u+s /usr/bin/passwd
+ls -l /usr/bin/passwd  # -rwsr-xr-x (s = SUID)
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-3.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-23" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:title" content="Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech" /><meta property="og:description" content="Understand Linux file permissions completely — read write execute, chmod, chown, sudo, user groups, and permission numbers explained." />
+# SGID on directory -- new files inherit group
+chmod g+s /shared/
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 3 — File Permissions & Ownership" />
-  <meta name="twitter:description" content="Understand Linux file permissions completely — read write execute, chmod, chown, sudo, user groups, and permission numbers explained." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 3 — File Permissions & Ownership | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-23", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-3.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-3.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-2.html">← Part 2</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 3 of 12</strong>
-  <a href="linux-tutorial-part-4.html">Part 4 →</a>
+# Sticky bit -- only owner can delete
+chmod +t /tmp/
+ls -la / | grep tmp  # drwxrwxrwt (t = sticky bit)
+
+# Numeric: 4=SUID 2=SGID 1=sticky
+chmod 4755 file     # SUID + 755</code></pre>
+<h4>umask</h4>
+<div class="code-title">Default permissions for new files</div>
+<pre><code class="language-bash">umask           # Show current umask (typically 022)
+# umask 022 means:
+# Files:       666 - 022 = 644 (rw-r--r--)
+# Directories: 777 - 022 = 755 (rwxr-xr-x)
+
+umask 027       # More restrictive: files 640, dirs 750
+# Add to ~/.bashrc to make permanent</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">What permissions should SSH keys have?</h5><p>600 for private key files (~/.ssh/id_rsa). 644 for public key files. 700 for ~/.ssh/ directory. 600 for ~/.ssh/authorized_keys. SSH will refuse to connect if private keys are too permissive.</p>
+<h5 style="margin-bottom:8px;">What permissions should a web server need?</h5><p>/var/www/html/ should be owned by www-data:www-data (the nginx/apache user). Files: 644, directories: 755. PHP should be owned by the web server user. Never use 777 on a production server.</p>
+<h5 style="margin-bottom:8px;">What does chmod 777 mean and why avoid it?</h5><p>777 = rwxrwxrwx -- everyone can read, write, and execute. Avoid in production because it lets any user on the system (or any compromised process) modify the file. Use minimal permissions -- only what is needed.</p>
+<h5 style="margin-bottom:8px;">How do I find files with wrong permissions?</h5><p>find /home -perm 777 -- find world-writable files. find / -perm -4000 -- find SUID files. find /var/www -not -user www-data -- find files with wrong owner.</p>
+<h5 style="margin-bottom:8px;">What is the principle of least privilege?</h5><p>Give users and processes only the minimum permissions they need to function. A web server should not be able to write to /etc/. An application user should not have sudo access. This limits damage if a component is compromised.</p>
 </div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 3: File Permissions &amp; Ownership</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 23, 2025 <span class="meta-dot"></span> 6 min read</p>
+<p>In <a href="linux-tutorial-part-4.html">Part 4</a>, we cover text processing with grep, awk, and sed -- essential tools for working with log files and configuration in Linux.</p><div class="series-nav"><a href="linux-tutorial-part-2.html">&larr; Part 2</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 3 of 12</strong><a href="linux-tutorial-part-4.html">Part 4 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Permission Scenarios in Production</h4>
+<div class="code-title">Common real-world permission setups</div>
+<pre><code class="language-bash"># Web application directory structure
+sudo mkdir -p /var/www/myapp/{html,logs,uploads}
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-3-terminal.svg" alt="Linux — Permissions" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Permissions</figcaption>
-</figure>
+# Nginx runs as www-data, app runs as appuser
+sudo chown -R www-data:www-data /var/www/myapp/html
+sudo chown -R appuser:appuser   /var/www/myapp/logs
+sudo chown -R appuser:www-data  /var/www/myapp/uploads
 
-<div class="series-nav">
-  <a href="linux-tutorial-part-2.html">← Part 2</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 3 of 12</strong>
-  <a href="linux-tutorial-part-4.html">Part 4 →</a>
-</div>
-<p>Linux is a multi-user system. Permissions control who can read, modify, or execute each file. Understanding permissions is not optional — it is one of the most important concepts in Linux security, system administration, and DevOps.</p>
-<h4>The Permission Model</h4>
-<p>Every file and directory in Linux has three permission sets and three types of permissions:</p>
-<div class="code-title">Permission Structure</div>
-<pre><code class="language-bash">-rwxr-xr--  1  suraj  developers  4096  Mar 10  script.sh
- |||||||||||     |      |
- |||------        Owner  Group
- |||  r-x = Group can read and execute
- |||
- rwx = Owner can read, write, execute
- 
- - = regular file
- d = directory
- l = symbolic link</code></pre>
-<h4>Understanding r, w, x</h4>
-<ul>
-  <li><strong>r (read)</strong> — Can read the file's content. For directories: can list contents.</li>
-  <li><strong>w (write)</strong> — Can modify the file. For directories: can create/delete files inside.</li>
-  <li><strong>x (execute)</strong> — Can run the file as a program. For directories: can enter (cd into) the directory.</li>
-</ul>
-<h4>Numeric Permissions</h4>
-<p>Each permission has a number value: r=4, w=2, x=1. Add them together:</p>
-<div class="code-title">Permission Numbers</div>
-<pre><code class="language-bash">7 = rwx (4+2+1) — Full permissions
-6 = rw- (4+2)   — Read and write
-5 = r-x (4+1)   — Read and execute
-4 = r-- (4)     — Read only
-0 = ---         — No permissions
+# Permissions:
+# html:    755 (nginx can read, world cannot write)
+# logs:    755 (app writes, nginx can read)
+# uploads: 2775 (SGID set -- new files inherit group www-data)
 
-# Common patterns:
-755 = rwxr-xr-x  (Owner: full, Group/Others: read+execute)
-644 = rw-r--r--  (Owner: read+write, Group/Others: read only)
-600 = rw-------  (Owner only: read+write)
-777 = rwxrwxrwx  (Everyone: full — use carefully!)</code></pre>
-<h4>chmod — Changing Permissions</h4>
-<div class="code-title">chmod Examples</div>
-<pre><code class="language-bash">chmod 755 script.sh      # Make script executable
-chmod 644 config.txt     # Standard file permissions
-chmod 600 private.key    # Private key — owner only
-chmod +x deploy.sh       # Add execute for all
-chmod -w file.txt        # Remove write for all
-chmod u+x script.sh      # Add execute for user only
-chmod -R 755 directory/  # Apply recursively</code></pre>
-<h4>chown — Changing Ownership</h4>
-<div class="code-title">chown Examples</div>
-<pre><code class="language-bash">chown suraj file.txt              # Change owner
-chown suraj:developers file.txt   # Change owner and group
-chown -R suraj:suraj /var/www/    # Recursive ownership change</code></pre>
-<h4>sudo — Running as Root</h4>
-<p>Some system operations require root (administrator) privileges. <code>sudo</code> lets authorized users run commands as root:</p>
-<div class="code-title">sudo Examples</div>
-<pre><code class="language-bash">sudo apt update                   # Update package list
-sudo apt install nginx            # Install software
-sudo systemctl start nginx        # Start a service
-sudo chmod 755 /etc/myapp.conf    # Change protected file permissions
-sudo -i                           # Open root shell (use carefully)</code></pre>
-<h4>Users and Groups</h4>
-<div class="code-title">User Management</div>
-<pre><code class="language-bash">whoami                    # Current user
-id                        # Current user's UID, GID, groups
-groups                    # Groups current user belongs to
-sudo adduser newuser      # Create a new user
-sudo passwd newuser       # Set password
-sudo usermod -aG sudo newuser  # Add user to sudo group
-cat /etc/passwd           # List all users</code></pre>
-<h4>The .ssh Directory Permissions</h4>
-<p>SSH key security depends on correct permissions — this is critical for cloud server access:</p>
-<div class="code-title">SSH Permission Requirements</div>
-<pre><code class="language-bash">chmod 700 ~/.ssh          # .ssh directory
-chmod 600 ~/.ssh/id_rsa   # Private key — MUST be 600
-chmod 644 ~/.ssh/id_rsa.pub  # Public key</code></pre>
-<p>If private key permissions are too open, SSH will refuse to use it and give a "WARNING: UNPROTECTED PRIVATE KEY FILE!" error.</p>
-<p>In Part 4, we will cover text processing commands — grep, sed, awk, find — the tools that make Linux incredibly powerful for data processing.</p>
-<h4>The setuid, setgid, and Sticky Bit</h4>
-<p>Beyond the standard read-write-execute permissions, Linux has three special permission bits. The setuid bit (numeric 4000) on an executable file means the program runs with the permissions of the file's owner, not the user who launched it. This is how <code>passwd</code> (the password-changing command) allows regular users to write to the system password file — it runs as root regardless of who invokes it. The setgid bit (numeric 2000) on a directory causes new files created in that directory to inherit the directory's group ownership rather than the creating user's group — useful for shared project directories. The sticky bit (numeric 1000) on a directory (common on <code>/tmp</code>) means only the file's owner, the directory's owner, or root can delete files — preventing users from deleting each other's temporary files.</p>
-<h4>Access Control Lists (ACLs)</h4>
-<p>Standard Unix permissions allow only one owner, one group, and a set of "other" permissions. Access Control Lists (ACLs) extend this model to allow specific permissions for multiple users and groups on a single file. Use <code>getfacl filename</code> to view ACLs and <code>setfacl -m u:username:rwx filename</code> to grant specific permissions to a named user. ACLs are essential in enterprise environments where complex permission requirements cannot be satisfied by the standard three-user model. Most modern Linux filesystems (ext4, XFS) support ACLs natively.</p>
-<h4>Practice Exercise</h4>
-<p>Create a shared directory scenario: make a directory called <code>/tmp/team_project</code>, set it to group ownership of a specific group (create the group with <code>groupadd</code>), apply the setgid bit so new files inherit the group, and set permissions so that only the group can write to it. Then add another user using <code>useradd</code> (or check your existing user), add them to the group with <code>usermod -aG</code>, and verify that files created by both users inherit the group ownership.</p>
+find /var/www/myapp/html -type d -exec chmod 755 {} \;
+find /var/www/myapp/html -type f -exec chmod 644 {} \;
+chmod 2775 /var/www/myapp/uploads</code></pre>
 
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
+<h4>Access Control Lists (ACL)</h4>
+<div class="code-title">Fine-grained permissions beyond owner/group/other</div>
+<pre><code class="language-bash"># Standard permissions: one owner, one group, everyone else
+# ACL: per-user and per-group permissions on any file
 
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
-</section>
+# Install ACL tools
+sudo apt install acl
 
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
-</body></html>
+# Grant user john read access to a file (even if not in group)
+setfacl -m u:john:r /etc/nginx/nginx.conf
+
+# Grant group developers read+write access to directory
+setfacl -m g:developers:rw /srv/shared/
+
+# Set default ACL (applies to new files in directory)
+setfacl -m d:g:developers:rw /srv/shared/
+
+# View ACL
+getfacl /srv/shared/
+
+# Remove ACL
+setfacl -x u:john /etc/nginx/nginx.conf</code></pre>
+
+<h4>Auditing File Access with auditd</h4>
+<div class="code-title">Track who accesses sensitive files</div>
+<pre><code class="language-bash">sudo apt install auditd
+
+# Watch a sensitive file for any access
+sudo auditctl -w /etc/passwd -p rwxa -k passwd-access
+
+# Watch a directory for writes
+sudo auditctl -w /var/www/html -p w -k web-writes
+
+# View audit log
+sudo aureport --file
+sudo ausearch -k passwd-access --start today
+sudo ausearch -f /etc/passwd</code></pre>
+
+
+<h4>Understanding umask in Production</h4>
+<div class="code-title">Default permission control</div>
+<pre><code class="language-bash">umask             # Show current (usually 0022)
+# umask 022 means:
+# Files created:       666 - 022 = 644 (rw-r--r--)
+# Directories created: 777 - 022 = 755 (rwxr-xr-x)
+
+# More restrictive for sensitive directories
+umask 027
+# Files: 640 (rw-r-----) -- owner read+write, group read, others nothing
+# Dirs:  750 (rwxr-x---) -- owner full, group read+exec, others nothing
+
+# Set per-user in ~/.bashrc:
+echo "umask 027" >> ~/.bashrc
+
+# Set system-wide in /etc/profile or /etc/login.defs:
+echo "umask 027" | sudo tee -a /etc/profile</code></pre>
+
+<h4>Find Files by Permission (Security Audit)</h4>
+<div class="code-title">Permission-based file searches</div>
+<pre><code class="language-bash"># Find world-writable files (security risk)
+find /var/www -perm -o+w -type f 2>/dev/null
+
+# Find SUID binaries (can run as owner, not caller)
+find / -perm -4000 -type f 2>/dev/null
+# Known safe: /usr/bin/passwd, /usr/bin/sudo, /usr/bin/su
+
+# Find SGID files
+find / -perm -2000 -type f 2>/dev/null
+
+# Find files not owned by any user (orphaned)
+find / -nouser -type f 2>/dev/null
+
+# Find files modified in last 24 hours (incident response)
+find /etc -mtime -1 -type f 2>/dev/null
+find /usr/bin -mtime -1 -type f 2>/dev/null
+
+# Fix all files in a web directory at once
+find /var/www/html -type f -exec chmod 644 {} \;
+find /var/www/html -type d -exec chmod 755 {} \;</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

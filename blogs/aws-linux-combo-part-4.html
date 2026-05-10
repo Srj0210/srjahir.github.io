@@ -1,208 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>AWS + Linux Combo — Part 4: Linux File Permissions & Users on EC2 | SRJahir Tech</title>
-  <meta name="description" content="Master Linux file permissions, user management, and sudo access on your AWS EC2 instance. Essential skills for secure cloud server management." />
-  <meta name="keywords" content="Linux file permissions, AWS EC2 user management, chmod chown, sudo Linux, Linux security EC2" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-4.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-13" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AWS + Linux Combo — Part 4: Linux File Permissions & Users on EC2 | SRJahir Tech" />
-  <meta property="og:description" content="Master Linux file permissions, user management, and sudo access on your AWS EC2 instance. Essential skills for secure cloud server management." />
-  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "AWS + Linux Combo — Part 4: Linux File Permissions & Users on EC2", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Master Linux file permissions, user management, and sudo access on your AWS EC2 instance. Essential skills for secure cloud server management.", "datePublished": "2025-10-13", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/aws-linux-combo-part-4.html"}, "url": "https://srjahir.in/blogs/aws-linux-combo-part-4.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS Linux Tutorial Part 4 - Users and File Permissions on EC2 | SRJahir Tech</title>
+<meta name="description" content="Master Linux user management and file permissions on AWS EC2: adduser, usermod, sudo, chmod, chown, and securing your cloud Linux server."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-4.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="AWS Linux Tutorial Part 4 - Users and File Permissions on EC2"/>
+<meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-4.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-4-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-10-13"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS Linux Tutorial Part 4 - Users and File Permissions on EC2","url":"https://srjahir.in/blogs/aws-linux-combo-part-4.html","datePublished":"2025-10-13","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="aws-linux-combo-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 4 of 12</strong>
-  <a href="aws-linux-combo-part-5.html">Part 5 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-
-<h3>AWS + Linux Combo — Part 4: Linux File Permissions &amp; Users on EC2</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 13, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/aws-part-4-terminal.svg" alt="AWS + Linux — S3 & Storage" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS + Linux — S3 & Storage</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="aws-linux-combo-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 4 of 12</strong>
-  <a href="aws-linux-combo-part-5.html">Part 5 →</a>
-</div>
-
-<p>One of the things that confuses people when they first start working with Linux servers is permissions. On Windows, you mostly click "Allow" or "Deny" and things work. On Linux, permissions are more explicit and more powerful. Understanding them is essential for running a secure cloud server on AWS.</p>
-
-<h4>Why Permissions Matter on EC2</h4>
-<p>Your EC2 instance is accessible over the internet. That means if a file has the wrong permissions, an attacker who gains access could read it. If a directory has wrong permissions, a script could overwrite critical files. Permissions are the first layer of defense on any Linux server. Cloud security starts with getting them right.</p>
-
-<h4>Linux Permission Model</h4>
-<p>Every file and directory in Linux has three types of permissions — read, write, and execute — and three categories of users they apply to: owner, group, and others (everyone else).</p>
-<div class="code-title">View File Permissions</div>
-<pre><code class="language-bash">ls -la
-
-# Output looks like:
-# -rwxr-xr-- 1 ec2-user ec2-user 1234 Mar 17 10:00 script.sh
-# drwxr-xr-x 2 ec2-user ec2-user 4096 Mar 17 09:00 mydir/</code></pre>
-<p>Breaking down <code>-rwxr-xr--</code>: the first character is the file type (- for file, d for directory). Then come three groups of three characters each: owner permissions (rwx), group permissions (r-x), and others permissions (r--).</p>
-<ul>
-  <li><code>r</code> = read (4)</li>
-  <li><code>w</code> = write (2)</li>
-  <li><code>x</code> = execute (1)</li>
-  <li><code>-</code> = no permission (0)</li>
-</ul>
-
-<h4>Changing Permissions with chmod</h4>
-<p><code>chmod</code> changes file permissions. You can use symbolic or numeric (octal) notation:</p>
-<div class="code-title">chmod Examples</div>
-<pre><code class="language-bash"># Give owner full permissions, group read+execute, others nothing
-chmod 750 script.sh
-
-# Make file readable by everyone
-chmod 644 readme.txt
-
-# Make a script executable by owner only
-chmod 700 myscript.sh
-
-# Symbolic way: add execute for owner
-chmod u+x script.sh
-
-# Remove write for others
-chmod o-w file.txt
-
-# Apply permissions recursively to a directory
-chmod -R 755 /var/www/html/</code></pre>
-
-<h4>Changing Ownership with chown</h4>
-<p><code>chown</code> changes who owns a file or directory:</p>
-<div class="code-title">chown Examples</div>
-<pre><code class="language-bash"># Change file owner to ec2-user
-sudo chown ec2-user myfile.txt
-
-# Change both owner and group
-sudo chown ec2-user:ec2-user myfile.txt
-
-# Change owner recursively for a directory
-sudo chown -R ec2-user:ec2-user /var/www/</code></pre>
-
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>AWS Linux Tutorial -- Part 4: Users &amp; Permissions on EC2</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-13 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="aws-linux-combo-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 4 of 12</strong><a href="aws-linux-combo-part-5.html">Part 5 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/aws-part-4-terminal.svg" alt="AWS Linux Tutorial -- Part 4: Users &amp; Permissions on EC2" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Every production EC2 instance needs proper user management and file permissions. Running everything as root is a security disaster waiting to happen. Setting up dedicated users for applications, configuring sudo access correctly, and applying proper file permissions are foundational security practices for any cloud server.</p>
 <h4>User Management on EC2</h4>
-<p>Your EC2 instance starts with the <code>ec2-user</code> account. In real-world scenarios, you often need to create additional users — for example, for different team members or for running applications under dedicated service accounts:</p>
-<div class="code-title">Create and Manage Users</div>
-<pre><code class="language-bash"># Create a new user
-sudo useradd devuser
+<div class="code-title">Creating and managing users</div>
+<pre><code class="language-bash"># Check who is logged in
+whoami
+id
+w
 
-# Set a password
-sudo passwd devuser
+# Create a new user
+sudo adduser deploy           # Interactive, creates home dir
+sudo useradd -m -s /bin/bash webuser  # Non-interactive
 
-# Create user with home directory and shell
-sudo useradd -m -s /bin/bash appuser
+# Add user to sudo group (Ubuntu)
+sudo usermod -aG sudo deploy
 
-# Add user to a group
-sudo usermod -aG wheel devuser   # wheel = sudo group on Amazon Linux
-sudo usermod -aG sudo devuser    # sudo group on Ubuntu
+# Add user to docker group (to run docker without sudo)
+sudo usermod -aG docker ubuntu
 
 # View all users
 cat /etc/passwd
+getent passwd     # All users including system users
 
-# Delete a user
-sudo userdel -r devuser   # -r removes home directory too</code></pre>
+# Switch to another user
+sudo su - deploy  # Switch with environment
+sudo -u deploy bash  # Run command as another user</code></pre>
+<h4>Setting Up SSH Key for Additional Users</h4>
+<div class="code-title">Add SSH key for a team member</div>
+<pre><code class="language-bash"># As the new user
+sudo su - deploy
 
-<h4>Understanding sudo</h4>
-<p>The <code>sudo</code> command lets you run commands with root (administrator) privileges. On EC2, the <code>ec2-user</code> account has full sudo access without a password — AWS configured this intentionally for convenience. In production environments, you would restrict this more tightly.</p>
-<div class="code-title">Using sudo</div>
-<pre><code class="language-bash"># Run a command as root
-sudo systemctl restart nginx
-
-# Open a root shell (use carefully)
-sudo su -
-
-# Run a command as a different user
-sudo -u appuser python3 app.py
-
-# Check sudo privileges
-sudo -l</code></pre>
-
-<h4>SSH Key Management for Multiple Users</h4>
-<p>When you have multiple users on an EC2 instance, each user who needs SSH access requires their own authorized_keys file. Here is how to set it up:</p>
-<div class="code-title">Set Up SSH Keys for New User</div>
-<pre><code class="language-bash"># Switch to the new user
-sudo su - devuser
-
-# Create .ssh directory
-mkdir ~/.ssh
+mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 
-# Create authorized_keys file and add their public key
-nano ~/.ssh/authorized_keys
-# Paste their public key here, save and exit
+# Add the team member's public key
+echo "ssh-ed25519 AAAA... teammate@company.com" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
 
-# Set correct permissions
-chmod 600 ~/.ssh/authorized_keys</code></pre>
+# Now the team member can connect:
+# ssh deploy@your-server-ip
+# (using their private key)</code></pre>
+<h4>File Permissions on EC2</h4>
+<div class="code-title">Common permission scenarios</div>
+<pre><code class="language-bash"># Web server files
+sudo chown -R www-data:www-data /var/www/html
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
 
-<h4>Important Security Practices</h4>
-<p>Running a Linux server on AWS means it is exposed to the internet. Here are key security habits to develop from the start. Never run your application as root — create a dedicated user for it. Keep file permissions as restrictive as possible. Only open ports in your Security Group that are actually needed. Regularly check <code>/var/log/auth.log</code> or <code>/var/log/secure</code> for failed login attempts, which indicate scanning or brute-force activity. Disable password authentication for SSH and use key pairs only — AWS does this by default, and you should keep it that way.</p>
-<p>In Part 5, we will install Nginx on our EC2 instance and serve our first web page from a Linux server in the cloud.</p>
+# Application directory
+sudo mkdir /opt/myapp
+sudo chown ubuntu:ubuntu /opt/myapp
 
-<h4>Sudo and Privilege Escalation on EC2</h4>
-<p>On EC2 instances, the default user (ubuntu on Ubuntu AMIs, ec2-user on Amazon Linux) can run commands as root using <code>sudo</code> without a password — this is configured in <code>/etc/sudoers</code>. This is convenient for administration but means protecting the instance's SSH access is critical. Never create additional users with unrestricted sudo access unless necessary. For application deployments, create a dedicated service account with only the permissions needed: <code>sudo useradd --system --no-create-home appuser</code>. Run the application as this service user rather than as ubuntu or root. This follows the principle of least privilege — limiting the damage if the application is compromised.</p>
-<h4>Managing Multiple Users on EC2 for Teams</h4>
-<p>When multiple team members need access to an EC2 instance, resist the temptation to share a single SSH key or user account. Instead, create individual user accounts for each team member and add their public SSH keys. This provides individual accountability through audit logs and allows access to be revoked for specific individuals without disrupting others. A cleaner approach for larger teams is to use AWS Systems Manager Session Manager — it provides browser-based shell access to EC2 instances without any SSH keys, using IAM credentials for authentication and automatically logging all session activity to CloudWatch.</p>
-<h4>Practice Exercise</h4>
-<p>On your EC2 instance, create a new user account: <code>sudo useradd -m -s /bin/bash newuser</code>. Create the <code>.ssh</code> directory for the new user, add an authorized key (use your existing public key for testing), and set proper permissions (<code>chmod 700 ~/.ssh</code> and <code>chmod 600 ~/.ssh/authorized_keys</code>). Test SSH access as the new user. Then use <code>sudo visudo</code> to grant the new user specific sudo permissions for a single command rather than full sudo access, and verify the restriction works.</p>
+# Logs directory writable by app user
+sudo mkdir /var/log/myapp
+sudo chown deploy:deploy /var/log/myapp
 
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+# SSH private key -- MUST be 600
+chmod 600 ~/.ssh/id_rsa
+chmod 700 ~/.ssh
+
+# Scripts that need to be executed
+chmod 755 /usr/local/bin/myapp-start.sh</code></pre>
+<h4>sudo Configuration</h4>
+<div class="code-title">Fine-grained sudo access</div>
+<pre><code class="language-bash"># Edit sudoers safely (never edit /etc/sudoers directly!)
+sudo visudo
+
+# Common sudo configurations:
+# Full sudo access:
+ubuntu ALL=(ALL:ALL) ALL
+
+# Passwordless sudo for ubuntu user:
+ubuntu ALL=(ALL) NOPASSWD:ALL
+
+# Specific commands only:
+deploy ALL=(ALL) NOPASSWD: /bin/systemctl restart myapp
+deploy ALL=(ALL) NOPASSWD: /usr/bin/docker
+
+# Add to /etc/sudoers.d/ instead of main file
+echo "deploy ALL=(ALL) NOPASSWD: /bin/systemctl" | sudo tee /etc/sudoers.d/deploy</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">Should I disable the ubuntu user and create my own?</h5><p>Best practice: create your own user with sudo, add your SSH key, test you can log in, then disable ubuntu password auth. Never delete ubuntu user entirely on EC2 -- it is used for instance recovery. Disable password auth instead: passwd -l ubuntu</p>
+<h5 style="margin-bottom:8px;">How do I give a developer SSH access to my EC2?</h5><p>Create a user for them (adduser developer). Add their public key to ~/.ssh/authorized_keys in their home. Add them to sudo if needed. Never share your own private key -- each person gets their own key pair.</p>
+<h5 style="margin-bottom:8px;">What is the difference between adduser and useradd?</h5><p>adduser is a friendly Debian/Ubuntu script that prompts for info and creates home directory automatically. useradd is the lower-level command requiring manual flags (-m for home dir, -s for shell). Both work; adduser is easier for interactive use.</p>
+<h5 style="margin-bottom:8px;">How do I see what sudo commands a user ran?</h5><p>Check /var/log/auth.log for sudo entries. grep "sudo" /var/log/auth.log. journalctl _COMM=sudo shows sudo audit logs. Enable auditd for more comprehensive auditing: sudo apt install auditd.</p>
+<h5 style="margin-bottom:8px;">How do I remove a user and their files?</h5><p>sudo userdel username removes the user. sudo userdel -r username removes user AND their home directory. Check for processes owned by user first: ps aux | grep username. Kill any running processes before deletion.</p>
 </div>
+<p>In <a href="aws-linux-combo-part-5.html">Part 5</a>, we install and configure Nginx web server on EC2 -- serving your first web application from the cloud.</p>
+<div class="series-nav"><a href="aws-linux-combo-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 4 of 12</strong><a href="aws-linux-combo-part-5.html">Part 5 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
+<h4>Advanced User Management Scenarios</h4>
+<div class="code-title">Service accounts and system users</div>
+<pre><code class="language-bash"># Create system user for an application (no login, no home)
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin appuser
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# Create user for a web service
+sudo useradd -r -s /bin/false -d /var/www/myapp www-appuser
+sudo mkdir -p /var/www/myapp
+sudo chown www-appuser:www-appuser /var/www/myapp
+
+# List all users with login shells (real users)
+grep -v "nologin\|false" /etc/passwd | cut -d: -f1
+
+# Lock an account when employee leaves
+sudo passwd -l former_employee    # Lock
+sudo usermod -L former_employee   # Lock (alternative)
+sudo usermod -e 1 former_employee # Expire immediately
+
+# Check login history
+last ubuntu             # Show login history
+lastb                   # Failed login attempts
+who                     # Currently logged in users</code></pre>
+
+<h4>Sudoers Configuration for DevOps Teams</h4>
+<div class="code-title">Fine-grained sudo access patterns</div>
+<pre><code class="language-bash"># /etc/sudoers.d/devops-team
+# NEVER edit /etc/sudoers directly -- use visudo or sudoers.d/
+
+# Allow ubuntu user full sudo (standard EC2 setup)
+ubuntu ALL=(ALL:ALL) NOPASSWD:ALL
+
+# Allow deploy user to only restart specific services
+deploy ALL=(ALL) NOPASSWD: /bin/systemctl restart myapp
+deploy ALL=(ALL) NOPASSWD: /bin/systemctl status myapp
+deploy ALL=(ALL) NOPASSWD: /usr/bin/docker ps
+
+# Allow monitoring user to read logs
+monitor ALL=(ALL) NOPASSWD: /usr/bin/tail -f /var/log/*
+monitor ALL=(ALL) NOPASSWD: /bin/journalctl
+
+# Verify sudoers file is valid before saving
+sudo visudo -c    # Check for syntax errors</code></pre>
+
+<h4>Securing EC2 Access with AWS Systems Manager</h4>
+<p>AWS Systems Manager Session Manager is the modern, more secure alternative to SSH for EC2 access. It requires no open SSH port (22), no key pair management, and provides full audit logging of every command through CloudTrail.</p>
+<div class="code-title">Set up SSM Session Manager</div>
+<pre><code class="language-bash"># Install SSM agent (pre-installed on Amazon Linux and Ubuntu 20.04+)
+sudo snap install amazon-ssm-agent --classic
+sudo systemctl enable --now snap.amazon-ssm-agent.amazon-ssm-agent
+
+# Attach IAM role with AmazonSSMManagedInstanceCore policy to EC2
+
+# Connect from your machine (no SSH port needed):
+aws ssm start-session --target i-1234567890abcdef
+
+# Port forward through SSM (no SSH needed)
+aws ssm start-session   --target i-1234567890abcdef   --document-name AWS-StartPortForwardingSession   --parameters portNumber=5432,localPortNumber=5432</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

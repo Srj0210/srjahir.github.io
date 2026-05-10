@@ -48,7 +48,7 @@
 
   <!-- Schema.org Article -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Cost Mistakes Beginners Make", "description": "Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud.", "url": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html", "datePublished": "2025-08-05", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Cloud Cost Mistakes Beginners Make", "description": "Common cloud cost mistakes beginners make and how to avoid unexpected bills on AWS, Azure, and Google Cloud.", "url": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html", "dateModified":"2026-05-08","datePublished": "2025-08-05", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/cloud-cost-mistakes-beginners-make.html"}}
   </script>
 </head>
 
@@ -107,6 +107,39 @@
     Always verify details from official documentation.
   </p>
 </div>
+<h4>The Most Expensive Cloud Mistakes and How to Avoid Them</h4>
+<p>AWS and GCP are designed to be easy to start with -- and easy to accidentally spend more than intended. The billing model (pay for what you use) is powerful for production workloads but dangerous for beginners who leave resources running. Here are the mistakes that have cost people thousands of dollars, and how to prevent them.</p>
+<div class="code-title">Costly mistakes and prevention</div>
+<pre><code class="language-bash">Mistake 1: Forgotten running instances
+  Cost: t3.medium at Rs. 2,500/month if running 24/7
+  Prevention:
+    - Set billing alert at Rs. 500
+    - Use instance scheduler to stop at night
+    - Audit monthly: aws ec2 describe-instances --output table
+
+Mistake 2: Elastic IPs not released
+  Cost: ~Rs. 250/month per unused Elastic IP
+  Prevention: aws ec2 describe-addresses | grep unassociated
+
+Mistake 3: Oversized RDS instances
+  Cost: db.m5.xlarge costs 4x more than db.t3.small
+  Prevention: Start small, monitor, resize based on actual usage
+
+Mistake 4: Data transfer costs ignored
+  Cost: Outbound data: ~Rs. 7/GB
+  Prevention: Use CloudFront CDN, architect to keep data in region
+
+Mistake 5: NAT Gateway over-use
+  Cost: ~Rs. 3,200/month + Rs. 7.50/GB processed
+  Prevention: Use VPC Endpoints for AWS services, review architecture
+
+Mistake 6: Unused EBS volumes
+  Cost: gp3: Rs. 6.5/GB/month -- orphaned 100GB volume = Rs. 650/month
+  Prevention: aws ec2 describe-volumes --filters Name=status,Values=available</code></pre>
+<h4>Setting Up Cost Monitoring from Day One</h4>
+<p>The single most important cost control action: set up billing alerts before you deploy anything. In AWS: Billing > Budgets > Create Budget. Set monthly budget at your comfortable limit. Alert at 80% (warning) and 100% (stop or investigate). This takes 5 minutes and prevents every "I had no idea it was costing that much" story.</p>
+<p>Enable Cost Anomaly Detection (AWS Cost Explorer > Anomaly Detection). This uses machine learning to detect spending that is unusually high compared to your baseline and alerts you immediately. Combined with billing alerts, this provides comprehensive protection against accidental cost spikes.</p>
+<h4>More Questions Answered</h4><div style="margin-top:24px;"><h5 style="margin-bottom:8px;">How do I see a breakdown of what I am being charged for on AWS?</h5><p>AWS Cost Explorer (Billing > Cost Explorer) shows cost by service, region, and resource. Enable "Cost allocation tags" and tag all resources with project and environment -- then filter Cost Explorer by tag. For a granular view: Billing > Bills shows line-item charges. For ongoing monitoring: Cost Explorer > Monthly costs by service.</p><h5 style="margin-bottom:8px;">What is AWS Free Tier and how do I stay within it?</h5><p>AWS Free Tier gives 750 hours/month of t2.micro or t3.micro EC2, 5GB S3 storage, 750 hours RDS db.t2.micro, and more for 12 months. Check your Free Tier usage in Billing > Free Tier. The most common mistake: running more than one instance (750 hours = ~1 month for ONE instance, or 2 weeks for TWO). Always monitor.</p><h5 style="margin-bottom:8px;">Is GCP or Azure cheaper than AWS?</h5><p>Pricing varies by service and region. GCP is often cheaper for compute and has a more generous always-free tier. Azure is competitive for Microsoft-heavy workloads. AWS has the widest service selection. For learning, all three have free tiers. For production, do a specific comparison for your actual workload using each provider's pricing calculator.</p></div>
 </section>
 
 <footer>

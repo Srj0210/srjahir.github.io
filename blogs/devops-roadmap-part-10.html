@@ -1,199 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech</title>
-  <meta name="description" content="Learn Kubernetes fundamentals for DevOps. Understand pods, deployments, services, namespaces, kubectl commands, and how Kubernetes manages containerized applications at scale." />
-  <meta name="keywords" content="Kubernetes tutorial DevOps, Kubernetes pods deployments, kubectl commands, K8s fundamentals, Kubernetes services" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 10 - Kubernetes Fundamentals for DevOps | SRJahir Tech</title><meta name="description" content="Master Kubernetes for DevOps: Pods, Deployments, Services, ConfigMaps, Secrets, Ingress, and managing containerised applications in production clusters."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-10.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 10 - Kubernetes Fundamentals for DevOps"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-10.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-10-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-20"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 10 - Kubernetes Fundamentals for DevOps","url":"https://srjahir.in/blogs/devops-roadmap-part-10.html","datePublished":"2025-11-20","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 10: Kubernetes Fundamentals</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-20 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-9.html">&larr; Part 9</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 10 of 12</strong><a href="devops-roadmap-part-11.html">Part 11 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-10-terminal.svg" alt="DevOps Roadmap -- Part 10: Kubernetes Fundamentals" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Kubernetes has become the standard platform for running containerised applications in production. Understanding Kubernetes is not optional for DevOps engineers working with cloud-native systems. This part covers the core concepts and practical skills you need to deploy and manage applications on Kubernetes.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-20" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech" />
-  <meta property="og:description" content="Learn Kubernetes fundamentals for DevOps. Understand pods, deployments, services, namespaces, kubectl commands, and how Kubernetes manages containerized applications at scale." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-10.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 10 — Kubernetes Fundamentals | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-20", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-10.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-10.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-9.html">← Part 9</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 10 of 12</strong>
-  <a href="devops-roadmap-part-11.html">Part 11 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 10: Kubernetes Fundamentals</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 20, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-10-terminal.svg" alt="Incident Response" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Incident Response</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="devops-roadmap-part-9.html">← Part 9</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 10 of 12</strong>
-  <a href="devops-roadmap-part-11.html">Part 11 →</a>
-</div>
-<p>Kubernetes (K8s) is the platform that runs most of the world's containerized production workloads. Netflix, Google, Airbnb, LinkedIn — they all run on Kubernetes. It is complex, but it solves real problems: automatically restarting failed containers, distributing load across many servers, rolling out updates without downtime, and scaling up or down based on traffic. This part gives you a practical foundation.</p>
-
-<h4>What Kubernetes Solves</h4>
-<p>Docker alone runs containers on a single machine. Kubernetes orchestrates containers across a cluster of machines. When you deploy to Kubernetes, you tell it what you want — "I want 5 replicas of this container, always running, with 512MB memory each" — and Kubernetes makes it happen. If a node (server) crashes, Kubernetes reschedules the containers on healthy nodes. If a container crashes, Kubernetes restarts it. It manages the complexity so you can focus on your application.</p>
-
-<h4>Core Concepts</h4>
-<ul>
-  <li><strong>Cluster</strong> — A set of machines (nodes) managed by Kubernetes</li>
-  <li><strong>Node</strong> — A single server in the cluster (can be a VM or physical machine)</li>
-  <li><strong>Pod</strong> — The smallest deployable unit. Contains one or more containers that share network and storage.</li>
-  <li><strong>Deployment</strong> — Manages a set of identical pods and ensures the desired number are always running</li>
-  <li><strong>Service</strong> — Provides a stable network endpoint to access pods (pods come and go, services stay stable)</li>
-  <li><strong>Namespace</strong> — Virtual cluster inside a cluster. Used to separate environments (dev, staging, prod)</li>
-</ul>
-
-<h4>Installing kubectl</h4>
-<div class="code-title">Install kubectl</div>
-<pre><code class="language-bash"># Linux
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
-
-# Verify
-kubectl version --client
-
-# For local development: install minikube
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-chmod +x minikube-linux-amd64
-sudo mv minikube-linux-amd64 /usr/local/bin/minikube
-minikube start</code></pre>
-
-<h4>Essential kubectl Commands</h4>
-<div class="code-title">kubectl Basics</div>
-<pre><code class="language-bash"># Get cluster info
-kubectl cluster-info
-kubectl get nodes
-
-# Work with pods
-kubectl get pods
-kubectl get pods -n kube-system    # in a specific namespace
-kubectl describe pod pod-name
-kubectl logs pod-name
-kubectl logs -f pod-name           # follow logs
-kubectl exec -it pod-name -- bash  # enter pod shell
-
-# Work with deployments
-kubectl get deployments
-kubectl describe deployment my-app
-
-# Work with services
-kubectl get services
-kubectl get all                    # everything in default namespace</code></pre>
-
-<h4>Your First Deployment</h4>
-<div class="code-title">deployment.yml</div>
-<pre><code class="language-bash">apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-app
-  labels:
-    app: my-app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-app
-  template:
-    metadata:
-      labels:
-        app: my-app
-    spec:
-      containers:
-      - name: my-app
-        image: yourusername/my-app:v1.0.0
-        ports:
-        - containerPort: 5000
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 5
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-app-service
-spec:
-  selector:
-    app: my-app
-  ports:
-  - port: 80
-    targetPort: 5000
-  type: LoadBalancer</code></pre>
-<div class="code-title">Apply and Manage</div>
-<pre><code class="language-bash"># Apply the configuration
-kubectl apply -f deployment.yml
-
-# Scale deployment
-kubectl scale deployment my-app --replicas=5
-
-# Rolling update (update image)
-kubectl set image deployment/my-app my-app=yourusername/my-app:v2.0.0
-
-# Watch rollout progress
-kubectl rollout status deployment/my-app
-
-# Rollback if something goes wrong
-kubectl rollout undo deployment/my-app</code></pre>
-
-<p>In Part 11, we will cover cloud platforms — AWS, GCP, and Azure fundamentals that every DevOps engineer needs to navigate modern infrastructure.</p>
 <h4>Core Kubernetes Objects</h4>
-<p>Kubernetes manages containerized applications through a set of declarative objects defined in YAML files. Understanding the core objects is the foundation of Kubernetes work. A Pod is the smallest deployable unit — one or more containers that share network and storage. Pods are ephemeral; do not create them directly. A Deployment manages a set of identical Pod replicas, handles rolling updates, and automatically restarts failed Pods. A Service provides a stable network endpoint for a set of Pods — even as individual Pods are created and destroyed, the Service IP and DNS name remain constant. A ConfigMap stores non-sensitive configuration data as key-value pairs. A Secret stores sensitive data (encrypted at rest) like passwords and API keys. A PersistentVolumeClaim requests storage that outlives individual Pods.</p>
-<div class="code-title">Basic Deployment YAML</div>
-<pre><code class="language-yaml">apiVersion: apps/v1
+<div class="code-title">Essential resources explained</div>
+<pre><code class="language-bash"># Pod: smallest deployable unit (one or more containers)
+# Deployment: manages Pod replicas and rolling updates
+# Service: stable network endpoint for Pods
+# ConfigMap: non-secret configuration data
+# Secret: sensitive data (passwords, API keys)
+# Ingress: HTTP/HTTPS routing from outside cluster
+# Namespace: virtual cluster for resource isolation</code></pre>
+
+<h4>Deploying an Application</h4>
+<div class="code-title">Complete application deployment</div>
+<pre><code class="language-bash"># deployment.yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp
+  namespace: production
 spec:
   replicas: 3
   selector:
@@ -205,33 +29,247 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: myapp
-        image: myapp:1.0
+        - name: myapp
+          image: myrepo/myapp:v1.2.0
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secrets
+                  key: db-password
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10</code></pre>
+
+<div class="code-title">Service and Ingress</div>
+<pre><code class="language-bash"># service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+spec:
+  selector:
+    app: myapp
+  ports:
+    - port: 80
+      targetPort: 8000
+
+# ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-svc
+                port:
+                  number: 80</code></pre>
+
+<h4>Essential kubectl Commands</h4>
+<div class="code-title">Daily operations</div>
+<pre><code class="language-bash">kubectl get pods                          # List pods
+kubectl get pods -n production            # In namespace
+kubectl describe pod myapp-abc123         # Detailed info
+kubectl logs myapp-abc123 --tail=100 -f   # Live logs
+kubectl exec -it myapp-abc123 -- bash     # Shell into pod
+kubectl rollout status deployment/myapp   # Deployment status
+kubectl rollout undo deployment/myapp     # Rollback
+kubectl scale deployment myapp --replicas=5  # Scale
+kubectl apply -f deployment.yaml          # Apply config
+kubectl delete -f deployment.yaml         # Delete resources</code></pre>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between a Pod and a Deployment?</h5>
+  <p>A Pod is a single running instance. A Deployment manages multiple Pod replicas, handles rolling updates, and restarts failed Pods. Always use Deployments (or StatefulSets, DaemonSets) in production -- never bare Pods.</p>
+  <h5>What is a Kubernetes Service?</h5>
+  <p>A Service provides a stable network endpoint (IP + DNS name) for a set of Pods. Since Pods are ephemeral with changing IPs, Services provide a stable address. ClusterIP for internal, NodePort for external access, LoadBalancer for cloud load balancers.</p>
+  <h5>What are resource requests and limits?</h5>
+  <p>requests tells the scheduler the minimum resources needed -- used for placement. limits sets the maximum -- container is killed if it exceeds memory limit. Always set both to ensure predictable scheduling and prevent noisy neighbour problems.</p>
+  <h5>What is a liveness probe?</h5>
+  <p>A periodic health check that Kubernetes runs against your container. If it fails, Kubernetes restarts the container. The readinessProbe determines when a container is ready to receive traffic. Both are essential for production reliability.</p>
+  <h5>What is Helm?</h5>
+  <p>Helm is the package manager for Kubernetes. A Helm chart is a package of Kubernetes YAML files with configurable variables. helm install nginx bitnami/nginx deploys nginx with a single command. Helm handles upgrades and rollbacks of complex multi-resource applications.</p>
+</div>
+<p>In <a href="devops-roadmap-part-11.html">Part 11</a>, we cover cloud platforms for DevOps -- AWS, GCP, and Azure services every DevOps engineer needs to know.</p><div class="series-nav"><a href="devops-roadmap-part-9.html">&larr; Part 9</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 10 of 12</strong><a href="devops-roadmap-part-11.html">Part 11 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Kubernetes Networking Deep Dive</h4>
+<div class="code-title">Services, EndpointSlices, and NetworkPolicy</div>
+<pre><code class="language-bash"># NetworkPolicy: restrict pod-to-pod communication
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-only-app
+spec:
+  podSelector:
+    matchLabels:
+      app: database
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: myapp  # Only myapp pods can reach database
+      ports:
+        - protocol: TCP
+          port: 5432</code></pre>
+
+<h4>Horizontal Pod Autoscaler</h4>
+<div class="code-title">Scale pods based on CPU/memory</div>
+<pre><code class="language-bash">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60    # Scale out when avg CPU > 60%
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80</code></pre>
+
+<h4>Debugging Pods Effectively</h4>
+<div class="code-title">Systematic pod debugging workflow</div>
+<pre><code class="language-bash"># Pod not starting:
+kubectl describe pod myapp-abc123    # Look at Events section
+kubectl get events --sort-by=.lastTimestamp
+
+# Container crash-looping:
+kubectl logs myapp-abc123 --previous  # Logs from crashed container
+kubectl logs myapp-abc123 -f          # Live logs
+
+# Shell into running pod
+kubectl exec -it myapp-abc123 -- bash
+kubectl exec -it myapp-abc123 -- sh   # If no bash
+
+# Debug with ephemeral container (no shell in prod image)
+kubectl debug -it myapp-abc123 --image=ubuntu --target=myapp</code></pre>
+
+
+<h4>Kubernetes StatefulSets for Databases</h4>
+<div class="code-title">Running stateful apps like PostgreSQL</div>
+<pre><code class="language-bash">apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"</code></pre>
-<h4>Practice Exercise</h4>
-<p>Install minikube or kind to run a local Kubernetes cluster. Deploy a simple application: write a Deployment YAML for nginx with 3 replicas, a Service YAML of type NodePort to expose it, and apply both with <code>kubectl apply -f</code>. Verify the deployment with <code>kubectl get pods</code>, <code>kubectl get deployments</code>, and <code>kubectl get services</code>. Scale the deployment to 5 replicas with <code>kubectl scale deployment myapp --replicas=5</code>. Simulate a pod failure by deleting one pod and observe Kubernetes automatically creating a replacement.</p>
+            storage: 20Gi</code></pre>
 
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
+<h4>Kubernetes Operators Pattern</h4>
+<div class="code-title">Understanding CRDs and Operators</div>
+<pre><code class="language-bash"># Operators extend Kubernetes with domain knowledge
+# They automate operational tasks that humans would do manually
 
-<h4>Putting It All Together</h4>
-<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
-<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
+# Examples of popular Operators:
+# - Prometheus Operator: manages Prometheus and Alertmanager config
+# - cert-manager: automatically provisions and renews SSL certificates
+# - External Secrets Operator: syncs secrets from AWS SM / Vault to K8s
+# - PostgreSQL Operator (Zalando): manages PostgreSQL clusters
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
-</div>
-</section>
+# Install cert-manager (manages SSL certs automatically)
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# After installing, create a ClusterIssuer for Let's Encrypt
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: suraj@srjahir.in
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      - http01:
+          ingress:
+            class: nginx</code></pre>
+
+<h4>Kubernetes RBAC</h4>
+<div class="code-title">Role-Based Access Control for teams</div>
+<pre><code class="language-bash"># Allow a developer to view pods but not modify them
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: development
+  name: pod-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-pod-reader
+  namespace: development
+subjects:
+  - kind: User
+    name: suraj@company.com
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

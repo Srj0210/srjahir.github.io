@@ -1,43 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech</title>
-  <meta name="description" content="Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output." />
-  <meta name="keywords" content="Python operators, Python arithmetic, Python comparison operators, Python input output, Python beginners" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-3.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-09" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech" />
-  <meta property="og:description" content="Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-3.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 3 — Operators & Input/Output | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Master Python operators — arithmetic, comparison, logical, and assignment. Learn how to take input from users and display formatted output.", "datePublished": "2025-12-09", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-3.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-3.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Python Full Tutorial Part 3 - Operators, Input and Output | SRJahir Tech</title>
+<meta name="description" content="Master Python operators: arithmetic, comparison, logical. Learn input(), print(), f-string formatting, and build interactive programs." />
+<meta name="author" content="Suraj Ahir" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-3.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Python Full Tutorial Part 3 - Operators, Input and Output" />
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-3.html" />
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-3-terminal.svg" />
+<meta property="og:site_name" content="SRJahir Tech" />
+<meta property="article:published_time" content="2025-12-09" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 3 - Operators, Input and Output","url":"https://srjahir.in/blogs/python-tutorial-part-3.html","datePublished":"2025-12-09","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}}}
+</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
 </head>
 <body>
 <div class="background-waves"></div>
@@ -45,173 +35,186 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="python-tutorial-part-2.html">← Part 2</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 3 of 12</strong>
-  <a href="python-tutorial-part-4.html">Part 4 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
-<section class="content-block">
-
-<h3>Python Full Tutorial — Part 3: Operators &amp; Input/Output</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 09, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 3: Operators &amp; Input/Output</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-09 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-2.html">&larr; Part 2</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 3 of 12</strong><a href="python-tutorial-part-4.html">Part 4 &rarr;</a></div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-3-terminal.svg" alt="Python — Python Control Flow" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Control Flow</figcaption>
+  <img src="images/python-part-3-terminal.svg" alt="Python Full Tutorial -- Part 3: Operators &amp; Input/Output" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
 </figure>
+<p>Programs that only produce fixed output are not useful tools -- they are demonstrations. Real programs ask questions, process answers, and produce results tailored to the input. That requires operators for comparison and arithmetic, and the input/output functions that connect your code to the outside world.</p>
+<p>The moment I added an <code>input()</code> call to a Python script and it waited for my input, then did something with it, something clicked. This was no longer just code I was reading -- it was a tool responding to me. That shift from passive to interactive is what this part covers.</p>
+<h4>Arithmetic Operators</h4>
+<div class="code-title">All arithmetic operations</div>
+<pre><code class="language-bash">x, y = 17, 5
 
-<div class="series-nav">
-  <a href="python-tutorial-part-2.html">← Part 2</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 3 of 12</strong>
-  <a href="python-tutorial-part-4.html">Part 4 →</a>
-</div>
-<p>You know how to store data. Now let us make Python do things with that data. Operators are how Python performs actions — calculations, comparisons, logical decisions. This is where your programs start to do real work.</p>
+print(x + y)    # 22
+print(x - y)    # 12
+print(x * y)    # 85
+print(x / y)    # 3.4  -- always float
+print(x // y)   # 3    -- floor division (integer)
+print(x % y)    # 2    -- modulo (remainder)
+print(x ** y)   # 1419857 -- exponentiation
 
-<h4>1. Arithmetic Operators</h4>
-<p>These perform mathematical calculations:</p>
-<div class="code-title">Arithmetic Operators</div>
-<pre><code class="language-python">a = 20
-b = 6
+# Compound assignment
+count = 0
+count += 1      # count = count + 1
+count *= 2
+count //= 3
+count **= 2</code></pre>
+<h4>Comparison Operators</h4>
+<div class="code-title">Comparing values -- return True or False</div>
+<pre><code class="language-bash">x, y = 10, 20
 
-print(a + b)   # 26  — Addition
-print(a - b)   # 14  — Subtraction
-print(a * b)   # 120 — Multiplication
-print(a / b)   # 3.333... — Division (always returns float)
-print(a // b)  # 3   — Floor division (removes decimal)
-print(a % b)   # 2   — Modulo (remainder after division)
-print(a ** 2)  # 400 — Exponent (a to the power 2)</code></pre>
-<p>The modulo operator <code>%</code> is very useful in programming. It tells you if a number is even or odd, helps with cycling through lists, and has many other practical uses.</p>
+print(x == y)   # False
+print(x != y)   # True
+print(x &lt; y)    # True
+print(x &gt; y)    # False
+print(x &lt;= y)   # True
+print(x &gt;= y)   # False
 
-<h4>2. Comparison Operators</h4>
-<p>These compare two values and always return True or False:</p>
-<div class="code-title">Comparison Operators</div>
-<pre><code class="language-python">x = 10
-y = 20
+# Chained comparisons
+age = 25
+if 18 &lt;= age &lt;= 65:
+    print("Working age adult")
 
-print(x == y)   # False — Equal to
-print(x != y)   # True  — Not equal to
-print(x > y)    # False — Greater than
-print(x < y)    # True  — Less than
-print(x >= 10)  # True  — Greater than or equal
-print(y <= 20)  # True  — Less than or equal</code></pre>
-
-<h4>3. Logical Operators</h4>
-<p>Logical operators combine multiple conditions:</p>
-<div class="code-title">Logical Operators</div>
-<pre><code class="language-python">age = 22
+# String comparison (lexicographic order)
+print("apple" &lt; "banana")    # True
+print("Python" == "python")  # False (case sensitive)</code></pre>
+<h4>Logical Operators: and, or, not</h4>
+<div class="code-title">Combining conditions</div>
+<pre><code class="language-bash">age = 25
 has_id = True
+is_member = False
 
-# and — Both conditions must be True
-print(age >= 18 and has_id)   # True
+# and: all must be True
+if age &gt;= 18 and has_id:
+    print("Entry allowed")
 
-# or — At least one condition must be True
-print(age < 18 or has_id)     # True
+# or: at least one must be True
+if is_member or age &gt;= 18:
+    print("Eligible")
 
-# not — Reverses the boolean
-print(not has_id)              # False</code></pre>
+# not: invert
+if not is_member:
+    print("Not a member")
 
-<h4>4. Assignment Operators</h4>
-<p>Shorthand for updating variable values:</p>
-<div class="code-title">Assignment Operators</div>
-<pre><code class="language-python">score = 100
+# Short-circuit evaluation
+x = None
+result = x or "default"     # "default" because x is None
+name = "Suraj"
+display = name or "Anonymous"  # "Suraj"</code></pre>
+<h4>Membership and Identity Operators</h4>
+<div class="code-title">in, not in, is, is not</div>
+<pre><code class="language-bash">skills = ["Python", "Docker", "Linux"]
 
-score += 10   # score = score + 10 → 110
-score -= 5    # score = score - 5  → 105
-score *= 2    # score = score * 2  → 210
-score //= 3   # score = score // 3 → 70
-score %= 9    # score = score % 9  → 7</code></pre>
+print("Python" in skills)         # True
+print("Kubernetes" not in skills) # True
+print("World" in "Hello, World!") # True
 
-<h4>Taking Input from the User</h4>
-<p>Real programs interact with users. Python's <code>input()</code> function pauses the program and waits for the user to type something and press Enter:</p>
-<div class="code-title">Input Function</div>
-<pre><code class="language-python">name = input("What is your name? ")
-print("Hello, " + name + "!")</code></pre>
-<p>Important: <code>input()</code> always returns a <strong>string</strong>, even if the user types a number. If you need to do math with the input, you must convert it:</p>
-<div class="code-title">Input with Type Conversion</div>
-<pre><code class="language-python">age_input = input("Enter your age: ")
-age = int(age_input)  # Convert string to integer
+# Identity: is checks if same object in memory
+x = [1, 2, 3]
+y = x              # Same list object
+z = [1, 2, 3]      # Different object, same values
 
-birth_year = 2025 - age
-print("You were born in:", birth_year)</code></pre>
+print(x is y)  # True
+print(x is z)  # False
+print(x == z)  # True (same values)
 
-<h4>Formatted Output with f-strings</h4>
-<p>Python's f-strings are the cleanest way to include variables inside printed text. Just put an <code>f</code> before the quote and use curly braces:</p>
-<div class="code-title">f-string Formatting</div>
-<pre><code class="language-python">name = "Suraj"
-age = 22
-city = "Rajkot"
+# Always use is for None checks
+value = None
+if value is None:
+    print("Value is None")</code></pre>
+<h4>Reading User Input with input()</h4>
+<div class="code-title">input() always returns a string</div>
+<pre><code class="language-bash">name = input("Enter your name: ")
+print(f"Hello, {name}!")
 
-print(f"Name: {name}")
-print(f"Age: {age}")
-print(f"I live in {city} and I am {age} years old.")
-print(f"Next year I will be {age + 1}")</code></pre>
-<p>F-strings are not just cleaner — they are also faster than older string formatting methods. Use them as your default.</p>
+# ALWAYS convert to the right type
+age = int(input("Enter your age: "))
+price = float(input("Enter price: "))
 
-<h4>Practical Example — Simple Calculator</h4>
-<p>Let us combine everything from this part into one small program:</p>
-<div class="code-title">Simple Calculator</div>
-<pre><code class="language-python">print("Simple Python Calculator")
+print(f"In 10 years you will be {age + 10}")
+print(f"Total with 18% tax: Rs.{price * 1.18:.2f}")
 
-num1 = float(input("Enter first number: "))
-num2 = float(input("Enter second number: "))
+# Safe input with validation loop
+while True:
+    raw = input("Enter a positive integer: ")
+    if raw.isdigit() and int(raw) &gt; 0:
+        number = int(raw)
+        break
+    print("Invalid. Please try again.")
+print(f"You entered: {number}")</code></pre>
+<h4>Advanced print() Options</h4>
+<div class="code-title">print() parameters</div>
+<pre><code class="language-bash">print("A", "B", "C")              # A B C
+print("A", "B", "C", sep="-")     # A-B-C
+print("Loading...", end="")        # No newline
+print(" Done!")                     # Continues same line
 
-print(f"Addition: {num1 + num2}")
-print(f"Subtraction: {num1 - num2}")
-print(f"Multiplication: {num1 * num2}")
+# Unpack a list into print
+items = ["Python", "Docker", "Linux"]
+print(*items, sep="\n")   # Each on its own line</code></pre>
+<h4>String Formatting Compared</h4>
+<div class="code-title">Three ways to format strings</div>
+<pre><code class="language-bash">name = "Suraj"
+score = 98.567
 
-if num2 != 0:
-    print(f"Division: {num1 / num2:.2f}")
+# Method 1: f-strings (MODERN -- use this)
+print(f"Name: {name}, Score: {score:.2f}")
+print(f"Price: Rs.{1234567.89:,.2f}")   # 1,234,567.89
+print(f"Percent: {0.856:.1%}")          # 85.6%
+print(f"Padded: {name:&lt;20}|")          # left-align in 20 chars
+print(f"Padded: {name:&gt;20}|")          # right-align
+print(f"Center: {name:^20}|")           # center
+
+# Method 2: .format() (older, still works)
+print("Name: {}, Score: {:.2f}".format(name, score))
+
+# Method 3: % (oldest -- avoid in new code)
+print("Name: %s" % name)</code></pre>
+<h4>Practical Example: BMI Calculator</h4>
+<div class="code-title">Interactive program combining operators and I/O</div>
+<pre><code class="language-bash">print("=== BMI Calculator ===")
+
+weight = float(input("Weight in kg: "))
+height = float(input("Height in metres: "))
+
+bmi = weight / (height ** 2)
+print(f"\nYour BMI: {bmi:.1f}")
+
+if bmi &lt; 18.5:
+    category = "Underweight"
+elif bmi &lt; 25.0:
+    category = "Normal weight"
+elif bmi &lt; 30.0:
+    category = "Overweight"
 else:
-    print("Cannot divide by zero")</code></pre>
-<p>Notice <code>:.2f</code> inside the f-string — this formats the float to 2 decimal places. Small details like this make your output much more professional.</p>
+    category = "Obese"
 
-<h4>Operator Precedence</h4>
-<p>When multiple operators appear in one expression, Python follows a specific order: parentheses first, then exponents, then multiplication/division, then addition/subtraction. This is the same as standard math (PEMDAS/BODMAS). When in doubt, use parentheses to be explicit:</p>
-<div class="code-title">Operator Precedence</div>
-<pre><code class="language-python">result1 = 2 + 3 * 4     # 14 — multiplication first
-result2 = (2 + 3) * 4   # 20 — parentheses first
-print(result1, result2)</code></pre>
-
-<h4>What We Have Built So Far</h4>
-<p>Think about what you can already do: store data in variables, perform calculations, compare values, take input from users, and display formatted output. That is not nothing — that is the core of a huge number of small utility programs. In Part 4, we will add the ability to make decisions using if-else statements, which is where programs start to feel truly intelligent.</p>
-
-<h4>Short-Circuit Evaluation in Logical Operators</h4>
-<p>Python's <code>and</code> and <code>or</code> operators use short-circuit evaluation — a behavior that has both performance and practical implications. With <code>and</code>, if the first condition is False, Python does not evaluate the second condition because the overall result is already determined to be False. With <code>or</code>, if the first condition is True, the second is not evaluated. This matters when the second condition involves a function call or an operation that has side effects. Understanding short-circuit evaluation lets you write more efficient conditions and use a common Python pattern: <code>result = value or default_value</code>, which returns <code>value</code> if it is truthy, and <code>default_value</code> otherwise.</p>
-<h4>Formatted Output with f-strings</h4>
-<p>Python's f-strings (formatted string literals, introduced in Python 3.6) are the most modern and readable way to embed variables and expressions in output strings. Instead of string concatenation or the older <code>.format()</code> method, you prefix the string with <code>f</code> and place variables or expressions directly in curly braces:</p>
-<div class="code-title">f-string Examples</div>
-<pre><code class="language-python">name = "Suraj"
-score = 92.5
-print(f"Student {name} scored {score:.1f}%")
-# Output: Student Suraj scored 92.5%
-
-items = 7
-price = 49.99
-print(f"Total for {items} items: Rs {items * price:.2f}")
-# Output: Total for 7 items: Rs 349.93</code></pre>
-<p>f-strings are the recommended approach for string formatting in modern Python. They are faster than older methods and significantly more readable for complex outputs.</p>
-<h4>Practice Exercise</h4>
-<p>Write a simple Python calculator that takes two numbers as user input using <code>input()</code>, converts them to floats, and then prints the result of all four arithmetic operations (addition, subtraction, multiplication, division). Handle the edge case of division by zero using a simple conditional check. Use f-strings for the output formatting.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+print(f"Category: {category}")</code></pre>
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the modulo operator used for?</h5>
+  <p>17 % 5 returns 2 (the remainder). Check even numbers: n % 2 == 0. Cycle through values: index % length. Work with time: total_seconds % 60 gives remaining seconds after extracting full minutes.</p>
+  <h5 style="margin-bottom:8px;">What is the difference between == and is?</h5>
+  <p>== checks value equality (same content). is checks identity (exact same object in memory). Use == for comparing values. Use is only for None: if value is None:  -- never write if value == None:</p>
+  <h5 style="margin-bottom:8px;">How does input() work and why does it always return a string?</h5>
+  <p>input() pauses the program, shows the prompt, waits for the user to type and press Enter, then returns whatever they typed as a string. Always convert: int(input()) for integers, float(input()) for decimals.</p>
+  <h5 style="margin-bottom:8px;">What is short-circuit evaluation?</h5>
+  <p>Python stops evaluating and expressions when it finds False (result cannot be True). Stops or expressions when it finds True. Enables: result = value or default -- if value is falsy, default is used.</p>
+  <h5 style="margin-bottom:8px;">Which string formatting method should I use?</h5>
+  <p>Always f-strings for new code (Python 3.6+). They are the most readable, fastest, and most powerful. Use .format() only when you need reusable templates. Avoid % formatting in new code entirely.</p>
 </div>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<p>In <a href="python-tutorial-part-4.html">Part 4</a>, we cover if/elif/else -- the decision-making logic that lets programs respond differently to different situations.</p>
+<div class="series-nav"><a href="python-tutorial-part-2.html">&larr; Part 2</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 3 of 12</strong><a href="python-tutorial-part-4.html">Part 4 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome.</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

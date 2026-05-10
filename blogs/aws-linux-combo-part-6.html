@@ -1,207 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>AWS + Linux Combo — Part 6: AWS S3 from the Linux Command Line | SRJahir Tech</title>
-  <meta name="description" content="Learn how to use AWS S3 to store and retrieve files from your EC2 Linux instance. Master S3 bucket creation, upload, download, and permissions." />
-  <meta name="keywords" content="AWS S3 CLI Linux, S3 bucket EC2, upload files S3, AWS CLI S3, S3 commands Linux" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-6.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-21" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AWS + Linux Combo — Part 6: AWS S3 from the Linux Command Line | SRJahir Tech" />
-  <meta property="og:description" content="Learn how to use AWS S3 to store and retrieve files from your EC2 Linux instance. Master S3 bucket creation, upload, download, and permissions." />
-  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-6.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "AWS + Linux Combo — Part 6: AWS S3 from the Linux Command Line", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn how to use AWS S3 to store and retrieve files from your EC2 Linux instance. Master S3 bucket creation, upload, download, and permissions.", "datePublished": "2025-10-21", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/aws-linux-combo-part-6.html"}, "url": "https://srjahir.in/blogs/aws-linux-combo-part-6.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS Linux Tutorial Part 6 - AWS S3 from the Linux Command Line | SRJahir Tech</title>
+<meta name="description" content="Master AWS S3 from Linux: aws s3 commands, sync, static website hosting, bucket policies, presigned URLs, versioning, and lifecycle rules."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-6.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="AWS Linux Tutorial Part 6 - AWS S3 from the Linux Command Line"/>
+<meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-6.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-6-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-10-21"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS Linux Tutorial Part 6 - AWS S3 from the Linux Command Line","url":"https://srjahir.in/blogs/aws-linux-combo-part-6.html","datePublished":"2025-10-21","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="aws-linux-combo-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 6 of 12</strong>
-  <a href="aws-linux-combo-part-7.html">Part 7 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>AWS Linux Tutorial -- Part 6: S3 from Linux CLI</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-21 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="aws-linux-combo-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 6 of 12</strong><a href="aws-linux-combo-part-7.html">Part 7 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/aws-part-6-terminal.svg" alt="AWS Linux Tutorial -- Part 6: S3 from Linux CLI" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Amazon S3 is the most popular AWS service and one of the most used storage systems in the world. It stores everything from user uploads to database backups to static website assets to ML training data. Mastering the S3 CLI means you can automate backups, deploy static websites, manage application assets, and integrate cloud storage into any workflow directly from the Linux command line.</p>
+<h4>Configure AWS CLI</h4>
+<div class="code-title">AWS CLI setup</div>
+<pre><code class="language-bash">sudo apt install awscli -y    # Or: pip3 install awscli
 
-<h3>AWS + Linux Combo — Part 6: AWS S3 from the Linux Command Line</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 21, 2025 <span class="meta-dot"></span> 6 min read</p>
+aws configure
+# AWS Access Key ID [None]: YOUR-ACCESS-KEY
+# AWS Secret Access Key [None]: YOUR-SECRET-KEY
+# Default region name [None]: ap-south-1
+# Default output format [None]: json
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/aws-part-6-terminal.svg" alt="AWS + Linux — Systemd Services" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS + Linux — Systemd Services</figcaption>
-</figure>
+# Verify
+aws sts get-caller-identity
 
-<div class="series-nav">
-  <a href="aws-linux-combo-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 6 of 12</strong>
-  <a href="aws-linux-combo-part-7.html">Part 7 →</a>
-</div>
+# Multiple profiles
+aws configure --profile production
+aws s3 ls --profile production</code></pre>
+<h4>Core S3 Commands</h4>
+<div class="code-title">Create, list, upload, download</div>
+<pre><code class="language-bash"># Create a bucket (globally unique name)
+aws s3 mb s3://srjahir-backups-2025
 
-<p>Every real cloud application needs to store files somewhere. Images, backups, logs, static assets, data exports — all of this needs a place to live that is reliable, scalable, and cheap. That is what Amazon S3 is for. In this part, we learn how to work with S3 directly from our EC2 Linux instance using the AWS CLI.</p>
-
-<h4>What is Amazon S3?</h4>
-<p>S3 stands for Simple Storage Service. It is AWS's object storage service — you store files (called objects) in containers (called buckets). S3 is designed for 99.999999999% (eleven nines) durability, meaning data loss is essentially impossible. It scales to unlimited storage. Pricing is based on how much you store and how much you transfer, not on provisioning any servers.</p>
-<p>S3 is used for hosting static websites, storing media files, data lake storage, application backups, log archives, and distribution of large files via CloudFront (AWS's CDN).</p>
-
-<h4>Install the AWS CLI</h4>
-<p>The AWS Command Line Interface (CLI) lets you interact with all AWS services from your terminal. Amazon Linux 2023 usually comes with the AWS CLI pre-installed. Let us check and install if needed:</p>
-<div class="code-title">Check and Install AWS CLI</div>
-<pre><code class="language-bash"># Check if already installed
-aws --version
-
-# If not installed, on Amazon Linux:
-sudo dnf install awscli -y
-
-# For the latest version (v2):
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install</code></pre>
-
-<h4>Configure AWS CLI with IAM Credentials</h4>
-<p>Before using the CLI, you need to authenticate it. The best practice for EC2 is to use an IAM Role (we cover that in Part 7). For now, let us configure it with access keys:</p>
-<div class="code-title">Configure AWS CLI</div>
-<pre><code class="language-bash">aws configure
-
-# It will ask for:
-# AWS Access Key ID: [your access key]
-# AWS Secret Access Key: [your secret key]
-# Default region name: ap-south-1
-# Default output format: json</code></pre>
-<p>To get access keys, go to AWS Console → IAM → Users → your user → Security credentials → Create access key. Never share these keys or commit them to code repositories.</p>
-
-<h4>S3 Bucket Operations</h4>
-<p>A bucket is like a top-level folder in S3. Bucket names must be globally unique across all of AWS:</p>
-<div class="code-title">Create and List Buckets</div>
-<pre><code class="language-bash"># Create a bucket (name must be globally unique)
-aws s3 mb s3://my-srjahir-bucket-2026
-
-# List all your buckets
+# List buckets
 aws s3 ls
 
-# List contents of a specific bucket
-aws s3 ls s3://my-srjahir-bucket-2026/</code></pre>
+# List objects in bucket
+aws s3 ls s3://my-bucket
+aws s3 ls s3://my-bucket/backups/ --recursive
 
-<h4>Upload and Download Files</h4>
-<div class="code-title">S3 File Operations</div>
-<pre><code class="language-bash"># Upload a file to S3
-aws s3 cp myfile.txt s3://my-srjahir-bucket-2026/
+# Upload file
+aws s3 cp file.txt s3://my-bucket/file.txt
+aws s3 cp ./logs/app.log s3://my-bucket/logs/app.log
 
-# Upload a file to a specific folder in S3
-aws s3 cp myfile.txt s3://my-srjahir-bucket-2026/backups/
-
-# Download a file from S3
-aws s3 cp s3://my-srjahir-bucket-2026/myfile.txt ./
+# Download file
+aws s3 cp s3://my-bucket/file.txt ./
 
 # Upload entire directory
-aws s3 cp /var/www/html/ s3://my-srjahir-bucket-2026/website/ --recursive
+aws s3 cp ./mydir s3://my-bucket/mydir/ --recursive
 
-# Sync a directory (only uploads changed files)
-aws s3 sync /var/log/nginx/ s3://my-srjahir-bucket-2026/logs/ --recursive</code></pre>
+# Delete object
+aws s3 rm s3://my-bucket/file.txt
+aws s3 rm s3://my-bucket/olddir/ --recursive</code></pre>
+<h4>S3 Sync -- Efficient Directory Sync</h4>
+<div class="code-title">Sync only changed files</div>
+<pre><code class="language-bash"># Sync local to S3 (upload only changed files)
+aws s3 sync ./website s3://my-static-site/
 
-<h4>Delete Files and Buckets</h4>
-<div class="code-title">Delete Operations</div>
-<pre><code class="language-bash"># Delete a file
-aws s3 rm s3://my-srjahir-bucket-2026/myfile.txt
+# Sync S3 to local (download only changed files)
+aws s3 sync s3://my-bucket/backups/ ./local-backups/
 
-# Delete all files in a folder
-aws s3 rm s3://my-srjahir-bucket-2026/backups/ --recursive
+# Sync and delete files removed locally
+aws s3 sync ./website s3://my-site/ --delete
 
-# Delete an empty bucket
-aws s3 rb s3://my-srjahir-bucket-2026
+# Exclude specific files
+aws s3 sync . s3://my-bucket/ --exclude "*.pyc" --exclude "__pycache__/*"
 
-# Force delete bucket and all its contents
-aws s3 rb s3://my-srjahir-bucket-2026 --force</code></pre>
-
-<h4>S3 Bucket Policies and Access</h4>
-<p>By default, S3 buckets and their contents are private. Only the AWS account that owns them can access them. To make files publicly accessible (for static website hosting, for example), you need to configure the bucket policy and disable "Block Public Access":</p>
-<div class="code-title">Check Object URL</div>
-<pre><code class="language-bash"># An S3 object URL looks like:
-# https://my-srjahir-bucket-2026.s3.ap-south-1.amazonaws.com/myfile.txt
-
-# Generate a pre-signed URL (temporary access for 1 hour)
-aws s3 presign s3://my-srjahir-bucket-2026/myfile.txt --expires-in 3600</code></pre>
-<p>Pre-signed URLs are very useful — they let you share a private file with someone for a limited time without making it permanently public.</p>
-
-<h4>Practical Use: Backup Nginx Logs to S3</h4>
-<div class="code-title">Backup Script</div>
+# Sync with storage class (cheaper for backups)
+aws s3 sync ./backups s3://my-bucket/backups/ --storage-class STANDARD_IA</code></pre>
+<h4>Automated Backups Script</h4>
+<div class="code-title">Daily backup cron job using S3</div>
 <pre><code class="language-bash">#!/bin/bash
-# Simple backup script
+# /usr/local/bin/backup-to-s3.sh
+
+set -e
+
 DATE=$(date +%Y-%m-%d)
-tar -czf /tmp/nginx-logs-${DATE}.tar.gz /var/log/nginx/
-aws s3 cp /tmp/nginx-logs-${DATE}.tar.gz s3://my-srjahir-bucket-2026/backups/
-rm /tmp/nginx-logs-${DATE}.tar.gz
-echo "Backup completed: nginx-logs-${DATE}.tar.gz"</code></pre>
-<p>Save this as <code>backup.sh</code>, make it executable with <code>chmod +x backup.sh</code>, and run it to back up your Nginx logs to S3. In Part 8, we will see how to schedule this to run automatically using cron.</p>
-<p>In Part 7, we cover IAM — the proper way to grant your EC2 instance permission to access S3 and other AWS services without using access keys.</p>
+BACKUP_DIR="/tmp/backup-${DATE}"
+BUCKET="s3://my-backups/database"
 
-<h4>S3 Bucket Policies and Access Control</h4>
-<p>S3 access control works through multiple mechanisms that interact: IAM policies on users and roles, S3 bucket policies attached to the bucket, and S3 ACLs on individual objects. Bucket policies are particularly useful for cross-account access and for making specific bucket paths publicly accessible for static website hosting. A bucket policy is a JSON document attached to the bucket:</p>
-<div class="code-title">S3 Bucket Policy for Static Website</div>
-<pre><code class="language-json">{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::my-website-bucket/*"
-        }
-    ]
+mkdir -p "$BACKUP_DIR"
+
+# Backup PostgreSQL database
+pg_dump -U postgres mydb > "${BACKUP_DIR}/mydb.sql"
+
+# Compress
+tar -czf "${BACKUP_DIR}.tar.gz" -C /tmp "backup-${DATE}"
+
+# Upload to S3
+aws s3 cp "${BACKUP_DIR}.tar.gz" "${BUCKET}/${DATE}.tar.gz"
+
+# Clean up local files
+rm -rf "$BACKUP_DIR" "${BACKUP_DIR}.tar.gz"
+
+echo "Backup complete: ${DATE}"
+
+# Add to cron:
+# 0 2 * * * /usr/local/bin/backup-to-s3.sh >> /var/log/backup.log 2>&1</code></pre>
+<h4>S3 Lifecycle Rules</h4>
+<div class="code-title">Automatically move old files to cheaper storage</div>
+<pre><code class="language-bash"># In AWS Console: S3 > bucket > Management > Lifecycle rules
+# Or via CLI:
+
+aws s3api put-bucket-lifecycle-configuration \
+  --bucket my-backups \
+  --lifecycle-configuration file://lifecycle.json
+
+# lifecycle.json:
+{
+  "Rules": [{
+    "ID": "archive-old-backups",
+    "Status": "Enabled",
+    "Filter": {"Prefix": "database/"},
+    "Transitions": [
+      {"Days": 30, "StorageClass": "STANDARD_IA"},
+      {"Days": 90, "StorageClass": "GLACIER"}
+    ],
+    "Expiration": {"Days": 365}
+  }]
 }</code></pre>
-<p>For production buckets containing sensitive data, the correct policy is a deny-all public access policy enforced through S3 Block Public Access settings, with access granted only through IAM roles to specific services or users that need it.</p>
-<h4>S3 Lifecycle Policies for Cost Management</h4>
-<p>S3 lifecycle rules automatically transition objects to cheaper storage classes or delete them after a specified time. Infrequently accessed objects can move from S3 Standard to S3 Standard-IA after 30 days, then to Glacier for long-term archival after 90 days, and be deleted after 365 days. Defining lifecycle rules on buckets that accumulate data — log buckets, backup buckets, data lake buckets — prevents unbounded storage growth and keeps costs controlled automatically without manual intervention.</p>
-<h4>Practice Exercise</h4>
-<p>Create an S3 bucket for static website hosting: enable static website hosting in the bucket properties, upload an <code>index.html</code> file, apply a bucket policy allowing public read access, and access the website using the S3 website endpoint URL. Then configure a lifecycle rule that would transition objects older than 30 days to S3 Standard-IA (you can set it up without waiting for it to trigger). Finally, practice using versioning: enable versioning, upload a modified version of the file, and use the AWS CLI to list all versions and retrieve a specific version.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How does S3 pricing work?</h5><p>You pay for: storage (per GB/month), requests (PUT, GET per request), and data transfer out (free for uploads, charged for downloads). S3 Standard: ~$0.023/GB/month. S3-IA: ~$0.0125/GB (lower cost, retrieval fee). Glacier: ~$0.004/GB (very cheap, slow retrieval). Set lifecycle rules to move old data to cheaper tiers automatically.</p>
+<h5 style="margin-bottom:8px;">What is the difference between S3 and EBS?</h5><p>S3 is object storage -- store and retrieve files via API, accessible from anywhere, unlimited storage, no filesystem. EBS is block storage -- attached to one EC2 instance like a hard drive, appears as /dev/xvdb, used for databases and application files needing low-latency access.</p>
+<h5 style="margin-bottom:8px;">How do I host a static website on S3?</h5><p>Enable static website hosting in bucket properties. Set index document (index.html) and error document. Make bucket public (bucket policy). Upload your HTML/CSS/JS. Access via the S3 website endpoint. Use CloudFront in front for HTTPS and CDN caching.</p>
+<h5 style="margin-bottom:8px;">How do I make files publicly accessible?</h5><p>Bucket policy allows public read access to specific paths. Or generate presigned URLs for temporary access without making files public. Never make entire buckets public unless they contain genuinely public assets (static websites, public downloads).</p>
+<h5 style="margin-bottom:8px;">How do I sync S3 to a different region?</h5><p>Enable S3 Cross-Region Replication in bucket settings. Or manually: aws s3 sync s3://source-bucket s3://dest-bucket --source-region us-east-1 --region ap-south-1. Useful for disaster recovery and latency reduction for global users.</p>
 </div>
+<p>In <a href="aws-linux-combo-part-7.html">Part 7</a>, we cover IAM -- controlling who can access what in your AWS account.</p>
+<div class="series-nav"><a href="aws-linux-combo-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 6 of 12</strong><a href="aws-linux-combo-part-7.html">Part 7 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
+<h4>S3 Presigned URLs for Secure Temporary Access</h4>
+<div class="code-title">Generate time-limited download links</div>
+<pre><code class="language-bash"># Generate presigned URL (valid for 1 hour)
+aws s3 presign s3://my-bucket/private-report.pdf --expires-in 3600
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# In Python with boto3
+import boto3
+
+s3 = boto3.client("s3")
+
+# Generate URL for download
+url = s3.generate_presigned_url(
+    "get_object",
+    Params={"Bucket": "my-bucket", "Key": "reports/q4.pdf"},
+    ExpiresIn=3600  # 1 hour
+)
+print(url)  # Share this URL -- expires in 1 hour
+
+# Generate URL for upload (user uploads directly to S3)
+presigned_post = s3.generate_presigned_post(
+    "my-bucket",
+    "uploads/user-avatar.jpg",
+    Fields={"Content-Type": "image/jpeg"},
+    Conditions=[["content-length-range", 0, 5 * 1024 * 1024]],  # 5MB max
+    ExpiresIn=300  # 5 minutes
+)</code></pre>
+
+<h4>S3 Event Notifications for Automation</h4>
+<div class="code-title">Trigger Lambda when file is uploaded</div>
+<pre><code class="language-bash">aws s3api put-bucket-notification-configuration   --bucket my-uploads   --notification-configuration '{
+    "LambdaFunctionConfigurations": [{
+      "LambdaFunctionArn": "arn:aws:lambda:ap-south-1:123456789:function:ProcessUpload",
+      "Events": ["s3:ObjectCreated:*"],
+      "Filter": {
+        "Key": {
+          "FilterRules": [{"Name": "suffix", "Value": ".pdf"}]
+        }
+      }
+    }]
+  }'
+
+# Now every .pdf uploaded to my-uploads triggers the Lambda function
+# Lambda can: resize images, validate documents, send notifications</code></pre>
+
+<h4>Intelligent Tiering for Unpredictable Access Patterns</h4>
+<div class="code-title">S3 storage classes comparison</div>
+<pre><code class="language-bash">STANDARD           -- Frequently accessed. ~$0.023/GB/month
+STANDARD_IA        -- Infrequently accessed, fast retrieval. ~$0.0125/GB
+ONE_ZONE_IA        -- Single AZ, lower cost. ~$0.01/GB
+INTELLIGENT_TIERING-- Auto moves between tiers. Best for unknown patterns
+GLACIER            -- Archive. Minutes to hours retrieval. ~$0.004/GB
+DEEP_ARCHIVE       -- Coldest storage. 12 hour retrieval. ~$0.00099/GB
+
+# Set storage class on upload
+aws s3 cp backup.tar.gz s3://my-bucket/ --storage-class STANDARD_IA
+
+# Move specific objects
+aws s3 cp s3://my-bucket/old-backup.tar.gz s3://my-bucket/old-backup.tar.gz   --storage-class GLACIER   --metadata-directive REPLACE</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

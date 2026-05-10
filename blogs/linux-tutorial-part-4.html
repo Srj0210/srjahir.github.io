@@ -1,170 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech</title>
-  <meta name="description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
-  <meta name="keywords" content="Linux grep sed awk find, Linux text processing, Linux search files, Linux command line tools" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-4.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux Full Tutorial Part 4 - Text Processing with grep, awk, and sed | SRJahir Tech</title><meta name="description" content="Master Linux text processing: grep patterns, awk for columns, sed for substitution, cut, sort, uniq, and building data pipelines with pipes."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-4.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Linux Full Tutorial Part 4 - Text Processing with grep, awk, and sed"/><meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-4.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-4-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-27"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 4 - Text Processing with grep, awk, and sed","url":"https://srjahir.in/blogs/linux-tutorial-part-4.html","datePublished":"2025-11-27","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>Linux Full Tutorial -- Part 4: Text Processing Tools</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-27 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="linux-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 4 of 12</strong><a href="linux-tutorial-part-5.html">Part 5 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-4-terminal.svg" alt="Linux Full Tutorial -- Part 4: Text Processing Tools" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Linux text processing tools are among the most powerful in the operating system. grep, awk, and sed -- often called the "DevOps trio" -- let you search, extract, and transform text at any scale. Understanding them fluently means you can analyse log files, transform data, and automate text manipulation without writing Python scripts for every task.</p>
+<h4>grep -- Pattern Search</h4>
+<div class="code-title">Searching text patterns</div>
+<pre><code class="language-bash">grep "ERROR" app.log               # Lines containing ERROR
+grep -i "error" app.log            # Case-insensitive
+grep -v "DEBUG" app.log            # Lines NOT matching
+grep -r "TODO" ./src/              # Recursive search
+grep -l "password" /etc/           # Only show filenames
+grep -n "ERROR" app.log            # Show line numbers
+grep -c "ERROR" app.log            # Count matching lines
+grep -A 3 "FATAL" app.log          # 3 lines after match
+grep -B 2 "FATAL" app.log          # 2 lines before match
+grep -E "error|warning" app.log    # Extended regex (or)
+grep "^ERROR" app.log              # Lines starting with ERROR
+grep "Error$" app.log              # Lines ending with Error</code></pre>
+<h4>awk -- Column Processing</h4>
+<div class="code-title">Process structured text</div>
+<pre><code class="language-bash">awk "{print $1}" file.txt          # Print first column
+awk "{print $1, $3}" file.txt      # Print columns 1 and 3
+awk -F: "{print $1}" /etc/passwd   # : as separator -- print usernames
+awk "$3 > 1000" /etc/passwd        # Rows where column 3 > 1000
+awk "NR > 5" file.txt              # Skip first 5 lines
+awk "NR==1,NR==10" file.txt        # Lines 1-10
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-27" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:title" content="Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech" /><meta property="og:description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
+# Process nginx access log -- show IPs and paths
+awk "{print $1, $7}" /var/log/nginx/access.log
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find" />
-  <meta name="twitter:description" content="Master Linux text processing tools — grep for searching, sed for replacing, awk for data processing, and find for locating files." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 4 — Text Processing: grep, sed, awk, find | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-27", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-4.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-4.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 4 of 12</strong>
-  <a href="linux-tutorial-part-5.html">Part 5 →</a>
+# Sum a column
+awk "{sum += $3} END {print sum}" file.txt
+
+# Count occurrences
+awk "{count[$1]++} END {for(k in count) print k, count[k]}" log.txt</code></pre>
+<h4>sed -- Stream Editor</h4>
+<div class="code-title">Find and replace in streams</div>
+<pre><code class="language-bash">sed "s/old/new/" file.txt           # Replace first occurrence per line
+sed "s/old/new/g" file.txt          # Replace all occurrences
+sed "s/old/new/gi" file.txt         # Case-insensitive replace all
+sed -i "s/DEBUG/INFO/g" app.conf    # Edit file IN PLACE
+sed -n "5,15p" file.txt             # Print lines 5-15 only
+sed "/^#/d" config.txt              # Delete comment lines
+sed "1d" file.txt                   # Delete first line
+sed "$ d" file.txt                  # Delete last line
+
+# Real-world example: update config value
+sed -i "s/max_connections = .*/max_connections = 200/" /etc/postgresql.conf</code></pre>
+<h4>Pipes -- Chain Commands Together</h4>
+<div class="code-title">Building data pipelines</div>
+<pre><code class="language-bash"># Count unique IPs in nginx log
+awk "{print $1}" /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -20
+
+# Find top error types in log
+grep "ERROR" app.log | awk "{print $4}" | sort | uniq -c | sort -rn
+
+# Extract and sort unique domains from email list
+awk -F@ "{print $2}" emails.txt | sort -u
+
+# Count lines per file in a directory
+for f in *.txt; do echo "$f: $(wc -l < $f) lines"; done
+
+# Find and kill process by name
+ps aux | grep nginx | grep -v grep | awk "{print $2}" | xargs kill</code></pre>
+<h4>Other Text Tools</h4>
+<div class="code-title">sort, uniq, cut, tr</div>
+<pre><code class="language-bash">sort file.txt                  # Sort alphabetically
+sort -n numbers.txt            # Numeric sort
+sort -rn numbers.txt           # Reverse numeric sort
+sort -u file.txt               # Sort and remove duplicates
+uniq file.txt                  # Remove consecutive duplicates
+uniq -c file.txt               # Count occurrences
+cut -d: -f1 /etc/passwd        # Cut column 1 with : delimiter
+cut -c1-10 file.txt            # Cut characters 1-10
+tr "a-z" "A-Z" < file.txt     # Translate lowercase to uppercase
+tr -d "\r" < file.txt         # Remove Windows line endings</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">When should I use grep vs awk vs sed?</h5><p>grep for finding lines matching a pattern. awk for processing columns and performing calculations on structured text. sed for find-and-replace and deleting/printing specific lines. Often combine all three with pipes.</p>
+<h5 style="margin-bottom:8px;">How do I search for text in multiple files?</h5><p>grep -r "pattern" /path/ searches recursively. grep -l "pattern" *.txt shows only filenames. grep -rn "pattern" /etc/ shows filenames and line numbers. For very large numbers of files, use: find . -type f -exec grep -l "pattern" {} +</p>
+<h5 style="margin-bottom:8px;">How do I do a dry run of sed before editing files?</h5><p>Omit the -i flag: sed "s/old/new/g" file.txt shows output without modifying. When satisfied, add -i for in-place edit. On macOS, sed -i requires an empty string extension: sed -i "" "s/old/new/g" file.txt</p>
+<h5 style="margin-bottom:8px;">What is the difference between sort and sort -u vs uniq?</h5><p>sort -u sorts and removes duplicates in one step. uniq only removes consecutive duplicates -- must sort first for complete deduplication: sort file.txt | uniq. uniq -c is useful to count occurrences after sorting.</p>
+<h5 style="margin-bottom:8px;">How do I extract a specific column from a CSV file?</h5><p>cut -d, -f2 file.csv extracts the 2nd column. awk -F, "{print $2}" file.csv does the same with more flexibility (can print multiple columns, add conditions). For complex CSVs with quoted fields, use python csv module or csvkit.</p>
 </div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 4: Text Processing Tools</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 27, 2025 <span class="meta-dot"></span> 6 min read</p>
+<p>In <a href="linux-tutorial-part-5.html">Part 5</a>, we cover process management -- monitoring, controlling, and managing running programs in Linux.</p><div class="series-nav"><a href="linux-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 4 of 12</strong><a href="linux-tutorial-part-5.html">Part 5 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Real Log Analysis Workflows</h4>
+<div class="code-title">Analysing nginx access logs</div>
+<pre><code class="language-bash"># nginx log format:
+# 10.0.1.5 - - [01/Jan/2026:12:00:00] "GET /api/users HTTP/1.1" 200 1234 "..." "..."
+LOG="/var/log/nginx/access.log"
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-4-terminal.svg" alt="Linux — Text Processing" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Text Processing</figcaption>
-</figure>
+# Top 10 IPs by request count
+awk '{print $1}' $LOG | sort | uniq -c | sort -rn | head -10
 
-<div class="series-nav">
-  <a href="linux-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 4 of 12</strong>
-  <a href="linux-tutorial-part-5.html">Part 5 →</a>
-</div>
-<p>Linux systems generate enormous amounts of text data — logs, configuration files, code, data exports. The ability to search, filter, transform, and extract information from text files using command-line tools is a superpower. These tools are used daily by system administrators, DevOps engineers, and developers.</p>
-<h4>grep — Search for Patterns</h4>
-<p>grep searches files for lines matching a pattern:</p>
-<div class="code-title">grep Examples</div>
-<pre><code class="language-bash">grep "error" app.log              # Lines containing "error"
-grep -i "error" app.log           # Case-insensitive search
-grep -n "error" app.log           # Show line numbers
-grep -r "config" /etc/            # Recursive search in directory
-grep -v "DEBUG" app.log           # Lines NOT containing DEBUG
-grep -c "error" app.log           # Count matching lines
-grep -l "error" /var/log/*.log    # List files with matches
-grep "error\|warning" app.log     # Multiple patterns (OR)
-grep -A 3 "ERROR" app.log         # 3 lines after match
-grep -B 2 "ERROR" app.log         # 2 lines before match</code></pre>
-<h4>find — Locate Files</h4>
-<div class="code-title">find Examples</div>
-<pre><code class="language-bash">find / -name "nginx.conf"               # Find by name
-find /home -name "*.py"                 # Find all Python files
-find /var/log -name "*.log" -size +10M  # Log files over 10MB
-find . -mtime -7                        # Modified in last 7 days
-find /tmp -type f -mtime +30 -delete    # Delete old temp files
-find . -name "*.py" -exec grep -l "import os" {} \;</code></pre>
-<h4>sed — Stream Editor</h4>
-<p>sed modifies text in files or streams — essential for automation:</p>
-<div class="code-title">sed Examples</div>
-<pre><code class="language-bash">sed 's/old/new/' file.txt              # Replace first occurrence per line
-sed 's/old/new/g' file.txt             # Replace all occurrences
-sed -i 's/old/new/g' file.txt          # Replace in-place (modify file)
-sed -n '10,20p' file.txt               # Print lines 10 to 20
-sed '/^#/d' config.txt                 # Delete comment lines
-sed 's/  */ /g' file.txt               # Remove extra spaces</code></pre>
-<h4>awk — Data Processing</h4>
-<p>awk is a full programming language for processing structured text — especially CSV-like data:</p>
-<div class="code-title">awk Examples</div>
-<pre><code class="language-bash">awk '{print $1}' file.txt             # Print first column
-awk '{print $1, $3}' file.txt         # Print columns 1 and 3
-awk -F: '{print $1}' /etc/passwd      # Use : as delimiter
-awk '{sum += $2} END {print sum}' data.txt  # Sum column 2
-awk 'NR > 1' file.txt                 # Skip header line
-awk '/ERROR/ {print NR": "$0}' app.log  # Print error lines with numbers</code></pre>
-<h4>cut — Extract Columns</h4>
-<div class="code-title">cut Examples</div>
-<pre><code class="language-bash">cut -d: -f1 /etc/passwd               # Extract first field
-cut -d, -f2,4 data.csv                # Extract columns 2 and 4
-cut -c1-50 file.txt                   # First 50 characters</code></pre>
-<h4>sort and uniq — Organizing Data</h4>
-<div class="code-title">sort and uniq</div>
-<pre><code class="language-bash">sort names.txt                        # Alphabetical sort
-sort -n numbers.txt                   # Numerical sort
-sort -r file.txt                      # Reverse sort
-sort -k2 data.txt                     # Sort by column 2
-sort file.txt | uniq                  # Remove duplicates
-sort file.txt | uniq -c               # Count occurrences
-sort access.log | uniq -c | sort -rn | head -10  # Top 10 IPs</code></pre>
-<h4>Pipes — Combining Commands</h4>
-<p>The pipe <code>|</code> sends output of one command as input to another. This is where Linux command-line power really shows:</p>
-<div class="code-title">Pipe Examples</div>
-<pre><code class="language-bash">cat app.log | grep ERROR | sort | uniq -c | sort -rn
-# Read log → filter errors → sort → count → sort by count
+# 5xx errors in last hour
+awk '$9 >= 500' $LOG | wc -l
 
-ps aux | grep nginx | grep -v grep
-# List processes → find nginx → remove grep itself
+# Response time analysis (if included in log format)
+awk '{print $NF}' $LOG | sort -n | awk '
+  BEGIN {count=0; sum=0}
+  {count++; sum+=$1; arr[count]=$1}
+  END {
+    print "Count:", count
+    print "Mean:", sum/count
+    print "P50:", arr[int(count*0.5)]
+    print "P95:", arr[int(count*0.95)]
+    print "P99:", arr[int(count*0.99)]
+  }'
 
-find . -name "*.py" | xargs grep "import requests"
-# Find Python files containing "import requests"</code></pre>
-<p>In Part 5, we move to process management — how to start, stop, monitor, and control running programs in Linux.</p>
-<h4>awk — The Swiss Army Knife of Text Processing</h4>
-<p>While <code>grep</code> searches and <code>sed</code> transforms, <code>awk</code> is a complete programming language for processing structured text. It is particularly powerful for tabular data. <code>awk</code> processes files line by line, splitting each line into fields by a delimiter (space by default). <code>$1</code> refers to the first field, <code>$2</code> to the second, and so on:</p>
-<div class="code-title">awk Examples</div>
-<pre><code class="language-bash"># Print second column of each line
-awk '{print $2}' file.txt
+# Find all 404 URLs and count them
+awk '$9 == 404 {print $7}' $LOG | sort | uniq -c | sort -rn | head -20
 
-# Print lines where third column is greater than 100
-awk '$3 > 100 {print $0}' data.txt
+# Requests per minute (traffic pattern)
+awk '{print $4}' $LOG | cut -d: -f1,2,3 | uniq -c</code></pre>
 
-# Calculate sum of a column
-awk '{sum += $1} END {print "Total:", sum}' numbers.txt
+<h4>jq for JSON Processing</h4>
+<div class="code-title">Parse JSON from AWS CLI and APIs</div>
+<pre><code class="language-bash">sudo apt install jq
 
-# Use comma as delimiter (for CSV-like files)
-awk -F',' '{print $1, $3}' data.csv
+# Pretty print JSON
+echo '{"name":"suraj","age":25}' | jq .
 
-# Print with formatting
-awk '{printf "Name: %-20s Score: %d
-", $1, $2}' grades.txt</code></pre>
-<p><code>awk</code> may look intimidating at first but is one of the most powerful tools in a Linux administrator's toolkit. Learning even the basics of awk dramatically expands your ability to process and analyze log files, system output, and data files from the command line.</p>
-<h4>Combining Tools with Pipelines</h4>
-<p>The real power of Linux text processing tools is combining them with pipes (<code>|</code>) to build processing pipelines. For example, to find the top five IP addresses in a web server access log: <code>awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -5</code>. This pipeline extracts the first field (IP address), sorts all IPs, counts unique occurrences, sorts by count in reverse, and shows the top five. Understanding how to compose these pipelines is a core DevOps and system administration skill.</p>
-<h4>Practice Exercise</h4>
-<p>Download a sample log file or generate one using: <code>for i in {1..100}; do echo "$(date) INFO Process $((RANDOM % 10)) completed task $i"; done > sample.log</code>. Then use grep, cut, awk, and sort in combination to: extract all unique process numbers, count how many times each process number appears, and display the results sorted by frequency. This exercise builds practical text processing skill in a realistic scenario.</p>
+# Extract field
+aws ec2 describe-instances | jq '.Reservations[].Instances[].InstanceId'
 
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
+# Filter array
+aws ec2 describe-instances | jq '.Reservations[].Instances[] | select(.State.Name == "running")'
 
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement. Learning requires consistent practice.</div>
-</section>
+# Combine fields
+aws ec2 describe-instances | jq '.Reservations[].Instances[] | {id: .InstanceId, ip: .PublicIpAddress, state: .State.Name}'
 
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
-</body></html>
+# Count results
+aws s3api list-objects --bucket my-bucket | jq '.Contents | length'</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

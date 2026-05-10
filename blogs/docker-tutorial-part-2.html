@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <title>Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech</title>
-  <meta name="description" content="Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker." />
-  <meta name="keywords" content="Docker install Ubuntu, Docker tutorial part 2, Docker first container, Docker commands beginners" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <title>Docker Tutorial Part 2 — Installation & Running Your First Containers | SRJahir Tech</title>
+  <meta name="description" content="Install Docker on Ubuntu, macOS, and Windows. Understand the Docker daemon and CLI, run your first containers, and learn essential Docker commands you will use daily." />
+  <meta name="keywords" content="Docker install Ubuntu, install Docker macOS, Docker run first container, Docker commands beginners, Docker daemon CLI" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-05" />
-  <meta property="article:author" content="Suraj Ahir" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-05" /><meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech" />
-  <meta property="og:description" content="Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker." />
+  <meta property="og:title" content="Docker Tutorial Part 2 — Installation & Running Your First Containers" />
+  <meta property="og:description" content="Install Docker on Ubuntu, macOS, and Windows. Understand the Docker daemon and CLI, run your first containers, and learn essential Docker commands you will use daily." />
   <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-2.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/docker-part-2-terminal.svg" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 2 — Installation & First Containers | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Step by step Docker installation on Ubuntu, Windows, and Mac. Learn to run your first container, understand Docker commands, and see what actually happens inside Docker.", "datePublished": "2025-11-05", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-2.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-2.html"}
+  {"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 2 — Installation & Running Your First Containers","description":"Install Docker on Ubuntu, macOS, and Windows. Understand the Docker daemon and CLI, run your first containers, and learn essential Docker commands you will use daily.","url":"https://srjahir.in/blogs/docker-tutorial-part-2.html","datePublished":"2025-11-05","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/docker-part-2-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/docker-tutorial-part-2.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I run a Docker container in the background?","acceptedAnswer":{"@type":"Answer","text":"Use the -d flag (detached mode): docker run -d nginx. The container runs in the background and Docker prints the container ID. Use docker ps to see running containers and docker logs container-name to view their output."}},{"@type":"Question","name":"How do I access a web server running inside a Docker container?","acceptedAnswer":{"@type":"Answer","text":"Use port mapping with the -p flag: docker run -d -p 8080:80 nginx maps host port 8080 to container port 80. Open http://localhost:8080 in your browser. The format is -p HOST_PORT:CONTAINER_PORT."}},{"@type":"Question","name":"Why does Docker need sudo on Linux?","acceptedAnswer":{"@type":"Answer","text":"The Docker daemon runs as root and the Docker socket is owned by root. Adding your user to the docker group (sudo usermod -aG docker $USER) lets you run Docker commands without sudo. Always log out and back in or run newgrp docker after adding yourself to the group."}},{"@type":"Question","name":"What is the difference between docker stop and docker kill?","acceptedAnswer":{"@type":"Answer","text":"docker stop sends SIGTERM to the container's main process, giving it time to clean up gracefully, then SIGKILL after 10 seconds. docker kill sends SIGKILL immediately with no grace period. Always prefer docker stop unless the container is unresponsive."}},{"@type":"Question","name":"How do I remove all unused Docker resources to free disk space?","acceptedAnswer":{"@type":"Answer","text":"Run docker system prune -a. This removes all stopped containers, unused images, dangling volumes, and build cache. Docker can accumulate gigabytes of unused data over time. Check current usage with docker system df before pruning."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
@@ -45,167 +42,164 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="docker-tutorial-part-1.html">← Part 1</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 2 of 12</strong>
-  <a href="docker-tutorial-part-3.html">Part 3 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-<section class="content-block">
+<section class="content-block blog-article">
 <h3>Docker Full Tutorial — Part 2: Installation &amp; First Containers</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 05, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-05 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav">
+  <a href="docker-tutorial-part-1.html">&larr; Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 2 of 12</strong>
+  <a href="docker-tutorial-part-3.html">Part 3 &rarr;</a>
+</div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/docker-part-2-terminal.svg" alt="Docker — Docker Images" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Docker Images</figcaption>
+  <img src="images/docker-part-2-terminal.svg" alt="Docker Full Tutorial — Part 2: Installation &amp; First Containers" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker Full Tutorial — Part 2: Installation &amp; First Containers</figcaption>
 </figure>
 
-<div class="series-nav">
-  <a href="docker-tutorial-part-1.html">← Part 1</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 2 of 12</strong>
-  <a href="docker-tutorial-part-3.html">Part 3 →</a>
-</div>
-<p>In Part 1 we understood why Docker exists and what problem it solves. Now we get hands-on. We will install Docker, understand its architecture, and run our first real containers. By the end of this part, you will have a working Docker setup and understand what actually happens when you type <code>docker run</code>.</p>
+<p>Installing Docker for the first time feels like a small thing, but the moment you type <code>docker run hello-world</code> and it works — something clicks. You just pulled an image from the internet, Kubernetes ran it as a container, it printed a message, and then it disappeared cleanly. No installation, no dependencies, no cleanup. Just: pull, run, done.</p>
+<p>That is what Docker does to every application. In this part, we will install Docker, understand the architecture behind it, run several containers, and learn the core commands you will use every single day as a developer or DevOps engineer.</p>
 
-<h4>Installing Docker on Ubuntu/Debian</h4>
-<p>This is the most common setup for developers and cloud servers. Follow these steps carefully:</p>
-<div class="code-title">Docker Install — Ubuntu</div>
-<pre><code class="language-bash"># Remove old versions first
+<h4>Installing Docker on Ubuntu/Linux</h4>
+<div class="code-title">Install Docker Engine on Ubuntu 22.04</div>
+<pre><code class="language-bash"># Remove any old Docker versions
 sudo apt remove docker docker-engine docker.io containerd runc
 
-# Update and install dependencies
+# Install prerequisites
 sudo apt update
 sudo apt install ca-certificates curl gnupg lsb-release
 
-# Add Docker's official GPG key
+# Add Docker's GPG key
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Add Docker repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
-# Install Docker Engine
+# Install Docker
 sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-# Start Docker and enable on boot
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Run Docker without sudo (important!)
+# Run Docker without sudo
 sudo usermod -aG docker $USER
-newgrp docker</code></pre>
+newgrp docker
 
-<h4>Installing Docker on Windows</h4>
-<p>Download Docker Desktop from the official Docker website. Docker Desktop for Windows includes everything you need: Docker Engine, Docker CLI, Docker Compose, and a visual dashboard. It requires Windows 10 or 11 with WSL2 (Windows Subsystem for Linux) enabled. During installation, Docker will ask you to install WSL2 if it is not already set up — follow the prompts and it will guide you through.</p>
-<p>After installation, Docker Desktop runs in the system tray. You can interact with Docker via PowerShell or Command Prompt using the same commands you would use on Linux.</p>
-
-<h4>Installing Docker on Mac</h4>
-<p>Download Docker Desktop for Mac from the official Docker website. There are two versions — one for Intel chips and one for Apple Silicon (M1, M2, M3). Make sure you download the right one for your machine. After installation, Docker Desktop gives you a menu bar icon and a dashboard to manage containers visually.</p>
-
-<h4>Verifying Docker Installation</h4>
-<p>After installing, verify that Docker is working correctly:</p>
-<div class="code-title">Verify Docker</div>
+# Verify
+docker --version
+docker run hello-world</code></pre>
+<h4>Installing Docker on macOS and Windows</h4>
+<p>On macOS and Windows, the easiest path is <strong>Docker Desktop</strong> — a GUI application that installs Docker Engine, Docker CLI, and Docker Compose together.</p>
+<p>Download Docker Desktop from <code>docker.com/products/docker-desktop</code> and run the installer. On macOS with Apple Silicon (M1/M2/M3), download the Apple Silicon version specifically — it runs containers natively without Rosetta emulation. On Windows, enable WSL 2 integration in Docker Desktop settings for best performance.</p>
+<div class="code-title">Verify Docker Desktop installation</div>
 <pre><code class="language-bash">docker --version
-docker info</code></pre>
-<p>If you see version information, Docker is installed. Now run the classic test container:</p>
-<div class="code-title">Hello World Container</div>
-<pre><code class="language-bash">docker run hello-world</code></pre>
-<p>This command pulls a tiny test image from Docker Hub and runs it. You will see a message confirming that Docker is working correctly. Let us understand exactly what happened here:</p>
-<ul>
-  <li>Docker checked if the <code>hello-world</code> image exists locally</li>
-  <li>It did not find it, so it pulled it from Docker Hub (Docker's public image registry)</li>
-  <li>Docker created a container from that image</li>
-  <li>The container ran, printed the message, and exited</li>
-</ul>
+docker compose version
+docker run hello-world</code></pre>
+<h4>Understanding the Docker Architecture</h4>
+<p>Docker uses a client-server architecture. The <strong>Docker client</strong> is the <code>docker</code> command you type in your terminal. The <strong>Docker daemon</strong> (<code>dockerd</code>) is a background service that does the actual work — building images, running containers, managing networks and volumes. The client communicates with the daemon via a REST API over a Unix socket or TCP.</p>
+<p>When you type <code>docker run nginx</code>, the client sends that instruction to the daemon. The daemon checks if the nginx image is available locally. If not, it pulls it from Docker Hub. Then it creates a container from that image and starts it. All of this happens in the daemon — the client just sends the instruction and displays the response.</p>
+<div class="code-title">Check Docker daemon status</div>
+<pre><code class="language-bash">sudo systemctl status docker   # Linux
+docker info                    # Shows daemon info on any platform</code></pre>
+<h4>Running Your First Real Containers</h4>
+<div class="code-title">Core docker run commands</div>
+<pre><code class="language-bash"># Run nginx web server in the background
+docker run -d -p 8080:80 --name my-nginx nginx
+# -d = detached (runs in background)
+# -p 8080:80 = map host port 8080 to container port 80
+# --name = give it a memorable name
 
-<h4>Essential Docker Commands You Must Know</h4>
-<p>These are the commands you will use constantly. Do not just read them — run each one and observe the output.</p>
-<div class="code-title">Core Docker Commands</div>
-<pre><code class="language-bash"># Pull an image from Docker Hub
-docker pull ubuntu
+# Open http://localhost:8080 in browser - nginx welcome page
+
+# Run an interactive Ubuntu container
+docker run -it ubuntu bash
+# -i = interactive, -t = allocate pseudo-TTY
+# Type 'exit' to leave the container
+
+# Run a one-off command and delete the container after
+docker run --rm ubuntu echo "Hello from inside a container"
+# --rm = remove container after it exits
+
+# Run PostgreSQL database
+docker run -d   --name my-postgres   -e POSTGRES_PASSWORD=mypassword   -e POSTGRES_DB=testdb   -p 5432:5432   postgres:15</code></pre>
+<h4>Essential Docker Commands</h4>
+<div class="code-title">Commands you will use every day</div>
+<pre><code class="language-bash"># List running containers
+docker ps
+
+# List ALL containers (including stopped)
+docker ps -a
+
+# View logs from a container
+docker logs my-nginx
+docker logs my-nginx -f     # Follow/stream logs
+
+# Execute a command inside running container
+docker exec -it my-nginx bash
+docker exec my-nginx cat /etc/nginx/nginx.conf
+
+# Stop a container (graceful - sends SIGTERM first)
+docker stop my-nginx
+
+# Kill a container (immediate - SIGKILL)
+docker kill my-nginx
+
+# Remove a stopped container
+docker rm my-nginx
+
+# Remove a running container forcefully
+docker rm -f my-nginx
 
 # List downloaded images
 docker images
 
-# Run a container (interactive mode)
-docker run -it ubuntu bash
-
-# List running containers
-docker ps
-
-# List all containers (including stopped)
-docker ps -a
-
-# Stop a running container
-docker stop &lt;container_id&gt;
-
-# Remove a container
-docker rm &lt;container_id&gt;
-
 # Remove an image
-docker rmi ubuntu</code></pre>
+docker rmi nginx
 
-<h4>Running Your First Real Container</h4>
-<p>Let us run something more meaningful — an Nginx web server inside a container:</p>
-<div class="code-title">Run Nginx Container</div>
-<pre><code class="language-bash">docker run -d -p 8080:80 --name my-web nginx</code></pre>
-<p>Breaking down this command:</p>
-<ul>
-  <li><code>-d</code> — run in detached mode (background)</li>
-  <li><code>-p 8080:80</code> — map port 8080 on your machine to port 80 inside the container</li>
-  <li><code>--name my-web</code> — give the container a readable name</li>
-  <li><code>nginx</code> — use the official Nginx image</li>
-</ul>
-<p>Open your browser and go to <code>http://localhost:8080</code>. You will see the Nginx welcome page. A full web server running inside a container — no installation required on your host machine.</p>
+# Pull an image without running it
+docker pull ubuntu:22.04
 
-<h4>Understanding Container Lifecycle</h4>
-<p>A Docker container goes through specific states: created, running, stopped, and removed. Understanding this lifecycle is important because containers are meant to be disposable. You can stop them, delete them, and create new ones from the same image in seconds. The image stays — only the container instance is deleted when you run <code>docker rm</code>.</p>
-<p>This is fundamentally different from a virtual machine. A VM takes minutes to start. A container takes milliseconds. A VM has its own full OS. A container shares the host OS kernel. This is why containers are so powerful for modern development and deployment workflows.</p>
+# See disk usage by Docker
+docker system df
 
-<h4>Viewing Container Logs</h4>
-<p>When a container runs in the background, how do you know what it is doing? Docker captures all output from the container process and stores it as logs.</p>
-<div class="code-title">Container Logs</div>
-<pre><code class="language-bash"># View logs of a container
-docker logs my-web
+# Remove all stopped containers, unused images, dangling volumes
+docker system prune -a</code></pre>
 
-# Follow logs in real time
-docker logs -f my-web</code></pre>
-<p>This is your window into what is happening inside a running container. In production systems, log monitoring is critical — Docker's logging system makes it straightforward.</p>
+<p>You now have Docker installed and working. You understand the client-daemon architecture and you know the core commands. In <a href="docker-tutorial-part-3.html">Part 3</a>, we write Dockerfiles — the key skill that lets you containerize your own applications. Writing good Dockerfiles is the difference between Docker images that are 2GB and take 10 minutes to build, and images that are 150MB and build in under 60 seconds.</p>
 
-<h4>Entering a Running Container</h4>
-<p>Sometimes you need to get inside a container and look around or troubleshoot. Use this command:</p>
-<div class="code-title">Enter Running Container</div>
-<pre><code class="language-bash">docker exec -it my-web bash</code></pre>
-<p>This opens a bash shell inside the running Nginx container. You can browse the filesystem, check configuration files, and run commands just as you would on a regular Linux server. Type <code>exit</code> to leave the container without stopping it.</p>
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">How do I run a Docker container in the background?</h5>
+  <p>Use the -d flag (detached mode): docker run -d nginx. The container runs in the background and Docker prints the container ID. Use docker ps to see running containers and docker logs container-name to view their output.</p>
 
-<h4>Cleanup — Good Practice</h4>
-<p>Containers and images accumulate quickly and take up disk space. Keep your Docker environment clean:</p>
-<div class="code-title">Docker Cleanup</div>
-<pre><code class="language-bash"># Remove all stopped containers
-docker container prune
+  <h5 style="margin-bottom:8px;">How do I access a web server running inside a Docker container?</h5>
+  <p>Use port mapping with the -p flag: docker run -d -p 8080:80 nginx maps host port 8080 to container port 80. Open http://localhost:8080 in your browser. The format is -p HOST_PORT:CONTAINER_PORT.</p>
 
-# Remove unused images
-docker image prune
+  <h5 style="margin-bottom:8px;">Why does Docker need sudo on Linux?</h5>
+  <p>The Docker daemon runs as root and the Docker socket is owned by root. Adding your user to the docker group (sudo usermod -aG docker $USER) lets you run Docker commands without sudo. Always log out and back in or run newgrp docker after adding yourself to the group.</p>
 
-# Remove everything unused (containers, networks, images)
-docker system prune</code></pre>
+  <h5 style="margin-bottom:8px;">What is the difference between docker stop and docker kill?</h5>
+  <p>docker stop sends SIGTERM to the container's main process, giving it time to clean up gracefully, then SIGKILL after 10 seconds. docker kill sends SIGKILL immediately with no grace period. Always prefer docker stop unless the container is unresponsive.</p>
 
-<p>In Part 3, we will learn to write our own Dockerfile and build custom images — this is where Docker becomes truly powerful for real projects.</p>
+  <h5 style="margin-bottom:8px;">How do I remove all unused Docker resources to free disk space?</h5>
+  <p>Run docker system prune -a. This removes all stopped containers, unused images, dangling volumes, and build cache. Docker can accumulate gigabytes of unused data over time. Check current usage with docker system df before pruning.</p>
+
+</div>
+
+<div class="series-nav">
+  <a href="docker-tutorial-part-1.html">&larr; Part 1</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 2 of 12</strong>
+  <a href="docker-tutorial-part-3.html">Part 3 &rarr;</a>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
 </section>
-
 <footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
 </footer>
 </body>
 </html>

@@ -57,7 +57,7 @@
 
   <!-- Schema.org Article -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "How to Use Cloud Power the Right Way — AWS, Azure, Google Cloud", "description": "Learn how to use cloud power the right way with AWS, Azure, and Google Cloud. Understand real cloud responsibility, not hype, certifications, or shortcuts.", "url": "https://srjahir.in/blogs/how-to-use-cloud-power.html", "datePublished": "2025-11-15", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/how-to-use-cloud-power.html"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "How to Use Cloud Power the Right Way — AWS, Azure, Google Cloud", "description": "Learn how to use cloud power the right way with AWS, Azure, and Google Cloud. Understand real cloud responsibility, not hype, certifications, or shortcuts.", "url": "https://srjahir.in/blogs/how-to-use-cloud-power.html", "dateModified":"2026-05-08","datePublished": "2025-11-15", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/how-to-use-cloud-power.html"}}
   </script>
 </head>
 
@@ -111,6 +111,30 @@
     documentation before making decisions.
   </p>
 </div>
+<h4>The Cloud Capabilities Most People Do Not Use</h4>
+<p>Most beginners use cloud as "someone else's server" -- they spin up an EC2 instance, SSH into it, and do everything the same way they would on a physical machine. This uses approximately 10% of what cloud actually enables. The capabilities that make cloud genuinely transformative compared to physical servers are the ones that require changing how you think about infrastructure.</p>
+<div class="code-title">Cloud-native capabilities vs traditional server usage</div>
+<pre><code class="language-bash">Traditional server thinking:
+  - Fixed capacity (buy a server, it stays that size)
+  - Manual provisioning (person configures each server)
+  - Data center recovery (if DC fails, wait for restoration)
+  - Upfront capital cost (buy before you know if you need it)
+
+Cloud-native thinking:
+  - Elastic capacity (Auto Scaling adds/removes servers automatically)
+  - Infrastructure as Code (Terraform provisions identically every time)
+  - Multi-region architecture (traffic shifts to another region automatically)
+  - Pay-per-use (scale to zero when not needed)
+
+# Real cloud-native patterns:
+Auto Scaling Group: 0 servers at night, 20 during day, adjusts in minutes
+Serverless: Lambda runs only when requests come in, costs near zero at rest
+Managed databases: RDS handles backups, patches, failover automatically
+CDN: CloudFront caches content at 400+ global locations
+Spot instances: same hardware, 70-90% discount for interruptible workloads</code></pre>
+<h4>Building Cost-Effective Cloud Architecture</h4>
+<p>Cloud costs surprise many organisations because they start with the convenience of running everything on large instances and forget to optimise. The principles of cost-effective cloud: right-size instances (use the smallest that meets your needs, upgrade when needed), use reserved instances or savings plans for stable workloads (30-60% discount), use spot instances for fault-tolerant batch workloads (70-90% discount), enable auto-scaling to scale down during low-traffic periods, and use serverless (Lambda, Fargate) for variable workloads where you pay only for actual usage.</p>
+<h4>More Questions Answered</h4><div style="margin-top:24px;"><h5 style="margin-bottom:8px;">What is serverless and when should I use it?</h5><p>Serverless means running code without managing servers. AWS Lambda, Google Cloud Functions, Azure Functions run your code when triggered (HTTP request, queue message, schedule) and scale automatically from zero to millions of executions. Use serverless for: event-driven processing, APIs with variable traffic, scheduled jobs, and data processing pipelines. Do not use for: long-running processes over 15 minutes, applications needing persistent state in memory.</p><h5 style="margin-bottom:8px;">How do I estimate cloud costs before deploying?</h5><p>Use the AWS Pricing Calculator (calculator.aws). Estimate monthly costs based on expected instance hours, storage, and data transfer. Set AWS Budget alerts at 80% and 100% of your estimate. Use cost tags to track spending by project. Monitor with AWS Cost Explorer after deployment to see actual vs estimated costs.</p><h5 style="margin-bottom:8px;">What is the difference between horizontal and vertical scaling?</h5><p>Vertical scaling (scale up) means making one server bigger -- more CPU, more RAM. Has a ceiling (largest instance type) and requires downtime to change. Horizontal scaling (scale out) means adding more servers -- your application runs on 2 or 20 servers instead of 1. Requires stateless application design. Cloud makes horizontal scaling easy with Auto Scaling Groups and load balancers.</p></div>
 </section>
 
 <!-- FOOTER -->

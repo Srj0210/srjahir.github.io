@@ -1,223 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 4 — Linux Networking for DevOps | SRJahir Tech</title>
-  <meta name="description" content="Master Linux networking for DevOps. Learn IP addressing, ports, DNS, firewalls, SSH, netstat, and real troubleshooting commands every DevOps engineer uses daily." />
-  <meta name="keywords" content="Linux networking DevOps, DevOps networking commands, IP ports DNS Linux, firewall iptables DevOps" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-4.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 4 - Linux Networking for DevOps | SRJahir Tech</title><meta name="description" content="Master Linux networking for DevOps: curl, netstat, ss, iptables, DNS, port forwarding, SSH tunnels, and debugging network connectivity issues."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-4.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 4 - Linux Networking for DevOps"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-4.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-4-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-10-27"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 4 - Linux Networking for DevOps","url":"https://srjahir.in/blogs/devops-roadmap-part-4.html","datePublished":"2025-10-27","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 4: Linux Networking for DevOps</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-27 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 4 of 12</strong><a href="devops-roadmap-part-5.html">Part 5 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-4-terminal.svg" alt="DevOps Roadmap -- Part 4: Linux Networking for DevOps" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Production networking issues are some of the most stressful moments in DevOps work. A service is down, users are affected, and you need to quickly determine: is the service running? Is the port open? Can it reach the database? Is DNS resolving correctly? Is there a firewall rule blocking traffic? Linux has excellent tools for all of this, and knowing them fluently under pressure is a critical skill.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-27" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 4 — Linux Networking for DevOps | SRJahir Tech" />
-  <meta property="og:description" content="Master Linux networking for DevOps. Learn IP addressing, ports, DNS, firewalls, SSH, netstat, and real troubleshooting commands every DevOps engineer uses daily." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 4 — Linux Networking for DevOps | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-10-27", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-4.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-4.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 4 of 12</strong>
-  <a href="devops-roadmap-part-5.html">Part 5 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 4: Linux Networking for DevOps</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 27, 2025 <span class="meta-dot"></span> 6 min read</p>
+<h4>Checking Connectivity</h4>
+<div class="code-title">Network connectivity testing</div>
+<pre><code class="language-bash"># ping: basic connectivity test
+ping google.com
+ping -c 5 8.8.8.8        # Send exactly 5 packets
+ping -i 0.5 hostname      # Ping every 0.5 seconds
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-4-terminal.svg" alt="Infrastructure as Code" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Infrastructure as Code</figcaption>
-</figure>
+# traceroute: show path packets take
+traceroute google.com
+tracepath google.com      # Alternative, no root needed
 
-<div class="series-nav">
-  <a href="devops-roadmap-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 4 of 12</strong>
-  <a href="devops-roadmap-part-5.html">Part 5 →</a>
-</div>
-<p>DevOps engineers spend a surprising amount of time dealing with networking problems. Services that cannot reach each other, firewalls blocking traffic, DNS resolution failures, ports that should be open but are not — these are daily occurrences. If you do not understand Linux networking, you will not be able to troubleshoot them efficiently. This part gives you the essential networking knowledge every DevOps engineer needs.</p>
+# curl: HTTP testing (essential for APIs)
+curl https://api.example.com/health
+curl -I https://example.com             # Headers only
+curl -X POST -H "Content-Type: application/json"      -d '{"user":"suraj"}' https://api.example.com/login
+curl -L https://example.com             # Follow redirects
+curl -v https://example.com             # Verbose output
+curl --connect-timeout 5 http://service # Timeout after 5s</code></pre>
 
-<h4>Understanding IP Addresses</h4>
-<p>Every machine connected to a network has an IP address — a unique identifier. There are two types you need to understand: private IP addresses (used inside your network — like 192.168.x.x or 10.x.x.x) and public IP addresses (visible on the internet). On a cloud server, you typically have both. Your instance has a private IP for internal communication and a public IP for internet access.</p>
-<div class="code-title">Check IP Address</div>
-<pre><code class="language-bash"># Show all network interfaces and their IPs
-ip a
-ip addr show
+<h4>Port and Socket Information</h4>
+<div class="code-title">ss and netstat</div>
+<pre><code class="language-bash"># ss: show socket statistics (modern replacement for netstat)
+ss -tlnp         # TCP, listening, numeric, with process names
+ss -ulnp         # UDP, listening, numeric, with process names
+ss -s            # Summary statistics
+ss -t state established  # Established TCP connections only
 
-# Show just the primary IP
-hostname -I
+# netstat (older, still common)
+netstat -tlnp    # TCP listening ports with processes
+netstat -an      # All connections numeric
 
-# Show routing table
-ip route show
+# Check if specific port is listening
+ss -tlnp | grep :8080
+lsof -i :8080    # Also shows which process uses port 8080</code></pre>
 
-# Check if you have internet access
-ping -c 4 8.8.8.8</code></pre>
+<h4>DNS Debugging</h4>
+<div class="code-title">DNS resolution commands</div>
+<pre><code class="language-bash"># nslookup: query DNS
+nslookup example.com
+nslookup example.com 8.8.8.8    # Use specific DNS server
 
-<h4>Ports — Every Service Has an Address</h4>
-<p>An IP address identifies a machine. A port identifies a specific service on that machine. Think of the IP as a building's street address and the port as a specific apartment number. When you access a website, your browser connects to port 80 (HTTP) or 443 (HTTPS) at the server's IP address. Common port numbers every DevOps engineer must know:</p>
-<ul>
-  <li><strong>22</strong> — SSH (remote server access)</li>
-  <li><strong>80</strong> — HTTP (unencrypted web)</li>
-  <li><strong>443</strong> — HTTPS (encrypted web)</li>
-  <li><strong>3306</strong> — MySQL database</li>
-  <li><strong>5432</strong> — PostgreSQL database</li>
-  <li><strong>6379</strong> — Redis cache</li>
-  <li><strong>27017</strong> — MongoDB database</li>
-  <li><strong>8080, 8443</strong> — Common alternate web ports</li>
-</ul>
-<div class="code-title">Check Open Ports</div>
-<pre><code class="language-bash"># List all listening ports
-ss -tuln
+# dig: detailed DNS information
+dig example.com
+dig example.com A               # A record (IPv4)
+dig example.com MX              # Mail exchange records
+dig example.com NS              # Name servers
+dig +short example.com          # Short output only
+dig @8.8.8.8 example.com        # Query Google's DNS
 
-# With process names (requires root)
-ss -tulnp
-
-# Alternative: netstat
-netstat -tuln
-
-# Check if a specific port is open
-ss -tuln | grep :80
-
-# Check what process owns a port
-sudo lsof -i :80</code></pre>
-
-<h4>DNS — Translating Names to IPs</h4>
-<p>Humans remember names. Machines understand IP addresses. DNS (Domain Name System) is the translator between the two. When you type <code>google.com</code>, your computer queries a DNS server which returns Google's IP address. DNS failures cause complete application outages even when the actual server is perfectly fine — the client simply cannot find it.</p>
-<div class="code-title">DNS Troubleshooting</div>
-<pre><code class="language-bash"># Look up a domain's IP
-nslookup google.com
-dig google.com
-
-# Check DNS resolution time
-dig google.com | grep "Query time"
-
-# See which DNS server is being used
+# Check /etc/resolv.conf for DNS config
 cat /etc/resolv.conf
 
-# Test DNS with a specific server
-dig @8.8.8.8 google.com
+# hosts file (overrides DNS)
+cat /etc/hosts</code></pre>
 
-# Reverse lookup (IP to hostname)
-dig -x 8.8.8.8</code></pre>
+<h4>SSH and Port Forwarding</h4>
+<div class="code-title">SSH tunnels for secure access</div>
+<pre><code class="language-bash"># Basic SSH
+ssh -i key.pem ubuntu@10.0.0.1
 
-<h4>Firewall — UFW and iptables</h4>
-<p>A firewall controls which network traffic is allowed in and out of your server. On Ubuntu servers, UFW (Uncomplicated Firewall) is the recommended tool. On other distributions, iptables is the underlying system.</p>
-<div class="code-title">UFW Firewall Commands</div>
-<pre><code class="language-bash"># Check firewall status
-sudo ufw status verbose
+# Local port forwarding: access remote service locally
+# Access database at 10.0.0.1:5432 via localhost:5432
+ssh -L 5432:localhost:5432 ubuntu@bastion-host
 
-# Enable firewall
-sudo ufw enable
+# Access private web service via jump host
+ssh -L 8080:private-server:80 ubuntu@jump-host
 
-# Allow specific ports
-sudo ufw allow 22/tcp    # SSH - ALWAYS allow this before enabling
-sudo ufw allow 80/tcp    # HTTP
-sudo ufw allow 443/tcp   # HTTPS
+# Remote port forwarding: expose local port remotely
+ssh -R 8080:localhost:3000 user@public-server
 
-# Allow from specific IP only
-sudo ufw allow from 192.168.1.100 to any port 22
+# SSH config (~/.ssh/config) for shortcuts
+Host bastion
+    HostName 10.0.0.1
+    User ubuntu
+    IdentityFile ~/.ssh/aws-key.pem
 
-# Deny a port
-sudo ufw deny 3306
+Host prod-db
+    HostName 10.0.1.5
+    User ubuntu
+    ProxyJump bastion
+    LocalForward 5432 localhost:5432</code></pre>
 
-# Delete a rule
-sudo ufw delete allow 80/tcp
+<h4>Firewall with iptables and ufw</h4>
+<div class="code-title">Managing firewall rules</div>
+<pre><code class="language-bash"># ufw (simple firewall -- recommended for Ubuntu)
+ufw status                  # Show current rules
+ufw enable                  # Enable firewall
+ufw allow 22                # Allow SSH
+ufw allow 80                # Allow HTTP
+ufw allow 443               # Allow HTTPS
+ufw allow from 10.0.0.0/8   # Allow from private network
+ufw deny 8080               # Block port 8080
 
-# Reset all rules
-sudo ufw reset</code></pre>
+# iptables (advanced)
+iptables -L -n              # List all rules
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT  # Allow HTTP
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT  # Allow SSH
+iptables -A INPUT -j DROP   # Drop everything else</code></pre>
 
-<h4>SSH — Secure Remote Access</h4>
-<p>SSH (Secure Shell) is how DevOps engineers connect to remote servers. Understanding SSH configuration and troubleshooting is essential.</p>
-<div class="code-title">SSH Commands</div>
-<pre><code class="language-bash"># Basic SSH connection
-ssh username@server-ip
+<h4>Network Debugging Workflow</h4>
+<div class="code-title">Systematic approach to network issues</div>
+<pre><code class="language-bash"># Service not accessible -- systematic debugging
 
-# SSH with private key file
-ssh -i ~/.ssh/mykey.pem ubuntu@server-ip
+# Step 1: Is the service running?
+systemctl status nginx
+ps aux | grep nginx
 
-# SSH with custom port
-ssh -p 2222 username@server-ip
+# Step 2: Is it listening on the right port?
+ss -tlnp | grep 80
 
-# Copy files over SSH
-scp localfile.txt username@server-ip:/remote/path/
+# Step 3: Can I reach it locally?
+curl http://localhost:80
 
-# SSH tunnel (port forwarding)
-ssh -L 5432:localhost:5432 username@server-ip
+# Step 4: Is there a firewall blocking?
+ufw status
+iptables -L -n
 
-# Test SSH connection without logging in
-ssh -T git@github.com</code></pre>
+# Step 5: Can I reach it from another machine?
+ping server-ip
+curl http://server-ip:80
 
-<h4>Network Troubleshooting Workflow</h4>
-<p>When a network problem occurs, follow this systematic approach:</p>
-<ol>
-  <li>Can you ping the server? (<code>ping server-ip</code>) — If no, it is a network routing or firewall issue</li>
-  <li>Is the port open on the server? (<code>ss -tuln | grep :PORT</code>) — If no, the service is not running</li>
-  <li>Is the firewall blocking it? (<code>sudo ufw status</code>) — If yes, add the allow rule</li>
-  <li>Is DNS resolving correctly? (<code>nslookup domain.com</code>) — If no, check /etc/resolv.conf</li>
-  <li>Can you telnet to the port? (<code>telnet server-ip port</code>) — Tests end-to-end connectivity</li>
-</ol>
-<div class="code-title">Connectivity Tests</div>
-<pre><code class="language-bash"># Test if a port is reachable
-telnet server-ip 80
-nc -zv server-ip 80    # netcat - cleaner output
+# Step 6: Is DNS resolving correctly?
+dig myapp.example.com
+nslookup myapp.example.com</code></pre>
 
-# Trace network path
-traceroute google.com
-
-# Check network interface statistics
-ifconfig -a
-ip -s link show</code></pre>
-
-<p>In Part 5, we will cover Git and version control — the foundation of all modern DevOps workflows and the starting point of every CI/CD pipeline.</p>
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<h4>Putting It All Together</h4>
-<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
-<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between ss and netstat?</h5>
+  <p>ss is the modern replacement for netstat. It is faster because it reads kernel socket data directly. On modern Linux distributions, netstat may not be installed by default. ss -tlnp is the command you want for checking what is listening on which ports.</p>
+  <h5>How do I check if a remote port is open?</h5>
+  <p>nc -zv hostname 8080 (netcat) or telnet hostname 8080. For a quick check without installing tools: curl telnet://hostname:8080 or /dev/tcp: timeout 3 bash -c "echo > /dev/tcp/hostname/8080" and check exit code.</p>
+  <h5>What is an SSH jump host?</h5>
+  <p>A jump host (bastion host) is a server you SSH to first in order to reach servers that are not directly accessible from the internet. Use ProxyJump in your SSH config or the -J flag: ssh -J bastion private-server</p>
+  <h5>How do I monitor network traffic?</h5>
+  <p>iftop shows bandwidth usage by connection. nethogs shows bandwidth per process. tcpdump captures and analyses packets. Wireshark provides GUI packet analysis. vnstat tracks historical bandwidth usage.</p>
+  <h5>What is /etc/hosts used for in DevOps?</h5>
+  <p>The hosts file maps hostnames to IPs, overriding DNS. Used for local development to point a domain to localhost. In Kubernetes, CoreDNS handles internal service discovery. In Docker, the /etc/hosts of each container is managed by Docker automatically.</p>
 </div>
-</section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<p>In <a href="devops-roadmap-part-5.html">Part 5</a>, we go deeper on Git for DevOps -- branching models used in enterprise teams and integrating Git with CI/CD pipelines.</p><div class="series-nav"><a href="devops-roadmap-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 4 of 12</strong><a href="devops-roadmap-part-5.html">Part 5 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div></section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

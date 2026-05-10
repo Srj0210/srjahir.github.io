@@ -1,99 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 4 — If-Else & Decision Making | SRJahir Tech</title>
-  <meta name="description" content="Master Python if-else statements. Learn how programs make decisions using conditions, elif chains, nested if, and real-world logic building." />
-  <meta name="keywords" content="Python if else, Python decision making, Python conditions, Python elif, Python beginners" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-4.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-13" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 4 — If-Else & Decision Making | SRJahir Tech" />
-  <meta property="og:description" content="Master Python if-else statements. Learn how programs make decisions using conditions, elif chains, nested if, and real-world logic building." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 4 — If-Else & Decision Making | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Master Python if-else statements. Learn how programs make decisions using conditions, elif chains, nested if, and real-world logic building.", "datePublished": "2025-12-13", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-4.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-4.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 4 - If-Else and Decision Making | SRJahir Tech</title>
+<meta name="description" content="Master Python if, elif, else statements. Learn conditional logic, nested conditions, the ternary operator, and match-case pattern matching."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-4.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 4 - If-Else and Decision Making"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-4.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-4-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-13"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 4 - If-Else and Decision Making","url":"https://srjahir.in/blogs/python-tutorial-part-4.html","datePublished":"2025-12-13","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="python-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 4 of 12</strong>
-  <a href="python-tutorial-part-5.html">Part 5 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 4: If-Else &amp; Decision Making</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-13 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 4 of 12</strong><a href="python-tutorial-part-5.html">Part 5 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-4-terminal.svg" alt="Python Full Tutorial -- Part 4: If-Else &amp; Decision Making" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Decision making is at the heart of every useful program. Should this menu item be shown? Is the user authorised? Did the API call succeed? Python handles all of this with if, elif, and else -- and its syntax is clean enough that the code often reads like a plain English description of the logic.</p>
+<h4>Basic if-elif-else</h4>
+<div class="code-title">Grade calculator</div>
+<pre><code class="language-bash">score = 78
 
-<section class="content-block">
-
-<h3>Python Full Tutorial — Part 4: If-Else &amp; Decision Making</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 13, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-4-terminal.svg" alt="Python — Python Functions" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Functions</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="python-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 4 of 12</strong>
-  <a href="python-tutorial-part-5.html">Part 5 →</a>
-</div>
-<p>Until now, your Python programs ran every line from top to bottom without skipping anything. Real programs are smarter — they take different paths based on conditions. This is decision making, and it is one of the most important concepts in all of programming.</p>
-<h4>What is an if Statement?</h4>
-<p>An if statement checks a condition. If that condition is True, Python runs the code inside it. If it is False, Python skips it.</p>
-<div class="code-title">Basic if Statement</div>
-<pre><code class="language-python">age = 20
-if age >= 18:
-    print("You are an adult.")
-    print("You can vote.")</code></pre>
-<p>Notice the colon after the condition and the indentation of the code block. Indentation is not optional in Python — it is how Python knows which lines belong to the if block. Use 4 spaces consistently.</p>
-<h4>if-else</h4>
-<p>When you want to handle both outcomes — condition True AND condition False:</p>
-<div class="code-title">if-else Example</div>
-<pre><code class="language-python">marks = 45
-if marks >= 50:
-    print("You passed!")
-else:
-    print("You need to study more.")</code></pre>
-<h4>elif — Multiple Conditions</h4>
-<p>When you have more than two possible outcomes, use elif (else if):</p>
-<div class="code-title">elif Chain</div>
-<pre><code class="language-python">score = 78
 if score >= 90:
     grade = "A"
 elif score >= 80:
@@ -104,99 +47,229 @@ elif score >= 60:
     grade = "D"
 else:
     grade = "F"
-print(f"Your grade is: {grade}")</code></pre>
-<p>Python checks each condition from top to bottom. As soon as one is True, it runs that block and skips all the rest. Order matters.</p>
-<h4>Nested if Statements</h4>
-<p>You can put if statements inside other if statements for multi-level decisions:</p>
-<div class="code-title">Nested if</div>
-<pre><code class="language-python">has_ticket = True
-age = 16
-if has_ticket:
-    if age >= 18:
-        print("Entry allowed")
+
+print(f"Score: {score}, Grade: {grade}")</code></pre>
+<h4>Truthy and Falsy Values</h4>
+<div class="code-title">Boolean context in Python</div>
+<pre><code class="language-bash"># Falsy values
+if 0:     print("not printed")
+if "":    print("not printed")
+if []:    print("not printed")
+if None:  print("not printed")
+
+# Pythonic checks (use these)
+my_list = [1, 2, 3]
+if my_list:               # instead of: if len(my_list) > 0:
+    print("List has items")
+
+name = ""
+display_name = name or "Anonymous"  # "Anonymous"</code></pre>
+<h4>Logical Operators in Conditions</h4>
+<div class="code-title">and, or, not</div>
+<pre><code class="language-bash">age = 25
+has_ticket = True
+
+if age >= 18 and has_ticket:
+    print("Enter")
+
+if age >= 65 or has_ticket:
+    print("Eligible for discount")
+
+if not has_ticket:
+    print("Purchase a ticket first")
+
+# in operator for membership
+allowed = ["suraj", "raj", "priya"]
+user = "suraj"
+if user in allowed:
+    print("Access granted")</code></pre>
+<h4>The Ternary Operator</h4>
+<div class="code-title">One-line conditional expression</div>
+<pre><code class="language-bash"># Regular if-else
+if score >= 50:
+    result = "Pass"
+else:
+    result = "Fail"
+
+# Ternary (same result, one line)
+result = "Pass" if score >= 50 else "Fail"
+
+# In list comprehension
+numbers = [-3, -1, 0, 2, 5]
+abs_vals = [n if n >= 0 else -n for n in numbers]
+print(abs_vals)  # [3, 1, 0, 2, 5]</code></pre>
+<h4>Nested Conditions</h4>
+<div class="code-title">Multi-level logic</div>
+<pre><code class="language-bash">def check_access(username, role, resource):
+    if username not in ["suraj", "raj"]:
+        return "Unknown user"
+    
+    if role == "admin":
+        return "Full access"
+    elif role == "editor":
+        if resource in ["posts", "pages"]:
+            return "Access granted"
+        else:
+            return "Access denied for this resource"
     else:
-        print("Need parent permission")
-else:
-    print("No ticket, no entry")</code></pre>
-<h4>Combining Conditions with and/or</h4>
-<div class="code-title">Combined Conditions</div>
-<pre><code class="language-python">username = "admin"
-password = "secure123"
-if username == "admin" and password == "secure123":
-    print("Login successful")
-else:
-    print("Wrong credentials")</code></pre>
-<h4>Practical Project — BMI Calculator</h4>
-<div class="code-title">BMI Calculator</div>
-<pre><code class="language-python">weight = float(input("Weight in kg: "))
-height = float(input("Height in meters: "))
-bmi = weight / (height ** 2)
-print(f"Your BMI: {bmi:.1f}")
-if bmi < 18.5:
-    print("Underweight — Eat more nutritious food")
-elif bmi < 25:
-    print("Normal weight — Keep it up!")
-elif bmi < 30:
-    print("Overweight — Add exercise to routine")
-else:
-    print("Obese — Consult a doctor for guidance")</code></pre>
-<h4>The Ternary (Inline) if</h4>
-<p>For simple conditions, Python has a compact one-line syntax:</p>
-<div class="code-title">Ternary Operator</div>
-<pre><code class="language-python">age = 20
-status = "Adult" if age >= 18 else "Minor"
-print(status)  # Adult</code></pre>
-<h4>Common Mistake — == vs =</h4>
-<p>One of the most common beginner errors: using <code>=</code> (assignment) instead of <code>==</code> (comparison) inside an if condition. Always use <code>==</code> when comparing values in conditions.</p>
-<p>In Part 5, we will learn loops — how Python repeats actions, which is where programs start handling real-world data at scale.</p>
+        return "Read only"
 
+print(check_access("suraj", "admin", "settings"))</code></pre>
+<h4>match/case -- Python 3.10+</h4>
+<div class="code-title">Pattern matching</div>
+<pre><code class="language-bash">status = 404
 
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
+match status:
+    case 200:
+        print("OK")
+    case 201:
+        print("Created")
+    case 404:
+        print("Not Found")
+    case 500:
+        print("Server Error")
+    case _:
+        print(f"Unknown: {status}")
 
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
+# match with guard conditions
+score = 85
+match score:
+    case s if s >= 90:
+        print("Excellent")
+    case s if s >= 70:
+        print("Good")
+    case _:
+        print("Needs improvement")</code></pre>
+<h4>Practical: Login Validator</h4>
+<div class="code-title">Multi-condition validation</div>
+<pre><code class="language-bash">def validate_login(username, password):
+    valid_users = {
+        "suraj": "secure123",
+        "raj": "pass456"
+    }
+    
+    if not username or not password:
+        return "Username and password required"
+    
+    if username not in valid_users:
+        return "User not found"
+    
+    if valid_users[username] != password:
+        return "Wrong password"
+    
+    return "Login successful"
 
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>Nested Conditionals and When to Avoid Them</h4>
-<p>Conditional statements can be nested — an if statement inside another if statement. This is sometimes necessary, but deeply nested conditions (three or more levels deep) are a code smell: they make code hard to read, test, and maintain. When you find yourself nesting deeply, look for ways to restructure using early returns, combining conditions with <code>and</code>/<code>or</code>, or extracting logic into separate functions. A well-written conditional block reads almost like a sentence describing a decision.</p>
-<h4>The Ternary Operator for Simple Decisions</h4>
-<p>For simple two-way decisions, Python offers a concise one-line syntax called the conditional expression or ternary operator:</p>
-<div class="code-title">Ternary Expression</div>
-<pre><code class="language-python"># Traditional approach
-if age >= 18:
-    status = "adult"
-else:
-    status = "minor"
-
-# Ternary expression - same result, one line
-status = "adult" if age >= 18 else "minor"
-print(status)
-
-# Works well for simple assignments
-discount = 0.2 if is_member else 0.0
-label = "Pass" if score >= 40 else "Fail"</code></pre>
-<p>Use ternary expressions when the logic is genuinely simple and the one-liner improves readability. Avoid them for complex conditions — the multi-line version is clearer when the logic has nuance.</p>
-<h4>Practice Exercise</h4>
-<p>Build a grade calculator: take a student's score (0-100) as input. Use if-elif-else to determine their letter grade (A for 90+, B for 80-89, C for 70-79, D for 60-69, F below 60). Then print a message that includes the score, the letter grade, and whether they passed (score 40 or above). Add a special message for perfect scores (100) and for failing scores below 30.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+print(validate_login("suraj", "secure123"))  # Login successful
+print(validate_login("suraj", "wrong"))       # Wrong password</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How does if-else work in Python?</h5><p>if evaluates a condition. If True, its indented block runs. elif checks the next condition if the previous was False. else runs if nothing matched. Python uses 4-space indentation, not curly braces.</p>
+<h5 style="margin-bottom:8px;">What is the ternary operator?</h5><p>"value_if_true if condition else value_if_false". Example: result = "Pass" if score >= 50 else "Fail". Use for simple one-liners. Use regular if-else for anything complex.</p>
+<h5 style="margin-bottom:8px;">What values are falsy in Python?</h5><p>False, None, 0, 0.0, empty string, empty list, empty dict, empty tuple, empty set. Everything else is truthy. Lets you write: if my_list: instead of if len(my_list) > 0:</p>
+<h5 style="margin-bottom:8px;">How do I check multiple conditions at once?</h5><p>Use and for all-must-be-true: if age >= 18 and has_id: Use or for any-must-be-true. Chain comparisons: if 18 <= age <= 65: Use in for membership: if username in allowed_users:</p>
+<h5 style="margin-bottom:8px;">What is match/case in Python?</h5><p>Added in Python 3.10 -- like switch/case in other languages. Matches a value against patterns. Supports guards (if conditions), type matching, and structural patterns. More powerful than traditional switch.</p>
 </div>
+<p>In <a href="python-tutorial-part-5.html">Part 5</a>, we cover loops -- the feature that lets your programs process any number of items with the same code.</p>
+<div class="series-nav"><a href="python-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 4 of 12</strong><a href="python-tutorial-part-5.html">Part 5 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<h4>Complex Conditional Logic Patterns</h4>
+<div class="code-title">Real-world decision making</div>
+<pre><code class="language-bash">def calculate_shipping(weight, destination, is_member, order_total):
+    """Calculate shipping cost based on multiple conditions."""
+    if order_total >= 2000 and is_member:
+        return 0  # Free shipping for members on large orders
+    
+    base_rate = {"domestic": 50, "regional": 120, "international": 350}
+    rate = base_rate.get(destination, 350)
+    
+    if weight <= 0.5:
+        weight_charge = 0
+    elif weight <= 2:
+        weight_charge = 30
+    elif weight <= 5:
+        weight_charge = 80
+    else:
+        weight_charge = 80 + (weight - 5) * 20  # Rs. 20 per kg over 5kg
+    
+    total = rate + weight_charge
+    if is_member:
+        total *= 0.85  # 15% member discount
+    
+    return round(total, 2)
+
+print(calculate_shipping(1.5, "domestic", True, 500))   # 68.0
+print(calculate_shipping(3, "regional", False, 1500))   # 200.0</code></pre>
+
+<h4>Guard Clauses for Cleaner Code</h4>
+<div class="code-title">Fail fast with early returns</div>
+<pre><code class="language-bash">def process_user_payment(user, amount, card_number):
+    # Guard clauses - handle invalid inputs first
+    if not user:
+        return {"error": "User required"}
+    if not user.is_active:
+        return {"error": "User account is inactive"}
+    if amount <= 0:
+        return {"error": "Amount must be positive"}
+    if amount > 100000:
+        return {"error": "Amount exceeds daily limit"}
+    if not card_number or len(card_number) != 16:
+        return {"error": "Invalid card number"}
+    
+    # Main logic is clean when guard clauses handle edge cases
+    return process_charge(user, amount, card_number)</code></pre>
+
+
+<h4>Pattern Matching for DevOps Configuration</h4>
+<div class="code-title">Practical match/case examples</div>
+<pre><code class="language-bash">def handle_http_status(status_code: int, path: str) -> dict:
+    match status_code:
+        case 200 | 201 | 204:
+            return {"action": "success", "log": False}
+        
+        case 400:
+            return {"action": "reject", "log": True,
+                    "error": f"Bad request for: {path}"}
+        
+        case 401 | 403:
+            return {"action": "deny", "log": True,
+                    "alert": "Possible unauthorized access attempt"}
+        
+        case 404:
+            return {"action": "not_found", "log": False}
+        
+        case status if 500 <= status <= 599:
+            return {"action": "alert", "log": True,
+                    "alert": f"Server error {status} at {path}"}
+        
+        case _:
+            return {"action": "unknown", "log": True}
+
+print(handle_http_status(403, "/admin/dashboard"))
+print(handle_http_status(502, "/api/users"))</code></pre>
+
+<h4>Structural Pattern Matching</h4>
+<div class="code-title">Match data structures, not just values</div>
+<pre><code class="language-bash">def process_event(event: dict) -> str:
+    match event:
+        case {"type": "user_login", "user_id": int(uid), "ip": str(ip)}:
+            return f"Login: user {uid} from {ip}"
+        
+        case {"type": "payment", "amount": float(amt)} if amt > 10000:
+            return f"High-value payment: Rs.{amt:.2f} -- flagged"
+        
+        case {"type": "payment", "amount": float(amt)}:
+            return f"Payment: Rs.{amt:.2f}"
+        
+        case {"type": "error", "code": int(code), "message": str(msg)}:
+            return f"Error {code}: {msg}"
+        
+        case _:
+            return "Unknown event type"
+
+print(process_event({"type": "user_login", "user_id": 42, "ip": "10.0.1.5"}))</code></pre>
+
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

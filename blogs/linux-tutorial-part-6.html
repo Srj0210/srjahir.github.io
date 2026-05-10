@@ -1,152 +1,143 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux Tutorial Part 6 — Networking Commands | SRJahir Tech</title>
-  <meta name="description" content="Learn Linux networking commands. Master ip, ss, curl, ping, DNS, and firewall rules with ufw and iptables for cloud server management." /><meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-6.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 6 — Networking Commands" />
-  <meta property="og:description" content="Learn Linux networking commands. Master ip, ss, curl, ping, DNS, and firewall rules with ufw and iptables for cloud server management." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-6.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-01" />
-  <meta property="article:author" content="Suraj Ahir" />
-<meta property="og:title" content="Linux Tutorial Part 6 — Networking Commands | SRJahir Tech">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 6 — Networking Commands | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-05", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-6.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-6.html", "description": "Learn Linux networking commands. Master ip, ss, curl, ping, DNS, and firewall rules with ufw and iptables for cloud server management."}
-  </script>
-<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Full Tutorial Part 6 - Networking Commands for DevOps | SRJahir Tech</title>
+<meta name="description" content="Master Linux networking commands: ip, ss, netstat, curl, wget, SSH, scp, rsync, DNS tools, and debugging network connectivity issues."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-6.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Linux Full Tutorial Part 6 - Networking Commands for DevOps"/>
+<meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-6.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-6-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-05"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 6 - Networking Commands for DevOps","url":"https://srjahir.in/blogs/linux-tutorial-part-6.html","datePublished":"2025-12-05","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 6 — Networking Commands" />
-  <meta name="twitter:description" content="Learn Linux networking commands. Master ip, ss, curl, ping, DNS, and firewall rules with ufw and iptables for cloud server management." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
 </head><body>
-<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
-<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
-<a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 6 of 12</strong>
-  <a href="linux-tutorial-part-7.html">Part 7 →</a>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Linux Full Tutorial -- Part 6: Networking Commands</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-05 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="linux-tutorial-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 6 of 12</strong><a href="linux-tutorial-part-7.html">Part 7 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-6-terminal.svg" alt="Linux Full Tutorial -- Part 6: Networking Commands" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Network troubleshooting is one of the most common tasks in Linux systems work. A service is unreachable, a deployment fails to connect to a database, a container cannot reach an external API -- you need to debug quickly and systematically. Linux has a rich set of networking tools, and knowing them fluently means the difference between a 10-minute fix and a 3-hour debugging session.</p>
+<h4>IP Address and Interface Information</h4>
+<div class="code-title">Network interface configuration</div>
+<pre><code class="language-bash">ip addr show                  # Show all interfaces and IPs
+ip addr show eth0             # Show specific interface
+ip link show                  # Show interface status
+ip route show                 # Routing table
+ip route get 8.8.8.8          # Which route does traffic take?
+
+# Old commands (still common on older systems)
+ifconfig                      # Show interfaces
+ifconfig eth0                 # Show specific interface
+route -n                      # Routing table (numeric)</code></pre>
+<h4>Port and Connection Status</h4>
+<div class="code-title">ss and netstat for socket info</div>
+<pre><code class="language-bash">ss -tlnp          # TCP listening sockets with process names
+ss -ulnp          # UDP listening sockets
+ss -s             # Summary statistics
+ss -tp            # Established TCP connections with processes
+ss -tlnp | grep :80   # Is something listening on port 80?
+
+# lsof for file and network
+lsof -i :8080         # What process uses port 8080?
+lsof -i tcp           # All TCP connections
+lsof -i -n -P         # All network connections, numeric
+
+nmap localhost         # Scan open ports locally
+nmap -p 80,443,8080 server  # Scan specific ports</code></pre>
+<h4>Testing Connectivity</h4>
+<div class="code-title">ping, curl, wget, nc</div>
+<pre><code class="language-bash">ping google.com           # Basic reachability test
+ping -c 4 8.8.8.8         # Send exactly 4 packets
+traceroute google.com     # Show network path
+
+# curl -- the essential HTTP testing tool
+curl https://api.example.com/health
+curl -I https://example.com            # Headers only
+curl -v https://example.com            # Verbose (shows TLS, headers)
+curl -X POST https://api.example.com/data \
+     -H "Content-Type: application/json" \
+     -d "{"key":"value"}"
+curl --connect-timeout 5 http://service  # Timeout after 5s
+curl -L https://example.com              # Follow redirects
+
+# wget
+wget https://example.com/file.tar.gz
+wget -q -O - https://example.com | grep title
+
+# netcat (nc) -- raw TCP testing
+nc -zv hostname 5432     # Test if port 5432 is open
+echo "" | nc -w 1 host 8080 && echo "open" || echo "closed"</code></pre>
+<h4>DNS Troubleshooting</h4>
+<div class="code-title">dig, nslookup, host</div>
+<pre><code class="language-bash">dig example.com              # Full DNS query
+dig example.com A            # IPv4 address record
+dig example.com MX           # Mail exchange records
+dig +short example.com       # Just the IP
+dig @8.8.8.8 example.com     # Query specific DNS server
+
+nslookup example.com         # Simple DNS lookup
+host example.com             # Quick lookup
+
+cat /etc/resolv.conf         # Your DNS server config
+cat /etc/hosts               # Local hostname overrides
+
+# Check DNS propagation
+dig example.com @8.8.8.8     # Google DNS
+dig example.com @1.1.1.1     # Cloudflare DNS</code></pre>
+<h4>File Transfer: scp and rsync</h4>
+<div class="code-title">Copying files over SSH</div>
+<pre><code class="language-bash"># scp -- simple file copy over SSH
+scp file.txt ubuntu@server:/home/ubuntu/
+scp ubuntu@server:/var/log/nginx/error.log ./
+scp -r ./mydir ubuntu@server:/home/ubuntu/
+scp -i key.pem file.txt ubuntu@server:/home/ubuntu/
+
+# rsync -- efficient sync (only transfers changes)
+rsync -avz ./local/ ubuntu@server:/remote/       # Sync local to remote
+rsync -avz ubuntu@server:/remote/ ./local/       # Sync remote to local
+rsync -avz --delete ./local/ ubuntu@server:/remote/  # Delete removed files
+rsync -avz --dry-run ./local/ ubuntu@server:/remote/ # Preview changes</code></pre>
+<h4>Firewall Management</h4>
+<div class="code-title">ufw for Ubuntu systems</div>
+<pre><code class="language-bash">ufw status                    # Show firewall status and rules
+ufw enable                    # Enable firewall
+ufw allow 22                  # Allow SSH
+ufw allow 80                  # Allow HTTP
+ufw allow 443                 # Allow HTTPS
+ufw allow from 10.0.0.0/8    # Allow from private network
+ufw allow 5432 from 10.0.1.0/24  # PostgreSQL from app subnet only
+ufw deny 8080                 # Block port 8080
+ufw delete allow 80           # Remove a rule
+ufw status numbered           # Show rules with numbers
+ufw delete 3                  # Delete rule number 3</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How do I check if a remote port is open?</h5><p>nc -zv hostname 8080 gives a clear open/closed result. Or: curl -v telnet://hostname:8080. From bash: (echo > /dev/tcp/hostname/8080) 2>/dev/null && echo open || echo closed. Install nmap for more detailed port scanning.</p>
+<h5 style="margin-bottom:8px;">What is the difference between ss and netstat?</h5><p>ss is the modern, faster replacement. It reads kernel socket data directly. netstat may not be installed on modern Ubuntu by default (it is in the net-tools package). Use ss -tlnp for listening TCP sockets with process names.</p>
+<h5 style="margin-bottom:8px;">How do I diagnose slow network performance?</h5><p>iperf3 for bandwidth testing between two hosts. mtr (traceroute + ping combined) for routing and latency. iftop for real-time per-connection bandwidth. vnstat for historical bandwidth statistics. Check /proc/net/dev for interface statistics.</p>
+<h5 style="margin-bottom:8px;">How do I set a static IP on Ubuntu server?</h5><p>Edit /etc/netplan/00-installer-config.yaml. Set dhcp4: false and add addresses, gateway4, nameservers. Apply with: sudo netplan apply. On older systems, edit /etc/network/interfaces directly.</p>
+<h5 style="margin-bottom:8px;">How does rsync know what changed?</h5><p>rsync compares file size and modification timestamp by default. Add --checksum to compare file contents (slower but more accurate). rsync only transfers the different parts of files, making it extremely efficient for large files or directories with many unchanged files.</p>
 </div>
-<a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-</nav></header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 6: Networking Commands</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 05, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-6-terminal.svg" alt="Linux — Networking" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Networking</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="linux-tutorial-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 6 of 12</strong>
-  <a href="linux-tutorial-part-7.html">Part 7 →</a>
-</div>
-<p>In cloud environments and DevOps work, understanding Linux networking is essential. You need to configure network interfaces, diagnose connectivity problems, check open ports, test DNS resolution, and manage firewall rules — all from the command line. This part covers the networking tools you will use regularly in real operations work.</p>
-<h4>Network Interface Management</h4>
-<div class="code-title">Interface Commands</div>
-<pre><code class="language-bash">ip addr                       # Show all interfaces and IPs
-ip addr show eth0             # Specific interface details
-ip link                       # Show interface status (up/down)
-ip link set eth0 up           # Bring interface up
-ip route                      # Show routing table
-ip route show default         # Default gateway</code></pre>
-<h4>Connectivity Testing</h4>
-<div class="code-title">Testing Connections</div>
-<pre><code class="language-bash">ping google.com               # Test basic connectivity
-ping -c 4 192.168.1.1         # Ping 4 times only
-traceroute google.com         # Trace network path
-tracepath srjahir.in          # Path without root privileges
-mtr google.com                # Continuous traceroute (interactive)</code></pre>
-<h4>DNS Lookups</h4>
-<div class="code-title">DNS Commands</div>
-<pre><code class="language-bash">nslookup srjahir.in           # Basic DNS lookup
-dig srjahir.in                # Detailed DNS query
-dig srjahir.in MX             # Mail server records
-dig @8.8.8.8 srjahir.in       # Query specific DNS server
-host srjahir.in               # Quick DNS lookup
-cat /etc/resolv.conf          # Configured DNS servers</code></pre>
-<h4>Port and Connection Checking</h4>
-<div class="code-title">Port Commands</div>
-<pre><code class="language-bash">ss -tulnp                     # Open ports and listening services
-netstat -tulnp                # Alternative (older systems)
-lsof -i :80                   # What is using port 80
-lsof -i :443                  # What is using HTTPS port
-ss -s                         # Connection statistics summary</code></pre>
-<h4>HTTP Testing with curl</h4>
-<div class="code-title">curl Examples</div>
-<pre><code class="language-bash">curl https://srjahir.in                    # Fetch page
-curl -I https://srjahir.in                 # Headers only
-curl -v https://srjahir.in                 # Verbose — full request/response
-curl -o output.html https://srjahir.in     # Save to file
-curl -X POST -d '{"key":"value"}'   -H "Content-Type: application/json"   https://api.example.com/endpoint         # POST request
-curl -u user:pass https://secure-api.com   # Basic auth</code></pre>
-<h4>Firewall with ufw and iptables</h4>
-<div class="code-title">UFW Firewall Commands</div>
-<pre><code class="language-bash">sudo ufw status               # Firewall status
-sudo ufw enable               # Enable firewall
-sudo ufw allow 22             # Allow SSH
-sudo ufw allow 80             # Allow HTTP
-sudo ufw allow 443            # Allow HTTPS
-sudo ufw deny 3306            # Block MySQL from outside
-sudo ufw allow from 192.168.1.0/24  # Allow from subnet only
-sudo ufw status numbered      # Show rules with numbers
-sudo ufw delete 3             # Delete rule number 3</code></pre>
-<h4>SSH Configuration and Tunneling</h4>
-<div class="code-title">SSH Advanced Usage</div>
-<pre><code class="language-bash">ssh -L 8080:localhost:80 user@remote     # Local port forward
-ssh -R 9090:localhost:3000 user@remote   # Remote port forward
-ssh -N -f -L 5432:db-host:5432 bastion  # Background tunnel
-
-# SSH config file (~/.ssh/config)
-Host production
-  HostName 54.1.2.3
-  User ubuntu
-  IdentityFile ~/.ssh/prod.pem
-  Port 22
-
-# Then just: ssh production</code></pre>
-<h4>Network File Transfer</h4>
-<div class="code-title">Transfer Commands</div>
-<pre><code class="language-bash">scp file.txt user@remote:/path/        # Secure copy to remote
-scp user@remote:/path/file.txt .       # Copy from remote
-rsync -avz --progress local/ remote:path/  # Sync with progress
-wget https://example.com/file.tar.gz   # Download file</code></pre>
-<h4>Practical Networking Workflow</h4>
-<p>When you encounter a connectivity problem in production, having a systematic approach saves time. Start with ping to check basic reachability. If ping fails, check if the interface is up with <code>ip addr</code>. If the interface is up, check the routing table. If routing looks right, check DNS with <code>dig</code>. If DNS resolves but the service is unreachable, check if the port is open with <code>ss</code> and if the firewall is blocking with <code>ufw status</code>. This top-down systematic approach resolves most network issues quickly.</p>
-<p>In Part 7, we will cover shell scripting — combining commands into automated scripts that do real work without manual intervention.</p>
-<h4>SSH Configuration and Key Management</h4>
-<p>SSH key authentication — using a public-private key pair rather than a password — is more secure and more convenient once configured. Generate an SSH key pair with <code>ssh-keygen -t ed25519 -C "your_comment"</code>. The private key stays on your machine in <code>~/.ssh/</code>. The public key is placed on the server in <code>~/.ssh/authorized_keys</code>. The <code>~/.ssh/config</code> file on your local machine can define shortcuts for frequently accessed servers:</p>
-<div class="code-title">SSH Config File</div>
-<pre><code class="language-bash">Host myserver
-    HostName 203.0.113.10
-    User ubuntu
-    IdentityFile ~/.ssh/my_key
-    Port 22</code></pre>
-<p>This allows <code>ssh myserver</code> instead of typing the full connection string every time. Always protect your private key — set permissions to 600 (<code>chmod 600 ~/.ssh/id_ed25519</code>) and never share it or commit it to version control.</p>
-<h4>Network Troubleshooting Workflow</h4>
-<p>When network connectivity fails, work through a systematic approach. First verify local config with <code>ip addr</code> and <code>ip route</code>. Test local network with <code>ping</code> to your gateway IP. Test internet connectivity with <code>ping 8.8.8.8</code>. If that works but hostnames fail, test DNS with <code>dig google.com</code> or <code>nslookup google.com</code>. If the host is reachable but a port is not responding, test with <code>nc -zv hostname 80</code> or <code>telnet hostname 80</code>. Use <code>traceroute hostname</code> to trace where packets are being dropped. Use <code>ss -tulnp</code> to see all listening services on the local machine — useful for verifying that a service is actually bound to the expected port.</p>
-<h4>Practice Exercise</h4>
-<p>Use <code>ss -tulnp</code> to list all listening services. Identify three services by their port numbers. Use <code>curl -I https://google.com</code> to make an HTTP request and examine response headers. Practice the full troubleshooting workflow: check IP, check routing, ping gateway, ping internet IP, test DNS. If you have a cloud VM, set up SSH key authentication — copy your public key to <code>~/.ssh/authorized_keys</code> on the server and verify passwordless login works before disabling password authentication.</p>
-
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
-
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+<p>In <a href="linux-tutorial-part-7.html">Part 7</a>, we cover shell scripting -- writing bash scripts to automate repetitive Linux tasks.</p>
+<div class="series-nav"><a href="linux-tutorial-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 6 of 12</strong><a href="linux-tutorial-part-7.html">Part 7 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees.</div>
+</section>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
 </body></html>

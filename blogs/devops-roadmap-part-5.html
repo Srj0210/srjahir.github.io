@@ -1,220 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech</title>
-  <meta name="description" content="Master Git for DevOps. Learn branching strategies, Git workflows, rebasing, cherry-picking, resolving merge conflicts, and Git best practices used in professional DevOps teams." />
-  <meta name="keywords" content="Git DevOps tutorial, Git branching strategy, Git workflow, merge conflict resolution, Git rebase" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 5 - Advanced Git for DevOps Pipelines | SRJahir Tech</title><meta name="description" content="Master advanced Git for DevOps: trunk-based development, release branches, cherry-pick, bisect, reflog, and integrating Git with CI/CD automation."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-5.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 5 - Advanced Git for DevOps Pipelines"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-5.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-5-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-10-31"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 5 - Advanced Git for DevOps Pipelines","url":"https://srjahir.in/blogs/devops-roadmap-part-5.html","datePublished":"2025-10-31","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 5: Advanced Git for DevOps</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-31 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 5 of 12</strong><a href="devops-roadmap-part-6.html">Part 6 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-5-terminal.svg" alt="DevOps Roadmap -- Part 5: Advanced Git for DevOps" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Most developers know basic Git. DevOps engineers need to know Git deeply -- the strategies that keep large teams productive, the rescue commands that recover lost work, and the integration patterns that connect Git to automated pipelines. This part covers the Git knowledge that makes the difference between a junior and senior DevOps practitioner.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-31" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech" />
-  <meta property="og:description" content="Master Git for DevOps. Learn branching strategies, Git workflows, rebasing, cherry-picking, resolving merge conflicts, and Git best practices used in professional DevOps teams." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-5.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 5 — Git & Version Control for DevOps | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-10-31", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-5.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-5.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 5 of 12</strong>
-  <a href="devops-roadmap-part-6.html">Part 6 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 5: Git &amp; Version Control for DevOps</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 31, 2025 <span class="meta-dot"></span> 6 min read</p>
+<h4>Trunk-Based Development</h4>
+<p>Trunk-based development (TBD) is the branching model used by Google, Facebook, and most high-performing engineering teams. Instead of long-lived feature branches, developers work on small branches that merge to main (trunk) within hours or days. Feature flags control what is visible to users, not branches.</p>
+<div class="code-title">Trunk-based development workflow</div>
+<pre><code class="language-bash"># Short-lived branches (hours to 2 days maximum)
+git checkout -b feature/add-endpoint
+# Make changes -- small, focused
+git commit -m "feat: add /health endpoint"
+# Open PR immediately
+git push -u origin feature/add-endpoint
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-5-terminal.svg" alt="Configuration Management" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Configuration Management</figcaption>
-</figure>
+# After review and CI passes (minutes), merge to main
+# Delete branch immediately after merge
+git branch -d feature/add-endpoint</code></pre>
 
-<div class="series-nav">
-  <a href="devops-roadmap-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 5 of 12</strong>
-  <a href="devops-roadmap-part-6.html">Part 6 →</a>
-</div>
-<p>Git is not just a tool for software developers. DevOps engineers use Git constantly — for infrastructure code (Terraform, Ansible), CI/CD pipeline configurations, Kubernetes manifests, scripts, and documentation. If you are managing infrastructure as code, Git is how you track changes, collaborate with teammates, and roll back when something breaks. This part goes beyond basics to cover Git usage at a professional DevOps level.</p>
-
-<h4>Git Fundamentals — The Mental Model</h4>
-<p>Git tracks changes as snapshots, not differences. Each commit is a snapshot of your entire project at a point in time, along with a pointer to the previous snapshot. This is why Git is so reliable — you can always go back to any previous state. The three areas you work with constantly are the working directory (where you edit files), the staging area (where you prepare what goes into the next commit), and the repository (the full history of snapshots).</p>
-<div class="code-title">Essential Git Commands</div>
-<pre><code class="language-bash"># Initialize a repo
-git init
-
-# Configure identity
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-
-# Check what has changed
-git status
-git diff                  # unstaged changes
-git diff --staged         # staged changes
-
-# Stage and commit
-git add filename
-git add .                 # stage everything
-git commit -m "descriptive message"
-
-# View history
+<h4>Cherry-Pick: Move Specific Commits</h4>
+<div class="code-title">Apply specific commits to another branch</div>
+<pre><code class="language-bash"># Get the commit hash you want
 git log --oneline
-git log --graph --oneline --all  # visual branch graph</code></pre>
+# abc1234 fix: patch critical security vulnerability
 
-<h4>Branching — The Core of Team Workflows</h4>
-<p>Branches allow parallel development without interfering with each other. In a DevOps context, branches represent different environments or features being worked on simultaneously.</p>
-<div class="code-title">Branch Operations</div>
-<pre><code class="language-bash"># Create and switch to new branch
-git checkout -b feature/add-monitoring
-# Modern syntax:
-git switch -c feature/add-monitoring
+# Apply that single commit to current branch
+git cherry-pick abc1234
 
-# List all branches
-git branch -a
+# Apply a range of commits
+git cherry-pick abc1234..def5678
 
-# Switch to existing branch
+# Real scenario: hotfix on main, then cherry-pick to release branch
 git checkout main
-git switch main
+git cherry-pick hotfix-commit-hash</code></pre>
 
-# Merge branch into main
-git checkout main
-git merge feature/add-monitoring
+<h4>Git Bisect: Find the Bad Commit</h4>
+<div class="code-title">Binary search through commits to find a bug</div>
+<pre><code class="language-bash"># When: something broke but you do not know which commit
+git bisect start
 
-# Delete branch after merging
-git branch -d feature/add-monitoring</code></pre>
+git bisect bad          # Current commit is broken
+git bisect good v1.2.0  # This tag was working
 
-<h4>Git Workflows for DevOps Teams</h4>
-<p><strong>GitFlow</strong> — Uses main, develop, feature, release, and hotfix branches. Structured but heavy. Good for scheduled releases.</p>
-<p><strong>GitHub Flow</strong> — Simpler: main branch is always deployable, all work happens in feature branches, merged via pull requests. Better for continuous deployment.</p>
-<p><strong>Trunk-Based Development</strong> — Everyone commits to main frequently, using feature flags to hide incomplete work. Used by high-performing DevOps teams for maximum CI/CD velocity.</p>
+# Git checks out a midpoint commit
+# Test it manually or run a test script
+git bisect good         # This commit is fine
+git bisect bad          # This commit has the bug
 
-<h4>Remote Repositories</h4>
-<div class="code-title">Remote Operations</div>
-<pre><code class="language-bash"># Clone a repository
-git clone https://github.com/user/repo.git
+# Git narrows down -- repeat until it finds the culprit
+# Git tells you: "abc1234 is the first bad commit"
 
-# Add remote
-git remote add origin https://github.com/user/repo.git
+# Automate with a test script
+git bisect run pytest tests/test_auth.py</code></pre>
 
-# Push to remote
-git push origin main
-git push -u origin feature/new-feature  # set upstream
+<h4>Git Reflog: Recover Lost Work</h4>
+<div class="code-title">The safety net for mistakes</div>
+<pre><code class="language-bash"># reflog records every HEAD movement
+git reflog
+# HEAD@{0}: commit: add feature
+# HEAD@{1}: reset: moving to HEAD~2
+# HEAD@{2}: commit: broke everything
 
-# Pull latest changes
-git pull origin main
+# Recover a commit you thought was gone
+git checkout HEAD@{2}
+git checkout -b recovery-branch
 
-# Fetch without merging
-git fetch origin
+# Recover after accidental git reset --hard
+git reset --hard HEAD@{2}  # Go back to that point</code></pre>
 
-# See remote info
-git remote -v</code></pre>
+<h4>Tagging Releases</h4>
+<div class="code-title">Semantic versioning with Git tags</div>
+<pre><code class="language-bash"># Annotated tag (use for releases)
+git tag -a v1.2.0 -m "Release 1.2.0 - Add user authentication"
 
-<h4>Resolving Merge Conflicts</h4>
-<p>Merge conflicts happen when two branches modify the same part of a file. Git cannot automatically decide which change wins — you must resolve it manually. This is a skill every DevOps engineer needs because Infrastructure as Code files are frequently modified by multiple team members.</p>
-<div class="code-title">Resolve Merge Conflict</div>
-<pre><code class="language-bash"># When merge fails with conflicts
-git merge feature/branch
+# Lightweight tag (for internal markers)
+git tag v1.2.0-rc1
 
-# Git marks conflicted files
-git status
+# Push tags to remote
+git push origin v1.2.0
+git push origin --tags  # Push all tags
 
-# Open conflicted file - you'll see markers like:
-# <<<<<<< HEAD
-# your version
-# =======
-# their version
-# >>>>>>> feature/branch
+# List tags
+git tag -l "v1.*"
 
-# Edit the file to keep what you want
-# Remove the conflict markers
-nano conflicted-file.yml
+# Delete a tag
+git tag -d v1.0.0
+git push origin --delete v1.0.0
 
-# Stage the resolved file
-git add conflicted-file.yml
+# CI/CD pattern: only deploy to production on tag push
+# GitHub Actions: on: push: tags: - "v*"</code></pre>
 
-# Complete the merge
-git commit</code></pre>
+<h4>Git Hooks in CI/CD Pipelines</h4>
+<div class="code-title">Server-side hooks for enforcement</div>
+<pre><code class="language-bash"># pre-receive: runs on server before accepting push
+# Used for: requiring signed commits, blocking force pushes
 
-<h4>Git Rebase — Clean History</h4>
-<div class="code-title">Rebase</div>
-<pre><code class="language-bash"># Rebase feature branch onto main
-git checkout feature/my-feature
-git rebase main
+# post-receive: runs after accepting push
+# Used for: triggering deployments, sending notifications
 
-# Interactive rebase (clean up commits)
-git rebase -i HEAD~3   # edit last 3 commits
+# Example post-receive hook
+#!/bin/bash
+while read oldrev newrev refname; do
+    if [[ $refname == "refs/heads/main" ]]; then
+        echo "Main branch updated -- triggering deployment"
+        curl -X POST https://jenkins/job/deploy/build
+    fi
+done</code></pre>
 
-# Squash commits (combine multiple into one)
-# In interactive rebase, change 'pick' to 'squash'</code></pre>
-
-<h4>Undoing Mistakes</h4>
-<div class="code-title">Undo Operations</div>
-<pre><code class="language-bash"># Undo last commit (keep changes staged)
-git reset --soft HEAD~1
-
-# Undo last commit (keep changes unstaged)
-git reset HEAD~1
-
-# Undo last commit (discard changes - DANGEROUS)
-git reset --hard HEAD~1
-
-# Revert a commit (creates new undo commit, safe for shared branches)
-git revert abc1234
-
-# Stash work in progress
-git stash
-git stash pop</code></pre>
-
-<p>In Part 6, we will learn CI/CD fundamentals — what continuous integration and continuous deployment mean in practice, and how to set up basic pipelines that automate testing and deployment.</p>
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<h4>Putting It All Together</h4>
-<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
-<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is trunk-based development vs Git Flow?</h5>
+  <p>Git Flow uses long-lived develop, feature, release, and hotfix branches. Trunk-based development uses only short-lived branches that merge to main quickly. High-performing teams prefer trunk-based for faster delivery and fewer merge conflicts. Git Flow works for teams with infrequent releases and strict versioning requirements.</p>
+  <h5>How do I recover from git reset --hard?</h5>
+  <p>git reflog shows every recent HEAD movement. Find the commit before the reset and: git reset --hard HEAD@{N} to go back. Act quickly -- reflog entries expire after 90 days by default.</p>
+  <h5>When should I use git cherry-pick?</h5>
+  <p>When you need to apply a specific commit (like a hotfix) to a different branch without merging the entire branch. Common for backporting fixes to older release branches or applying a bug fix from develop to a production hotfix branch.</p>
+  <h5>What is semantic versioning?</h5>
+  <p>MAJOR.MINOR.PATCH format. Increment MAJOR for breaking changes, MINOR for new features, PATCH for bug fixes. v1.2.3 means major version 1, minor version 2, patch 3. Git tags combined with semantic versioning create a clear release history for users and automated systems.</p>
+  <h5>How do I keep my fork up to date with the original repo?</h5>
+  <p>Add upstream: git remote add upstream https://github.com/original/repo. Fetch: git fetch upstream. Merge: git merge upstream/main. Push to your fork: git push origin main. Do this regularly to avoid large merge conflicts.</p>
 </div>
-</section>
+<p>In <a href="devops-roadmap-part-6.html">Part 6</a>, we cover CI/CD pipelines -- building automated pipelines with GitHub Actions that take code from commit to production.</p><div class="series-nav"><a href="devops-roadmap-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 5 of 12</strong><a href="devops-roadmap-part-6.html">Part 6 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Real-World Git Branching Scenarios</h4>
+<p>Trunk-based development sounds simple in theory but has practical challenges in real teams. Here is how to handle common scenarios that trip up teams new to TBD.</p>
+<div class="code-title">Handling long-running features in TBD</div>
+<pre><code class="language-bash"># Long feature using feature flags (not long branches)
+# In code: feature is deployed but disabled for users
+if settings.ENABLE_NEW_CHECKOUT:
+    return new_checkout_flow(request)
+return old_checkout_flow(request)
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# Flag stored in environment variable or database
+# Enable for 1% of users: feature flag service controls this
+# When feature is stable: remove the flag and old code
+
+# Hotfix on trunk-based development:
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-auth-bug
+# Make minimal fix
+git commit -m "fix: patch authentication bypass vulnerability"
+git push -u origin hotfix/critical-auth-bug
+# Create PR -- must be reviewed and merged same day
+# Then cherry-pick to any release branches if needed</code></pre>
+<h4>Git Hooks That Every Team Should Use</h4>
+<div class="code-title">.pre-commit-config.yaml for Python/DevOps projects</div>
+<pre><code class="language-bash">repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key      # Critical: block AWS key commits
+      - id: no-commit-to-branch
+        args: ['--branch', 'main']  # Force feature branches
+  
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks               # Scan for secrets in every commit
+
+  - repo: https://github.com/psf/black
+    rev: 23.12.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

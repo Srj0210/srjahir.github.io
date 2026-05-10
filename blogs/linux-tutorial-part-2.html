@@ -1,144 +1,98 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech</title>
-  <meta name="description" content="Learn Linux file navigation and management. Master essential commands like ls, cd, cp, mv, rm, find, and symbolic links for real-world server administration." /><meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-2.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 2 — File Navigation & Management" />
-  <meta property="og:description" content="Learn Linux file navigation and management. Master essential commands like ls, cd, cp, mv, rm, find, and symbolic links for real-world server administration." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-2.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-19" />
-  <meta property="article:author" content="Suraj Ahir" />
-<meta property="og:title" content="Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 2 — File Navigation & Management | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-19", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-2.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-2.html", "description": "Learn Linux file navigation and management. Master essential commands like ls, cd, cp, mv, rm, find, and symbolic links for real-world server administration."}
-  </script>
-<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
-<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-<meta name="google-adsense-account" content="ca-pub-1041324645386243">
-<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 2 — File Navigation & Management" />
-  <meta name="twitter:description" content="Learn Linux file navigation and management. Master essential commands like ls, cd, cp, mv, rm, find, and symbolic links for real-world server administration." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-</head><body>
-<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
-<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
-<a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-1.html">← Part 1</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 2 of 12</strong>
-  <a href="linux-tutorial-part-3.html">Part 3 →</a>
-</div>
-<a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-</nav></header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 2: File Navigation &amp; Management</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 19, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-2-terminal.svg" alt="Linux — File Navigation" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — File Navigation</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="linux-tutorial-part-1.html">← Part 1</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 2 of 12</strong>
-  <a href="linux-tutorial-part-3.html">Part 3 →</a>
-</div>
-<p>The Linux file system is the foundation of everything. Every configuration, every log, every running program — it all lives in the directory tree. Navigating and managing files efficiently is the first practical skill every Linux user must master. Once this becomes natural, every other Linux task gets easier.</p>
-<h4>The Directory Tree</h4>
-<p>Linux uses a single tree structure starting from root (<code>/</code>). There are no drive letters. Everything mounts somewhere in this tree.</p>
-<div class="code-title">Important System Directories</div>
-<pre><code class="language-bash">/home/username   # Your personal files and config
-/etc             # System-wide configuration files
-/var/log         # Application and system logs
-/var/www         # Web server files (common convention)
-/usr/bin         # Installed program executables
-/tmp             # Temporary files — cleared on reboot
-/opt             # Manually installed optional software
-/proc            # Virtual filesystem — process and kernel info
-/dev             # Device files (disks, terminals, etc.)</code></pre>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux Full Tutorial Part 2 - File System Navigation and Management | SRJahir Tech</title><meta name="description" content="Master Linux file system navigation: ls, cd, find, cp, mv, mkdir, rm, symlinks, and working with files efficiently from the command line."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-2.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Linux Full Tutorial Part 2 - File System Navigation and Management"/><meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-2.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-2-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-19"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 2 - File System Navigation and Management","url":"https://srjahir.in/blogs/linux-tutorial-part-2.html","datePublished":"2025-11-19","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>Linux Full Tutorial -- Part 2: File Navigation &amp; Management</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-19 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="linux-tutorial-part-1.html">&larr; Part 1</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 2 of 12</strong><a href="linux-tutorial-part-3.html">Part 3 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-2-terminal.svg" alt="Linux Full Tutorial -- Part 2: File Navigation &amp; Management" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>Fluent navigation is the foundation of Linux productivity. Until you can move around the filesystem quickly, find files reliably, and manipulate them efficiently, every other Linux skill is slower than it should be. This part covers the commands you will use every single day in Linux systems work.</p>
 <h4>Navigation Commands</h4>
-<div class="code-title">Essential Navigation</div>
-<pre><code class="language-bash">pwd                    # Print working directory — where am I?
-ls                     # List files in current directory
-ls -la                 # Long listing including hidden files
-ls -lh                 # Human-readable sizes (KB, MB, GB)
-ls -lt                 # Sort by last modified time
-cd /var/log            # Go to absolute path
-cd ../config           # Go relative — up one level then into config
-cd ~                   # Go to your home directory
-cd -                   # Go back to previous directory</code></pre>
-<h4>Creating and Organizing Files</h4>
-<div class="code-title">Create Files and Directories</div>
-<pre><code class="language-bash">mkdir projects                        # Create directory
-mkdir -p projects/web/backend/api     # Create nested path at once
-touch app.py config.json README.md    # Create empty files
-echo "Hello Linux" > notes.txt        # Create file with content
-echo "More content" >> notes.txt      # Append to file</code></pre>
-<h4>Viewing File Contents</h4>
-<div class="code-title">File Reading Commands</div>
-<pre><code class="language-bash">cat file.txt           # Display entire file
-less file.txt          # Scroll through (q to quit, / to search)
-head -20 file.txt      # First 20 lines
-tail -30 file.txt      # Last 30 lines
-tail -f /var/log/app.log  # Follow file in real time (great for logs)</code></pre>
-<h4>Copying and Moving</h4>
-<div class="code-title">cp and mv</div>
-<pre><code class="language-bash">cp source.txt destination.txt         # Copy file
-cp -r source_dir/ backup_dir/         # Copy directory
-mv oldname.txt newname.txt            # Rename file
-mv file.txt /home/suraj/Documents/    # Move to directory
-mv *.py /home/suraj/python_files/     # Move all Python files</code></pre>
-<h4>Deleting Files and Directories</h4>
-<div class="code-title">rm — Be Careful</div>
-<pre><code class="language-bash">rm file.txt               # Delete file
-rm -r directory/          # Delete directory recursively
-rm -i important.txt       # Ask for confirmation first
-rm *.tmp                  # Delete all .tmp files</code></pre>
-<p><strong>Important:</strong> Linux has no recycle bin. Deleted files are immediately gone. Always double-check before running <code>rm</code> with wildcards or <code>-r</code> flag. A common safe practice: run <code>ls</code> with the same pattern first to see what will be affected before deleting.</p>
-<h4>Searching for Files</h4>
-<div class="code-title">find Command</div>
-<pre><code class="language-bash">find / -name "nginx.conf"             # Find file by exact name
-find /home -name "*.py"               # Find all Python files
-find /var/log -size +50M              # Find files over 50MB
-find . -mtime -7                      # Modified in last 7 days
-find /tmp -type f -mtime +30 -delete  # Clean old temp files</code></pre>
+<div class="code-title">Moving around the filesystem</div>
+<pre><code class="language-bash">pwd                       # Print working directory
+ls                        # List files
+ls -la                    # Long format, all files (including hidden)
+ls -lh                    # Human-readable file sizes
+ls -lt                    # Sort by modification time (newest first)
+ls -lS                    # Sort by size (largest first)
+ls /etc/*.conf            # List specific pattern
+
+cd /home/ubuntu           # Absolute path
+cd ..                     # Parent directory
+cd ../..                  # Two levels up
+cd ~                      # Home directory
+cd -                      # Previous directory
+cd /                      # Root directory</code></pre>
+<h4>Creating Files and Directories</h4>
+<div class="code-title">File and directory creation</div>
+<pre><code class="language-bash">touch file.txt            # Create empty file / update timestamp
+touch {a,b,c}.txt         # Create multiple files: a.txt b.txt c.txt
+
+mkdir logs                # Create directory
+mkdir -p app/logs/2025    # Create nested directories (parents too)
+mkdir -m 755 scripts      # Create with specific permissions
+
+# Create file with content
+echo "Hello World" > file.txt      # Overwrite
+echo "Second line" >> file.txt     # Append
+cat > newfile.txt << EOF
+Line 1
+Line 2
+EOF</code></pre>
+<h4>Copying, Moving, and Deleting</h4>
+<div class="code-title">File operations</div>
+<pre><code class="language-bash">cp file.txt backup.txt         # Copy file
+cp -r dir/ backup/             # Copy directory recursively
+cp -p file.txt dest/           # Preserve permissions and timestamps
+cp -i file.txt dest/           # Interactive (prompt before overwrite)
+
+mv file.txt /tmp/              # Move file
+mv old-name.txt new-name.txt   # Rename file
+mv dir/ /new/location/         # Move directory
+
+rm file.txt                    # Delete file (PERMANENT, no trash!)
+rm -r directory/               # Delete directory recursively
+rm -rf /tmp/old-build/         # Force delete, no prompts (DANGEROUS!)
+rm -i files/*.log              # Interactive -- prompts for each file</code></pre>
+<h4>Viewing File Content</h4>
+<div class="code-title">Reading files</div>
+<pre><code class="language-bash">cat file.txt               # Print entire file
+cat -n file.txt            # With line numbers
+less file.txt              # Scroll through (q to quit, / to search)
+more file.txt              # Page through (older, less features)
+head file.txt              # First 10 lines
+head -20 file.txt          # First 20 lines
+tail file.txt              # Last 10 lines
+tail -50 file.txt          # Last 50 lines
+tail -f /var/log/nginx/access.log  # Follow live updates
+wc -l file.txt             # Count lines
+wc -w file.txt             # Count words</code></pre>
+<h4>Finding Files</h4>
+<div class="code-title">find, locate, which</div>
+<pre><code class="language-bash"># find: powerful file search
+find /etc -name "*.conf"              # Find .conf files in /etc
+find /home -user ubuntu               # Files owned by ubuntu user
+find /var/log -mtime -7               # Modified in last 7 days
+find / -size +100M                    # Larger than 100MB
+find . -type f -name "*.py"           # Python files in current dir
+find . -type f -empty                 # Empty files
+find /tmp -mtime +7 -exec rm {} \;   # Delete files older than 7 days
+
+# locate: fast database search
+sudo updatedb                         # Update locate database
+locate nginx.conf                     # Find nginx.conf
+
+# which and whereis
+which python3                         # Binary location
+whereis nginx                         # Binary + man pages + source</code></pre>
 <h4>Symbolic Links</h4>
-<p>Symbolic links (symlinks) are like shortcuts — they point to another file or directory:</p>
-<div class="code-title">Symbolic Links</div>
-<pre><code class="language-bash">ln -s /var/www/myapp /home/suraj/myapp   # Create symlink
-ls -la | grep " -> "                      # See symlinks
-readlink /home/suraj/myapp                # Where does symlink point?</code></pre>
-<h4>File Information</h4>
-<div class="code-title">File Details</div>
-<pre><code class="language-bash">file document.pdf          # Detect actual file type
-stat file.txt              # Detailed file metadata
-du -sh directory/          # Size of directory
-du -sh /var/* | sort -h    # Sizes of all /var contents, sorted
-df -h                      # Disk usage by mounted filesystem</code></pre>
-<h4>Why This Matters Day to Day</h4>
-<p>Every server task — deploying an application, reading logs, updating configuration, cleaning up disk space — starts with file system navigation. System administrators spend a significant portion of their day at the command line moving through directories and managing files. DevOps engineers write automation scripts that create, read, copy, and delete files programmatically. These commands are not beginner exercises — they are professional daily tools.</p>
-<p>Practice by navigating through <code>/etc</code> and reading configuration files. Look at what is in <code>/var/log</code>. Explore the <code>/proc</code> filesystem to see running process information. The more you explore, the more familiar the system becomes. In Part 3, we will cover permissions — the security model that controls who can do what with every file.</p>
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
+<div class="code-title">Soft and hard links</div>
+<pre><code class="language-bash"># Symbolic link (soft link) -- like a shortcut
+ln -s /usr/local/nginx-1.25/bin/nginx /usr/local/bin/nginx
+ln -s /data/logs /var/log/app        # Link directory
+ls -la /usr/local/bin/nginx          # Shows -> target
+readlink /usr/local/bin/nginx        # Show link target
 
-<h4>Putting It All Together</h4>
-<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
-<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
-
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
-</body></html>
+# Hard link -- another name for the same file
+ln file.txt file-hardlink.txt
+# Deleting original file does not affect hard link</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How do I recover a deleted file in Linux?</h5><p>There is no trash in the Linux command line. rm is permanent. Use extundelete or testdisk immediately after deletion before new data overwrites it. Prevention: use rm -i for interactive confirmation, or alias rm to mv to a trash folder. Always have backups.</p>
+<h5 style="margin-bottom:8px;">What does -r flag mean in most Linux commands?</h5><p>-r means recursive -- apply the operation to all files and subdirectories. cp -r copies directories. rm -r deletes directories. grep -r searches recursively. Without -r, most commands only operate on individual files.</p>
+<h5 style="margin-bottom:8px;">How do I view a file without cat (for large files)?</h5><p>Use less for interactive scrolling. Use head/tail for specific parts. For very large log files, tail -f watches live output. For searching within files, use grep pattern file.txt which shows only matching lines.</p>
+<h5 style="margin-bottom:8px;">What is the difference between a hard link and soft link?</h5><p>A hard link is another name for the same file data. Deleting one does not affect the other. A soft link (symlink) is a pointer to another file path. If the target is deleted, the symlink breaks. Use soft links for most purposes, especially for pointing to directories.</p>
+<h5 style="margin-bottom:8px;">How do I list files sorted by size?</h5><p>ls -lhS shows files in human-readable sizes sorted largest first. du -sh * shows sizes of all items in current directory. du -sh * | sort -rh sorts by size, largest first. Find largest files system-wide: find / -type f -size +100M 2>/dev/null</p>
+</div>
+<p>In <a href="linux-tutorial-part-3.html">Part 3</a>, we cover Linux file permissions -- understanding and managing who can read, write, and execute files.</p><div class="series-nav"><a href="linux-tutorial-part-1.html">&larr; Part 1</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 2 of 12</strong><a href="linux-tutorial-part-3.html">Part 3 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div></section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

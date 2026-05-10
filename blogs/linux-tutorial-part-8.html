@@ -1,143 +1,214 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech</title>
-  <meta name="description" content="Learn Linux disk and storage management. Master fdisk, mount, lsblk, df, du, and swap for managing storage on cloud servers and local machines." /><meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-8.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 8 — Cron Jobs & Scheduling" />
-  <meta property="og:description" content="Learn Linux disk and storage management. Master fdisk, mount, lsblk, df, du, and swap for managing storage on cloud servers and local machines." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-8.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-09" />
-  <meta property="article:author" content="Suraj Ahir" />
-<meta property="og:title" content="Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 8 — Cron Jobs & Scheduling | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-13", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-8.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-8.html", "description": "Learn Linux disk and storage management. Master fdisk, mount, lsblk, df, du, and swap for managing storage on cloud servers and local machines."}
-  </script>
-<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Full Tutorial Part 8 - Cron Jobs and Task Scheduling | SRJahir Tech</title>
+<meta name="description" content="Master Linux task scheduling: cron syntax, crontab -e, at command, systemd timers, and automating backup and maintenance scripts."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-8.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Linux Full Tutorial Part 8 - Cron Jobs and Task Scheduling"/>
+<meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-8.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-8-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-13"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 8 - Cron Jobs and Task Scheduling","url":"https://srjahir.in/blogs/linux-tutorial-part-8.html","datePublished":"2025-12-13","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 8 — Cron Jobs & Scheduling" />
-  <meta name="twitter:description" content="Learn Linux disk and storage management. Master fdisk, mount, lsblk, df, du, and swap for managing storage on cloud servers and local machines." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-</head><body>
-<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
-<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
-<a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-7.html">← Part 7</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 8 of 12</strong>
-  <a href="linux-tutorial-part-9.html">Part 9 →</a>
-</div>
-<a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-</nav></header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 8: Cron Jobs &amp; Task Scheduling</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 13, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-8-terminal.svg" alt="Linux — Disk & Storage" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Disk & Storage</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="linux-tutorial-part-7.html">← Part 7</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 8 of 12</strong>
-  <a href="linux-tutorial-part-9.html">Part 9 →</a>
-</div>
-<p>Production systems need to do things automatically on a schedule — run backups at midnight, send reports every Monday, clean up logs every Sunday, check server health every 5 minutes. Cron is Linux's built-in task scheduler, and it is one of the most practically useful tools in system administration.</p>
-<h4>Understanding Cron</h4>
-<p>Cron is a daemon (background process) that wakes up every minute and checks a set of configuration files called crontabs. If any job is scheduled for the current time, cron runs it. The service starts automatically at boot and runs continuously.</p>
-<h4>Crontab Syntax</h4>
-<div class="code-title">Cron Schedule Format</div>
-<pre><code class="language-bash"># Format: minute hour day-of-month month day-of-week command
-#         *      *    *            *     *
-#         |      |    |            |     |--- Day of week (0-7, 0 and 7 are Sunday)
-#         |      |    |            |--------- Month (1-12)
-#         |      |    |---------------------- Day of month (1-31)
-#         |      |--------------------------- Hour (0-23)
-#         |---------------------------------- Minute (0-59)
+</head><body><div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Linux Full Tutorial -- Part 8: Cron Jobs &amp; Task Scheduling</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-13 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="linux-tutorial-part-7.html">&larr; Part 7</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 8 of 12</strong><a href="linux-tutorial-part-9.html">Part 9 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-8-terminal.svg" alt="Linux Full Tutorial -- Part 8: Cron Jobs &amp; Task Scheduling" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Every production Linux server needs automated maintenance. Backups must run nightly. Log files must rotate weekly. Disk usage must be checked hourly. Expired sessions must be cleaned daily. Doing these manually is unreliable and exhausting. Cron is the built-in Linux job scheduler that handles all of this automatically.</p>
+<h4>Cron Syntax</h4>
+<div class="code-title">Crontab format explained</div>
+<pre><code class="language-bash"># Format: minute hour day month weekday command
+# *  *  *  *  *  command
+# |  |  |  |  |
+# |  |  |  |  +-- Day of week (0-7, 0 and 7 = Sunday)
+# |  |  |  +----- Month (1-12)
+# |  |  +-------- Day of month (1-31)
+# |  +----------- Hour (0-23)
+# +-------------- Minute (0-59)
 
 # Examples:
-0 2 * * *       /backup.sh         # Every day at 2:00 AM
-*/5 * * * *     /health-check.sh   # Every 5 minutes
-0 9 * * 1       /weekly-report.sh  # Every Monday at 9 AM
-0 */6 * * *     /sync.sh           # Every 6 hours
-0 0 1 * *       /monthly-cleanup.sh # First day of every month at midnight
-30 18 * * 1-5   /eod-backup.sh     # Weekdays at 6:30 PM</code></pre>
+# Every minute
+* * * * * command
+
+# Every hour at minute 0
+0 * * * * command
+
+# Every day at 2:30am
+30 2 * * * command
+
+# Every Monday at 9am
+0 9 * * 1 command
+
+# Every 5 minutes
+*/5 * * * * command
+
+# 1st of every month at midnight
+0 0 1 * * command</code></pre>
 <h4>Managing Crontabs</h4>
-<div class="code-title">Crontab Commands</div>
-<pre><code class="language-bash">crontab -e          # Edit current user's crontab
-crontab -l          # List current crontab
-crontab -r          # Remove crontab (careful!)
-sudo crontab -e     # Edit root's crontab
-crontab -u username -l  # View another user's crontab</code></pre>
-<h4>Practical Cron Examples</h4>
-<div class="code-title">Real Cron Jobs</div>
-<pre><code class="language-bash"># Check disk usage every 10 minutes, alert if over 85%
-*/10 * * * * df / | awk 'NR==2 {gsub(/%/,""); if($5>85) print "DISK ALERT: "$5"%"}' | mail -s "Disk Alert" admin@srjahir.in
+<div class="code-title">crontab commands</div>
+<pre><code class="language-bash">crontab -e          # Edit your crontab (uses EDITOR variable)
+crontab -l          # List your crontab
+crontab -r          # Remove your crontab (CAREFUL!)
+crontab -u ubuntu   # View/edit another user's crontab (as root)
 
-# Daily backup at 3 AM
-0 3 * * * /home/suraj/scripts/backup.sh >> /var/log/backup.log 2>&1
+# System-wide cron directories
+ls /etc/cron.d/     # Per-application cron files
+ls /etc/cron.daily/ # Scripts run daily by system
+ls /etc/cron.hourly/ ls /etc/cron.weekly/ /etc/cron.monthly/</code></pre>
+<h4>Real Cron Job Examples</h4>
+<div class="code-title">Common production cron jobs</div>
+<pre><code class="language-bash"># Edit crontab with: crontab -e
 
-# Restart app if it crashes (every minute)
-* * * * * systemctl is-active myapp || systemctl restart myapp
+# Daily database backup at 1am
+0 1 * * * /home/ubuntu/scripts/backup-db.sh >> /var/log/backup.log 2>&1
 
-# Weekly log rotation every Sunday at midnight
-0 0 * * 0 find /var/log/myapp -name "*.log" -mtime +30 -delete
+# Check disk every 15 minutes, alert if over 85%
+*/15 * * * * /usr/local/bin/check-disk.sh
 
-# Database backup every 6 hours
-0 */6 * * * /usr/local/bin/pg_backup.sh</code></pre>
-<h4>Systemd Timers — The Modern Alternative</h4>
-<p>Systemd timers are a more modern alternative to cron with better logging and dependency management:</p>
-<div class="code-title">Systemd Timer Unit</div>
-<pre><code class="language-bash"># /etc/systemd/system/backup.timer
+# Rotate logs every Sunday at 3am
+0 3 * * 0 /usr/sbin/logrotate /etc/logrotate.conf
+
+# Restart application every night at 4am (memory leak workaround)
+0 4 * * * systemctl restart myapp >> /var/log/restart.log 2>&1
+
+# Clean temp files older than 7 days, run daily at 2am
+0 2 * * * find /tmp -type f -mtime +7 -delete
+
+# Sync S3 backup every 6 hours
+0 */6 * * * aws s3 sync /data/backups s3://my-backups/daily/</code></pre>
+<h4>Output and Logging</h4>
+<div class="code-title">Capturing cron output</div>
+<pre><code class="language-bash"># By default, cron emails output to the user
+# Silence output entirely:
+* * * * * command > /dev/null 2>&1
+
+# Log stdout and stderr to a file:
+* * * * * command >> /var/log/mycron.log 2>&1
+
+# Log with timestamps:
+0 2 * * * echo "$(date) Starting backup" >> /var/log/backup.log && /scripts/backup.sh >> /var/log/backup.log 2>&1
+
+# View cron logs
+grep CRON /var/log/syslog
+journalctl -u cron</code></pre>
+<h4>systemd Timers -- Modern Alternative</h4>
+<div class="code-title">systemd timer units</div>
+<pre><code class="language-bash"># /etc/systemd/system/backup.service
 [Unit]
-Description=Daily Backup Timer
+Description=Database Backup
+
+[Service]
+Type=oneshot
+User=ubuntu
+ExecStart=/home/ubuntu/scripts/backup-db.sh
+
+# /etc/systemd/system/backup.timer
+[Unit]
+Description=Run backup daily at 2am
 
 [Timer]
 OnCalendar=daily
+OnCalendar=*-*-* 02:00:00
 Persistent=true
 
 [Install]
 WantedBy=timers.target
 
-# Enable and start
-sudo systemctl enable backup.timer
-sudo systemctl start backup.timer
-sudo systemctl list-timers</code></pre>
-<h4>Viewing Cron Logs</h4>
-<div class="code-title">Cron Logging</div>
-<pre><code class="language-bash">grep CRON /var/log/syslog           # See cron execution history
-tail -f /var/log/syslog | grep CRON # Follow cron activity
-journalctl -u cron                  # Systemd journal for cron</code></pre>
-<h4>Best Practices for Cron Jobs</h4>
-<p>A few important practices that prevent common cron problems: Always use absolute paths in cron scripts, because cron runs with a minimal environment and may not have your normal PATH. Redirect output to a log file with <code>>> logfile 2>&1</code> so you can diagnose failures. Test scripts manually before scheduling them. Add flock or locking if the same job might run while a previous instance is still running — this prevents overlapping executions causing data corruption.</p>
-<p>In Part 9, we will cover package management — how to install, update, and manage software on Linux systems.</p>
-<h4>Cron Job Best Practices</h4>
-<p>Several practices make cron jobs reliable and debuggable. Always use absolute paths because cron runs with a minimal PATH that does not include your normal directories. Redirect both stdout and stderr to a log file: <code>* * * * * /path/to/script.sh >> /var/log/myjob.log 2>&amp;1</code>. Use <code>MAILTO=""</code> at the top of crontab to suppress email output, or set it to your address to receive notifications. For long-running jobs, prevent overlapping executions using <code>flock</code>: <code>* * * * * flock -n /tmp/myjob.lock /path/to/script.sh</code>. Always test the exact command manually from the terminal first to verify it works before scheduling it.</p>
-<h4>Systemd Timers as a Modern Alternative</h4>
-<p>Systemd timers offer advantages over cron: better logging via <code>journalctl</code>, dependency management, and the ability to catch up on missed jobs after system downtime. A timer requires two unit files — a service file defining what to run, and a timer file defining when. Use <code>systemctl list-timers</code> to see all scheduled timers and their next execution times. For new systems where systemd is available, timers are worth learning as the modern alternative, while cron remains universal and will work everywhere.</p>
-<h4>at Command for One-Time Jobs</h4>
-<p>While cron handles recurring jobs, the <code>at</code> command schedules a one-time job to run at a specific future time. <code>at 3pm tomorrow</code> opens an interactive prompt where you type commands, then press Ctrl+D to submit. <code>at now + 2 hours</code> schedules something two hours from now. <code>atq</code> lists pending at jobs and <code>atrm</code> removes them. The <code>at</code> command is useful for one-off maintenance tasks — running a database backup before a system update, sending a notification at a specific time, or running a script during a low-traffic window.</p>
-<h4>Practice Exercise</h4>
-<p>Create a cron job that runs every minute and appends the current timestamp and disk usage to a log file. Let it run for five minutes, then examine the log. Verify the cron job is running with <code>crontab -l</code>. After verifying it works, change the schedule to run daily at midnight. Then remove it with <code>crontab -e</code> and delete the line. Also practice using <code>at now + 5 minutes</code> to schedule a one-time command and verify it ran with <code>atq</code> before it executes.</p>
+# Enable and check:
+systemctl daemon-reload
+systemctl enable --now backup.timer
+systemctl list-timers
+journalctl -u backup.service -f</code></pre>
+<h4>The at Command</h4>
+<div class="code-title">One-time scheduled execution</div>
+<pre><code class="language-bash">echo "/scripts/maintenance.sh" | at 2:30am
+echo "/scripts/deploy.sh" | at now + 10 minutes
+echo "/scripts/task.sh" | at 14:00 tomorrow
 
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
+atq          # List pending at jobs
+atrm 3       # Remove job number 3</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How do I debug a cron job that is not running?</h5><p>Check: 1) crontab -l shows your job. 2) Cron service running: systemctl status cron. 3) Script has execute permission: ls -la script.sh. 4) Use full paths for commands (/usr/bin/python3 not python3). 5) Check /var/log/syslog for cron entries. 6) Test with: >> /tmp/test.log 2>&1 to capture all output.</p>
+<h5 style="margin-bottom:8px;">Why does my cron job work manually but not in cron?</h5><p>Cron runs with a minimal environment -- no PATH, no aliases, no sourced profile files. Always use full paths: /usr/bin/python3 not python3. Add PATH=/usr/local/bin:/usr/bin:/bin at the top of your crontab. Source your profile if needed: bash -l -c "your-command"</p>
+<h5 style="margin-bottom:8px;">What is 2>&1 in cron jobs?</h5><p>2>&1 redirects stderr (file descriptor 2) to stdout (file descriptor 1). Combined with >> /var/log/file.log, it captures both normal output and errors to the log file. Without it, error messages disappear or get emailed -- making debugging very difficult.</p>
+<h5 style="margin-bottom:8px;">What is the difference between cron and systemd timers?</h5><p>Cron is simpler and widely understood. systemd timers integrate with journald for better logging, support dependencies (run after network is up), catch up on missed runs (Persistent=true), and support calendar expressions. Use systemd timers for new production systems.</p>
+<h5 style="margin-bottom:8px;">How do I run a cron job as root?</h5><p>sudo crontab -e edits root's crontab. Or add jobs to /etc/cron.d/ with a user field: "0 2 * * * root /scripts/backup.sh". System cron directories (/etc/cron.daily/) also run as root. Prefer running as a specific non-root user when possible.</p>
+</div>
+<p>In <a href="linux-tutorial-part-9.html">Part 9</a>, we cover package management -- installing, updating, and managing software on Linux servers.</p>
+<div class="series-nav"><a href="linux-tutorial-part-7.html">&larr; Part 7</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 8 of 12</strong><a href="linux-tutorial-part-9.html">Part 9 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
 
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
-</body></html>
+<h4>Advanced Cron Patterns for Production</h4>
+<div class="code-title">Cron with locking and notifications</div>
+<pre><code class="language-bash">#!/bin/bash
+# Production-grade cron script with locking and alerting
+
+LOCKFILE="/tmp/daily-cleanup.lock"
+LOG="/var/log/daily-cleanup.log"
+SLACK_WEBHOOK="${SLACK_WEBHOOK_URL}"
+
+log() { echo "[$(date +%Y-%m-%dT%H:%M:%S)] $1" | tee -a $LOG; }
+
+notify_slack() {
+    [ -n "$SLACK_WEBHOOK" ] && curl -s -X POST         -H "Content-type: application/json"         -d "{"text": "$1"}"         "$SLACK_WEBHOOK" > /dev/null
+}
+
+# Prevent concurrent runs with flock
+exec 9>"$LOCKFILE"
+if ! flock -n 9; then
+    log "Another instance is already running. Exiting."
+    exit 0
+fi
+
+trap "log 'Script complete'; flock -u 9; rm -f $LOCKFILE" EXIT
+trap "log 'Script failed!'; notify_slack ':red_circle: Daily cleanup FAILED'" ERR
+set -e
+
+log "Starting daily cleanup"
+
+find /tmp -type f -mtime +1 -delete
+find /var/log/myapp -name "*.log" -mtime +30 -exec gzip {} \;
+aws s3 sync /var/backups s3://my-backups/daily/ --storage-class STANDARD_IA
+
+notify_slack ":white_check_mark: Daily cleanup completed successfully"</code></pre>
+
+<h4>Cron Security Best Practices</h4>
+<div class="code-title">Secure cron configuration</div>
+<pre><code class="language-bash"># Restrict who can use cron
+echo "ubuntu" | sudo tee /etc/cron.allow  # Only ubuntu user
+echo "ALL" | sudo tee /etc/cron.deny      # Deny all others
+
+# Set correct ownership and permissions on crontab
+ls -la /etc/cron.*
+# drwxr-xr-x root root /etc/cron.d
+# drwxr-xr-x root root /etc/cron.daily
+# All cron directories: owned by root, 755 permissions
+
+# Check for world-writable cron files (security risk)
+find /etc/cron* -perm -o+w -type f 2>/dev/null
+
+# Run cron jobs with minimal environment
+# Add this at top of cron scripts:
+export HOME=/home/ubuntu
+export PATH=/usr/local/bin:/usr/bin:/bin
+export LANG=en_US.UTF-8</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

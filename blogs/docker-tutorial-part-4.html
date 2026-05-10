@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech</title>
-  <meta name="description" content="Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker." />
-  <meta name="keywords" content="Docker volumes tutorial, Docker data persistence, Docker bind mount, Docker stateful apps" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Master Docker Volumes, bind mounts, and tmpfs mounts. Learn how to persist database data, share code between host and container, and manage Docker storage properly." />
+  <meta name="keywords" content="Docker volumes tutorial, Docker bind mount, persist data Docker, Docker database volumes, Docker storage management" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-4.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-13" />
-  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech" />
-  <meta property="og:description" content="Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker." />
+  <meta property="og:title" content="Docker Tutorial Part 4 — Volumes & Data Persistence" />
+  <meta property="og:description" content="Master Docker Volumes, bind mounts, and tmpfs mounts. Learn how to persist database data, share code between host and container, and manage Docker storage properly." />
   <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 4 — Volumes & Data Persistence | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Docker volumes and bind mounts. Understand how to persist data across container restarts, share data between containers, and manage stateful applications in Docker.", "datePublished": "2025-11-13", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-4.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-4.html"}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/docker-part-4-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-11-13" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 4 — Volumes & Data Persistence","description":"Master Docker Volumes, bind mounts, and tmpfs mounts. Learn how to persist database data, share code between host and container, and manage Docker storage properly.","url":"https://srjahir.in/blogs/docker-tutorial-part-4.html","datePublished":"2025-11-13","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/docker-part-4-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/docker-tutorial-part-4.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens to data when a Docker container is deleted?","acceptedAnswer":{"@type":"Answer","text":"By default, all data written inside a container's filesystem is lost when the container is removed. This is why containers are called ephemeral. To persist data across container restarts and deletions, you must use Docker Volumes or bind mounts which store data outside the container's writable layer."}},{"@type":"Question","name":"What is the difference between Docker Volumes and bind mounts?","acceptedAnswer":{"@type":"Answer","text":"Docker Volumes are managed by Docker and stored in Docker's storage area on the host (/var/lib/docker/volumes). They are portable, can be backed up easily, and work on all platforms. Bind mounts map a specific host directory into the container. Use volumes for production data persistence and bind mounts for development to sync source code."}},{"@type":"Question","name":"How do I persist a PostgreSQL database in Docker?","acceptedAnswer":{"@type":"Answer","text":"Mount a named volume to PostgreSQL's data directory: docker run -v postgres-data:/var/lib/postgresql/data postgres:15. The volume persists all database files independently of the container. Even if you delete and recreate the container, it connects to the same volume and finds all existing data."}},{"@type":"Question","name":"Can multiple containers share the same Docker Volume?","acceptedAnswer":{"@type":"Answer","text":"Yes. Multiple containers can mount the same volume simultaneously. This is useful for sharing data between containers — for example, an application container writing files that a backup container reads. Use this with caution for write access since concurrent writes can cause conflicts without proper locking."}},{"@type":"Question","name":"Where are Docker Volumes stored on the host?","acceptedAnswer":{"@type":"Answer","text":"Named volumes are stored in /var/lib/docker/volumes/ on Linux. Each volume has its own subdirectory. On macOS and Windows with Docker Desktop, volumes are stored inside the Docker Desktop VM, not directly on the host filesystem. Use docker volume inspect volume-name to see the exact mount path."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -45,143 +34,118 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="docker-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 4 of 12</strong>
-  <a href="docker-tutorial-part-5.html">Part 5 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-<section class="content-block">
+<section class="content-block blog-article">
 <h3>Docker Full Tutorial — Part 4: Volumes &amp; Data Persistence</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 13, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-13 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="docker-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 4 of 12</strong><a href="docker-tutorial-part-5.html">Part 5 &rarr;</a></div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/docker-part-4-terminal.svg" alt="Docker — Dockerfile" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Dockerfile</figcaption>
+  <img src="images/docker-part-4-terminal.svg" alt="Docker Full Tutorial — Part 4: Volumes &amp; Data Persistence" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker Full Tutorial — Part 4: Volumes &amp; Data Persistence</figcaption>
 </figure>
+<p>Containers are designed to be disposable. You delete them, recreate them, and they start fresh. This is a feature — it means deployments are predictable and repeatable. But it creates a problem: what about data that needs to survive? Databases, uploaded files, logs, user data — none of these can afford to be wiped every time a container restarts.</p>
+<p>Docker solves this with Volumes. A volume is storage that exists outside the container's filesystem, managed independently of the container lifecycle. The container can be deleted and recreated, but the volume — and all the data in it — persists untouched.</p>
 
-<div class="series-nav">
-  <a href="docker-tutorial-part-3.html">← Part 3</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 4 of 12</strong>
-  <a href="docker-tutorial-part-5.html">Part 5 →</a>
-</div>
-<p>Here is a problem every Docker beginner runs into sooner or later: you run a database container, add some data, stop the container, start it again — and the data is gone. Everything you stored has vanished. This happens because containers are stateless by default. Docker volumes are the solution to this problem, and understanding them is essential for any real-world Docker usage.</p>
+<h4>The Three Types of Docker Storage</h4>
+<p>Docker has three mechanisms for handling data.</p>
+<p><strong>Volumes</strong> are the recommended way to persist data. Docker manages them — they live in Docker's storage area, have their own lifecycle, can be named, backed up, and shared between containers. On Linux, they live at <code>/var/lib/docker/volumes/</code>.</p>
+<p><strong>Bind mounts</strong> map a directory from your host machine directly into the container. The files exist on your host filesystem and are simply accessible inside the container at the specified path. Best used in development to sync source code changes without rebuilding images.</p>
+<p><strong>tmpfs mounts</strong> store data in the host's memory, never on disk. Data is lost when the container stops. Used for sensitive data that should not be written to disk (secrets, tokens) or for temporary high-speed storage.</p>
 
-<h4>Why Containers Are Stateless</h4>
-<p>When you create a container, Docker gives it a writable layer on top of the read-only image layers. Any files you write inside the container go into this writable layer. When the container is stopped and removed, that writable layer is deleted along with it. The image itself is unchanged — it is the container's individual state that disappears.</p>
-<p>For stateless applications like web servers that do not store data locally, this is fine. But for databases, log files, uploaded files, or any data that must survive container restarts, you need a way to store data outside the container's lifecycle. That is exactly what volumes provide.</p>
-
-<h4>Three Ways to Persist Data in Docker</h4>
-<p>Docker gives you three storage options, each suited for different situations:</p>
-<ul>
-  <li><strong>Named Volumes</strong> — Managed by Docker, stored in Docker's internal storage area. Best for databases and production data.</li>
-  <li><strong>Bind Mounts</strong> — Map a specific directory from your host machine into the container. Best for development where you want live code changes.</li>
-  <li><strong>tmpfs Mounts</strong> — Stored in host memory only. Data is not written to disk and disappears when the container stops. Best for sensitive temporary data.</li>
-</ul>
-
-<h4>Named Volumes</h4>
-<p>Named volumes are the recommended approach for production data. Docker manages their location and lifecycle independently of containers.</p>
-<div class="code-title">Working with Named Volumes</div>
+<h4>Working with Named Volumes</h4>
+<div class="code-title">Create and use Docker volumes</div>
 <pre><code class="language-bash"># Create a named volume
-docker volume create my-data
+docker volume create my-app-data
 
 # List all volumes
 docker volume ls
 
-# Inspect a volume (find where it is stored)
-docker volume inspect my-data
+# Inspect a volume (see where it's stored)
+docker volume inspect my-app-data
 
-# Run container with named volume
-docker run -d   --name my-postgres   -e POSTGRES_PASSWORD=mysecretpassword   -v my-data:/var/lib/postgresql/data   postgres:15
+# Run a container with a named volume
+docker run -d   --name my-nginx   -v my-app-data:/usr/share/nginx/html   nginx
 
-# The format is: -v volume_name:container_path</code></pre>
-<p>Now if you stop and remove the container, then create a new one using the same volume, all your database data will still be there. The volume persists independently of any container.</p>
+# Write data to the volume
+docker exec my-nginx sh -c "echo 'Hello Volume' > /usr/share/nginx/html/index.html"
 
-<h4>Bind Mounts</h4>
-<p>Bind mounts map a host directory directly into the container. This is extremely useful during development because any change you make to files on your host is immediately visible inside the container — no rebuild required.</p>
-<div class="code-title">Bind Mount for Development</div>
-<pre><code class="language-bash"># Map current directory into container
-docker run -d   -p 5000:5000   -v $(pwd):/app   --name dev-server   my-python-app:1.0
+# Delete the container
+docker rm -f my-nginx
 
-# On Windows PowerShell
-docker run -d -p 5000:5000 -v ${PWD}:/app my-python-app:1.0</code></pre>
-<p>With this setup, you edit code on your local machine using your preferred editor, and the changes are instantly available inside the running container. This makes local development with Docker smooth and fast.</p>
+# Create a NEW container mounting the SAME volume
+docker run -d   --name my-nginx-2   -v my-app-data:/usr/share/nginx/html   nginx
 
-<h4>Real Example — MySQL with Persistent Volume</h4>
-<p>Let us run a MySQL database with persistent storage:</p>
-<div class="code-title">MySQL with Volume</div>
-<pre><code class="language-bash"># Run MySQL with named volume
-docker run -d   --name mysql-db   -e MYSQL_ROOT_PASSWORD=rootpass   -e MYSQL_DATABASE=myapp   -e MYSQL_USER=appuser   -e MYSQL_PASSWORD=apppass   -p 3306:3306   -v mysql-data:/var/lib/mysql   mysql:8.0
+# Verify the data persisted
+docker exec my-nginx-2 cat /usr/share/nginx/html/index.html
+# Output: Hello Volume</code></pre>
 
-# Connect to MySQL inside the container
-docker exec -it mysql-db mysql -u root -p
+<h4>Running PostgreSQL with Persistent Storage</h4>
+<div class="code-title">PostgreSQL with persistent data volume</div>
+<pre><code class="language-bash">docker run -d   --name postgres-db   -e POSTGRES_USER=myuser   -e POSTGRES_PASSWORD=mypassword   -e POSTGRES_DB=myapp   -v postgres-data:/var/lib/postgresql/data   -p 5432:5432   postgres:15
 
-# Stop and remove the container
-docker stop mysql-db
-docker rm mysql-db
+# Connect and create some data
+docker exec -it postgres-db psql -U myuser -d myapp
+# CREATE TABLE users (id SERIAL, name TEXT);
+# INSERT INTO users VALUES (1, 'Suraj');
+# \q
 
-# Start a NEW container using the SAME volume
-docker run -d   --name mysql-db-new   -e MYSQL_ROOT_PASSWORD=rootpass   -p 3306:3306   -v mysql-data:/var/lib/mysql   mysql:8.0
+# Delete the container
+docker rm -f postgres-db
 
-# Your data is still there!</code></pre>
+# Start a new container with the same volume
+docker run -d   --name postgres-db   -e POSTGRES_USER=myuser   -e POSTGRES_PASSWORD=mypassword   -e POSTGRES_DB=myapp   -v postgres-data:/var/lib/postgresql/data   -p 5432:5432   postgres:15
 
-<h4>Sharing Data Between Containers</h4>
-<p>Multiple containers can mount the same volume, enabling them to share data. This is useful for scenarios like a web application and a background worker both needing access to uploaded files.</p>
-<div class="code-title">Shared Volume Between Containers</div>
-<pre><code class="language-bash"># Both containers share the same uploads volume
-docker run -d --name web-app -v uploads:/app/uploads my-web:1.0
-docker run -d --name worker -v uploads:/app/uploads my-worker:1.0</code></pre>
+# Your data is still there
+docker exec -it postgres-db psql -U myuser -d myapp -c "SELECT * FROM users;"</code></pre>
 
-<h4>Volume Backup and Restore</h4>
-<p>Since volumes contain important data, knowing how to back them up is critical. Docker does not have a built-in backup command, but this pattern works reliably:</p>
-<div class="code-title">Backup Volume</div>
-<pre><code class="language-bash"># Backup: create a tar archive of the volume
-docker run --rm   -v my-data:/source   -v $(pwd):/backup   ubuntu tar czf /backup/my-data-backup.tar.gz -C /source .
+<h4>Bind Mounts for Development</h4>
+<p>Bind mounts are perfect for development. You mount your source code directory into the container, so changes you make in your editor are immediately reflected inside the container — no image rebuild needed.</p>
+<div class="code-title">Development workflow with bind mount</div>
+<pre><code class="language-bash"># Mount current directory into the container (Linux/macOS)
+docker run -d   --name dev-server   -v $(pwd)/src:/app/src   -p 3000:3000   my-node-app
 
-# Restore: extract archive back into volume
-docker run --rm   -v my-data:/target   -v $(pwd):/backup   ubuntu tar xzf /backup/my-data-backup.tar.gz -C /target</code></pre>
+# Windows PowerShell
+docker run -d   --name dev-server   -v ${PWD}/src:/app/src   -p 3000:3000   my-node-app
 
-<h4>Cleaning Up Volumes</h4>
-<div class="code-title">Volume Cleanup</div>
-<pre><code class="language-bash"># Remove a specific volume (only if no container uses it)
-docker volume rm my-data
+# Any change you make to files in ./src on your machine
+# is immediately visible at /app/src inside the container</code></pre>
 
-# Remove all unused volumes
-docker volume prune</code></pre>
-<p><strong>Warning:</strong> Removing a volume permanently deletes all data it contains. Always back up before removing production volumes.</p>
+<h4>Volume Management Commands</h4>
+<div class="code-title">Managing Docker volumes</div>
+<pre><code class="language-bash"># List all volumes
+docker volume ls
 
-<p>In Part 5, we will learn Docker Networking — how containers talk to each other and to the outside world. This is essential for multi-container applications.</p>
-<h4>Bind Mounts vs Named Volumes</h4>
-<p>Docker supports two main types of mounts, each suited to different use cases. Bind mounts map a specific path on the host machine into the container: <code>docker run -v /host/path:/container/path image</code>. They are useful for development — mounting your source code directory into a container so code changes are reflected immediately without rebuilding. Named volumes are managed entirely by Docker: <code>docker run -v myvolume:/container/path image</code>. Docker creates and manages the storage location. Named volumes are the right choice for persistent application data in production — they are not dependent on host directory structure and are easier to backup and migrate.</p>
-<div class="code-title">Volume Usage Examples</div>
-<pre><code class="language-bash"># Named volume for database persistence
-docker run -d   --name postgres_db   -v postgres_data:/var/lib/postgresql/data   -e POSTGRES_PASSWORD=secret   postgres:15
+# Remove a specific volume (must not be in use)
+docker volume rm my-app-data
 
-# Bind mount for development (reflects local changes immediately)
-docker run -d   --name myapp_dev   -v $(pwd)/src:/app/src   -p 3000:3000   myapp:dev
+# Remove ALL unused volumes (not attached to any container)
+docker volume prune
 
-# Inspect a volume
-docker volume inspect postgres_data
+# Back up a volume to a tar file
+docker run --rm   -v my-app-data:/source   -v $(pwd):/backup   ubuntu tar czf /backup/volume-backup.tar.gz -C /source .
 
-# Backup a volume
-docker run --rm -v postgres_data:/data -v $(pwd):/backup   alpine tar czf /backup/postgres_backup.tar.gz /data</code></pre>
-<h4>Practice Exercise</h4>
-<p>Run a PostgreSQL container with a named volume. Connect to it and create a database with some test data. Stop and remove the container. Start a new PostgreSQL container using the same named volume and verify your data is still there. This exercise demonstrates the fundamental purpose of volumes — data that outlives the container that created it.</p>
+# Restore a volume from backup
+docker run --rm   -v my-app-data:/target   -v $(pwd):/backup   ubuntu tar xzf /backup/volume-backup.tar.gz -C /target</code></pre>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<p>In <a href="docker-tutorial-part-5.html">Part 5</a>, we tackle Docker Networking — how containers find and communicate with each other, how to create isolated networks for security, and how port mapping actually works under the hood. This is essential knowledge for running multi-container applications.</p>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What happens to data when a Docker container is deleted?</h5>
+  <p>By default, all data written inside a container's filesystem is lost when the container is removed. This is why containers are called ephemeral. To persist data across container restarts and deletions, you must use Docker Volumes or bind mounts which store data outside the container's writable layer.</p>
+  <h5 style="margin-bottom:8px;">What is the difference between Docker Volumes and bind mounts?</h5>
+  <p>Docker Volumes are managed by Docker and stored in Docker's storage area on the host (/var/lib/docker/volumes). They are portable, can be backed up easily, and work on all platforms. Bind mounts map a specific host directory into the container. Use volumes for production data persistence and bind mounts for development to sync source code.</p>
+  <h5 style="margin-bottom:8px;">How do I persist a PostgreSQL database in Docker?</h5>
+  <p>Mount a named volume to PostgreSQL's data directory: docker run -v postgres-data:/var/lib/postgresql/data postgres:15. The volume persists all database files independently of the container. Even if you delete and recreate the container, it connects to the same volume and finds all existing data.</p>
+  <h5 style="margin-bottom:8px;">Can multiple containers share the same Docker Volume?</h5>
+  <p>Yes. Multiple containers can mount the same volume simultaneously. This is useful for sharing data between containers — for example, an application container writing files that a backup container reads. Use this with caution for write access since concurrent writes can cause conflicts without proper locking.</p>
+  <h5 style="margin-bottom:8px;">Where are Docker Volumes stored on the host?</h5>
+  <p>Named volumes are stored in /var/lib/docker/volumes/ on Linux. Each volume has its own subdirectory. On macOS and Windows with Docker Desktop, volumes are stored inside the Docker Desktop VM, not directly on the host filesystem. Use docker volume inspect volume-name to see the exact mount path.</p>
 </div>
+<div class="series-nav"><a href="docker-tutorial-part-3.html">&larr; Part 3</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 4 of 12</strong><a href="docker-tutorial-part-5.html">Part 5 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

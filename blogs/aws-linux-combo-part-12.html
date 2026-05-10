@@ -1,230 +1,233 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>AWS + Linux Combo — Part 12: Deploy a Real App End to End | SRJahir Tech</title>
-  <meta name="description" content="Deploy a complete web application on AWS EC2 with Linux, Nginx, S3, IAM roles, and CloudWatch monitoring. Full end-to-end cloud deployment." />
-  <meta name="keywords" content="deploy app EC2 AWS, end to end cloud deployment, Nginx app deployment, AWS application setup, EC2 production setup" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-12.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-14" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AWS + Linux Combo — Part 12: Deploy a Real App End to End | SRJahir Tech" />
-  <meta property="og:description" content="Deploy a complete web application on AWS EC2 with Linux, Nginx, S3, IAM roles, and CloudWatch monitoring. Full end-to-end cloud deployment." />
-  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-12.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "AWS + Linux Combo — Part 12: Deploy a Real App End to End", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Deploy a complete web application on AWS EC2 with Linux, Nginx, S3, IAM roles, and CloudWatch monitoring. Full end-to-end cloud deployment.", "datePublished": "2025-11-14", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/aws-linux-combo-part-12.html"}, "url": "https://srjahir.in/blogs/aws-linux-combo-part-12.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS Linux Tutorial Part 12 - Deploy a Real Python App End to End on AWS | SRJahir Tech</title>
+<meta name="description" content="Deploy a complete Python Flask app end-to-end on AWS: EC2, RDS PostgreSQL, S3, Nginx reverse proxy, SSL certificate, CloudWatch monitoring, and Auto Scaling."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-12.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="AWS Linux Tutorial Part 12 - Deploy a Real Python App End to End on AWS"/>
+<meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-12.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-12-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-11-14"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS Linux Tutorial Part 12 - Deploy a Real Python App End to End on AWS","url":"https://srjahir.in/blogs/aws-linux-combo-part-12.html","datePublished":"2025-11-14","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="aws-linux-combo-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 12 of 12</strong>
-  <span></span>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-
-<h3>AWS + Linux Combo — Part 12: Deploy a Real App End to End</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 14, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/aws-part-12-terminal.svg" alt="AWS + Linux — Full Deployment" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS + Linux — Full Deployment</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="aws-linux-combo-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 12 of 12</strong>
-  <span></span>
-</div>
-
-<p>This is the final part of the AWS and Linux Combo series. We bring everything together — EC2, Linux, Nginx, S3, IAM, Bash scripting, and CloudWatch — into a complete, production-like deployment. By the end of this lesson, you will have a real application running in the cloud with monitoring, backups, and security configured properly.</p>
-
-<h4>What We Are Building</h4>
-<p>We will deploy a static website with Nginx, backed by S3 for media storage, secured with proper IAM roles and Security Groups, with CloudWatch monitoring and automated daily backups. This is a real-world pattern used by thousands of teams for lightweight web applications and content sites.</p>
-
-<h4>Step 1: Launch a Fresh EC2 Instance</h4>
-<div class="code-title">Launch via CLI</div>
-<pre><code class="language-bash"># Create a security group
-aws ec2 create-security-group   --group-name webapp-sg   --description "Web app security group"
-
-# Add rules
-aws ec2 authorize-security-group-ingress --group-name webapp-sg --protocol tcp --port 22 --cidr YOUR_IP/32
-aws ec2 authorize-security-group-ingress --group-name webapp-sg --protocol tcp --port 80 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-name webapp-sg --protocol tcp --port 443 --cidr 0.0.0.0/0
-
-# Launch instance with the security group
-aws ec2 run-instances   --image-id ami-0f58b397bc5c1f2e8   --instance-type t2.micro   --key-name my-key   --security-groups webapp-sg   --iam-instance-profile Name=EC2-S3-Reader   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=webapp-server}]'</code></pre>
-
-<h4>Step 2: Server Setup Script</h4>
-<p>Create a setup script that automates the full server configuration:</p>
-<div class="code-title">setup-server.sh</div>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>AWS Linux Tutorial -- Part 12: Deploy a Real App on AWS</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-14 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="aws-linux-combo-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 12 of 12</strong><span></span></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/aws-part-12-terminal.svg" alt="AWS Linux Tutorial -- Part 12: Deploy a Real App on AWS" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>This final part brings together every skill from this series. We deploy a real Python Flask application with a PostgreSQL database on AWS, configure Nginx as a reverse proxy with HTTPS, set up CloudWatch monitoring, and make the architecture production-ready. This is the complete cloud engineering workflow.</p>
+<h4>Architecture Overview</h4>
+<div class="code-title">What we are building</div>
+<pre><code class="language-bash">Internet
+   |
+   v
+Route 53 (DNS: myapp.example.com)
+   |
+   v
+Application Load Balancer (HTTPS, port 443)
+   |
+   v
+EC2 Instance (Ubuntu 22.04)
+  Nginx (port 80, reverse proxy)
+     |
+     v
+  Gunicorn (port 8000, Python WSGI)
+     |
+     v
+  Flask Application
+   |           |
+   v           v
+ RDS          S3 (file uploads)
+ (PostgreSQL)</code></pre>
+<h4>Launch and Configure EC2</h4>
+<div class="code-title">Server setup script</div>
 <pre><code class="language-bash">#!/bin/bash
-set -e  # Exit on any error
+# run as: sudo bash setup.sh
 
-echo "=== Starting server setup ==="
+apt update && apt upgrade -y
+apt install -y nginx python3-pip python3-venv postgresql-client
 
-# Update system
-sudo dnf update -y
+# Create app user
+useradd -m -s /bin/bash appuser
 
-# Install required packages
-sudo dnf install -y nginx git awscli amazon-cloudwatch-agent
+# Set up application
+mkdir -p /opt/myapp
+chown appuser:appuser /opt/myapp
 
-# Start and enable Nginx
-sudo systemctl start nginx
-sudo systemctl enable nginx
+# Install Python dependencies
+cd /opt/myapp
+python3 -m venv venv
+source venv/bin/activate
+pip install flask gunicorn psycopg2-binary boto3
 
-# Create web directory
-sudo mkdir -p /var/www/webapp
-sudo chown -R ec2-user:ec2-user /var/www/webapp
+# Create systemd service
+cat > /etc/systemd/system/myapp.service << EOF
+[Unit]
+Description=My Flask App
+After=network.target
 
-# Configure Nginx
-sudo tee /etc/nginx/conf.d/webapp.conf > /dev/null &lt;&lt;EOF
-server {
-    listen 80;
-    server_name _;
-    root /var/www/webapp;
-    index index.html;
-    
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-    
-    access_log /var/log/nginx/webapp_access.log;
-    error_log /var/log/nginx/webapp_error.log;
-}
+[Service]
+User=appuser
+WorkingDirectory=/opt/myapp
+ExecStart=/opt/myapp/venv/bin/gunicorn app:app --bind 127.0.0.1:8000 --workers 3
+Restart=always
+EnvironmentFile=/opt/myapp/.env
+
+[Install]
+WantedBy=multi-user.target
 EOF
 
-# Reload Nginx
-sudo systemctl reload nginx
+systemctl daemon-reload
+systemctl enable myapp</code></pre>
+<h4>RDS PostgreSQL Setup</h4>
+<div class="code-title">Create RDS via CLI</div>
+<pre><code class="language-bash">aws rds create-db-instance \
+  --db-instance-identifier myapp-db \
+  --db-instance-class db.t3.micro \
+  --engine postgres \
+  --engine-version 15.4 \
+  --master-username appuser \
+  --master-user-password "$DB_PASSWORD" \
+  --allocated-storage 20 \
+  --storage-type gp3 \
+  --db-subnet-group-name my-db-subnet-group \
+  --vpc-security-group-ids sg-database \
+  --no-publicly-accessible
 
-echo "=== Setup complete ==="</code></pre>
+# Wait for it to become available (5-10 minutes)
+aws rds wait db-instance-available --db-instance-identifier myapp-db
 
-<h4>Step 3: Deploy Application Files</h4>
-<div class="code-title">deploy.sh</div>
+# Get the endpoint
+aws rds describe-db-instances \
+  --db-instance-identifier myapp-db \
+  --query "DBInstances[0].Endpoint.Address" \
+  --output text</code></pre>
+<h4>Nginx Configuration</h4>
+<div class="code-title">/etc/nginx/sites-available/myapp</div>
+<pre><code class="language-bash">server {
+    listen 80;
+    server_name myapp.example.com;
+    
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 10;
+        proxy_read_timeout 60;
+    }
+    
+    access_log /var/log/nginx/myapp-access.log;
+    error_log  /var/log/nginx/myapp-error.log;
+}
+
+# Enable site and get SSL
+sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
+sudo certbot --nginx -d myapp.example.com</code></pre>
+<h4>Environment Configuration</h4>
+<div class="code-title">/opt/myapp/.env</div>
+<pre><code class="language-bash">DATABASE_URL=postgresql://appuser:password@myapp-db.abc123.ap-south-1.rds.amazonaws.com/myapp
+SECRET_KEY=your-secret-key-here
+S3_BUCKET=myapp-uploads
+AWS_DEFAULT_REGION=ap-south-1
+FLASK_ENV=production
+PORT=8000
+
+# Keep this file secure
+chown appuser:appuser /opt/myapp/.env
+chmod 600 /opt/myapp/.env</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How do I handle the database connection in Flask?</h5><p>Use SQLAlchemy with the DATABASE_URL environment variable: db = SQLAlchemy(app). Set SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL"). Use connection pooling (flask_sqlalchemy handles this). Set pool_pre_ping=True to reconnect after idle periods.</p>
+<h5 style="margin-bottom:8px;">How do I zero-downtime deploy new versions?</h5><p>Rolling deployment: update one instance at a time behind a load balancer. Blue-green: launch new servers with new code, switch traffic, terminate old. For single-server: systemctl reload does not stop serving. Use gunicorn --preload and send SIGHUP to reload workers without dropping connections.</p>
+<h5 style="margin-bottom:8px;">How do I scale this beyond one server?</h5><p>Add a load balancer (ALB). Launch multiple EC2 instances in different AZs. Move sessions to ElastiCache Redis. Store uploads in S3 (not local disk). Use RDS Multi-AZ for database failover. Enable Auto Scaling to adjust instance count based on load.</p>
+<h5 style="margin-bottom:8px;">How do I back up the RDS database?</h5><p>RDS automated backups are enabled by default (7-day retention). Create manual snapshots: aws rds create-db-snapshot. Export to S3: aws rds export-snapshot-to-s3. For point-in-time recovery, use the automated backups -- AWS keeps transaction logs.</p>
+<h5 style="margin-bottom:8px;">What monitoring should I set up?</h5><p>CloudWatch alarms: EC2 CPU, RDS CPU, RDS FreeStorageSpace, ALB 5xx errors. Application metrics: response time, error rate (instrument with CloudWatch custom metrics). Log shipping: CloudWatch agent sends application logs to CloudWatch Log Groups. Set up a dashboard showing all key metrics.</p>
+</div>
+<p>You have completed the full AWS Linux series. You can now deploy and manage real applications on AWS. Combine this with the <a href="devops-roadmap-part-1.html">DevOps Roadmap</a> and <a href="kubernetes-tutorial-part-1.html">Kubernetes series</a> to build a complete cloud engineering skillset.</p>
+<div class="series-nav"><a href="aws-linux-combo-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 12 of 12</strong><span></span></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+
+<h4>Blue-Green Deployment on AWS</h4>
+<div class="code-title">Zero-downtime deployments</div>
 <pre><code class="language-bash">#!/bin/bash
+# Blue-Green deployment strategy
+# Blue = current production, Green = new version
 
-BUCKET="my-srjahir-bucket-2026"
-APP_DIR="/var/www/webapp"
-DATE=$(date +%Y-%m-%d-%H%M)
+ALB_ARN="arn:aws:elasticloadbalancing:..."
+BLUE_TG="arn:aws:elasticloadbalancing:...:targetgroup/blue-tg/..."
+GREEN_TG="arn:aws:elasticloadbalancing:...:targetgroup/green-tg/..."
 
-echo "Deploying application..."
+log() { echo "[$(date)] $1"; }
 
-# Sync from S3 (pull latest files)
-aws s3 sync "s3://${BUCKET}/webapp/" "${APP_DIR}/"
+# 1. Deploy new version to Green target group (not live)
+log "Deploying new version to Green..."
+aws ecs update-service   --cluster production   --service myapp-green   --task-definition myapp:$NEW_REVISION
 
-# Set correct permissions
-chmod -R 644 ${APP_DIR}/*.html
-find ${APP_DIR} -type d -exec chmod 755 {} \;
+# 2. Wait for Green to be healthy
+aws ecs wait services-stable --cluster production --services myapp-green
+log "Green is stable, running health checks..."
 
-# Log deployment
-echo "[${DATE}] Deployment successful" >> /var/log/deploys.log
+# 3. Smoke test Green (direct health check before switching)
+GREEN_IP=$(aws ec2 describe-instances --filters "Name=tag:Group,Values=green"   --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
 
-echo "Deployment complete!"</code></pre>
+for i in $(seq 1 5); do
+    if curl -sf "http://${GREEN_IP}:8000/health" > /dev/null; then
+        log "Health check $i/5 passed"
+    else
+        log "ERROR: Green health check failed"
+        exit 1
+    fi
+    sleep 2
+done
 
-<h4>Step 4: Configure Automated Backups</h4>
-<div class="code-title">Crontab Setup</div>
-<pre><code class="language-bash"># Edit crontab
-crontab -e
+# 4. Switch ALB to Green (instant, zero downtime)
+log "Switching traffic to Green..."
+aws elbv2 modify-listener   --listener-arn $LISTENER_ARN   --default-actions Type=forward,TargetGroupArn=$GREEN_TG
 
-# Add these jobs:
-# Daily backup at 2 AM
-0 2 * * * /home/ec2-user/scripts/daily-backup.sh
+log "Traffic switched to Green. Monitoring for 5 minutes..."
+sleep 300
 
-# Deploy latest from S3 every hour
-0 * * * * /home/ec2-user/scripts/deploy.sh
+# 5. Verify error rate (if too high, rollback)
+ERROR_RATE=$(aws cloudwatch get-metric-statistics   --metric-name HTTPCode_Target_5XX_Count   --namespace AWS/ApplicationELB   --statistics Sum --period 300   --start-time $(date -d "-5 minutes" -u +%Y-%m-%dT%H:%M:%S)   --end-time $(date -u +%Y-%m-%dT%H:%M:%S)   --query "Datapoints[0].Sum" --output text)
 
-# Health check every 5 minutes
-*/5 * * * * /home/ec2-user/scripts/health-check.sh</code></pre>
+if [ "$ERROR_RATE" -gt "50" ]; then
+    log "ERROR: High error rate. Rolling back to Blue!"
+    aws elbv2 modify-listener --listener-arn $LISTENER_ARN       --default-actions Type=forward,TargetGroupArn=$BLUE_TG
+    exit 1
+fi
 
-<h4>Step 5: Set Up CloudWatch Monitoring</h4>
-<div class="code-title">Create Alarms</div>
-<pre><code class="language-bash"># Create SNS topic
-TOPIC_ARN=$(aws sns create-topic --name webapp-alerts --query TopicArn --output text)
+log "Deployment successful! Green is now production."</code></pre>
 
-# Subscribe email
-aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint your@email.com
+<h4>Auto Scaling Policy Configuration</h4>
+<div class="code-title">Scale in and out automatically</div>
+<pre><code class="language-bash"># Create Auto Scaling Group
+aws autoscaling create-auto-scaling-group   --auto-scaling-group-name myapp-asg   --launch-template LaunchTemplateName=myapp-lt,Version='$Latest'   --min-size 2   --max-size 20   --desired-capacity 3   --vpc-zone-identifier "subnet-a,subnet-b"   --target-group-arns $TARGET_GROUP_ARN
 
-# CPU alarm
-aws cloudwatch put-metric-alarm   --alarm-name "webapp-high-cpu"   --metric-name CPUUtilization   --namespace AWS/EC2   --threshold 80   --comparison-operator GreaterThanThreshold   --evaluation-periods 2   --period 300   --statistic Average   --alarm-actions $TOPIC_ARN</code></pre>
+# Target tracking policy (keeps CPU at 60%)
+aws autoscaling put-scaling-policy   --auto-scaling-group-name myapp-asg   --policy-name cpu-target-tracking   --policy-type TargetTrackingScaling   --target-tracking-configuration '{
+    "TargetValue": 60.0,
+    "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ASGAverageCPUUtilization"
+    },
+    "ScaleInCooldown": 300,
+    "ScaleOutCooldown": 60
+  }'</code></pre>
 
-<h4>Step 6: Verify Everything Works</h4>
-<div class="code-title">Verification Checklist</div>
-<pre><code class="language-bash"># 1. Nginx running?
-sudo systemctl status nginx
-
-# 2. Website accessible?
-curl -I http://YOUR_EC2_IP
-
-# 3. S3 access working?
-aws s3 ls s3://my-srjahir-bucket-2026/
-
-# 4. CloudWatch receiving metrics?
-aws cloudwatch list-metrics --namespace AWS/EC2
-
-# 5. Backup script works?
-/home/ec2-user/scripts/daily-backup.sh
-
-# 6. Logs flowing?
-tail -f /var/log/nginx/webapp_access.log</code></pre>
-
-<h4>What You Have Built</h4>
-<p>You now have a production-ready web application deployed on AWS EC2 with Linux. It has a proper web server with Nginx configured with virtual host. Storage with S3 for media and backups. Security via IAM roles and Security Groups. Automation via Bash scripts and cron. Monitoring via CloudWatch with email alerts. This is the foundation of real cloud infrastructure. Every enterprise cloud setup — no matter how complex — is built on these same fundamentals. Master these, and you can handle any cloud engineering challenge.</p>
-<p>This completes the AWS and Linux Combo series. The skills you have built here — Linux administration, AWS services, scripting, security, and monitoring — are exactly what cloud engineers use every day in professional environments.</p>
-
-<h4>Production Deployment Considerations</h4>
-<p>Moving an application from development to production on AWS requires attention to several dimensions beyond making it functional. High availability means running multiple instances across multiple Availability Zones behind a load balancer — no single point of failure. An Application Load Balancer (ALB) distributes traffic across instances, performs health checks, and automatically removes unhealthy instances from rotation. Auto Scaling Groups maintain the desired number of instances, replacing failed ones and scaling capacity based on load. For the database, use RDS Multi-AZ deployment — AWS automatically maintains a standby replica in a different AZ and fails over to it in seconds if the primary fails.</p>
-<h4>Cost Optimization for Production Workloads</h4>
-<p>Running production workloads cost-effectively on AWS requires ongoing attention. Right-size instances based on actual utilization — AWS Compute Optimizer analyzes your usage patterns and recommends appropriate instance types. Use Reserved Instances or Savings Plans for predictable workloads — committing to 1 or 3 years of usage in exchange for 30-60% discounts over on-demand pricing. Use Spot Instances for fault-tolerant batch processing — 60-90% discounts in exchange for the possibility of interruption. Implement auto-scaling to match capacity to actual demand rather than provisioning for peak load at all times. Review your AWS Cost Explorer monthly and investigate any unexpected cost increases immediately.</p>
-<h4>Final Project: Complete Deployment</h4>
-<p>Build a production-ready deployment of a web application on AWS: create a VPC with public and private subnets across two availability zones, deploy an Application Load Balancer in the public subnets, run your application on EC2 instances in an Auto Scaling Group in the private subnets, deploy an RDS database in the private subnets accessible only from the application instances, configure CloudWatch monitoring and alerting, and set up a deployment pipeline using CodeDeploy or GitHub Actions that deploys new versions with zero downtime. Document the architecture with a diagram and cost estimate. This project represents a production-grade AWS deployment and serves as a strong portfolio piece demonstrating real cloud engineering capability.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
-</div>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

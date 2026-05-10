@@ -1,264 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation | SRJahir Tech</title>
-  <meta name="description" content="Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns." />
-  <meta name="keywords" content="Bash scripting AWS, automate AWS Linux, cron jobs EC2, shell scripts cloud, Linux automation" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-8.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-29" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation | SRJahir Tech" />
-  <meta property="og:description" content="Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns." />
-  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-8.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Write practical Bash scripts to automate AWS and Linux tasks. Learn variables, loops, conditionals, cron jobs, and real automation patterns.", "datePublished": "2025-10-29", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/aws-linux-combo-part-8.html"}, "url": "https://srjahir.in/blogs/aws-linux-combo-part-8.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS Linux Tutorial Part 8 - Bash Scripting for AWS Automation | SRJahir Tech</title>
+<meta name="description" content="Write bash scripts to automate AWS: launch EC2, manage S3 backups, deploy apps, send alerts, and build complete AWS automation workflows."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-8.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="AWS Linux Tutorial Part 8 - Bash Scripting for AWS Automation"/>
+<meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-8.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-8-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-10-29"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS Linux Tutorial Part 8 - Bash Scripting for AWS Automation","url":"https://srjahir.in/blogs/aws-linux-combo-part-8.html","datePublished":"2025-10-29","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="aws-linux-combo-part-7.html">← Part 7</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 8 of 12</strong>
-  <a href="aws-linux-combo-part-9.html">Part 9 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>AWS Linux Tutorial -- Part 8: Bash Scripting for AWS</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-29 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="aws-linux-combo-part-7.html">&larr; Part 7</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 8 of 12</strong><a href="aws-linux-combo-part-9.html">Part 9 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/aws-part-8-terminal.svg" alt="AWS Linux Tutorial -- Part 8: Bash Scripting for AWS" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>The AWS CLI is powerful on its own, but combined with bash scripting, it becomes a complete automation platform. You can launch and configure EC2 instances programmatically, automate backups to S3, deploy applications, send alerts on failures, and build entire infrastructure workflows that run on schedule.</p>
+<h4>AWS CLI Query with --query</h4>
+<div class="code-title">Filter and format AWS CLI output</div>
+<pre><code class="language-bash"># Get only running instances
+aws ec2 describe-instances \
+  --filters "Name=instance-state-name,Values=running" \
+  --query "Reservations[*].Instances[*].[InstanceId,PublicIpAddress,Tags[?Key==Name].Value | [0]]" \
+  --output table
 
-<h3>AWS + Linux Combo — Part 8: Bash Scripting for AWS Automation</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 29, 2025 <span class="meta-dot"></span> 6 min read</p>
+# Get instance IDs only
+aws ec2 describe-instances \
+  --query "Reservations[*].Instances[*].InstanceId" \
+  --output text
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/aws-part-8-terminal.svg" alt="AWS + Linux — Bash Scripting" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS + Linux — Bash Scripting</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="aws-linux-combo-part-7.html">← Part 7</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 8 of 12</strong>
-  <a href="aws-linux-combo-part-9.html">Part 9 →</a>
-</div>
-
-<p>Bash scripting is the glue that holds Linux and AWS together in real-world environments. Rather than running commands manually every day, you write scripts that run them automatically. This is how real cloud operations work — almost everything is automated. In this part, we learn enough Bash to write useful automation scripts for our EC2 and AWS setup.</p>
-
-<h4>What is a Bash Script?</h4>
-<p>A Bash script is a plain text file containing a series of Linux commands. When you run the script, all those commands execute in sequence — exactly as if you had typed them one by one in your terminal. Scripts let you repeat complex workflows with a single command, run tasks at scheduled times, respond to conditions and errors, and build reproducible infrastructure setup processes.</p>
-
-<h4>Your First Bash Script</h4>
-<div class="code-title">hello.sh</div>
-<pre><code class="language-bash">#!/bin/bash
-# This line tells Linux to use bash to run this script
-
-echo "Hello, AWS automation!"
-echo "Today is: $(date)"
-echo "Server hostname: $(hostname)"
-echo "Logged in as: $(whoami)"</code></pre>
-<div class="code-title">Run the Script</div>
-<pre><code class="language-bash"># Make executable
-chmod +x hello.sh
-
-# Run it
-./hello.sh</code></pre>
-
-<h4>Variables in Bash</h4>
-<div class="code-title">Variables</div>
-<pre><code class="language-bash">#!/bin/bash
-
-# Assign variables (no spaces around =)
-NAME="Suraj"
-BUCKET="my-srjahir-bucket-2026"
-DATE=$(date +%Y-%m-%d)
-
-echo "Name: $NAME"
-echo "Bucket: $BUCKET"
-echo "Date: $DATE"
-
-# Read from environment
-REGION=${AWS_DEFAULT_REGION:-ap-south-1}  # use default if not set
-echo "Region: $REGION"</code></pre>
-
-<h4>Conditionals</h4>
-<div class="code-title">If/Else</div>
-<pre><code class="language-bash">#!/bin/bash
-
-FILE="/var/log/nginx/error.log"
-
-if [ -f "$FILE" ]; then
-    echo "Error log exists. Checking size..."
-    SIZE=$(wc -l < "$FILE")
-    if [ "$SIZE" -gt 1000 ]; then
-        echo "Warning: error log has $SIZE lines"
-    else
-        echo "Log size OK: $SIZE lines"
-    fi
-else
-    echo "No error log found"
-fi</code></pre>
-
-<h4>Loops</h4>
-<div class="code-title">For Loop</div>
-<pre><code class="language-bash">#!/bin/bash
-
-# Loop through a list
-for SERVICE in nginx ssh cron; do
-    STATUS=$(systemctl is-active $SERVICE)
-    echo "$SERVICE: $STATUS"
-done
-
-# Loop through files
-for FILE in /var/log/nginx/*.log; do
-    echo "Processing: $FILE"
-done</code></pre>
-
-<h4>Practical Script: Daily S3 Backup</h4>
-<div class="code-title">daily-backup.sh</div>
-<pre><code class="language-bash">#!/bin/bash
-
-BUCKET="my-srjahir-bucket-2026"
-DATE=$(date +%Y-%m-%d)
-BACKUP_DIR="/tmp/backup-${DATE}"
-LOG_FILE="/var/log/backup.log"
-
-echo "[$(date)] Starting backup..." >> "$LOG_FILE"
-
-# Create backup directory
-mkdir -p "$BACKUP_DIR"
-
-# Copy files to backup
-cp -r /var/www/html/ "$BACKUP_DIR/website"
-cp -r /etc/nginx/ "$BACKUP_DIR/nginx-config"
-
-# Compress everything
-tar -czf "/tmp/backup-${DATE}.tar.gz" -C /tmp "backup-${DATE}"
-
-# Upload to S3
-if aws s3 cp "/tmp/backup-${DATE}.tar.gz" "s3://${BUCKET}/backups/"; then
-    echo "[$(date)] Backup uploaded successfully" >> "$LOG_FILE"
-else
-    echo "[$(date)] ERROR: Backup upload failed" >> "$LOG_FILE"
-    exit 1
-fi
-
-# Clean up temp files
-rm -rf "$BACKUP_DIR" "/tmp/backup-${DATE}.tar.gz"
-
-echo "[$(date)] Backup complete" >> "$LOG_FILE"</code></pre>
-
-<h4>Scheduling with Cron</h4>
-<p>Cron is Linux's job scheduler. It runs scripts automatically at set times:</p>
-<div class="code-title">Crontab Setup</div>
-<pre><code class="language-bash"># Edit your crontab
-crontab -e
-
-# Cron syntax: minute hour day month weekday command
-# Run backup at 2 AM every day
-0 2 * * * /home/ec2-user/daily-backup.sh
-
-# Run every hour
-0 * * * * /home/ec2-user/check-logs.sh
-
-# Run every 5 minutes
-*/5 * * * * /home/ec2-user/health-check.sh
-
-# View scheduled jobs
-crontab -l</code></pre>
-
-<h4>Script: EC2 Health Check</h4>
-<div class="code-title">health-check.sh</div>
-<pre><code class="language-bash">#!/bin/bash
-
-# Check if Nginx is running, restart if not
-if ! systemctl is-active --quiet nginx; then
-    echo "[$(date)] Nginx is down. Restarting..." >> /var/log/health.log
-    sudo systemctl restart nginx
-    echo "[$(date)] Nginx restarted" >> /var/log/health.log
-fi
-
-# Check disk usage
-DISK_USAGE=$(df / | awk 'NR==2{print $5}' | tr -d '%')
-if [ "$DISK_USAGE" -gt 80 ]; then
-    echo "[$(date)] WARNING: Disk usage at ${DISK_USAGE}%" >> /var/log/health.log
-fi</code></pre>
-<p>This kind of script, scheduled to run every 5 minutes with cron, gives you basic self-healing capability for your server. In Part 9, we go deeper into the AWS CLI — controlling your entire infrastructure from the Linux terminal.</p>
-
-<h4>AWS SDK Integration in Bash Scripts</h4>
-<p>The AWS CLI supports all AWS API operations, making it possible to build powerful automation scripts without writing application code. Combine standard Linux tools with AWS CLI commands for sophisticated operations:</p>
-<div class="code-title">Automated Backup Script</div>
+# Get latest AMI ID for Ubuntu 22.04
+aws ec2 describe-images \
+  --owners 099720109477 \
+  --filters "Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*" \
+  --query "sort_by(Images, &CreationDate)[-1].ImageId" \
+  --output text</code></pre>
+<h4>Launch EC2 from Script</h4>
+<div class="code-title">Automated EC2 provisioning</div>
 <pre><code class="language-bash">#!/bin/bash
 set -euo pipefail
 
-BUCKET="my-backup-bucket"
-DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/tmp/backup_${DATE}"
+AMI_ID="ami-0287a05f0ef0e9d9a"  # Ubuntu 22.04 ap-south-1
+INSTANCE_TYPE="t3.micro"
+KEY_NAME="my-key"
+SECURITY_GROUP="sg-0123456789abcdef"
+SUBNET_ID="subnet-0123456789abcdef"
 
-# Create backup
-mkdir -p "$BACKUP_DIR"
-pg_dump myapp_db > "${BACKUP_DIR}/database.sql"
-tar czf "/tmp/backup_${DATE}.tar.gz" -C /tmp "backup_${DATE}"
+echo "Launching EC2 instance..."
+INSTANCE_ID=$(aws ec2 run-instances \
+  --image-id $AMI_ID \
+  --instance-type $INSTANCE_TYPE \
+  --key-name $KEY_NAME \
+  --security-group-ids $SECURITY_GROUP \
+  --subnet-id $SUBNET_ID \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=auto-server}]" \
+  --query "Instances[0].InstanceId" \
+  --output text)
 
-# Upload to S3
-aws s3 cp "/tmp/backup_${DATE}.tar.gz"     "s3://${BUCKET}/backups/backup_${DATE}.tar.gz"     --storage-class STANDARD_IA
+echo "Instance: $INSTANCE_ID"
+echo "Waiting for running state..."
+aws ec2 wait instance-running --instance-ids $INSTANCE_ID
 
-# Notify
-echo "Backup completed: backup_${DATE}.tar.gz" |     aws sns publish     --topic-arn "arn:aws:sns:ap-south-1:123456789:backup-notifications"     --message file:///dev/stdin
+PUBLIC_IP=$(aws ec2 describe-instances \
+  --instance-ids $INSTANCE_ID \
+  --query "Reservations[0].Instances[0].PublicIpAddress" \
+  --output text)
 
-# Cleanup
-rm -rf "$BACKUP_DIR" "/tmp/backup_${DATE}.tar.gz"
+echo "Ready! SSH: ssh -i my-key.pem ubuntu@$PUBLIC_IP"</code></pre>
+<h4>Deploy Application Script</h4>
+<div class="code-title">Automated deployment from S3</div>
+<pre><code class="language-bash">#!/bin/bash
+# deploy.sh -- Download and deploy app from S3
+set -e
 
-echo "Backup and upload complete"</code></pre>
-<h4>Using AWS Systems Manager Parameter Store</h4>
-<p>Rather than hardcoding configuration or storing secrets in environment files on instances, use AWS SSM Parameter Store or Secrets Manager. Scripts can retrieve configuration at runtime: <code>DB_PASSWORD=$(aws ssm get-parameter --name /myapp/db/password --with-decryption --query Parameter.Value --output text)</code>. This centralizes configuration management, provides encryption for sensitive values, enables easy rotation, and creates an audit trail of every parameter access.</p>
-<h4>Practice Exercise</h4>
-<p>Write a bash script that uses the AWS CLI to: list all EC2 instances in your account with their state and instance type, find all S3 buckets and report their sizes using <code>aws s3 ls --summarize --human-readable</code>, and store a test secret in SSM Parameter Store then retrieve it in the same script. Schedule the EC2 listing script to run daily using cron and log output to a file with timestamps.</p>
+APP_NAME="myapp"
+S3_BUCKET="my-deployments"
+VERSION=${1:-latest}
 
-<h4>Building Cloud Intuition Over Time</h4>
-<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+log() { echo "[$(date +%H:%M:%S)] $1"; }
 
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+log "Deploying $APP_NAME version $VERSION"
+
+# Download from S3
+aws s3 cp "s3://${S3_BUCKET}/${APP_NAME}-${VERSION}.tar.gz" /tmp/
+
+# Extract
+tar -xzf "/tmp/${APP_NAME}-${VERSION}.tar.gz" -C /opt/
+
+# Install dependencies
+cd /opt/$APP_NAME
+pip3 install -r requirements.txt
+
+# Restart service
+sudo systemctl restart $APP_NAME
+
+# Health check
+for i in $(seq 1 5); do
+    curl -sf http://localhost:8000/health && { log "Healthy!"; exit 0; }
+    log "Attempt $i failed, waiting..."
+    sleep 10
+done
+
+log "ERROR: Health check failed after deployment"
+exit 1</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">How do I pass AWS credentials to scripts?</h5><p>Preferred: Use IAM roles for EC2 -- no credentials in scripts. Alternative: aws configure sets credentials in ~/.aws/credentials. For CI/CD: use OIDC to assume roles, not stored keys. Never hardcode credentials in scripts or commit them to Git.</p>
+<h5 style="margin-bottom:8px;">How do I handle errors in AWS bash scripts?</h5><p>set -e exits on any error. set -u exits on undefined variables. set -o pipefail makes pipes fail properly. Use if aws command; then ... else ... fi for expected failures. Log errors to CloudWatch Logs for visibility.</p>
+<h5 style="margin-bottom:8px;">How do I wait for an EC2 instance to be ready?</h5><p>aws ec2 wait instance-running --instance-ids $ID waits until running state. aws ec2 wait instance-status-ok waits until all status checks pass. For SSH readiness: loop with ssh -o ConnectTimeout=5 until it succeeds.</p>
+<h5 style="margin-bottom:8px;">How do I tag resources from bash scripts?</h5><p>Pass --tag-specifications at creation time. Or use: aws ec2 create-tags --resources $ID --tags Key=Environment,Value=production Key=Project,Value=myapp. Always tag resources with environment, project, and owner for cost allocation and cleanup.</p>
+<h5 style="margin-bottom:8px;">How do I send notifications on script success or failure?</h5><p>Use AWS SNS: aws sns publish --topic-arn arn:aws:sns:... --message "Deploy done". Or Slack webhook: curl -X POST -d {"text":"Deploy complete"} $SLACK_WEBHOOK. Set up CloudWatch Alarms for automated monitoring alerts.</p>
 </div>
+<p>In <a href="aws-linux-combo-part-9.html">Part 9</a>, we master the AWS CLI with advanced queries, output formats, and profiles.</p>
+<div class="series-nav"><a href="aws-linux-combo-part-7.html">&larr; Part 7</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 8 of 12</strong><a href="aws-linux-combo-part-9.html">Part 9 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
+<h4>Real Automation Scripts Used in Production</h4>
+<div class="code-title">EC2 snapshot automation script</div>
+<pre><code class="language-bash">#!/bin/bash
+# Create EBS snapshots for all production instances
+set -euo pipefail
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+RETENTION_DAYS=7
+ENVIRONMENT="production"
+
+log() { echo "[$(date +%Y-%m-%dT%H:%M:%S)] $1"; }
+
+# Get all production instance IDs
+INSTANCES=$(aws ec2 describe-instances   --filters "Name=tag:Environment,Values=${ENVIRONMENT}"              "Name=instance-state-name,Values=running"   --query "Reservations[*].Instances[*].InstanceId"   --output text)
+
+for INSTANCE_ID in $INSTANCES; do
+    INSTANCE_NAME=$(aws ec2 describe-instances       --instance-ids $INSTANCE_ID       --query "Reservations[0].Instances[0].Tags[?Key=='Name'].Value | [0]"       --output text)
+    
+    # Get volumes attached to instance
+    VOLUMES=$(aws ec2 describe-volumes       --filters "Name=attachment.instance-id,Values=${INSTANCE_ID}"       --query "Volumes[*].VolumeId" --output text)
+    
+    for VOLUME_ID in $VOLUMES; do
+        SNAP_ID=$(aws ec2 create-snapshot           --volume-id $VOLUME_ID           --description "Automated backup of ${INSTANCE_NAME} ${INSTANCE_ID}"           --tag-specifications "ResourceType=snapshot,Tags=[
+            {Key=Name,Value=auto-${INSTANCE_NAME}-$(date +%Y%m%d)},
+            {Key=CreatedBy,Value=automation},
+            {Key=RetentionDays,Value=${RETENTION_DAYS}}
+          ]"           --query "SnapshotId" --output text)
+        log "Created snapshot ${SNAP_ID} for volume ${VOLUME_ID} (${INSTANCE_NAME})"
+    done
+done
+
+# Clean up old snapshots older than RETENTION_DAYS
+OLD_SNAPS=$(aws ec2 describe-snapshots   --filters "Name=tag:CreatedBy,Values=automation"   --query "Snapshots[?StartTime<='$(date -d "-${RETENTION_DAYS} days" +%Y-%m-%dT%H:%M:%S)'].SnapshotId"   --output text)
+
+for SNAP_ID in $OLD_SNAPS; do
+    aws ec2 delete-snapshot --snapshot-id $SNAP_ID
+    log "Deleted old snapshot: ${SNAP_ID}"
+done
+
+log "Backup automation complete"</code></pre>
+
+<h4>Automated Cost Report Script</h4>
+<div class="code-title">Daily AWS cost summary via email</div>
+<pre><code class="language-bash">#!/bin/bash
+# Send daily AWS cost summary
+
+YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+TODAY=$(date +%Y-%m-%d)
+
+COST=$(aws ce get-cost-and-usage   --time-period Start=$YESTERDAY,End=$TODAY   --granularity DAILY   --metrics BlendedCost   --query "ResultsByTime[0].Total.BlendedCost.Amount"   --output text)
+
+COST_ROUNDED=$(printf "%.2f" $COST)
+
+# Send via SES
+aws ses send-email   --from "alerts@mycompany.com"   --to "team@mycompany.com"   --subject "AWS Daily Cost: \$${COST_ROUNDED} for $YESTERDAY"   --text "AWS spend for $YESTERDAY: \$${COST_ROUNDED} USD"   --region us-east-1</code></pre>
+
+
+<h4>AWS CLI Pagination and Large Result Sets</h4>
+<div class="code-title">Handle results with thousands of items</div>
+<pre><code class="language-bash">#!/bin/bash
+# Process ALL EC2 instances across all regions
+
+REGIONS=$(aws ec2 describe-regions --query "Regions[*].RegionName" --output text)
+
+for REGION in $REGIONS; do
+    echo "=== Region: $REGION ==="
+    
+    # --paginate handles multiple pages automatically
+    aws ec2 describe-instances         --region $REGION         --query "Reservations[*].Instances[*].[InstanceId,State.Name,InstanceType,Tags[?Key=='Name'].Value|[0]]"         --output text 2>/dev/null
+done</code></pre>
+
+<h4>Parallel AWS Operations</h4>
+<div class="code-title">Run operations on multiple resources simultaneously</div>
+<pre><code class="language-bash">#!/bin/bash
+# Tag 100 instances in parallel (much faster than sequential)
+
+INSTANCES=$(aws ec2 describe-instances   --filters "Name=tag:Environment,Values=untagged"   --query "Reservations[*].Instances[*].InstanceId"   --output text)
+
+# Run 10 tagging operations in parallel using GNU parallel
+echo $INSTANCES | tr ' ' '
+' | parallel -j10   aws ec2 create-tags --resources {} --tags Key=Project,Value=myapp
+
+# Alternative: xargs with -P for parallel
+echo $INSTANCES | tr ' ' '
+' | xargs -P10 -I{}   aws ec2 create-tags --resources {} --tags Key=Project,Value=myapp</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

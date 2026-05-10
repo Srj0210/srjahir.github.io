@@ -1,194 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 6 — Data Structures (List, Tuple, Set, Dict) | SRJahir Tech</title>
-  <meta name="description" content="Learn Python data structures in depth — lists, tuples, sets, and dictionaries with real examples, methods, and when to use each one." />
-  <meta name="keywords" content="Python list tuple set dictionary, Python data structures, Python collections, Python beginners" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-6.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-21" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 6 — Data Structures (List, Tuple, Set, Dict) | SRJahir Tech" />
-  <meta property="og:description" content="Learn Python data structures in depth — lists, tuples, sets, and dictionaries with real examples, methods, and when to use each one." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-6.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 6 — Data Structures (List, Tuple, Set, Dict) | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn Python data structures in depth — lists, tuples, sets, and dictionaries with real examples, methods, and when to use each one.", "datePublished": "2025-12-21", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-6.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-6.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 6 - Data Structures and Collections | SRJahir Tech</title>
+<meta name="description" content="Deep dive into Python data structures. Master list manipulation, dict tricks, set operations, collections module, and choosing the right structure."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-6.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 6 - Data Structures and Collections"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-6.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-6-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-21"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 6 - Data Structures and Collections","url":"https://srjahir.in/blogs/python-tutorial-part-6.html","datePublished":"2025-12-21","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 6: Data Structures</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-21 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 6 of 12</strong><a href="python-tutorial-part-7.html">Part 7 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-6-terminal.svg" alt="Python Full Tutorial -- Part 6: Data Structures" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Knowing Python data structures superficially -- that lists exist, that dicts exist -- is enough to write beginner code. Using them well -- choosing a set for fast lookups, using Counter to count occurrences, knowing when to use deque instead of list -- is what professional Python looks like. This part covers the patterns you see in real codebases.</p>
+<h4>Advanced List Techniques</h4>
+<div class="code-title">Sorting, filtering, and manipulating lists</div>
+<pre><code class="language-bash">people = [
+    {"name": "Suraj", "age": 25, "city": "Mumbai"},
+    {"name": "Priya", "age": 28, "city": "Bangalore"},
+    {"name": "Raj",   "age": 22, "city": "Delhi"}
+]
+
+# Sort by age
+by_age = sorted(people, key=lambda p: p["age"])
+print([p["name"] for p in by_age])  # [Raj, Suraj, Priya]
+
+# Sort by multiple fields
+by_city_age = sorted(people, key=lambda p: (p["city"], p["age"]))
+
+# Filter
+mumbai_people = [p for p in people if p["city"] == "Mumbai"]
+
+# Remove duplicates preserving order
+nums = [3, 1, 2, 1, 3, 4]
+seen = set()
+unique = [x for x in nums if not (x in seen or seen.add(x))]
+print(unique)  # [3, 1, 2, 4]</code></pre>
+<h4>Dictionary Techniques</h4>
+<div class="code-title">Advanced dictionary patterns</div>
+<pre><code class="language-bash">from collections import defaultdict, Counter
+
+# Count word frequencies
+words = "the cat sat on the mat the cat".split()
+counter = Counter(words)
+print(counter.most_common(3))  # [(the, 3), (cat, 2), (sat, 1)]
+
+# defaultdict -- no KeyError for missing keys
+scores = defaultdict(list)
+scores["math"].append(90)
+scores["math"].append(85)
+scores["science"].append(92)
+
+# Merge dicts (Python 3.9+)
+defaults = {"timeout": 30, "debug": False, "retries": 3}
+overrides = {"timeout": 60, "debug": True}
+config = defaults | overrides
+print(config)  # {timeout: 60, debug: True, retries: 3}</code></pre>
+<h4>Sets for Fast Lookups</h4>
+<div class="code-title">Set operations</div>
+<pre><code class="language-bash">required = {"Python", "Docker", "Kubernetes"}
+have     = {"Python", "Docker", "Linux"}
+
+missing  = required - have   # {Kubernetes}
+common   = required & have   # {Python, Docker}
+all_s    = required | have   # All unique
+
+# O(1) membership testing -- use set not list
+valid_domains = {"gmail.com", "yahoo.com", "outlook.com"}
+if "gmail.com" in valid_domains:
+    print("Valid domain")</code></pre>
+<h4>collections Module</h4>
+<div class="code-title">Specialised data structures</div>
+<pre><code class="language-bash">from collections import deque, namedtuple, OrderedDict
+
+# deque: efficient queue (O(1) both ends)
+queue = deque()
+queue.append("first")
+queue.append("second")
+print(queue.popleft())  # first
+
+# Stack with deque
+stack = deque()
+stack.append("page1")
+stack.append("page2")
+print(stack.pop())  # page2 (LIFO)
+
+# namedtuple: tuple with named fields
+Point = namedtuple("Point", ["x", "y"])
+p = Point(3, 4)
+print(p.x, p.y)  # 3 4
+print(p)         # Point(x=3, y=4)</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">When to use list vs set?</h5><p>List when order matters or you need index access. Set when you need unique values or fast O(1) membership testing. Converting a list to set removes duplicates in O(n).</p>
+<h5 style="margin-bottom:8px;">How to sort a list of dicts?</h5><p>sorted(people, key=lambda p: p["age"]). For descending: reverse=True. Multiple keys: key=lambda p: (p["city"], p["age"]).</p>
+<h5 style="margin-bottom:8px;">What is Counter?</h5><p>Counter from collections automatically counts occurrences of each item. Counter(["a","b","a","c","a"]) gives Counter({a: 3, b: 1, c: 1}). Use .most_common(n) to get top n items.</p>
+<h5 style="margin-bottom:8px;">How do I merge two dicts?</h5><p>Python 3.9+: merged = dict1 | dict2. Python 3.5+: {**dict1, **dict2}. Right-side values win for duplicate keys.</p>
+<h5 style="margin-bottom:8px;">What is defaultdict?</h5><p>defaultdict from collections provides a default value for missing keys instead of raising KeyError. defaultdict(list) creates an empty list for any new key, making it perfect for grouping data.</p>
+</div>
+<p>In <a href="python-tutorial-part-7.html">Part 7</a>, we cover functions -- the most critical skill for writing reusable, maintainable Python.</p>
+<div class="series-nav"><a href="python-tutorial-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 6 of 12</strong><a href="python-tutorial-part-7.html">Part 7 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
+
+<h4>heapq for Priority Queues</h4>
+<div class="code-title">Efficient min/max heap operations</div>
+<pre><code class="language-bash">import heapq
+
+# Find top N items efficiently
+numbers = [34, 12, 67, 5, 89, 23, 45, 78, 2, 56]
+top_3 = heapq.nlargest(3, numbers)   # [89, 78, 67]
+bot_3 = heapq.nsmallest(3, numbers)  # [2, 5, 12]
+
+# Priority queue for task scheduling
+tasks = []
+heapq.heappush(tasks, (3, "low priority task"))
+heapq.heappush(tasks, (1, "CRITICAL task"))
+heapq.heappush(tasks, (2, "medium task"))
+
+while tasks:
+    priority, task = heapq.heappop(tasks)
+    print(f"Executing (priority {priority}): {task}")</code></pre>
+
+<h4>ChainMap for Configuration Merging</h4>
+<div class="code-title">Overlay configs without mutating dicts</div>
+<pre><code class="language-bash">from collections import ChainMap
+
+defaults = {"timeout": 30, "retries": 3, "debug": False, "region": "us-east-1"}
+env_config = {"timeout": 60, "debug": True}
+cli_args = {"region": "ap-south-1"}
+
+# cli_args overrides env_config overrides defaults
+config = ChainMap(cli_args, env_config, defaults)
+print(config["timeout"])  # 60 (from env_config)
+print(config["region"])   # ap-south-1 (from cli_args)
+print(config["retries"])  # 3 (from defaults)</code></pre>
+
+
+<h4>Efficient Data Processing with itertools</h4>
+<div class="code-title">Built-in tools for iteration</div>
+<pre><code class="language-bash">from itertools import groupby, chain, islice, product, combinations
+from collections import Counter, defaultdict
+
+# Group data by a field
+students = [
+    {"name": "Suraj", "grade": "A"},
+    {"name": "Raj", "grade": "B"},
+    {"name": "Priya", "grade": "A"},
+    {"name": "Anita", "grade": "B"},
+]
+
+# Sort first, then group
+students.sort(key=lambda s: s["grade"])
+for grade, group in groupby(students, key=lambda s: s["grade"]):
+    names = [s["name"] for s in group]
+    print(f"Grade {grade}: {', '.join(names)}")
+
+# Flatten nested lists
+nested = [[1, 2], [3, 4], [5, 6]]
+flat = list(chain.from_iterable(nested))
+print(flat)  # [1, 2, 3, 4, 5, 6]
+
+# Process in batches of N
+def batched(iterable, n):
+    it = iter(iterable)
+    while batch := list(islice(it, n)):
+        yield batch
+
+for batch in batched(range(1, 25), 5):
+    print(f"Processing: {batch}")</code></pre>
+
+
+<h4>Sorting Complex Data Structures</h4>
+<div class="code-title">Advanced sorting patterns</div>
+<pre><code class="language-bash">from dataclasses import dataclass, field
+from typing import List
+import heapq
+
+@dataclass
+class Student:
+    name: str
+    score: float
+    grade: str
     
-<div class="series-nav">
-  <a href="python-tutorial-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 6 of 12</strong>
-  <a href="python-tutorial-part-7.html">Part 7 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
+students = [
+    Student("Suraj", 95.5, "A"),
+    Student("Raj", 87.0, "B"),
+    Student("Priya", 95.5, "A"),
+    Student("Anita", 72.0, "C"),
+]
 
-<section class="content-block">
+# Sort by score descending, then name ascending
+sorted_s = sorted(students, key=lambda s: (-s.score, s.name))
+for s in sorted_s:
+    print(f"{s.name}: {s.score} ({s.grade})")
 
-<h3>Python Full Tutorial — Part 6: Data Structures</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 21, 2025 <span class="meta-dot"></span> 6 min read</p>
+# Top 3 by score
+top3 = heapq.nlargest(3, students, key=lambda s: s.score)
+print([s.name for s in top3])
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-6-terminal.svg" alt="Python — Python File I/O" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python File I/O</figcaption>
-</figure>
+# Group by grade
+from itertools import groupby
+by_grade = {}
+for s in sorted(students, key=lambda x: x.grade):
+    grade = s.grade
+    by_grade.setdefault(grade, []).append(s.name)
+print(by_grade)</code></pre>
 
-<div class="series-nav">
-  <a href="python-tutorial-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 6 of 12</strong>
-  <a href="python-tutorial-part-7.html">Part 7 →</a>
-</div>
-<p>Single variables store one value. Real programs work with collections — hundreds or thousands of values at once. Python gives you four powerful built-in data structures. Understanding when and how to use each one is a core skill.</p>
-<h4>1. List — Ordered, Mutable Collection</h4>
-<p>Lists store items in order and can be changed after creation:</p>
-<div class="code-title">List Operations</div>
-<pre><code class="language-python">students = ["Amit", "Sara", "Raj", "Priya"]
+<h4>Memory-Efficient Data Processing</h4>
+<div class="code-title">Generators vs lists for large data</div>
+<pre><code class="language-bash">import sys
 
-print(students[0])      # Amit (first item)
-print(students[-1])     # Priya (last item)
-print(students[1:3])    # ['Sara', 'Raj'] (slicing)
+# List: loads everything into memory
+squares_list = [x**2 for x in range(1_000_000)]
+print(f"List size: {sys.getsizeof(squares_list):,} bytes")  # ~8,000,000 bytes
 
-students.append("Kiran")   # Add to end
-students.insert(1, "Neha") # Insert at position 1
-students.remove("Raj")     # Remove by value
-popped = students.pop()    # Remove and return last item
+# Generator: lazy, generates one at a time
+squares_gen = (x**2 for x in range(1_000_000))
+print(f"Generator size: {sys.getsizeof(squares_gen):,} bytes")  # ~104 bytes
 
-print(len(students))    # Number of items
-students.sort()         # Sort alphabetically
-students.reverse()      # Reverse order</code></pre>
-<h4>2. Tuple — Ordered, Immutable Collection</h4>
-<p>Tuples are like lists but cannot be changed after creation. Use them for data that should not change:</p>
-<div class="code-title">Tuple Examples</div>
-<pre><code class="language-python">coordinates = (28.6139, 77.2090)  # Delhi lat/long
-rgb_red = (255, 0, 0)
-days = ("Mon", "Tue", "Wed", "Thu", "Fri")
+# Same results, but generator uses 99.999% less memory
+total_gen = sum(squares_gen)      # Sum without storing all values
+# Use generators for: large files, database results, API pagination</code></pre>
 
-lat, lng = coordinates  # Tuple unpacking
-print(lat, lng)</code></pre>
-<h4>3. Set — Unordered, No Duplicates</h4>
-<p>Sets automatically remove duplicates and support mathematical set operations:</p>
-<div class="code-title">Set Operations</div>
-<pre><code class="language-python">skills_a = {"Python", "Linux", "Docker"}
-skills_b = {"Docker", "Kubernetes", "AWS"}
-
-print(skills_a | skills_b)   # Union — all unique skills
-print(skills_a & skills_b)   # Intersection — common skills
-print(skills_a - skills_b)   # Difference — only in A
-
-# Remove duplicates from a list
-names = ["Amit", "Sara", "Amit", "Raj", "Sara"]
-unique_names = list(set(names))
-print(unique_names)</code></pre>
-<h4>4. Dictionary — Key-Value Pairs</h4>
-<p>Dictionaries store data as key-value pairs. They are incredibly useful for representing real-world objects:</p>
-<div class="code-title">Dictionary Operations</div>
-<pre><code class="language-python">student = {
-    "name": "Suraj Ahir",
-    "age": 22,
-    "city": "Rajkot",
-    "skills": ["Python", "Linux", "Docker"]
-}
-
-print(student["name"])          # Access by key
-print(student.get("email", "Not found"))  # Safe access
-
-student["email"] = "suraj@example.com"  # Add key
-student["age"] = 23                      # Update value
-del student["city"]                      # Delete key
-
-for key, value in student.items():
-    print(f"{key}: {value}")</code></pre>
-<h4>Choosing the Right Data Structure</h4>
-<ul>
-  <li><strong>List</strong> — Ordered collection that changes. Shopping cart, student list, log entries.</li>
-  <li><strong>Tuple</strong> — Fixed data that should not change. Coordinates, RGB colors, database records.</li>
-  <li><strong>Set</strong> — Unique items, fast membership testing. Tag systems, deduplication.</li>
-  <li><strong>Dictionary</strong> — Structured data with labels. User profiles, API responses, configuration.</li>
-</ul>
-<p>In Part 7, we build functions — the tool that lets you write code once and use it everywhere.</p>
-
-
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
-
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
-
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>Choosing the Right Data Structure</h4>
-<p>The choice of data structure is one of the most consequential decisions in writing efficient code. Use a list when you need an ordered, indexable collection where duplicates are allowed and the order of insertion matters. Use a dictionary when you need to look up values by a meaningful key rather than a numeric index — this is far more efficient than searching through a list. Use a set when you need to check membership, eliminate duplicates, or perform set operations like union or intersection. Use a tuple for fixed, immutable sequences — function return values, database records, or any collection that should not change after creation.</p>
-<h4>Dictionary Comprehensions and Advanced Usage</h4>
-<p>Just as list comprehensions provide concise list creation, dictionary comprehensions provide concise dictionary creation:</p>
-<div class="code-title">Dictionary Comprehension</div>
-<pre><code class="language-python">names = ["Alice", "Bob", "Charlie"]
-scores = [88, 95, 72]
-
-# Create dict mapping name -> score
-grade_book = {name: score for name, score in zip(names, scores)}
-# Result: {"Alice": 88, "Bob": 95, "Charlie": 72}
-
-# Filter: only those who passed
-passing = {name: score for name, score in grade_book.items() if score >= 80}
-# Result: {"Alice": 88, "Bob": 95}
-
-# Square numbers mapped to their labels
-square_map = {n: n**2 for n in range(1, 6)}
-# Result: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}</code></pre>
-<h4>Practice Exercise</h4>
-<p>Create a contact book program using a dictionary. Allow the user to add contacts (name as key, phone number as value), look up a contact by name, and list all contacts. Store the contacts in a dictionary and use dictionary methods like <code>.get()</code> for safe lookup, <code>.items()</code> for iteration, and check membership using the <code>in</code> operator to avoid duplicate entries.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
-</div>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

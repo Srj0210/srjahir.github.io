@@ -1,95 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 6 — CI/CD Pipelines Explained | SRJahir Tech</title>
-  <meta name="description" content="Understand CI/CD pipelines from scratch. Learn what continuous integration and delivery mean, how to build pipelines with GitHub Actions, and best practices for automated testing and deployment." />
-  <meta name="keywords" content="CI/CD tutorial DevOps, GitHub Actions CI/CD, continuous integration delivery, automated testing deployment pipeline" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-6.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 6 - CI/CD Pipelines with GitHub Actions | SRJahir Tech</title><meta name="description" content="Build complete CI/CD pipelines with GitHub Actions. Learn workflow syntax, jobs, steps, secrets, matrix builds, and deploying to production automatically."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-6.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 6 - CI/CD Pipelines with GitHub Actions"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-6.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-6-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-04"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 6 - CI/CD Pipelines with GitHub Actions","url":"https://srjahir.in/blogs/devops-roadmap-part-6.html","datePublished":"2025-11-04","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 6: CI/CD Pipelines</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-04 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 6 of 12</strong><a href="devops-roadmap-part-7.html">Part 7 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-6-terminal.svg" alt="DevOps Roadmap -- Part 6: CI/CD Pipelines" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>CI/CD pipelines are the engine of modern software delivery. Without automation, deployments are manual, error-prone, and infrequent. With a well-built pipeline, every code change is automatically tested, built, scanned for security issues, and deployed -- in minutes, not days. GitHub Actions has made building these pipelines accessible to any team using GitHub.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-04" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 6 — CI/CD Pipelines Explained | SRJahir Tech" />
-  <meta property="og:description" content="Understand CI/CD pipelines from scratch. Learn what continuous integration and delivery mean, how to build pipelines with GitHub Actions, and best practices for automated testing and deployment." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-6.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 6 — CI/CD Pipelines Explained | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-04", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-6.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-6.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 6 of 12</strong>
-  <a href="devops-roadmap-part-7.html">Part 7 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 6: CI/CD Pipelines</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 04, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-6-terminal.svg" alt="Kubernetes Basics" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes Basics</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="devops-roadmap-part-5.html">← Part 5</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 6 of 12</strong>
-  <a href="devops-roadmap-part-7.html">Part 7 →</a>
-</div>
-<p>CI/CD is one of the most important practices in modern software delivery. It is what separates teams that deploy once a month with high stress and frequent rollbacks from teams that deploy dozens of times a day with confidence. In this part, we will understand what CI/CD really means and build real pipelines from scratch.</p>
-
-<h4>What is CI/CD?</h4>
-<p><strong>Continuous Integration (CI)</strong> means that every code change automatically triggers a series of automated checks: the code is built, tests are run, and the team gets immediate feedback on whether the change is safe. The goal is to catch integration problems early, when they are small and cheap to fix.</p>
-<p><strong>Continuous Deployment (CD)</strong> means that code that passes CI is automatically deployed to staging or production without manual intervention. The goal is to reduce the time between writing code and delivering it to users.</p>
-<p>Together, CI/CD turns software delivery from a risky, manual event into a routine, automated process. Quality goes up, stress goes down, and teams ship faster.</p>
-
-<h4>CI/CD Pipeline Stages</h4>
-<p>A typical pipeline runs these stages in sequence:</p>
-<ol>
-  <li><strong>Source</strong> — Developer pushes code to Git repository</li>
-  <li><strong>Build</strong> — Code is compiled or packaged (Docker image built, JAR created, etc.)</li>
-  <li><strong>Test</strong> — Unit tests, integration tests, security scans run automatically</li>
-  <li><strong>Staging Deploy</strong> — Successful builds are deployed to a staging environment</li>
-  <li><strong>Acceptance Tests</strong> — Automated or manual testing in staging</li>
-  <li><strong>Production Deploy</strong> — After approval, the build is deployed to production</li>
-</ol>
-
-<h4>GitHub Actions — Real Pipeline</h4>
-<div class="code-title">.github/workflows/ci.yml</div>
-<pre><code class="language-bash">name: CI/CD Pipeline
+<h4>GitHub Actions Fundamentals</h4>
+<div class="code-title">Basic workflow structure (.github/workflows/ci.yml)</div>
+<pre><code class="language-bash">name: CI Pipeline
 
 on:
   push:
@@ -100,110 +13,206 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-
+          python-version: "3.11"
+      
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest pytest-cov
+          pip install pytest
+      
+      - name: Run tests
+        run: pytest tests/ -v --tb=short</code></pre>
 
-      - name: Run tests with coverage
-        run: pytest tests/ -v --cov=. --cov-report=xml
-
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v3
-
-  build:
-    needs: test
+<h4>Multi-Job Pipeline with Dependencies</h4>
+<div class="code-title">Test then build then deploy</div>
+<pre><code class="language-bash">jobs:
+  test:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+      - run: pytest tests/ -v
 
+  build:
+    needs: test            # Only runs if test passes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:${{ github.sha }} .
+          docker push myapp:${{ github.sha }}
+
+  deploy:
+    needs: build           # Only runs if build passes
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Only on main branch
+    steps:
+      - name: Deploy to production
+        run: |
+          ssh user@server "docker pull myapp:${{ github.sha }} && docker compose up -d"</code></pre>
+
+<h4>Secrets and Environment Variables</h4>
+<div class="code-title">Secure credentials in pipelines</div>
+<pre><code class="language-bash"># In GitHub repo: Settings > Secrets and variables > Actions
+# Add: DOCKER_PASSWORD, AWS_ACCESS_KEY_ID, etc.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: production                       # Plain variable
+    steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ vars.DOCKER_USERNAME }}  # Variable (not secret)
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Secret (masked)
+      
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1</code></pre>
 
-      - name: Build and push
+<h4>Matrix Builds: Test Across Versions</h4>
+<div class="code-title">Run tests on multiple Python versions</div>
+<pre><code class="language-bash">jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+        os: [ubuntu-latest, macos-latest]
+    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pytest tests/ -v</code></pre>
+
+<h4>Complete Production Pipeline</h4>
+<div class="code-title">Real-world CI/CD for a Docker app</div>
+<pre><code class="language-bash">name: Production Deploy
+
+on:
+  push:
+    tags: ["v*"]  # Trigger only on version tags
+
+jobs:
+  build-push-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: yourusername/myapp:${{ github.sha }},yourusername/myapp:latest
+          tags: |
+            myrepo/myapp:${{ github.ref_name }}
+            myrepo/myapp:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Run smoke tests
+        run: |
+          docker run --rm myrepo/myapp:${{ github.ref_name }} pytest tests/smoke/
+      
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/myapp             myapp=myrepo/myapp:${{ github.ref_name }}
+          kubectl rollout status deployment/myapp
+      
+      - name: Rollback on failure
+        if: failure()
+        run: kubectl rollout undo deployment/myapp</code></pre>
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    environment: production
-    steps:
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            docker pull yourusername/myapp:latest
-            docker compose up -d</code></pre>
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between CI and CD?</h5>
+  <p>CI (Continuous Integration) automatically builds and tests code on every commit. CD (Continuous Delivery) automatically deploys passing builds to staging or production. CI without CD is common -- CD without CI is dangerous. Together they create a fast, reliable delivery pipeline.</p>
+  <h5>How do I cache dependencies in GitHub Actions?</h5>
+  <p>Use actions/cache: key: pip-${{ hashFiles("requirements.txt") }} with path: ~/.cache/pip. Or use setup-python with cache: "pip" which handles caching automatically. Caching dependencies can reduce pipeline time from 3 minutes to 30 seconds.</p>
+  <h5>How do I run a pipeline only for specific files?</h5>
+  <p>Use on: push: paths: - "src/**" - "tests/**". This only triggers the pipeline when files matching those patterns are changed. Useful for monorepos where you do not want a frontend change to trigger backend deployment.</p>
+  <h5>What are GitHub Actions reusable workflows?</h5>
+  <p>Reusable workflows let you define a workflow once and call it from other workflows. Instead of copying your build steps to 10 repositories, define them in one central workflow and call it with: uses: myorg/workflows/.github/workflows/build.yml@main</p>
+  <h5>How do I handle secrets in CI/CD securely?</h5>
+  <p>Store secrets in GitHub Secrets (never in code). Use environment-scoped secrets for staging vs production. Consider OIDC (OpenID Connect) to get temporary cloud credentials instead of storing long-lived access keys. Rotate secrets regularly and audit access logs.</p>
+</div>
+<p>In <a href="devops-roadmap-part-7.html">Part 7</a>, we cover Terraform -- the infrastructure as code tool that lets you provision and manage cloud resources with version-controlled configuration files.</p><div class="series-nav"><a href="devops-roadmap-part-5.html">&larr; Part 5</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 6 of 12</strong><a href="devops-roadmap-part-7.html">Part 7 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>Advanced GitHub Actions Patterns</h4>
+<div class="code-title">Reusable workflows for multiple repositories</div>
+<pre><code class="language-bash"># .github/workflows/reusable-build.yml (in a central repo)
+name: Reusable Build and Push
 
-<h4>Pipeline Best Practices</h4>
-<ul>
-  <li><strong>Fail fast</strong> — Run the quickest checks first. Unit tests before integration tests. Lint before build.</li>
-  <li><strong>Keep pipelines fast</strong> — Slow pipelines get ignored. Target under 10 minutes for CI.</li>
-  <li><strong>Use caching</strong> — Cache dependencies, Docker layers, and build artifacts between runs.</li>
-  <li><strong>Test in isolation</strong> — Each test should be independent. No shared state between tests.</li>
-  <li><strong>Never skip tests</strong> — Pressure to skip tests for speed leads to production incidents.</li>
-  <li><strong>Protect main branch</strong> — Require pull request reviews and passing CI before merging.</li>
-</ul>
-
-<h4>Environment-Specific Deployments</h4>
-<div class="code-title">Multi-Environment Pipeline</div>
-<pre><code class="language-bash">on:
-  push:
-    branches:
-      - develop    # → deploys to staging
-      - main       # → deploys to production
+on:
+  workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
+      dockerfile-path:
+        required: false
+        type: string
+        default: "./Dockerfile"
+    secrets:
+      ecr-registry:
+        required: true
 
 jobs:
-  deploy-staging:
-    if: github.ref == 'refs/heads/develop'
-    environment: staging
-    # ... staging deploy steps
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and push
+        run: |
+          docker build -f ${{ inputs.dockerfile-path }}             -t ${{ secrets.ecr-registry }}/${{ inputs.image-name }}:${{ github.sha }} .
+          docker push ${{ secrets.ecr-registry }}/${{ inputs.image-name }}:${{ github.sha }}</code></pre>
 
-  deploy-production:
-    if: github.ref == 'refs/heads/main'
-    environment: production
-    # ... production deploy steps with approval gate</code></pre>
+<div class="code-title">Call the reusable workflow from any repository</div>
+<pre><code class="language-bash">name: Deploy
+on: push
+jobs:
+  build:
+    uses: myorg/shared-workflows/.github/workflows/reusable-build.yml@main
+    with:
+      image-name: my-api
+    secrets:
+      ecr-registry: ${{ secrets.ECR_REGISTRY }}</code></pre>
 
-<p>In Part 7, we will cover Infrastructure as Code with Terraform — how DevOps teams manage cloud resources through code instead of clicking through web consoles.</p>
-<h4>Pipeline as Code Best Practices</h4>
-<p>Defining CI/CD pipelines in code files checked into version control provides the same benefits as infrastructure as code: auditability, reproducibility, and collaborative improvement. Store pipeline definitions alongside the application code they build — this creates a clear relationship and ensures pipeline changes go through the same review process as code changes. Use reusable pipeline components where your CI/CD tool supports them — GitHub Actions reusable workflows, GitLab CI includes, Jenkins shared libraries — to avoid duplicating pipeline logic across repositories. Version your pipeline actions and dependencies explicitly rather than using floating tags that could change without notice.</p>
-<h4>Security in CI/CD Pipelines</h4>
-<p>CI/CD pipelines have access to production systems and sensitive credentials, making them high-value targets. Follow these security practices: store all credentials as secrets, never in pipeline code or logs. Use short-lived credentials where possible — OIDC (OpenID Connect) integration between GitHub Actions and AWS/GCP/Azure provides temporary credentials without stored secrets. Scan code for secrets before commits using tools like git-secrets or Gitleaks. Scan dependencies for vulnerabilities in the pipeline. Use separate pipelines with minimal permissions for different environments, especially production. Require manual approval gates for production deployments.</p>
-<h4>Practice Exercise</h4>
-<p>Set up a complete CI/CD pipeline for a simple web application using GitHub Actions: trigger on push to main, run linting and tests, build a Docker image, push to Docker Hub using stored secrets, and deploy to a simple hosting environment. Add a status badge to your README.md showing the CI pipeline status. Verify the pipeline runs end-to-end successfully by pushing a change and following the pipeline execution in the Actions tab.</p>
+<h4>Pipeline Security Scanning</h4>
+<div class="code-title">Add security scanning to every pipeline</div>
+<pre><code class="language-bash">  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Scan Docker image for vulnerabilities
+      - name: Trivy image scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: myapp:${{ github.sha }}
+          exit-code: "1"            # Fail pipeline on CRITICAL vulns
+          severity: "CRITICAL,HIGH"
+      
+      # SAST: scan source code
+      - name: Bandit Python security scan
+        run: pip install bandit && bandit -r ./src/ -x ./tests/
+      
+      # Secret scanning
+      - name: Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@v2</code></pre>
 
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<p>Consistent application of the principles covered here, combined with ongoing learning and hands-on practice, is what separates those who understand technology conceptually from those who can build and operate real systems. The investment in depth pays dividends for years. Keep learning, keep building, and keep asking the questions that drive deeper understanding.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
-</div>
-</section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

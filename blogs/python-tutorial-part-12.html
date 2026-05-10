@@ -1,213 +1,287 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>Python Tutorial Part 12 — Virtual Environments & Real Project Setup | SRJahir Tech</title>
-  <meta name="description" content="Learn how to set up Python virtual environments properly, manage dependencies, use .env files, and structure a real Python project like a professional." />
-  <meta name="keywords" content="Python virtual environment, Python venv, Python project structure, Python dotenv, Python professional setup" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-12.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-01-14" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python Tutorial Part 12 — Virtual Environments & Real Project Setup | SRJahir Tech" />
-  <meta property="og:description" content="Learn how to set up Python virtual environments properly, manage dependencies, use .env files, and structure a real Python project like a professional." />
-  <meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-12.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Python Tutorial Part 12 — Virtual Environments & Real Project Setup | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Learn how to set up Python virtual environments properly, manage dependencies, use .env files, and structure a real Python project like a professional.", "datePublished": "2026-01-14", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/python-tutorial-part-12.html"}, "url": "https://srjahir.in/blogs/python-tutorial-part-12.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Full Tutorial Part 12 - Virtual Environments and Real Project | SRJahir Tech</title>
+<meta name="description" content="Build a complete Python project: virtual environment, project structure, pytest testing, logging, and a real DevOps automation script."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/python-tutorial-part-12.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="Python Full Tutorial Part 12 - Virtual Environments and Real Project"/>
+<meta property="og:url" content="https://srjahir.in/blogs/python-tutorial-part-12.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/python-part-12-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2026-01-14"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Python Full Tutorial Part 12 - Virtual Environments and Real Project","url":"https://srjahir.in/blogs/python-tutorial-part-12.html","datePublished":"2026-01-14","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body>
 <div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="python-tutorial-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 12 of 12</strong>
-  <span></span>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Python Full Tutorial -- Part 12: Virtual Environments &amp; Real Project Setup</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2026-01-14 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="python-tutorial-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 12 of 12</strong><span></span></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/python-part-12-terminal.svg" alt="Python Full Tutorial -- Part 12: Virtual Environments &amp; Real Project Setup" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>This final part combines everything from the series into a professional Python project. We set up the project properly, structure the code, write tests, add logging, and build a real server monitoring automation tool. This is how Python projects look in production teams -- not toy examples, but maintainable, testable, deployable code.</p>
+<h4>Project Setup from Scratch</h4>
+<div class="code-title">Initialise a professional project</div>
+<pre><code class="language-bash">mkdir server-monitor && cd server-monitor
 
-<section class="content-block">
-
-<h3>Python Full Tutorial — Part 12: Virtual Environments &amp; Real Project Setup</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> January 14, 2026 <span class="meta-dot"></span> 7 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/python-part-12-terminal.svg" alt="Python — Python Project — Final" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Python — Python Project — Final</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="python-tutorial-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Python Tutorial · Part 12 of 12</strong>
-  <span></span>
-</div>
-<p>You have made it to the final part of the Python series. Everything before this was about the language. This part is about the craft — how professional Python developers set up, organize, and manage real projects. This is what separates someone who "knows Python" from someone who can ship production-ready code.</p>
-<h4>Why Virtual Environments Matter</h4>
-<p>Imagine you have two projects. Project A needs Django 3.2. Project B needs Django 4.2. If you install everything globally, they will conflict. Virtual environments solve this by giving each project its own isolated Python environment with its own packages.</p>
-<h4>Creating and Using a Virtual Environment</h4>
-<div class="code-title">Virtual Environment Setup</div>
-<pre><code class="language-bash"># Create a virtual environment
-python -m venv venv
-
-# Activate it (Linux/Mac)
+python3 -m venv venv
 source venv/bin/activate
 
-# Activate it (Windows)
-venv\Scriptsctivate
+mkdir -p src tests
+touch src/__init__.py
+touch src/monitor.py
+touch src/alerts.py
+touch tests/__init__.py
+touch tests/test_monitor.py
+touch .env.example .gitignore README.md
 
-# Your prompt changes: (venv) suraj@ubuntu:~/project$
-# Now install packages — they stay inside this venv
-pip install flask requests pandas
+pip install psutil requests python-dotenv pytest
+pip freeze > requirements.txt</code></pre>
+<h4>The Application Code</h4>
+<div class="code-title">src/monitor.py</div>
+<pre><code class="language-bash">import psutil
+import logging
+from dataclasses import dataclass
+from datetime import datetime
 
-# Deactivate when done
-deactivate</code></pre>
-<h4>requirements.txt — Locking Dependencies</h4>
-<div class="code-title">Freeze and Restore Dependencies</div>
-<pre><code class="language-bash"># Save all installed packages to requirements.txt
-pip freeze > requirements.txt
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
 
-# Anyone can recreate your environment with:
-pip install -r requirements.txt</code></pre>
-<h4>Environment Variables with .env Files</h4>
-<p>Never hardcode secrets — API keys, passwords, database URLs — in your code. Use environment variables:</p>
-<div class="code-title">.env File</div>
-<pre><code class="language-bash">DATABASE_URL=postgresql://localhost/mydb
-SECRET_KEY=your-very-secret-key-here
-API_KEY=sk-abc123xyz
-DEBUG=True</code></pre>
-<div class="code-title">Reading .env in Python</div>
-<pre><code class="language-python">from dotenv import load_dotenv
-import os
+@dataclass
+class Metrics:
+    cpu: float
+    memory: float
+    disk: float
+    timestamp: datetime
+    
+    def is_critical(self, cpu_thresh=90, mem_thresh=85):
+        return self.cpu > cpu_thresh or self.memory > mem_thresh
 
-load_dotenv()  # Load .env file
+def collect():
+    return Metrics(
+        cpu=psutil.cpu_percent(interval=1),
+        memory=psutil.virtual_memory().percent,
+        disk=psutil.disk_usage("/").percent,
+        timestamp=datetime.now()
+    )
 
-db_url = os.getenv("DATABASE_URL")
-secret = os.getenv("SECRET_KEY")
-print(f"Connecting to: {db_url}")</code></pre>
-<p>Always add <code>.env</code> to your <code>.gitignore</code> — never commit secrets to version control.</p>
-<h4>Professional Python Project Structure</h4>
-<div class="code-title">Real Project Layout</div>
-<pre><code class="language-bash">my_project/
-├── src/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── models/
-│   │   └── user.py
-│   ├── utils/
-│   │   └── helpers.py
-│   └── api/
-│       └── routes.py
-├── tests/
-│   └── test_main.py
-├── .env              # Secrets (not in git)
-├── .gitignore
-├── requirements.txt
-├── README.md
-└── Dockerfile</code></pre>
-<h4>Writing a .gitignore</h4>
-<div class="code-title">.gitignore for Python Projects</div>
-<pre><code class="language-bash">venv/
+def check_and_report():
+    m = collect()
+    logger.info(f"CPU: {m.cpu}% | Memory: {m.memory}% | Disk: {m.disk}%")
+    if m.is_critical():
+        logger.warning("ALERT: Critical resource usage!")
+        return False
+    return True</code></pre>
+<h4>Tests with pytest</h4>
+<div class="code-title">tests/test_monitor.py</div>
+<pre><code class="language-bash">import pytest
+from datetime import datetime
+from src.monitor import Metrics
+
+def test_not_critical():
+    m = Metrics(50.0, 60.0, 40.0, datetime.now())
+    assert not m.is_critical()
+
+def test_critical_cpu():
+    m = Metrics(95.0, 50.0, 50.0, datetime.now())
+    assert m.is_critical()
+
+def test_custom_threshold():
+    m = Metrics(75.0, 70.0, 65.0, datetime.now())
+    assert m.is_critical(cpu_thresh=70)   # 75 > 70
+    assert not m.is_critical(cpu_thresh=80)</code></pre>
+<div class="code-title">Run tests</div>
+<pre><code class="language-bash">pytest tests/ -v
+# tests/test_monitor.py::test_not_critical PASSED
+# tests/test_monitor.py::test_critical_cpu PASSED
+# tests/test_monitor.py::test_custom_threshold PASSED
+
+pytest tests/ -v --tb=short  # Shorter error output
+pytest tests/ -x             # Stop on first failure</code></pre>
+<h4>Environment Configuration</h4>
+<div class="code-title">.env and .env.example</div>
+<pre><code class="language-bash"># .env.example (commit this -- template for others)
+CPU_THRESHOLD=90
+MEMORY_THRESHOLD=85
+ALERT_WEBHOOK=https://hooks.slack.com/services/YOUR/HOOK
+
+# .gitignore (never commit .env)
+.env
+venv/
 __pycache__/
 *.pyc
+.pytest_cache/</code></pre>
+<div class="code-title">Using env vars in code</div>
+<pre><code class="language-bash">from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load from .env file
+
+CPU_THRESH = int(os.getenv("CPU_THRESHOLD", "90"))
+MEM_THRESH = int(os.getenv("MEMORY_THRESHOLD", "85"))
+WEBHOOK    = os.getenv("ALERT_WEBHOOK")  # None if not set</code></pre>
+<h4>Standard .gitignore for Python</h4>
+<div class="code-title">.gitignore</div>
+<pre><code class="language-bash">venv/
 .env
-*.log
-.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
 dist/
 build/
-*.egg-info/</code></pre>
-<h4>Where to Go From Here</h4>
-<p>You have completed the Python foundation. Here is what to explore next based on your goals:</p>
-<ul>
-  <li><strong>Web Development</strong> — Learn Flask (lightweight) or Django (full-featured)</li>
-  <li><strong>Data Science</strong> — pandas, NumPy, Matplotlib, then Scikit-learn</li>
-  <li><strong>AI/ML</strong> — TensorFlow or PyTorch after you are solid with pandas/NumPy</li>
-  <li><strong>Automation</strong> — Selenium for browser automation, Paramiko for SSH, schedule for cron jobs</li>
-  <li><strong>APIs</strong> — Build REST APIs with FastAPI or Flask</li>
-  <li><strong>DevOps</strong> — Use Python for Ansible playbooks, AWS Lambda, automation scripts</li>
-</ul>
-<p>The most important next step is to build something real. Pick a small project that solves a problem you actually have and build it using what you have learned. Nothing in this series matters as much as the first project you build yourself.</p>
-<p>Thank you for following the SRJahir Tech Python series. Keep learning, keep building.</p>
-
-
-  <h4>Common Mistakes Beginners Make</h4>
-  <p>Learning from common pitfalls saves hours of frustration. Here are the mistakes most beginners make in this area and how to avoid them.</p>
-  <p>The first mistake is trying to memorize syntax before understanding logic. Python syntax is simple — you could memorize it in a day. But if you do not understand <em>why</em> you are writing what you are writing, you will not be able to adapt when things change or when a problem looks slightly different. Always ask: what problem does this solve?</p>
-  <p>The second mistake is writing very long functions or very long scripts without breaking them into logical units. Real professional code is made of small, focused pieces that each do one thing well. The moment your code does two or three unrelated things in one block, it is time to split it up.</p>
-  <p>The third mistake is not reading error messages. Python's error messages are actually quite good. They tell you the file, the line number, the type of error, and often a description. Read the entire error before searching online. The answer is usually right there.</p>
-
-  <h4>How This Topic Appears in Real Projects</h4>
-  <p>In real codebases, every concept from this tutorial series appears constantly. Backend web applications built with Flask or Django use functions, classes, data structures, and error handling throughout every route and service. Data pipelines use loops and comprehensions to process thousands of records efficiently. CLI tools use argument parsing, file handling, and process management. DevOps automation scripts combine shell integration with Python logic to orchestrate deployments, monitor systems, and handle alerts.</p>
-  <p>The concepts that feel abstract right now will click into place the moment you start building something real. That is why the best way to learn is to pick a small project that solves a problem you actually have — even something simple like a personal expense tracker or a file organizer — and build it using everything you have learned so far.</p>
-
-  <h4>Practice Exercise</h4>
-  <p>Before moving to the next part, write a small program that uses what you learned in this section. Do not copy from anywhere. Start with a blank file and build it from memory. The struggle is the learning. If you get stuck, read the code examples again — do not just copy them. Understand each line, then close the examples and write the program yourself. This is how programming actually sticks.</p>
-
-  <h4>Dependency Management with requirements.txt and pyproject.toml</h4>
-<p>In professional Python projects, tracking and sharing your project's dependencies is essential. The traditional approach uses a <code>requirements.txt</code> file — a plain text list of package names and versions that can be installed with <code>pip install -r requirements.txt</code>. Generate this file from your current environment with <code>pip freeze > requirements.txt</code>. Modern Python projects increasingly use <code>pyproject.toml</code> — a more comprehensive project configuration file that supports dependency specification, build configuration, and tool settings in a single standardized location. Understanding both formats is important since you will encounter both in real codebases.</p>
-<h4>Project Structure Best Practices</h4>
-<p>Well-organized Python projects follow consistent structural conventions that make them easier to navigate, test, and share:</p>
-<div class="code-title">Typical Python Project Structure</div>
-<pre><code class="language-bash">my_project/
-├── src/
-│   └── my_package/
-│       ├── __init__.py
-│       ├── main.py
-│       └── utils.py
-├── tests/
-│   ├── __init__.py
-│   └── test_main.py
-├── .env              # Environment variables (never commit this)
-├── .gitignore        # Tells git what to ignore
-├── requirements.txt  # Project dependencies
-├── README.md         # Project documentation
-└── pyproject.toml    # Project configuration</code></pre>
-<p>The <code>__init__.py</code> files mark directories as Python packages. The separation of source code (in <code>src/</code>) from tests (in <code>tests/</code>) is a widely adopted convention. Keeping environment-specific configuration in <code>.env</code> files (and never committing them to version control) prevents accidentally exposing secrets.</p>
-<h4>Your Next Steps as a Python Developer</h4>
-<p>Having completed this twelve-part tutorial series, you have covered the core of the Python language. Your next steps depend on your goals: for web development, explore Flask or Django. For data science and machine learning, explore NumPy, pandas, and scikit-learn. For automation and DevOps, explore the <code>os</code>, <code>subprocess</code>, and <code>boto3</code> (AWS) libraries. For API development, explore FastAPI. In all cases, the path forward is building real projects. The skills you have learned here are the foundation — the application comes from building things that matter.</p>
-
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+*.egg-info/
+.DS_Store</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">Why use virtual environments?</h5><p>Isolates each project's dependencies. Prevents version conflicts between projects. Always create a venv per project.</p>
+<h5 style="margin-bottom:8px;">What is the standard Python project structure?</h5><p>src/ or package-name/ for code, tests/ for tests, requirements.txt for deps, .env.example for config, README.md, .gitignore. Keep it simple until you need more.</p>
+<h5 style="margin-bottom:8px;">How do I write tests with pytest?</h5><p>Create test_*.py files in tests/. Write def test_*() functions with assert statements. Run with pytest. Use -v for verbose, -x to stop on first failure.</p>
+<h5 style="margin-bottom:8px;">How should I handle secrets and config?</h5><p>Use environment variables loaded from a .env file with python-dotenv. Never commit .env to Git. Commit .env.example as a template. Use os.getenv() with default values.</p>
+<h5 style="margin-bottom:8px;">How do I share my Python project?</h5><p>pip freeze > requirements.txt. Git commit everything except .env and venv/. Add README.md with setup steps. Others: git clone, python -m venv venv, pip install -r requirements.txt, then run.</p>
 </div>
+<p>You have completed the full Python series. From first print() to a tested, configurable production tool. The <a href="devops-roadmap-part-1.html">DevOps Roadmap</a> shows how Python fits into a complete cloud engineering career. The <a href="docker-tutorial-part-1.html">Docker series</a> shows how to containerise and deploy everything you build.</p>
+<div class="series-nav"><a href="python-tutorial-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">Python Tutorial &middot; Part 12 of 12</strong><span></span></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees of outcome.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<h4>Complete CI/CD for Python Projects</h4>
+<div class="code-title">.github/workflows/python-ci.yml</div>
+<pre><code class="language-bash">name: Python CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      
+      - name: Lint with flake8
+        run: flake8 src/ tests/
+      
+      - name: Type check with mypy
+        run: mypy src/
+      
+      - name: Security scan
+        run: bandit -r src/ -ll    # -ll only medium+ severity
+      
+      - name: Run tests with coverage
+        run: pytest tests/ -v --cov=src --cov-report=xml --cov-fail-under=80
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
+    if: github.ref == "refs/heads/main"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to server
+        run: |
+          ssh -i ${{ secrets.SSH_KEY }} ubuntu@${{ secrets.SERVER_IP }} "
+            cd /opt/server-monitor && 
+            git pull && 
+            pip install -r requirements.txt &&
+            systemctl restart server-monitor
+          "</code></pre>
+
+<h4>Type Hints for Professional Python</h4>
+<div class="code-title">Type-safe Python with mypy</div>
+<pre><code class="language-bash">from typing import Optional, List, Dict, Union, Callable
+from dataclasses import dataclass
+
+@dataclass
+class MetricPoint:
+    timestamp: float
+    value: float
+    labels: Dict[str, str]
+
+def collect_metrics(
+    sources: List[str],
+    callback: Optional[Callable[[MetricPoint], None]] = None,
+    timeout: float = 30.0
+) -> Dict[str, List[MetricPoint]]:
+    results: Dict[str, List[MetricPoint]] = {}
+    for source in sources:
+        # ... fetch metrics ...
+        pass
+    return results
+
+# Run mypy: mypy src/ --strict
+# Catches type errors before runtime</code></pre>
+
+
+<h4>Packaging Python Projects for Distribution</h4>
+<div class="code-title">pyproject.toml for installable packages</div>
+<pre><code class="language-bash"># pyproject.toml
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "server-monitor"
+version = "1.0.0"
+description = "Monitor server health metrics"
+authors = [{name = "Suraj Ahir", email = "suraj@srjahir.in"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "psutil>=5.9",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+server-monitor = "server_monitor.cli:main"  # Creates CLI command
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "mypy", "bandit"]</code></pre>
+
+<div class="code-title">Build and publish to PyPI</div>
+<pre><code class="language-bash">pip install build twine
+
+python -m build               # Creates dist/*.whl and dist/*.tar.gz
+twine check dist/*            # Validate before publishing
+twine upload dist/*           # Upload to PyPI
+
+# Or publish to TestPyPI first
+twine upload --repository testpypi dist/*
+pip install -i https://test.pypi.org/simple/ server-monitor</code></pre>
+
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

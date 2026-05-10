@@ -48,7 +48,7 @@
 
   <!-- Schema.org Article -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Why Certifications Alone Don’t Make Cloud Engineers", "description": "Why cloud certifications alone are not enough and what actually makes a strong cloud engineer.", "url": "https://srjahir.in/blogs/why-certifications-alone-dont-make-cloud-engineers.html", "datePublished": "2025-09-12", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/why-certifications-alone-dont-make-cloud-engineers.html"}}
+  {"@context": "https://schema.org", "@type": "Article", "headline": "Why Certifications Alone Don’t Make Cloud Engineers", "description": "Why cloud certifications alone are not enough and what actually makes a strong cloud engineer.", "url": "https://srjahir.in/blogs/why-certifications-alone-dont-make-cloud-engineers.html", "dateModified":"2026-05-08","datePublished": "2025-09-12", "dateModified": "2026-03-29", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/why-certifications-alone-dont-make-cloud-engineers.html"}}
   </script>
 </head>
 
@@ -109,6 +109,31 @@
     Always rely on practical experience and official resources.
   </p>
 </div>
+<h4>What Actually Happens After You Get Certified</h4>
+<p>I have talked with hundreds of people preparing for AWS certifications. A common story: spent 3 months studying for AWS SAA, passed with a good score, updated LinkedIn -- and then heard nothing from recruiters, or got interviews but could not answer practical questions. The certification opened no doors because it was not backed by hands-on experience.</p>
+<p>The certification tests knowledge -- it asks whether you know what S3 is, what the difference between RDS and DynamoDB is, which service you would use for a given architecture. It does not test whether you have actually used these services, debugged a failing deployment, or understood why one architectural choice is better in a specific context. Those skills come only from doing.</p>
+<div class="code-title">Certification study vs real cloud skill</div>
+<pre><code class="language-bash">Certification study teaches you:
+  - Service names and their documented use cases
+  - AWS pricing models in theory
+  - Which services integrate with which
+  - General architectural patterns from whitepapers
+  - Multiple choice answers
+
+Real cloud experience teaches you:
+  - Why IAM permissions are not working (and how to debug)
+  - How to SSH into an instance when the security group is wrong
+  - What a VPC routing table looks like when traffic is not flowing
+  - How to read CloudWatch logs when an application crashes
+  - Why an EC2 instance is running out of disk at 3am and how to fix it
+  - How to read Terraform plan output before applying to production
+  - What happens to containers when nodes run out of memory in Kubernetes</code></pre>
+<h4>The Certification + Project Combination That Works</h4>
+<p>The engineers who get hired and thrive have both: the certification that proves they know the landscape, and projects that prove they can operate within it. The optimal sequence: study for certification alongside building a real project using the services you are learning. When you study EC2 for the exam, launch an actual EC2 instance and deploy something on it. When you study S3, create a bucket and write a script that uploads and retrieves files. When you study VPC, design and deploy a real network architecture.</p>
+<p>This approach takes the same time as studying alone but produces dramatically better outcomes: you pass the exam with deeper understanding, you have real projects to discuss in interviews, and you have actually debugged real cloud issues which is what employers want to hear about.</p>
+<h4>Building the Portfolio That Gets Interviews</h4>
+<p>A cloud portfolio that genuinely impresses consists of: a containerised application deployed on Kubernetes (ideally on AWS EKS or Google GKE), Terraform code in a GitHub repo that provisions real infrastructure, a CI/CD pipeline (GitHub Actions or GitLab CI) that builds, tests, and deploys automatically, monitoring setup with meaningful dashboards, and a README that explains the architecture decisions and what you learned. Each project should have a "why I built it this way" section -- this demonstrates the thinking that certifications do not capture.</p>
+<h4>More Questions Answered</h4><div style="margin-top:24px;"><h5 style="margin-bottom:8px;">Should I skip certifications and just build projects?</h5><p>No -- do both. Certifications give you a structured curriculum to ensure you know the breadth of a platform, signal validated knowledge to initial screeners, and provide a deadline that forces completion. Projects give you depth, debugging experience, and interview material. Both together is the right approach.</p><h5 style="margin-bottom:8px;">How many AWS certifications do I need?</h5><p>One well-chosen certification plus strong practical skills beats three certifications with no hands-on experience. Start with AWS SAA-C03. If targeting DevOps roles, add AWS DevOps Professional. For security focus, AWS Security Specialty. Breadth comes from experience, not certificate accumulation.</p><h5 style="margin-bottom:8px;">What if I cannot afford AWS for practice?</h5><p>Use the AWS Free Tier (12 months) which covers the key services for learning. Use LocalStack for local AWS simulation. Use Terraform with the free tier to practice IaC without incurring costs. Estimate and set spending alerts -- the entire certification study phase can be completed for under Rs. 2,000-3,000 on AWS if you stop and start resources appropriately.</p></div>
 </section>
 
 <footer>

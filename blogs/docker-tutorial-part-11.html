@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Docker Tutorial Part 11 — Docker Swarm & Orchestration | SRJahir Tech</title>
-  <meta name="description" content="Learn Docker Swarm for container orchestration. Deploy services across multiple nodes, scale containers, enable load balancing, and manage rolling updates in a Docker cluster." />
-  <meta name="keywords" content="Docker Swarm tutorial, Docker orchestration, Docker cluster setup, Docker service scaling, Docker rolling update" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Learn Docker Swarm for multi-host container orchestration. Deploy services across a cluster, enable load balancing, rolling updates, and high availability without Kubernetes." />
+  <meta name="keywords" content="Docker Swarm tutorial, Docker orchestration, Docker service deploy, Docker cluster, Swarm vs Kubernetes" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-11.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-11" />
-  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Docker Tutorial Part 11 — Docker Swarm & Orchestration | SRJahir Tech" />
-  <meta property="og:description" content="Learn Docker Swarm for container orchestration. Deploy services across multiple nodes, scale containers, enable load balancing, and manage rolling updates in a Docker cluster." />
+  <meta property="og:title" content="Docker Tutorial Part 11 — Docker Swarm & Orchestration" />
+  <meta property="og:description" content="Learn Docker Swarm for multi-host container orchestration. Deploy services across a cluster, enable load balancing, rolling updates, and high availability without Kubernetes." />
   <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-11.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 11 — Docker Swarm & Orchestration | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-11", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-11.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-11.html"}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/docker-part-11-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-12-11" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 11 — Docker Swarm & Orchestration","url":"https://srjahir.in/blogs/docker-tutorial-part-11.html","datePublished":"2025-12-11","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/docker-part-11-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/docker-tutorial-part-11.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Docker Swarm?","acceptedAnswer":{"@type":"Answer","text":"Docker Swarm is Docker's built-in orchestration mode that lets you manage a cluster of Docker hosts as a single virtual host. You deploy services rather than individual containers, and Swarm automatically distributes them across nodes, handles load balancing, restarts failed containers, and supports rolling updates."}},{"@type":"Question","name":"When should I use Docker Swarm vs Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Use Docker Swarm when you need a simpler orchestration solution — easier to set up, manage, and debug. Swarm is part of Docker, requires no extra tools, and handles most production needs for small to medium deployments. Use Kubernetes when you need advanced scheduling, extensive ecosystem integrations, fine-grained RBAC, or are already running at massive scale."}},{"@type":"Question","name":"How do I initialise a Docker Swarm cluster?","acceptedAnswer":{"@type":"Answer","text":"On your manager node, run docker swarm init. This outputs a join token. On each worker node, run docker swarm join --token TOKEN MANAGER_IP:2377. The worker joins the cluster and starts receiving workloads. You can have multiple manager nodes for high availability using docker swarm join-token manager."}},{"@type":"Question","name":"What is a Docker service?","acceptedAnswer":{"@type":"Answer","text":"A Docker service is the Swarm equivalent of a docker run command for a cluster. You define the desired state: which image to run, how many replicas, which ports to publish, which networks to connect to. Swarm's scheduler distributes replicas across available nodes and maintains the desired count automatically."}},{"@type":"Question","name":"How do rolling updates work in Docker Swarm?","acceptedAnswer":{"@type":"Answer","text":"Use docker service update --image new-image:tag service-name. Swarm replaces replicas one at a time (or in configurable batches), waiting for each new replica to be healthy before proceeding. If the update fails, Swarm can automatically rollback. Configure parallelism and delay with --update-parallelism and --update-delay flags."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -45,157 +34,143 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="docker-tutorial-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 11 of 12</strong>
-  <a href="docker-tutorial-part-12.html">Part 12 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-<section class="content-block">
+<section class="content-block blog-article">
 <h3>Docker Full Tutorial — Part 11: Docker Swarm &amp; Orchestration</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 11, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-11 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="docker-tutorial-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 11 of 12</strong><a href="docker-tutorial-part-12.html">Part 12 &rarr;</a></div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/docker-part-11-terminal.svg" alt="Docker — Docker CI/CD" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Docker CI/CD</figcaption>
+  <img src="images/docker-part-11-terminal.svg" alt="Docker Full Tutorial — Part 11: Docker Swarm &amp; Orchestration" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
 </figure>
+<p>Kubernetes is the dominant container orchestration platform, and we cover it extensively in our Kubernetes series. But for smaller teams and simpler deployments, Docker Swarm deserves serious consideration. It is built into Docker, requires zero additional tools to install, and can be set up in minutes. If your needs fit within what Swarm offers, it can be significantly easier to operate than Kubernetes.</p>
 
-<div class="series-nav">
-  <a href="docker-tutorial-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 11 of 12</strong>
-  <a href="docker-tutorial-part-12.html">Part 12 →</a>
-</div>
-<p>Running one container on one server is simple. Running a real production application means handling traffic spikes, server failures, rolling updates without downtime, and deploying across multiple machines. This is container orchestration. Docker Swarm is Docker's built-in orchestration tool — simpler than Kubernetes, but powerful enough for many real-world use cases.</p>
-
-<h4>What is Docker Swarm?</h4>
-<p>Docker Swarm turns a group of Docker hosts (machines) into a single virtual cluster. Some machines act as managers — they make scheduling decisions and manage cluster state. Others are workers — they run the actual containers. When you deploy a service to the swarm, Docker distributes the containers across worker nodes, monitors their health, restarts failed containers, and load-balances traffic between them automatically.</p>
-
-<h4>Initializing a Swarm</h4>
-<div class="code-title">Create Swarm</div>
+<h4>Initialising a Swarm Cluster</h4>
+<div class="code-title">Set up a three-node Swarm cluster</div>
 <pre><code class="language-bash"># On the manager node
-docker swarm init --advertise-addr &lt;MANAGER_IP&gt;
+docker swarm init --advertise-addr MANAGER_IP
 
-# Output gives you a join token for workers
-# Something like:
-# docker swarm join --token SWMTKN-1-xxxx 192.168.1.100:2377
+# This outputs a join token. Run it on worker nodes:
+docker swarm join --token SWMTKN-1-xxx MANAGER_IP:2377
 
-# On each worker node, run the join command
-docker swarm join --token SWMTKN-1-xxxx 192.168.1.100:2377
-
-# List all nodes in the swarm (from manager)
+# On manager: verify nodes joined
 docker node ls</code></pre>
 
 <h4>Deploying Services</h4>
-<p>In Swarm mode you do not run containers directly — you create services. A service defines what image to run, how many replicas, port mappings, resource limits, and update policies.</p>
-<div class="code-title">Create and Scale Services</div>
-<pre><code class="language-bash"># Create a web service with 3 replicas
-docker service create   --name web-service   --replicas 3   --publish published=80,target=80   nginx:latest
+<div class="code-title">Deploy and scale services</div>
+<pre><code class="language-bash"># Deploy a service with 3 replicas
+docker service create   --name web   --replicas 3   --publish published=80,target=80   nginx:1.25
 
 # List services
 docker service ls
 
-# See which nodes are running the replicas
-docker service ps web-service
+# See which nodes are running each replica
+docker service ps web
 
-# Scale service up or down
-docker service scale web-service=5
+# Scale to 5 replicas
+docker service scale web=5
 
-# Update service image (rolling update)
-docker service update   --image nginx:1.25   --update-parallelism 1   --update-delay 10s   web-service</code></pre>
+# Rolling update to new version
+docker service update --image nginx:1.27 web
 
-<h4>Docker Stack — Compose for Swarm</h4>
-<p>Docker Stack lets you deploy a <code>docker-compose.yml</code> file to a swarm cluster. This is the recommended way to manage multi-service applications in Swarm:</p>
-<div class="code-title">docker-stack.yml</div>
-<pre><code class="language-bash">version: '3.8'
+# Rollback if something went wrong
+docker service rollback web</code></pre>
 
+<h4>Swarm with Docker Compose (Stack Deploy)</h4>
+<div class="code-title">Deploy a full stack to Swarm</div>
+<pre><code class="language-yaml"># docker-stack.yml
+version: '3.8'
 services:
   web:
-    image: yourusername/my-app:latest
-    ports:
-      - "80:5000"
+    image: my-web-app:latest
     deploy:
       replicas: 3
       update_config:
         parallelism: 1
         delay: 10s
-        order: rolling-update
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 3
-    networks:
-      - app-net
-
+    ports:
+      - "80:3000"
   db:
     image: postgres:15
-    volumes:
-      - db-data:/var/lib/postgresql/data
     deploy:
       replicas: 1
       placement:
         constraints:
           - node.role == manager
-    environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
-    secrets:
-      - db_password
-    networks:
-      - app-net
-
+    volumes:
+      - db-data:/var/lib/postgresql/data
 volumes:
-  db-data:
-
-networks:
-  app-net:
-    driver: overlay
-
-secrets:
-  db_password:
-    external: true</code></pre>
-<div class="code-title">Deploy and Manage Stack</div>
-<pre><code class="language-bash"># Deploy stack
-docker stack deploy -c docker-stack.yml my-app
-
-# List stacks
-docker stack ls
-
-# List services in stack
+  db-data:</code></pre>
+<div class="code-title">Deploy the stack</div>
+<pre><code class="language-bash">docker stack deploy -c docker-stack.yml my-app
 docker stack services my-app
+docker stack ps my-app</code></pre>
+<p>In <a href="docker-tutorial-part-12.html">Part 12</a>, we build a complete real-world Docker project — a full-stack application with database, cache, reverse proxy, CI/CD pipeline, and production deployment. Everything from this series applied together.</p>
 
-# Remove stack
-docker stack rm my-app</code></pre>
+<h4>Swarm Secrets Management</h4>
+<div class="code-title">Docker Swarm secrets</div>
+<pre><code class="language-bash"># Create a secret from stdin
+echo "supersecretpassword" | docker secret create db_password -
 
-<h4>Rolling Updates — Zero Downtime</h4>
-<p>Swarm supports rolling updates out of the box. When you update a service, Swarm updates replicas one by one (or in configurable batches), waiting between each update. This means at any moment, some replicas are running the old version and some are running the new version — but the service stays available throughout the entire update process.</p>
+# Create from file
+docker secret create ssl_cert ./cert.pem
 
-<h4>Swarm vs Kubernetes</h4>
-<p>This is a common question. Swarm is simpler to set up and manage — ideal for smaller teams and straightforward deployments. Kubernetes is more complex but offers more features, better ecosystem, and is the industry standard for large-scale container orchestration. If you are running 10-50 containers and want simplicity, Swarm works great. If you are building a large microservices platform, Kubernetes is the right tool. Learning Swarm first is a good stepping stone to Kubernetes.</p>
+# List secrets
+docker secret ls
 
-<p>In Part 12, the final part of this series, we will build a complete real-world Docker project from scratch — bringing together everything you have learned in this tutorial series.</p>
-<h4>When to Use Docker Swarm vs Kubernetes</h4>
-<p>Docker Swarm and Kubernetes both orchestrate containers across multiple machines, but they serve different scales and complexity levels. Docker Swarm is simpler to set up and operate — if you know Docker Compose, Swarm uses nearly the same file format with minimal additions. It is appropriate for smaller deployments, teams without Kubernetes expertise, or situations where operational simplicity is the priority. Kubernetes has a steeper learning curve but offers more powerful capabilities: fine-grained resource management, a rich ecosystem of tools, better support for stateful applications, and the operational maturity that comes from running at much larger scale. In practice, most cloud-native deployments at any significant scale use Kubernetes (or managed services like EKS, GKE, AKS). Swarm is a pragmatic choice for smaller self-hosted deployments.</p>
-<h4>Key Swarm Concepts</h4>
-<p>In Swarm mode, the cluster consists of manager nodes (which orchestrate services) and worker nodes (which run containers). Services define what to run and how many replicas to maintain — Swarm automatically distributes replicas across worker nodes and reschedules containers if a node fails. The <code>docker service create</code> command creates a service, <code>docker service scale</code> changes replica count, and <code>docker service update</code> performs rolling updates. Stacks in Swarm extend Docker Compose to deploy multi-service applications to the cluster using <code>docker stack deploy</code> — making the transition from single-machine Compose to multi-machine Swarm relatively straightforward.</p>
-<h4>Practice Exercise</h4>
-<p>Initialize a single-node Swarm with <code>docker swarm init</code>. Deploy a simple service: <code>docker service create --name web --replicas 3 --publish 80:80 nginx</code>. Verify three replicas are running with <code>docker service ps web</code>. Scale it: <code>docker service scale web=5</code>. Update the image: <code>docker service update --image nginx:alpine web</code> and watch the rolling update with <code>docker service ps web</code>. Finally, remove the service and leave the swarm. This exercise gives hands-on experience with all core Swarm operations.</p>
+# Use secret in a service
+docker service create \
+  --name myapp \
+  --secret db_password \
+  --env DB_PASSWORD_FILE=/run/secrets/db_password \
+  myapp:latest
+# Inside the container: cat /run/secrets/db_password</code></pre>
 
-<h4>Building Cloud Intuition Over Time</h4>
-<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+<h4>Swarm Monitoring and Health</h4>
+<div class="code-title">Monitor Swarm cluster health</div>
+<pre><code class="language-bash"># View all nodes and their status
+docker node ls
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+# Inspect a specific node
+docker node inspect node-id
+
+# View resource usage across nodes
+docker node ps $(docker node ls -q)
+
+# Drain a node for maintenance (moves containers to other nodes)
+docker node update --availability drain worker-1
+
+# Bring node back
+docker node update --availability active worker-1
+
+# View all tasks (running containers) across cluster
+docker service ps --filter "desired-state=running" my-service</code></pre>
+
+<h4>When to Choose Swarm vs Kubernetes</h4>
+<p>I have used both in production, and the choice depends entirely on team size, complexity, and operational capacity.</p>
+<p>Choose <strong>Docker Swarm</strong> when: you have a small team (1-5 engineers), a simple application (under 20 services), and limited DevOps expertise. Swarm is built into Docker, requires no additional tools, and can be set up in an afternoon. The operational burden is low.</p>
+<p>Choose <strong>Kubernetes</strong> when: you have more than 5 services, need fine-grained autoscaling, have a dedicated platform team, or need the extensive ecosystem of Kubernetes tools (Helm, ArgoCD, Istio, etc.). Kubernetes has a steep learning curve but offers capabilities that Swarm simply does not have.</p>
+<p>Many successful companies run production workloads on Docker Swarm. Do not let the Kubernetes hype push you into unnecessary complexity for a use case that Swarm handles perfectly well.</p>
+
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is Docker Swarm?</h5>
+  <p>Docker Swarm is Docker's built-in orchestration mode that lets you manage a cluster of Docker hosts as a single virtual host. You deploy services rather than individual containers, and Swarm automatically distributes them across nodes, handles load balancing, restarts failed containers, and supports rolling updates.</p>
+  <h5 style="margin-bottom:8px;">When should I use Docker Swarm vs Kubernetes?</h5>
+  <p>Use Docker Swarm when you need a simpler orchestration solution — easier to set up, manage, and debug. Swarm is part of Docker, requires no extra tools, and handles most production needs for small to medium deployments. Use Kubernetes when you need advanced scheduling, extensive ecosystem integrations, fine-grained RBAC, or are already running at massive scale.</p>
+  <h5 style="margin-bottom:8px;">How do I initialise a Docker Swarm cluster?</h5>
+  <p>On your manager node, run docker swarm init. This outputs a join token. On each worker node, run docker swarm join --token TOKEN MANAGER_IP:2377. The worker joins the cluster and starts receiving workloads. You can have multiple manager nodes for high availability using docker swarm join-token manager.</p>
+  <h5 style="margin-bottom:8px;">What is a Docker service?</h5>
+  <p>A Docker service is the Swarm equivalent of a docker run command for a cluster. You define the desired state: which image to run, how many replicas, which ports to publish, which networks to connect to. Swarm's scheduler distributes replicas across available nodes and maintains the desired count automatically.</p>
+  <h5 style="margin-bottom:8px;">How do rolling updates work in Docker Swarm?</h5>
+  <p>Use docker service update --image new-image:tag service-name. Swarm replaces replicas one at a time (or in configurable batches), waiting for each new replica to be healthy before proceeding. If the update fails, Swarm can automatically rollback. Configure parallelism and delay with --update-parallelism and --update-delay flags.</p>
 </div>
+<div class="series-nav"><a href="docker-tutorial-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 11 of 12</strong><a href="docker-tutorial-part-12.html">Part 12 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

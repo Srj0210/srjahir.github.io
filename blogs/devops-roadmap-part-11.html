@@ -1,192 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>DevOps Roadmap Part 11 — Cloud Platforms: AWS, GCP, Azure | SRJahir Tech</title>
-  <meta name="description" content="Understand cloud platforms for DevOps. Compare AWS, GCP, and Azure, learn core cloud services, IAM, compute, storage, networking, and how to choose the right cloud for your needs." />
-  <meta name="keywords" content="AWS GCP Azure DevOps, cloud platforms comparison, AWS for DevOps, cloud computing fundamentals, IAM cloud security" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-11.html" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevOps Roadmap Part 11 - Cloud Platforms for DevOps Engineers | SRJahir Tech</title><meta name="description" content="Master cloud platforms for DevOps: AWS core services, IAM, EC2, S3, RDS, ECS, EKS, CloudWatch, and cost optimisation strategies for production workloads."/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-11.html"/><meta property="og:type" content="article"/><meta property="og:title" content="DevOps Roadmap Part 11 - Cloud Platforms for DevOps Engineers"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-11.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/devops-part-11-terminal.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="2025-11-24"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"DevOps Roadmap Part 11 - Cloud Platforms for DevOps Engineers","url":"https://srjahir.in/blogs/devops-roadmap-part-11.html","datePublished":"2025-11-24","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"></head><body><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3>DevOps Roadmap -- Part 11: Cloud Platforms for DevOps</h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-11-24 <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="devops-roadmap-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 11 of 12</strong><a href="devops-roadmap-part-12.html">Part 12 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/devops-part-11-terminal.svg" alt="DevOps Roadmap -- Part 11: Cloud Platforms for DevOps" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure><p>The cloud has fundamentally changed infrastructure. Instead of buying servers and waiting weeks for them to arrive, you provision them in seconds via API. Instead of managing physical networks, you define them in code. DevOps engineers need to understand cloud platforms deeply -- not just how to click through a console, but how to architect, automate, and operate cloud infrastructure at scale.</p>
 
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-11-24" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" /><meta property="og:title" content="DevOps Roadmap Part 11 — Cloud Platforms: AWS, GCP, Azure | SRJahir Tech" />
-  <meta property="og:description" content="Understand cloud platforms for DevOps. Compare AWS, GCP, and Azure, learn core cloud services, IAM, compute, storage, networking, and how to choose the right cloud for your needs." />
-  <meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-11.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DevOps Roadmap Part 11 — Cloud Platforms: AWS, GCP, Azure | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-11-24", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/devops-roadmap-part-11.html"}, "url": "https://srjahir.in/blogs/devops-roadmap-part-11.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
-<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="devops-roadmap-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 11 of 12</strong>
-  <a href="devops-roadmap-part-12.html">Part 12 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
-<h3>DevOps Roadmap — Part 11: Cloud Platforms for DevOps</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> November 24, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/devops-part-11-terminal.svg" alt="GitOps Workflow" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">GitOps Workflow</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="devops-roadmap-part-10.html">← Part 10</a>
-  <strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap · Part 11 of 12</strong>
-  <a href="devops-roadmap-part-12.html">Part 12 →</a>
-</div>
-<p>Modern DevOps is cloud DevOps. Whether you are deploying applications, managing infrastructure, or building CI/CD pipelines, you are doing it on a cloud platform. AWS, GCP, and Azure together serve the overwhelming majority of cloud workloads worldwide. Understanding their core services and how they map to DevOps workflows is essential for any modern DevOps engineer.</p>
-
-<h4>The Big Three — Quick Comparison</h4>
-<p><strong>AWS (Amazon Web Services)</strong> is the market leader with the most services, the largest community, and the deepest enterprise adoption. If you learn one cloud platform, AWS is the highest-return choice for employability. It has services for literally everything — computing, storage, databases, AI/ML, IoT, and more.</p>
-<p><strong>GCP (Google Cloud Platform)</strong> excels in data analytics, machine learning, and Kubernetes (Google invented Kubernetes). Organizations doing heavy data work or using Google's AI services gravitate toward GCP.</p>
-<p><strong>Azure</strong> is Microsoft's cloud and dominates in organizations already using Microsoft products — Windows servers, Active Directory, Office 365. It integrates seamlessly with the Microsoft ecosystem.</p>
-
-<h4>Core Cloud Concepts (Universal)</h4>
-<ul>
-  <li><strong>Region</strong> — Geographic area with multiple data centers. India has AWS Mumbai (ap-south-1), GCP Mumbai (asia-south1), Azure Central India.</li>
-  <li><strong>Availability Zone</strong> — Isolated data centers within a region. Deploy across multiple AZs for high availability.</li>
-  <li><strong>IAM</strong> — Identity and Access Management. Controls who can do what on your cloud account. The most important security concept.</li>
-  <li><strong>VPC</strong> — Virtual Private Cloud. Your isolated network inside the cloud.</li>
-</ul>
-
-<h4>AWS — Essential Services for DevOps</h4>
-<div class="code-title">AWS Service Map</div>
+<h4>AWS Core Services for DevOps</h4>
+<div class="code-title">Key AWS services every DevOps engineer needs</div>
 <pre><code class="language-bash"># Compute
-EC2          → Virtual servers (equivalent: GCP Compute Engine, Azure VMs)
-ECS/EKS      → Container orchestration (Docker/Kubernetes)
-Lambda       → Serverless functions
+EC2          - Virtual machines (instances)
+ECS          - Container service (Docker at scale)
+EKS          - Managed Kubernetes
+Lambda       - Serverless functions
+Fargate      - Serverless containers (no EC2 management)
 
 # Storage
-S3           → Object storage (files, backups, static websites)
-EBS          → Block storage (attached to EC2, like a hard drive)
-EFS          → Managed NFS file system
+S3           - Object storage (static files, backups, artifacts)
+EBS          - Block storage attached to EC2 instances
+EFS          - Shared file system for multiple instances
+ECR          - Docker image registry
 
 # Database
-RDS          → Managed relational databases (MySQL, PostgreSQL, etc.)
-DynamoDB     → Managed NoSQL database
-ElastiCache  → Managed Redis/Memcached
+RDS          - Managed relational databases (PostgreSQL, MySQL)
+DynamoDB     - NoSQL key-value store
+ElastiCache  - Managed Redis/Memcached
 
 # Networking
-VPC          → Virtual network
-Route 53     → DNS management
-CloudFront   → CDN (content delivery network)
-ALB/NLB      → Load balancers
+VPC          - Virtual private cloud (your isolated network)
+ALB/NLB      - Load balancers
+Route 53     - DNS management
+CloudFront   - CDN
 
-# DevOps specific
-CodePipeline → CI/CD pipelines
-ECR          → Container registry (private Docker registry)
-CloudWatch   → Monitoring, logs, and alerting
-CloudTrail   → Audit log of all API calls
-Systems Manager → Remote server management</code></pre>
+# DevOps Services
+CodePipeline - CI/CD
+CodeBuild    - Build service
+CloudWatch   - Monitoring and logging
+IAM          - Identity and access management</code></pre>
 
-<h4>IAM — The Most Important Security Topic</h4>
-<div class="code-title">IAM Best Practices</div>
-<pre><code class="language-bash"># Principle of Least Privilege: give only permissions actually needed
-# Never use root account for daily work
-# Create individual IAM users or use roles
+<h4>IAM Best Practices</h4>
+<div class="code-title">Secure AWS access management</div>
+<pre><code class="language-bash"># Never use root account for daily work
+# Create IAM users with minimum required permissions
+# Use IAM roles for EC2 instances and CI/CD (not access keys)
 
-# Check your IAM identity
-aws sts get-caller-identity
-
-# Create a basic IAM policy (JSON)
+# Example IAM policy for S3 read-only access
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::my-bucket/*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": ["s3:GetObject", "s3:ListBucket"],
+        "Resource": [
+            "arn:aws:s3:::my-bucket",
+            "arn:aws:s3:::my-bucket/*"
+        ]
+    }]
 }
 
-# Never hardcode AWS credentials in code
-# Use IAM roles for EC2 instances
-# Use environment variables for local development:
-export AWS_ACCESS_KEY_ID=your-key
-export AWS_SECRET_ACCESS_KEY=your-secret
-export AWS_DEFAULT_REGION=ap-south-1</code></pre>
+# AWS CLI -- use named profiles
+aws configure --profile production
+aws s3 ls --profile production
 
-<h4>AWS CLI — Managing Cloud from Terminal</h4>
-<div class="code-title">AWS CLI Commands</div>
-<pre><code class="language-bash"># Install
-pip install awscli
+# Check current identity
+aws sts get-caller-identity</code></pre>
 
-# Configure
-aws configure
+<h4>Cost Optimisation Strategies</h4>
+<div class="code-title">Controlling cloud spend</div>
+<pre><code class="language-bash"># EC2 cost savings
+Reserved Instances  -- 1-3 year commitment, 30-60% savings
+Spot Instances      -- 70-90% savings, can be interrupted
+Auto Scaling        -- Scale down when load is low
 
-# EC2 instances
-aws ec2 describe-instances
-aws ec2 start-instances --instance-ids i-1234567890
-aws ec2 stop-instances --instance-ids i-1234567890
+# Right-sizing
+# Monitor CPU/memory utilisation
+# Downsize underutilised instances
+aws cloudwatch get-metric-statistics     --metric-name CPUUtilization     --namespace AWS/EC2     --statistics Average     --period 3600     --start-time 2026-01-01T00:00:00Z     --end-time 2026-01-07T00:00:00Z     --dimensions Name=InstanceId,Value=i-1234567890
 
-# S3 operations
-aws s3 ls                        # list buckets
-aws s3 ls s3://my-bucket         # list objects
-aws s3 cp file.txt s3://my-bucket/  # upload
-aws s3 sync ./local-dir s3://my-bucket/  # sync directory
+# S3 cost savings
+# Set lifecycle rules to move old data to Glacier
+# Delete incomplete multipart uploads
+# Enable S3 Intelligent Tiering for access pattern uncertainty</code></pre>
 
-# CloudWatch logs
-aws logs describe-log-groups
-aws logs tail /aws/ec2/my-app --follow</code></pre>
-
-<h4>Cost Management</h4>
-<p>Cloud bills can spiral unexpectedly. Key practices: set billing alerts in AWS Budgets, use reserved instances for predictable workloads (up to 70% savings), stop dev/test instances when not in use, use S3 lifecycle policies to move old data to cheaper storage tiers, and regularly audit unused resources with AWS Trusted Advisor.</p>
-
-<p>In Part 12, the final part, we will bring everything together into a complete DevOps project — from code to cloud, with full CI/CD, monitoring, and infrastructure as code.</p>
-<h4>Choosing Between Cloud Providers</h4>
-<p>AWS, GCP, and Azure are the three major cloud platforms, each with distinct strengths. AWS has the largest market share, the broadest service catalog, and the largest talent pool — if you only learn one cloud, AWS is the pragmatic choice for career breadth. GCP has strong advantages in data analytics (BigQuery), machine learning (Vertex AI), and Kubernetes (GKE is the most mature managed Kubernetes service, which makes sense given Google invented Kubernetes). Azure dominates in enterprises that are already invested in Microsoft products — Active Directory integration, Windows workloads, and Microsoft 365 make Azure the natural choice in those environments. For DevOps work, the core concepts transfer across providers — learn one well, and adapting to another takes weeks rather than months.</p>
-<h4>Cloud-Native Services vs Managed Open Source</h4>
-<p>A key architectural decision in cloud environments is whether to use cloud-native proprietary services or managed versions of open-source tools. AWS SQS (proprietary) versus AWS MSK (managed Kafka) versus running Kafka on EC2 — each has different cost, operational, and portability implications. Cloud-native services like SQS are simpler to operate and integrate naturally with other cloud services, but create vendor lock-in. Managed open-source services like RDS for PostgreSQL give you a standard interface with reduced operational burden but at higher cost than self-managed. Self-managed open source gives maximum control and minimum cost at scale, but maximum operational burden. The right choice depends on your team's operational capacity and your organization's tolerance for vendor lock-in.</p>
-<h4>Practice Exercise</h4>
-<p>On the cloud provider of your choice, use the free tier to deploy a simple three-tier architecture: a compute instance running a web application, a managed database service (RDS, Cloud SQL, or Azure Database), and an object storage bucket for static assets. Configure security groups or firewall rules so the web server can reach the database but the database is not publicly accessible. Deploy a simple application and verify end-to-end connectivity. Calculate the estimated monthly cost using the provider's pricing calculator.</p>
-
-<h4>The Continuous Improvement Mindset</h4>
-<p>DevOps is not a destination but a continuous journey of improvement. The practices covered here — automation, monitoring, infrastructure as code, CI/CD pipelines — are tools in service of a deeper goal: enabling teams to deliver software changes to production quickly, safely, and reliably. The measurement that matters is not which tools you use but how long it takes to go from a committed code change to running in production, and how confident you are in that process. The best DevOps teams measure their deployment frequency, lead time for changes, change failure rate, and mean time to recovery (the DORA metrics), and treat these as engineering objectives to improve over time.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>AWS vs GCP vs Azure -- which should I learn first?</h5>
+  <p>AWS has the largest market share (~32%) and the most job listings. Learn AWS first. GCP is strong for data/ML workloads. Azure dominates enterprise Microsoft environments. Once you know AWS deeply, GCP and Azure concepts transfer easily -- they solve the same problems with different interfaces.</p>
+  <h5>What AWS certifications are worth getting?</h5>
+  <p>AWS Solutions Architect Associate is the most recognised entry-level certification. AWS DevOps Engineer Professional is specifically relevant to DevOps roles. For cloud engineers, SAA-C03 (Solutions Architect Associate) is the standard starting point and widely respected by hiring managers.</p>
+  <h5>What is a VPC and why does it matter?</h5>
+  <p>A VPC (Virtual Private Cloud) is your isolated network in AWS. Resources inside a VPC can communicate with each other but are isolated from other customers' resources. Use public subnets for resources that need internet access and private subnets for databases and internal services.</p>
+  <h5>What is the difference between ECS and EKS?</h5>
+  <p>ECS is AWS's proprietary container service -- simpler and cheaper to operate. EKS is managed Kubernetes -- more complex but portable to other Kubernetes environments. Use ECS for simple containerised applications. Use EKS when you need Kubernetes features or portability.</p>
+  <h5>How do I avoid accidental cloud cost spikes?</h5>
+  <p>Set AWS Budget alerts for 80% and 100% of monthly budget. Enable Cost Anomaly Detection. Tag all resources with environment and project tags for attribution. Use Cost Explorer to analyse spending. Restrict who can create expensive resources with IAM policies.</p>
 </div>
-</section>
+<p>In <a href="devops-roadmap-part-12.html">Part 12</a>, we build a complete DevOps project bringing together everything from this series: CI/CD, Docker, Kubernetes, Terraform, and monitoring.</p><div class="series-nav"><a href="devops-roadmap-part-10.html">&larr; Part 10</a><strong style="color:#86868b;font-size:0.85rem;">DevOps Roadmap &middot; Part 11 of 12</strong><a href="devops-roadmap-part-12.html">Part 12 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
+<h4>AWS Cost Optimisation for DevOps Teams</h4>
+<div class="code-title">Practical cost reduction strategies</div>
+<pre><code class="language-bash"># 1. Use Spot Instances for non-critical workloads
+# 70-90% cheaper than On-Demand
+# Good for: CI/CD runners, batch processing, dev environments
+resource "aws_spot_fleet_request" "ci_runners" {
+  allocation_strategy = "diversified"
+  spot_price         = "0.05"
+  iam_fleet_role     = aws_iam_role.fleet.arn
+  target_capacity    = 2
+  
+  launch_specification {
+    instance_type = "t3.medium"
+    ami           = data.aws_ami.ubuntu.id
+  }
+}
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+# 2. Reserved Instances for stable workloads
+# 1-year commitment: 30-40% discount
+# 3-year commitment: 50-60% discount
+# Use Compute Savings Plans for flexibility
+
+# 3. S3 lifecycle policies for storage cost
+resource "aws_s3_bucket_lifecycle_configuration" "logs" {
+  bucket = aws_s3_bucket.logs.id
+  rule {
+    id     = "archive-and-expire"
+    status = "Enabled"
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+    expiration {
+      days = 365
+    }
+  }
+}</code></pre>
+
+<h4>Multi-Region Disaster Recovery</h4>
+<div class="code-title">Active-passive DR architecture</div>
+<pre><code class="language-bash"># RDS Multi-Region Read Replica (becomes primary on failover)
+aws rds create-db-instance-read-replica   --db-instance-identifier mydb-dr   --source-db-instance-identifier mydb   --source-region us-east-1   --region ap-south-1
+
+# S3 Cross-Region Replication
+aws s3api put-bucket-replication   --bucket source-bucket   --replication-configuration file://replication.json
+
+# Route 53 health check failover
+resource "aws_route53_record" "primary" {
+  failover_routing_policy { type = "PRIMARY" }
+  health_check_id = aws_route53_health_check.primary.id
+  set_identifier  = "primary"
+}</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

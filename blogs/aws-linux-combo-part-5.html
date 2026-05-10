@@ -1,210 +1,216 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>AWS + Linux Combo — Part 5: Install Nginx Web Server on EC2 | SRJahir Tech</title>
-  <meta name="description" content="Install and configure Nginx on your AWS EC2 Linux instance. Serve your first web page from a cloud server. Open ports in Security Groups." />
-  <meta name="keywords" content="Nginx EC2 install, web server AWS Linux, configure Nginx, security group port 80, EC2 web server" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-5.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-10-17" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AWS + Linux Combo — Part 5: Install Nginx Web Server on EC2 | SRJahir Tech" />
-  <meta property="og:description" content="Install and configure Nginx on your AWS EC2 Linux instance. Serve your first web page from a cloud server. Open ports in Security Groups." />
-  <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-5.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "AWS + Linux Combo — Part 5: Install Nginx Web Server on EC2", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "description": "Install and configure Nginx on your AWS EC2 Linux instance. Serve your first web page from a cloud server. Open ports in Security Groups.", "datePublished": "2025-10-17", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/aws-linux-combo-part-5.html"}, "url": "https://srjahir.in/blogs/aws-linux-combo-part-5.html"}
-  </script>
-  <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
-  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-</head>
-<body>
-<div class="background-waves"></div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS Linux Tutorial Part 5 - Install Nginx on EC2 and Serve Web Traffic | SRJahir Tech</title>
+<meta name="description" content="Install and configure Nginx on AWS EC2. Set up virtual hosts, reverse proxy to Node.js or Python apps, configure HTTPS with Let's Encrypt, and serve real traffic."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-5.html"/>
+<meta property="og:type" content="article"/><meta property="og:title" content="AWS Linux Tutorial Part 5 - Install Nginx on EC2 and Serve Web Traffic"/>
+<meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-5.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-5-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-10-17"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS Linux Tutorial Part 5 - Install Nginx on EC2 and Serve Web Traffic","url":"https://srjahir.in/blogs/aws-linux-combo-part-5.html","datePublished":"2025-10-17","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-1041324645386243">
+</head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
-<header class="nav">
-  <h1>SRJahir<span>Tech</span></h1>
-  <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="aws-linux-combo-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 5 of 12</strong>
-  <a href="aws-linux-combo-part-6.html">Part 6 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
-  </nav>
-</header>
-<section class="content-block">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>AWS Linux Tutorial -- Part 5: Nginx on EC2</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-10-17 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="aws-linux-combo-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 5 of 12</strong><a href="aws-linux-combo-part-6.html">Part 6 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/aws-part-5-terminal.svg" alt="AWS Linux Tutorial -- Part 5: Nginx on EC2" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Nginx (pronounced "engine-x") is the most popular web server in the world, running over 30% of all websites. It handles static files with extreme efficiency and is an excellent reverse proxy for application servers. Installing and configuring Nginx is usually one of the first things you do on a new EC2 instance.</p>
+<h4>Install and Start Nginx</h4>
+<div class="code-title">Installation on Ubuntu EC2</div>
+<pre><code class="language-bash">sudo apt update
+sudo apt install nginx -y
 
-<h3>AWS + Linux Combo — Part 5: Install Nginx Web Server on EC2</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> October 17, 2025 <span class="meta-dot"></span> 6 min read</p>
+sudo systemctl status nginx    # Should show active (running)
+sudo systemctl enable nginx    # Start on reboot
 
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/aws-part-5-terminal.svg" alt="AWS + Linux — EBS & File Systems" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">AWS + Linux — EBS & File Systems</figcaption>
-</figure>
+# Open port 80 in security group (if not already)
+# AWS Console: EC2 > Security Groups > your-sg > Edit inbound rules
+# Add: HTTP, Port 80, Source 0.0.0.0/0
 
-<div class="series-nav">
-  <a href="aws-linux-combo-part-4.html">← Part 4</a>
-  <strong style="color:#86868b;font-size:0.85rem;">AWS + Linux Combo · Part 5 of 12</strong>
-  <a href="aws-linux-combo-part-6.html">Part 6 →</a>
-</div>
+# Test from browser:
+# http://YOUR-PUBLIC-IP
+# You should see the Nginx welcome page</code></pre>
+<h4>Nginx Configuration Structure</h4>
+<div class="code-title">Key config files and directories</div>
+<pre><code class="language-bash">/etc/nginx/nginx.conf          # Main config file
+/etc/nginx/sites-available/    # Virtual host configs (inactive)
+/etc/nginx/sites-enabled/      # Virtual host configs (active, symlinks)
+/var/www/html/                 # Default web root
+/var/log/nginx/access.log      # Access logs
+/var/log/nginx/error.log       # Error logs
 
-<p>In this part, we take a big step — we turn our EC2 Linux instance into a web server. By the end of this lesson, you will have Nginx running on your cloud server, and anyone with the IP address will be able to access a web page hosted on it. This is how the internet works, and you are about to experience it firsthand.</p>
+# Test config before applying
+sudo nginx -t
 
-<h4>What is Nginx?</h4>
-<p>Nginx (pronounced "engine-x") is one of the most popular web servers in the world. It is lightweight, fast, and extremely efficient at handling many simultaneous connections. Nginx powers millions of websites and is used by companies like Netflix, Cloudflare, and GitHub. It can serve static files, act as a reverse proxy in front of application servers, handle SSL/TLS termination, load-balance traffic, and much more. For our purposes, we will start by using it to serve a simple HTML page.</p>
-
-<h4>Step 1: Open Port 80 in Security Group</h4>
-<p>Before installing Nginx, we need to allow web traffic to reach our server. By default, your EC2 Security Group only allows SSH (port 22). We need to open port 80 (HTTP) and optionally port 443 (HTTPS).</p>
-<p>Go to AWS Console → EC2 → Instances → click your instance → scroll to Security → click on the Security Group link. Click "Edit inbound rules" → "Add rule". Set Type to HTTP, Source to "Anywhere-IPv4" (0.0.0.0/0). Click Save rules. Now the world can reach port 80 on your server.</p>
-
-<h4>Step 2: Install Nginx</h4>
-<p>SSH into your EC2 instance and run these commands:</p>
-<div class="code-title">Install Nginx on Amazon Linux 2023</div>
-<pre><code class="language-bash"># Update packages first
-sudo dnf update -y
-
-# Install nginx
-sudo dnf install nginx -y
-
-# Start nginx
-sudo systemctl start nginx
-
-# Enable nginx to start automatically on reboot
-sudo systemctl enable nginx
-
-# Check status
-sudo systemctl status nginx</code></pre>
-<p>If the status shows "active (running)" in green, Nginx is working.</p>
-
-<h4>Step 3: Test in Your Browser</h4>
-<p>Open a browser and go to your EC2 instance's public IP address — just <code>http://YOUR_IP</code>. You should see the Nginx welcome page. Congratulations — your cloud server is serving web content!</p>
-
-<h4>Where Nginx Serves Files From</h4>
-<p>By default, Nginx serves files from <code>/usr/share/nginx/html/</code>. The main configuration file is at <code>/etc/nginx/nginx.conf</code>. Let us put our own HTML page there:</p>
-<div class="code-title">Create Custom Web Page</div>
-<pre><code class="language-bash"># Navigate to web root
-cd /usr/share/nginx/html/
-
-# Create a custom index page
-sudo nano index.html</code></pre>
-<p>Add this content:</p>
-<div class="code-title">Custom HTML</div>
-<pre><code class="language-bash">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;My EC2 Server&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Hello from AWS EC2!&lt;/h1&gt;
-  &lt;p&gt;This page is served by Nginx running on Amazon Linux in the cloud.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Save the file and refresh your browser. You should see your custom page.</p>
-
-<h4>Basic Nginx Configuration</h4>
-<p>Understanding the Nginx config file structure helps you customize behavior:</p>
-<div class="code-title">View Nginx Config</div>
-<pre><code class="language-bash">cat /etc/nginx/nginx.conf
-
-# The main sections are:
-# worker_processes - how many worker threads
-# events - connection handling settings
-# http - all web server settings
-#   server - defines a virtual server (website)
-#     listen - which port to listen on
-#     root - which directory to serve files from
-#     index - default file to serve</code></pre>
-
-<h4>Nginx Logs</h4>
-<p>Every request to your server is logged. This is crucial for debugging and monitoring:</p>
-<div class="code-title">View Nginx Logs</div>
-<pre><code class="language-bash"># Access log - shows all requests
-sudo tail -f /var/log/nginx/access.log
-
-# Error log - shows errors
-sudo tail -f /var/log/nginx/error.log</code></pre>
-<p>The <code>tail -f</code> command follows the log file in real time. Open the log in one terminal window, then visit your website in a browser — you will see the request appear in the log instantly.</p>
-
-<h4>Managing Nginx Service</h4>
-<div class="code-title">Nginx Service Commands</div>
-<pre><code class="language-bash"># Start / stop / restart
-sudo systemctl start nginx
-sudo systemctl stop nginx
-sudo systemctl restart nginx
-
-# Reload config without downtime
+# Reload without downtime
 sudo systemctl reload nginx
 
-# Check if nginx is running
-sudo systemctl is-active nginx</code></pre>
+# Restart (briefly drops connections)
+sudo systemctl restart nginx</code></pre>
+<h4>Serve a Static Website</h4>
+<div class="code-title">Create a virtual host</div>
+<pre><code class="language-bash"># Create website directory
+sudo mkdir -p /var/www/mysite
+sudo chown ubuntu:ubuntu /var/www/mysite
 
-<h4>What We Have Built</h4>
-<p>You now have a fully functional web server running on a Linux instance in AWS. It is serving HTTP traffic to the public internet. You created a custom HTML page that people can access by visiting your server's IP address. This is the foundation of web hosting in the cloud.</p>
-<p>In Part 6, we will explore AWS S3 — Amazon's storage service — and learn how to interact with it from the Linux command line. S3 is used for storing images, backups, static websites, and much more.</p>
+# Create a test page
+echo "&lt;h1&gt;Hello from EC2!&lt;/h1&gt;" > /var/www/mysite/index.html
 
-<h4>Nginx Configuration Deep Dive</h4>
-<p>Nginx's configuration structure is hierarchical: a main context contains events and http contexts. The http context contains server blocks (virtual hosts), which contain location blocks defining how different URL paths are handled. Understanding this hierarchy enables complex configurations:</p>
-<div class="code-title">Nginx Reverse Proxy Configuration</div>
-<pre><code class="language-nginx">server {
+# Create virtual host config
+sudo nano /etc/nginx/sites-available/mysite
+
+# Config content:
+server {
     listen 80;
-    server_name myapp.example.com;
+    server_name mysite.example.com;
+    root /var/www/mysite;
+    index index.html;
 
-    # Serve static files directly
-    location /static/ {
-        alias /var/www/myapp/static/;
-        expires 30d;
-        add_header Cache-Control "public, immutable";
+    location / {
+        try_files $uri $uri/ =404;
     }
 
-    # Proxy dynamic requests to application
+    access_log /var/log/nginx/mysite-access.log;
+    error_log  /var/log/nginx/mysite-error.log;
+}
+
+# Enable the site
+sudo ln -s /etc/nginx/sites-available/mysite /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx</code></pre>
+<h4>Reverse Proxy to an App Server</h4>
+<div class="code-title">Proxy to Python/Node.js app</div>
+<pre><code class="language-bash"># Your app runs on port 8000 (gunicorn, uvicorn, node, etc.)
+# Nginx listens on 80, forwards to app
+
+server {
+    listen 80;
+    server_name api.example.com;
+
     location / {
         proxy_pass http://127.0.0.1:8000;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_connect_timeout 30s;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_connect_timeout 10s;
         proxy_read_timeout 60s;
     }
 }</code></pre>
-<h4>SSL/TLS with Let's Encrypt</h4>
-<p>Serving your application over HTTPS is mandatory for production. Let's Encrypt provides free SSL certificates, and Certbot automates the installation and renewal process. Install Certbot: <code>sudo apt install certbot python3-certbot-nginx</code>. Obtain and install a certificate: <code>sudo certbot --nginx -d yourdomain.com</code>. Certbot automatically modifies your nginx configuration to handle HTTPS and sets up automatic renewal. Verify auto-renewal with <code>sudo certbot renew --dry-run</code>. Certificates are valid for 90 days and automatically renewed when less than 30 days remain.</p>
-<h4>Practice Exercise</h4>
-<p>On your EC2 instance, configure nginx as a reverse proxy for a simple application. First, run a simple Python HTTP server on port 8000: <code>python3 -m http.server 8000 &amp;</code>. Then configure nginx to proxy requests from port 80 to port 8000. Update the EC2 security group to allow HTTP (port 80) from anywhere. Test from your browser using the EC2 public IP. Examine the nginx access logs at <code>/var/log/nginx/access.log</code> to see the requests being logged.</p>
+<h4>HTTPS with Let's Encrypt</h4>
+<div class="code-title">Free SSL certificate</div>
+<pre><code class="language-bash"># Install certbot
+sudo apt install certbot python3-certbot-nginx -y
 
-<div class="ad-container" style="text-align:center;margin:32px 0;">
+# Get certificate (replace with your domain)
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+
+# Follow prompts -- certbot auto-modifies nginx config!
+
+# Auto-renewal (certbot installs a cron/timer automatically)
+sudo certbot renew --dry-run   # Test renewal
+
+# Verify SSL
+curl -I https://yourdomain.com
+# Should show: HTTP/2 200</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">What is the difference between nginx and Apache?</h5><p>Nginx is event-driven and handles thousands of concurrent connections with low memory. Apache uses a thread-per-connection model which uses more memory under high load. Nginx is preferred for high-traffic sites and as a reverse proxy. Apache has more module ecosystem and is easier to configure per-directory with .htaccess.</p>
+<h5 style="margin-bottom:8px;">What is a reverse proxy?</h5><p>A reverse proxy sits in front of your application server. Clients connect to Nginx on port 80/443. Nginx forwards requests to your app (Python on 8000, Node on 3000) and returns responses. Benefits: SSL termination, load balancing, caching, and hiding the app server.</p>
+<h5 style="margin-bottom:8px;">How do I serve multiple websites from one EC2?</h5><p>Create separate config files in sites-available for each domain. Each server block has a different server_name. Nginx routes traffic to the correct block based on the Host header. One EC2 can serve dozens of domains.</p>
+<h5 style="margin-bottom:8px;">What is the difference between reload and restart?</h5><p>reload (sudo nginx -s reload or systemctl reload nginx) re-reads config files while keeping existing connections alive -- zero downtime. restart terminates all connections and restarts the process -- brief interruption. Always use reload unless restart is specifically needed.</p>
+<h5 style="margin-bottom:8px;">How do I see nginx access logs in real time?</h5><p>tail -f /var/log/nginx/access.log follows the log live. tail -f /var/log/nginx/error.log for errors. Add goaccess for a real-time terminal dashboard: sudo apt install goaccess; goaccess /var/log/nginx/access.log --log-format=COMBINED</p>
 </div>
+<p>In <a href="aws-linux-combo-part-6.html">Part 6</a>, we use AWS S3 from the Linux command line -- uploading files, syncing directories, and hosting static websites.</p>
+<div class="series-nav"><a href="aws-linux-combo-part-4.html">&larr; Part 4</a><strong style="color:#86868b;font-size:0.85rem;">AWS Linux Tutorial &middot; Part 5 of 12</strong><a href="aws-linux-combo-part-6.html">Part 6 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only.</div>
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
-</section>
+<h4>Nginx Performance Tuning</h4>
+<div class="code-title">Production nginx.conf optimisations</div>
+<pre><code class="language-bash"># /etc/nginx/nginx.conf
+worker_processes auto;          # Match CPU cores
+worker_rlimit_nofile 65535;     # Max open files per worker
 
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+events {
+    worker_connections 4096;    # Per worker (total = workers * connections)
+    use epoll;                  # Linux event model
+    multi_accept on;
+}
+
+http {
+    # Performance
+    sendfile on;                # Kernel-level file sending
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    keepalive_requests 1000;
+    
+    # Compression (reduce bandwidth 60-70%)
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml;
+    gzip_min_length 1000;
+    gzip_comp_level 6;
+    
+    # Buffers
+    client_body_buffer_size 16k;
+    client_max_body_size 50m;   # Max upload size
+    client_body_timeout 15;
+    client_header_timeout 15;
+    
+    # Security headers
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    server_tokens off;           # Hide nginx version
+}</code></pre>
+
+<h4>Load Balancing with Nginx</h4>
+<div class="code-title">Nginx as upstream load balancer</div>
+<pre><code class="language-bash">upstream app_servers {
+    least_conn;                 # Route to server with fewest connections
+    server 10.0.1.10:8000 weight=3;  # Gets 3x more traffic
+    server 10.0.1.11:8000 weight=1;
+    server 10.0.1.12:8000 backup;   # Only used if others fail
+    
+    keepalive 32;               # Persistent connections to upstream
+}
+
+server {
+    listen 80;
+    server_name api.example.com;
+    
+    location / {
+        proxy_pass http://app_servers;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        
+        # Health check
+        proxy_next_upstream error timeout http_502 http_503;
+        proxy_next_upstream_tries 2;
+    }
+    
+    # Health check endpoint (no logging)
+    location /health {
+        access_log off;
+        proxy_pass http://app_servers;
+    }
+}</code></pre>
+
+</section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer></body></html>

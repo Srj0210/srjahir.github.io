@@ -1,233 +1,212 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="theme-color" content="#ffffff" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech</title>
-  <meta name="description" content="Learn Linux package management with apt, yum, and dnf. Install, update, remove, and manage software on Ubuntu, Debian, CentOS, and RHEL." /><meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow"><link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-7.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Linux Tutorial Part 7 — Shell Scripting" />
-  <meta property="og:description" content="Learn Linux package management with apt, yum, and dnf. Install, update, remove, and manage software on Ubuntu, Debian, CentOS, and RHEL." />
-  <meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-7.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-05" />
-  <meta property="article:author" content="Suraj Ahir" />
-<meta property="og:title" content="Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Linux Tutorial Part 7 — Shell Scripting | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-09", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/linux-tutorial-part-7.html"}, "url": "https://srjahir.in/blogs/linux-tutorial-part-7.html", "description": "Learn Linux package management with apt, yum, and dnf. Install, update, remove, and manage software on Ubuntu, Debian, CentOS, and RHEL."}
-  </script>
-<link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux Full Tutorial Part 7 - Shell Scripting from Basics to Automation | SRJahir Tech</title>
+<meta name="description" content="Learn Linux bash scripting: variables, if-else, loops, functions, arguments, arrays, error handling, and building real automation scripts."/>
+<meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://srjahir.in/blogs/linux-tutorial-part-7.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Linux Full Tutorial Part 7 - Shell Scripting from Basics to Automation"/>
+<meta property="og:url" content="https://srjahir.in/blogs/linux-tutorial-part-7.html"/>
+<meta property="og:image" content="https://srjahir.in/blogs/images/linux-part-7-terminal.svg"/>
+<meta property="og:site_name" content="SRJahir Tech"/>
+<meta property="article:published_time" content="2025-12-09"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Linux Full Tutorial Part 7 - Shell Scripting from Basics to Automation","url":"https://srjahir.in/blogs/linux-tutorial-part-7.html","datePublished":"2025-12-09","author":{"@type":"Person","name":"Suraj Ahir"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script>
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/code-tutorial.css">
 <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-<meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Linux Tutorial Part 7 — Shell Scripting" />
-  <meta name="twitter:description" content="Learn Linux package management with apt, yum, and dnf. Install, update, remove, and manage software on Ubuntu, Debian, CentOS, and RHEL." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
 </head><body>
-<div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech" class="top-logo">
-<header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar">
-<a href="../index.html">Home</a>
-<div class="series-nav">
-  <a href="linux-tutorial-part-6.html">← Part 6</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 7 of 12</strong>
-  <a href="linux-tutorial-part-8.html">Part 8 →</a>
-</div>
-<a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
-</nav></header>
-<section class="content-block">
-<h3>Linux Tutorial — Part 7: Shell Scripting</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 09, 2025 <span class="meta-dot"></span> 6 min read</p>
-
-<figure style="margin:28px 0;text-align:center;">
-  <img src="images/linux-part-7-terminal.svg" alt="Linux — Package Management" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Linux — Package Management</figcaption>
-</figure>
-
-<div class="series-nav">
-  <a href="linux-tutorial-part-6.html">← Part 6</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial · Part 7 of 12</strong>
-  <a href="linux-tutorial-part-8.html">Part 8 →</a>
-</div>
-<p>Shell scripting is where the Linux command line transforms from interactive tool to automation engine. Scripts let you combine commands, add logic, schedule tasks, and automate entire workflows. Every DevOps and system administration role requires shell scripting. This is the skill that saves hours every week.</p>
-<h4>Creating Your First Script</h4>
-<div class="code-title">Hello World Script</div>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav"><h1>SRJahir<span>Tech</span></h1>
+<nav class="menu-bar"><a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+<a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<section class="content-block blog-article">
+<h3>Linux Full Tutorial -- Part 7: Shell Scripting</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-09 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="linux-tutorial-part-6.html">&larr; Part 6</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 7 of 12</strong><a href="linux-tutorial-part-8.html">Part 8 &rarr;</a></div>
+<figure style="margin:28px 0;text-align:center;"><img src="images/linux-part-7-terminal.svg" alt="Linux Full Tutorial -- Part 7: Shell Scripting" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>
+<p>Shell scripting is the automation superpower of Linux. Every task you do repeatedly in the terminal is a candidate for a script. Backup files, deploy applications, restart services, clean up logs, check disk space and alert if low -- all of these are 10-50 line bash scripts that run automatically and save hours of manual work every week.</p>
+<p>I still remember the first time I wrote a script that automated our deployment process. What took 15 manual steps and 20 minutes of careful attention became a 30-second automated process. That script ran thousands of times without a single manual mistake. That is the power of shell scripting.</p>
+<h4>Script Basics</h4>
+<div class="code-title">Structure of a bash script</div>
 <pre><code class="language-bash">#!/bin/bash
-# The shebang line tells Linux which interpreter to use
+# The shebang line tells the OS which interpreter to use
 
-echo "Hello from my first script!"
-echo "Today is: $(date)"
-echo "You are logged in as: $USER"
-echo "Your home directory is: $HOME"</code></pre>
-<div class="code-title">Make It Executable and Run</div>
-<pre><code class="language-bash">chmod +x hello.sh     # Make executable
-./hello.sh            # Run it
-bash hello.sh         # Alternative: run with bash directly</code></pre>
-<h4>Variables in Scripts</h4>
-<div class="code-title">Variables</div>
+# Comments explain what the script does
+
+echo "Script started at $(date)"
+
+# Variables
+APP_NAME="myapp"
+DEPLOY_DIR="/home/ubuntu/${APP_NAME}"
+LOG_FILE="/var/log/${APP_NAME}/deploy.log"
+
+echo "Deploying ${APP_NAME} to ${DEPLOY_DIR}"</code></pre>
+<div class="code-title">Make executable and run</div>
+<pre><code class="language-bash">chmod +x deploy.sh     # Make executable
+./deploy.sh            # Run from current directory
+bash deploy.sh         # Run with bash explicitly
+/home/ubuntu/deploy.sh # Run with full path</code></pre>
+<h4>Variables and Input</h4>
+<div class="code-title">Variables and command-line arguments</div>
 <pre><code class="language-bash">#!/bin/bash
-APP_NAME="MyWebApp"
-VERSION="2.1.0"
-DEPLOY_DIR="/var/www/$APP_NAME"
 
-echo "Deploying $APP_NAME version $VERSION to $DEPLOY_DIR"
+# Positional arguments
+ENVIRONMENT=$1       # First argument
+VERSION=$2           # Second argument
 
-# Command substitution — capture command output
+# Special variables
+echo "Script name: $0"
+echo "All args: $@"
+echo "Arg count: $#"
+echo "Last exit code: $?"
+echo "Process ID: $$"
+
+# Command substitution
 CURRENT_DATE=$(date +%Y-%m-%d)
-DISK_USAGE=$(df -h / | awk 'NR==2 {print $5}')
-echo "Deployment date: $CURRENT_DATE"
-echo "Disk usage: $DISK_USAGE"</code></pre>
-<h4>Reading User Input</h4>
-<div class="code-title">read Command</div>
+DISK_USAGE=$(df -h / | tail -1 | awk "{print $5}")
+
+# Read user input
+read -p "Enter deployment environment: " ENV
+read -sp "Enter password: " PASSWORD  # -s = silent</code></pre>
+<h4>Conditionals</h4>
+<div class="code-title">if-elif-else in bash</div>
 <pre><code class="language-bash">#!/bin/bash
-echo "Enter your name:"
-read NAME
 
-echo "Enter environment (dev/staging/prod):"
-read -r ENV
+ENV=$1
 
-echo "Hello $NAME! Deploying to $ENV environment."</code></pre>
-<h4>Conditionals in Scripts</h4>
-<div class="code-title">if-else in Bash</div>
-<pre><code class="language-bash">#!/bin/bash
-DISK_PERCENT=$(df / | awk 'NR==2 {gsub(/%/,""); print $5}')
+if [ -z "$ENV" ]; then
+    echo "Error: Environment required"
+    echo "Usage: $0 <staging|production>"
+    exit 1
+fi
 
-if [ $DISK_PERCENT -gt 90 ]; then
-    echo "CRITICAL: Disk at $DISK_PERCENT% — immediate action needed"
-elif [ $DISK_PERCENT -gt 75 ]; then
-    echo "WARNING: Disk at $DISK_PERCENT% — clean up soon"
+if [ "$ENV" == "production" ]; then
+    echo "Deploying to production"
+    DEPLOY_HOST="prod.example.com"
+elif [ "$ENV" == "staging" ]; then
+    echo "Deploying to staging"
+    DEPLOY_HOST="staging.example.com"
 else
-    echo "OK: Disk at $DISK_PERCENT%"
+    echo "Unknown environment: $ENV"
+    exit 1
+fi
+
+# File checks
+[ -f "/etc/nginx/nginx.conf" ] && echo "Nginx config exists"
+[ -d "/var/log/app" ] || mkdir -p /var/log/app
+[ -r "$FILE" ] && echo "File is readable"
+
+# Numeric comparison
+DISK_PCT=85
+if [ $DISK_PCT -gt 90 ]; then
+    echo "CRITICAL: Disk almost full"
+elif [ $DISK_PCT -gt 80 ]; then
+    echo "WARNING: Disk usage high"
 fi</code></pre>
-<h4>Loops in Scripts</h4>
-<div class="code-title">for and while Loops</div>
-<pre><code class="language-bash">#!/bin/bash
-
-# Loop through list
-for SERVER in web1 web2 web3 db1; do
-    echo "Checking $SERVER..."
-    ping -c 1 $SERVER > /dev/null 2>&1 && echo "$SERVER: UP" || echo "$SERVER: DOWN"
+<h4>Loops</h4>
+<div class="code-title">for and while loops</div>
+<pre><code class="language-bash"># for loop over list
+for server in web1 web2 web3; do
+    echo "Deploying to $server"
+    ssh ubuntu@$server "sudo systemctl restart myapp"
 done
 
-# Loop through files
-for FILE in /var/log/*.log; do
-    LINES=$(wc -l < "$FILE")
-    echo "$FILE has $LINES lines"
+# for loop with range
+for i in $(seq 1 5); do
+    echo "Attempt $i"
 done
 
-# While loop
-COUNTER=1
-while [ $COUNTER -le 5 ]; do
-    echo "Attempt $COUNTER"
-    COUNTER=$((COUNTER + 1))
-done</code></pre>
-<h4>Functions in Scripts</h4>
-<div class="code-title">Bash Functions</div>
+# for loop over files
+for logfile in /var/log/nginx/*.log; do
+    echo "Processing: $logfile"
+    gzip "$logfile"
+done
+
+# while loop
+ATTEMPT=0
+while [ $ATTEMPT -lt 3 ]; do
+    curl -sf http://localhost/health && break
+    ATTEMPT=$((ATTEMPT + 1))
+    echo "Health check failed, attempt $ATTEMPT"
+    sleep 5
+done
+
+# Read file line by line
+while IFS= read -r line; do
+    echo "Processing: $line"
+done < servers.txt</code></pre>
+<h4>Functions</h4>
+<div class="code-title">Reusable functions in bash</div>
 <pre><code class="language-bash">#!/bin/bash
 
+# Function definitions
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+    echo "[$(date +%H:%M:%S)] $1" | tee -a /var/log/deploy.log
 }
 
-check_service() {
-    SERVICE=$1
-    if systemctl is-active --quiet $SERVICE; then
-        log "$SERVICE is running"
-        return 0
-    else
-        log "$SERVICE is NOT running"
-        return 1
-    fi
+check_health() {
+    local url=$1
+    local max_attempts=5
+    local attempt=0
+    
+    while [ $attempt -lt $max_attempts ]; do
+        if curl -sf "$url/health" > /dev/null 2>&1; then
+            log "Health check passed"
+            return 0
+        fi
+        attempt=$((attempt + 1))
+        log "Health check failed ($attempt/$max_attempts)"
+        sleep 10
+    done
+    return 1
 }
 
-# Use the functions
-log "Starting health check"
-check_service nginx
-check_service postgresql
-log "Health check complete"</code></pre>
-<h4>A Real Deployment Script</h4>
-<div class="code-title">Production-Style Deployment Script</div>
+# Call functions
+log "Starting deployment"
+if ! check_health "http://localhost:8000"; then
+    log "ERROR: Service unhealthy after deployment"
+    exit 1
+fi</code></pre>
+<h4>Error Handling</h4>
+<div class="code-title">Writing robust scripts</div>
 <pre><code class="language-bash">#!/bin/bash
-set -e  # Exit immediately on any error
+set -e          # Exit on any error
+set -u          # Error on undefined variables
+set -o pipefail # Pipes fail if any command fails
 
-APP="srjahir-tech"
-DEPLOY_DIR="/var/www/$APP"
-BACKUP_DIR="/var/backups/$APP"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-
-log() { echo "[INFO] $(date +%T) $1"; }
-error() { echo "[ERROR] $1" >&2; exit 1; }
-
-log "Starting deployment of $APP"
-
-# Check required tools
-command -v git > /dev/null || error "git not found"
-command -v python3 > /dev/null || error "python3 not found"
-
-# Backup current version
-log "Creating backup..."
-cp -r $DEPLOY_DIR $BACKUP_DIR/backup_$TIMESTAMP
-
-# Pull latest code
-log "Pulling latest code..."
-cd $DEPLOY_DIR
-git pull origin main
-
-# Install dependencies
-log "Installing dependencies..."
-pip3 install -r requirements.txt -q
-
-# Restart service
-log "Restarting $APP service..."
-sudo systemctl restart $APP
-
-sleep 2
-systemctl is-active --quiet $APP && log "Deployment successful!" || error "Service failed to start"</code></pre>
-<p>In Part 8, we cover cron jobs — how to schedule scripts to run automatically at specified intervals.</p>
-<h4>Functions in Shell Scripts</h4>
-<p>Shell scripts support functions — named, reusable blocks of code that make scripts organized and maintainable:</p>
-<div class="code-title">Shell Functions</div>
-<pre><code class="language-bash">#!/bin/bash
-
-log_message() {
-    local level="$1"
-    local message="$2"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') [$level] $message"
+# Trap for cleanup on exit
+cleanup() {
+    echo "Cleaning up..."
+    rm -f /tmp/deploy.lock
 }
+trap cleanup EXIT
+trap "echo ERROR: Script failed on line $LINENO; exit 1" ERR
 
-check_disk_space() {
-    local threshold=${1:-80}
-    local usage=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
-    if [ "$usage" -gt "$threshold" ]; then
-        log_message "WARN" "Disk usage ${usage}% exceeds threshold ${threshold}%"
-        return 1
-    fi
-    log_message "INFO" "Disk usage ${usage}% is within limit"
-    return 0
-}
+# Check prerequisites
+command -v docker &gt;&gt; /dev/null || { echo "Docker not found"; exit 1; }
 
-check_disk_space 75</code></pre>
-<p>In bash, functions use <code>local</code> to declare local variables. The return value is a numeric exit code — 0 for success, non-zero for failure. To return data from a function, <code>echo</code> the value inside the function and capture it with: <code>result=$(my_function)</code>.</p>
-<h4>Script Debugging and Best Practices</h4>
-<p>Use <code>bash -n script.sh</code> to check syntax without executing. Use <code>bash -x script.sh</code> to run with execution tracing — every command prints before executing with variables expanded. Add <code>set -e</code> at the top to exit immediately if any command fails. Add <code>set -u</code> to treat unset variables as errors. Add <code>set -o pipefail</code> to catch failures in pipes. These three together (<code>set -euo pipefail</code>) are the standard defensive shell scripting header that prevents silent failures.</p>
-<h4>Practice Exercise</h4>
-<p>Write a system health check script using functions: one function checks disk usage and warns above 85%, another checks if memory available is below 500MB, another checks if a specified service is running using <code>systemctl is-active</code>. The main script calls all three functions, logs results to a file with timestamps, and exits with code 1 if any check fails. Test with different thresholds to verify both pass and fail paths.</p>
-
-<h4>Linux in Your Daily Engineering Practice</h4>
-<p>Linux command-line proficiency is not something you learn once and then stop improving. It is a skill that deepens continuously as you encounter new tools, new use cases, and new problems to solve. The engineers who are most effective at the command line did not become that way by reading comprehensive guides — they became that way by spending years solving real problems at the terminal, gradually accumulating a toolkit of commands, aliases, scripts, and muscle memory. The best approach is to use Linux for real work as much as possible, to look up better ways to do things you already do, and to make note of efficient patterns you observe in others' work. Over time, the terminal becomes faster than any GUI for the tasks you do repeatedly.</p>
-
-<h4>Putting It All Together</h4>
-<p>Every topic in technology and finance rewards the learner who goes beyond surface understanding to build genuine fluency. Fluency comes from repeated exposure, application in varied contexts, and reflection on what worked and what did not. The concepts discussed here are starting points — each one opens into a deeper field of study that could occupy years of focused learning. The most effective approach is not to try to master everything at once, but to pick the areas most relevant to your current goals, go deep there, and then expand. Depth in a few areas is more valuable than shallow familiarity with many. Build on what you know, stay curious about what you do not, and keep the practice of learning as a consistent daily habit rather than an occasional burst of effort.</p>
-<p>The questions that make learning stick: How does this connect to what I already know? Where would I actually use this? What would happen if I tried to explain this to someone who knows nothing about it? What are the edge cases and exceptions? What is still unclear? Asking these questions transforms passive reading into active learning, and active learning is what builds the kind of understanding that is still accessible years later when you need it under real conditions.</p>
-
-<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. Practice is required for real skill development.</div>
-<footer><p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art"></footer>
+# Safe variable expansion
+echo "${VARIABLE:-default_value}"  # Use default if unset</code></pre>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+<h5 style="margin-bottom:8px;">What is the shebang line in a bash script?</h5><p>#!/bin/bash is the shebang -- it tells the OS which interpreter to use when executing the script directly. Without it, the script runs in your current shell which may not be bash. Always include it as the first line of every bash script.</p>
+<h5 style="margin-bottom:8px;">How do I debug a bash script?</h5><p>bash -x script.sh runs the script with execution trace -- shows each command before running it. Add set -x inside the script to enable tracing from that point. set -e makes the script exit on any error, which is good practice for production scripts.</p>
+<h5 style="margin-bottom:8px;">What is the difference between $@ and $*?</h5><p>"$@" expands to separate quoted arguments: "$1" "$2" "$3". "$*" expands to a single string: "$1 $2 $3". Use "$@" when passing arguments to another command to preserve argument boundaries with spaces.</p>
+<h5 style="margin-bottom:8px;">How do I check if a command succeeded in bash?</h5><p>Check $? (exit code): 0 = success, non-zero = failure. Use && for run-if-success: command && echo "OK". Use || for run-if-fail: command || exit 1. Use if command; then ... to check in a conditional.</p>
+<h5 style="margin-bottom:8px;">How do I schedule a bash script to run automatically?</h5><p>Use cron for time-based scheduling. crontab -e opens your crontab. "0 2 * * * /home/ubuntu/backup.sh" runs backup.sh at 2am daily. Or use systemd timers for more advanced scheduling with better logging and dependency management.</p>
+</div>
+<p>In <a href="linux-tutorial-part-8.html">Part 8</a>, we cover cron jobs -- scheduling your scripts to run automatically at specific times.</p>
+<div class="series-nav"><a href="linux-tutorial-part-6.html">&larr; Part 6</a><strong style="color:#86868b;font-size:0.85rem;">Linux Tutorial &middot; Part 7 of 12</strong><a href="linux-tutorial-part-8.html">Part 8 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees.</div>
+</section>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+<img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
 </body></html>

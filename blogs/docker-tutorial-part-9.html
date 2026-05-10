@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Docker Tutorial Part 9 — Docker Security Best Practices | SRJahir Tech</title>
-  <meta name="description" content="Learn Docker security essentials. Avoid running as root, use read-only containers, scan for vulnerabilities, manage secrets safely, and secure your Docker setup for production." />
-  <meta name="keywords" content="Docker security tutorial, Docker root user risks, Docker secrets management, Docker vulnerability scanning" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Learn Docker security: run containers as non-root, scan images for vulnerabilities, use read-only filesystems, manage secrets safely, and harden Docker for production." />
+  <meta name="keywords" content="Docker security best practices, Docker non-root user, Docker vulnerability scanning, Docker secrets management, Docker hardening production" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-9.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-03" />
-  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Docker Tutorial Part 9 — Docker Security Best Practices | SRJahir Tech" />
-  <meta property="og:description" content="Learn Docker security essentials. Avoid running as root, use read-only containers, scan for vulnerabilities, manage secrets safely, and secure your Docker setup for production." />
+  <meta property="og:title" content="Docker Tutorial Part 9 — Docker Security Best Practices" />
+  <meta property="og:description" content="Learn Docker security: run containers as non-root, scan images for vulnerabilities, use read-only filesystems, manage secrets safely, and harden Docker for production." />
   <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-9.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 9 — Docker Security Best Practices | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-03", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-9.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-9.html"}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/docker-part-9-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-12-03" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 9 — Docker Security Best Practices","url":"https://srjahir.in/blogs/docker-tutorial-part-9.html","datePublished":"2025-12-03","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/docker-part-9-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/docker-tutorial-part-9.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why should I not run Docker containers as root?","acceptedAnswer":{"@type":"Answer","text":"Running as root inside a container means that if an attacker exploits a vulnerability in your application, they have root access to the container. On older Docker versions or with certain misconfigurations, this could escalate to root on the host. Running as a non-root user significantly limits the damage of a container compromise."}},{"@type":"Question","name":"How do I scan Docker images for vulnerabilities?","acceptedAnswer":{"@type":"Answer","text":"Use docker scout cves image-name (built into Docker CLI) or Trivy (free, open source) with trivy image my-app:latest. These tools check your image layers against known vulnerability databases and report CVEs by severity. Integrate scanning into your CI/CD pipeline to catch vulnerabilities before images reach production."}},{"@type":"Question","name":"How do I pass secrets to Docker containers without storing them in images or environment variables?","acceptedAnswer":{"@type":"Answer","text":"Use Docker secrets (in Swarm mode) or mount a secrets file at runtime. For Kubernetes, use Kubernetes Secrets. For development, use .env files that are git-ignored. Never hardcode secrets in Dockerfiles or store them in environment variables if the container might be compromised — environment variables are visible to any process inside the container."}},{"@type":"Question","name":"What is a read-only container filesystem?","acceptedAnswer":{"@type":"Answer","text":"Running a container with --read-only prevents any process inside from writing to the container filesystem. This stops malware from modifying binaries or writing malicious files. Applications that need to write can do so only to explicitly allowed tmpfs mounts or volumes. Use --read-only --tmpfs /tmp for applications that need temp file access."}},{"@type":"Question","name":"What is Docker Content Trust?","acceptedAnswer":{"@type":"Answer","text":"Docker Content Trust (DCT) enables signing and verification of Docker images. When enabled (DOCKER_CONTENT_TRUST=1), Docker refuses to pull or run unsigned images. This prevents tampered images from running. It is particularly important in production environments where you want to guarantee that only images you signed and verified are deployed."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -45,46 +34,30 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="docker-tutorial-part-8.html">← Part 8</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 9 of 12</strong>
-  <a href="docker-tutorial-part-10.html">Part 10 →</a>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-<section class="content-block">
+<section class="content-block blog-article">
 <h3>Docker Full Tutorial — Part 9: Docker Security Best Practices</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 03, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-03 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="docker-tutorial-part-8.html">&larr; Part 8</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 9 of 12</strong><a href="docker-tutorial-part-10.html">Part 10 &rarr;</a></div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/docker-part-9-terminal.svg" alt="Docker — Multi-stage Builds" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Multi-stage Builds</figcaption>
+  <img src="images/docker-part-9-terminal.svg" alt="Docker Full Tutorial — Part 9: Docker Security Best Practices" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
 </figure>
+<p>Security is not optional in production Docker deployments. A misconfigured container can give an attacker a foothold into your entire infrastructure. The good news is that Docker security best practices are not complicated — most of them are just a few lines in your Dockerfile or a few flags on docker run.</p>
 
-<div class="series-nav">
-  <a href="docker-tutorial-part-8.html">← Part 8</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 9 of 12</strong>
-  <a href="docker-tutorial-part-10.html">Part 10 →</a>
-</div>
-<p>Docker makes it easy to ship applications fast, but speed without security creates problems. Many Docker deployments in production have serious security vulnerabilities that are avoidable with basic knowledge. This part covers the most important security practices every Docker user should follow — not theoretical concepts, but practical steps you can apply today.</p>
-
-<h4>Never Run Containers as Root</h4>
-<p>By default, Docker containers run as the root user. This is dangerous. If an attacker exploits a vulnerability in your application and gains code execution inside the container, they have root access. Even though they are inside a container, there are documented container escape vulnerabilities. Running as a non-root user significantly reduces the blast radius of a compromise.</p>
-<div class="code-title">Non-Root User in Dockerfile</div>
-<pre><code class="language-bash">FROM python:3.11-slim
-
-# Create a non-root user
-RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+<h4>Never Run as Root</h4>
+<div class="code-title">Create non-root user in Dockerfile</div>
+<pre><code class="language-bash">FROM node:20-alpine
 
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY package*.json ./
+RUN npm ci --only=production
 COPY . .
+
+# Create non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Change ownership of app files
 RUN chown -R appuser:appgroup /app
@@ -92,118 +65,121 @@ RUN chown -R appuser:appgroup /app
 # Switch to non-root user
 USER appuser
 
-EXPOSE 5000
-CMD ["python", "app.py"]</code></pre>
+EXPOSE 3000
+CMD ["node", "index.js"]</code></pre>
 
-<h4>Use Official and Minimal Base Images</h4>
-<p>Every package in your base image is a potential vulnerability. The less software you include, the smaller your attack surface. Always start from official images from Docker Hub verified publishers, and prefer slim or minimal variants.</p>
-<div class="code-title">Image Choices</div>
-<pre><code class="language-bash"># Bad: generic large image
-FROM ubuntu:22.04
+<h4>Minimal Base Images</h4>
+<div class="code-title">Use slim or distroless images</div>
+<pre><code class="language-bash"># Instead of:
+FROM ubuntu:22.04   # 77MB, lots of attack surface
 
-# Better: official language image slim variant
-FROM python:3.11-slim
+# Use:
+FROM debian:bookworm-slim   # 74MB but fewer extras
+FROM node:20-alpine          # 45MB with Alpine
+FROM gcr.io/distroless/nodejs20  # Minimal, no shell</code></pre>
 
-# Best for production: Alpine or distroless
-FROM python:3.11-alpine
-FROM gcr.io/distroless/python3  # Google's distroless — no shell at all</code></pre>
+<h4>Vulnerability Scanning</h4>
+<div class="code-title">Scan images with Trivy</div>
+<pre><code class="language-bash"># Install Trivy
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
 
-<h4>Scan Images for Vulnerabilities</h4>
-<p>Docker has a built-in vulnerability scanner powered by Snyk. Use it regularly on your images:</p>
-<div class="code-title">Vulnerability Scanning</div>
-<pre><code class="language-bash"># Scan an image
-docker scout cves my-app:latest
+# Scan an image
+trivy image my-app:latest
 
-# Scan local image
-docker scout cves --type image my-app:latest
+# Scan with CRITICAL/HIGH only
+trivy image --severity CRITICAL,HIGH my-app:latest
 
-# Get recommendations to fix vulnerabilities
-docker scout recommendations my-app:latest
+# Scan in CI/CD (fail pipeline if CRITICAL found)
+trivy image --exit-code 1 --severity CRITICAL my-app:latest</code></pre>
 
-# Alternative: Trivy (popular open-source scanner)
-trivy image my-app:latest</code></pre>
+<h4>Read-Only Filesystems</h4>
+<div class="code-title">Run container with read-only filesystem</div>
+<pre><code class="language-bash">docker run   --read-only   --tmpfs /tmp   --tmpfs /var/run   my-app:latest</code></pre>
 
-<h4>Read-Only Containers</h4>
-<p>If your application does not need to write to the filesystem at runtime, run the container with a read-only root filesystem. This prevents any malware or exploit from writing files or installing tools inside the container.</p>
-<div class="code-title">Read-Only Container</div>
-<pre><code class="language-bash"># Run with read-only filesystem
-docker run --read-only -p 5000:5000 my-app:latest
+<h4>Limit Container Capabilities</h4>
+<div class="code-title">Drop unnecessary Linux capabilities</div>
+<pre><code class="language-bash">docker run   --cap-drop ALL   --cap-add NET_BIND_SERVICE   --security-opt no-new-privileges   my-app:latest</code></pre>
 
-# If the app needs some writable directories, use tmpfs
-docker run --read-only   --tmpfs /tmp   --tmpfs /var/run   -p 5000:5000 my-app:latest</code></pre>
+<h4>Never Store Secrets in Images</h4>
+<div class="code-title">Wrong and right ways to handle secrets</div>
+<pre><code class="language-bash"># WRONG — secret in Dockerfile
+ENV API_KEY=secretkey123
 
-<h4>Managing Secrets Safely</h4>
-<p>Never put secrets — passwords, API keys, tokens — in environment variables passed directly in docker run commands or hardcoded in Dockerfiles. These show up in <code>docker inspect</code> output and in logs. Use Docker secrets (in Swarm mode) or mount secret files:</p>
-<div class="code-title">Secrets Best Practices</div>
-<pre><code class="language-bash"># BAD: secret visible in docker inspect
-docker run -e DB_PASSWORD=mysecret my-app
+# WRONG — secret in build arg (visible in image history)
+ARG API_KEY
+ENV API_KEY=$API_KEY
 
-# BETTER: use a .env file (never commit to git)
-docker run --env-file .env my-app
+# RIGHT — pass at runtime
+docker run -e API_KEY=secretkey123 my-app
 
-# IN COMPOSE: use secrets
-services:
-  app:
-    image: my-app
-    secrets:
-      - db_password
-secrets:
-  db_password:
-    file: ./secrets/db_password.txt</code></pre>
+# BETTER — use Docker secrets or mount a secrets file
+docker run   -v /run/secrets/api_key:/run/secrets/api_key:ro   my-app</code></pre>
+<p>In <a href="docker-tutorial-part-10.html">Part 10</a>, we integrate Docker into CI/CD pipelines — automated building, testing, scanning, and deploying containers on every code push using GitHub Actions.</p>
 
-<h4>Limit Container Resources</h4>
-<p>Without resource limits, a single misbehaving container can consume all CPU and memory on the host, taking down every other container. Always set limits in production:</p>
-<div class="code-title">Resource Limits</div>
-<pre><code class="language-bash"># Limit CPU and memory
-docker run -d   --memory="512m"   --cpus="1.5"   --memory-swap="1g"   my-app:latest
+<h4>Docker Bench Security</h4>
+<p>Docker Bench is an open-source tool that runs a checklist of security best practices against your Docker installation and running containers. Run it regularly as part of your security posture.</p>
+<div class="code-title">Run Docker Bench Security</div>
+<pre><code class="language-bash">docker run --rm --net host --pid host --userns host --cap-add audit_control \
+    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
+    -v /etc:/etc:ro \
+    -v /lib/systemd/system:/lib/systemd/system:ro \
+    -v /usr/bin/containerd:/usr/bin/containerd:ro \
+    -v /usr/bin/runc:/usr/bin/runc:ro \
+    -v /usr/lib/systemd:/usr/lib/systemd:ro \
+    -v /var/lib:/var/lib:ro \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    --label docker_bench_security \
+    docker/docker-bench-security</code></pre>
 
-# In docker-compose.yml
-services:
-  app:
-    image: my-app
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-          cpus: '1.5'</code></pre>
+<h4>Network Security — Isolating Containers</h4>
+<div class="code-title">Network isolation best practices</div>
+<pre><code class="language-bash"># Only expose the minimum ports needed
+# BAD — expose all ports
+docker run -P nginx
 
-<h4>Docker Daemon Security</h4>
-<ul>
-  <li>Never expose the Docker socket to containers unless absolutely necessary. Mounting <code>/var/run/docker.sock</code> gives the container full control over your Docker host.</li>
-  <li>Keep Docker updated. New versions patch security vulnerabilities.</li>
-  <li>Use <code>--cap-drop ALL</code> to remove Linux capabilities from containers and only add back what is needed.</li>
-  <li>Enable user namespaces for additional isolation between containers and the host.</li>
-</ul>
+# GOOD — expose only what is needed, on localhost only
+docker run -p 127.0.0.1:8080:80 nginx
 
-<p>In Part 10, we will cover Docker with CI/CD pipelines — automating image builds, tests, and deployments using GitHub Actions and other tools.</p>
-<h4>Container Security Scanning</h4>
-<p>Even carefully built images can contain vulnerabilities in their base layers or dependencies. Vulnerability scanning tools analyze images against databases of known CVEs (Common Vulnerabilities and Exposures). Docker Scout is built into Docker Desktop and the Docker CLI: <code>docker scout cves myimage:latest</code> shows vulnerabilities in an image. Trivy is a popular open-source scanner: <code>trivy image myimage:latest</code>. Integrating scanning into CI/CD pipelines — failing builds when critical vulnerabilities are detected — is a security best practice. Most cloud container registries (ECR, GCR, ACR) also offer built-in image scanning.</p>
-<h4>Resource Limits and Security Options</h4>
-<p>Docker containers share the host kernel, which means a container that consumes all available memory or CPU can impact other containers and the host system. Set resource limits to prevent this:</p>
-<div class="code-title">Resource Limits</div>
-<pre><code class="language-bash"># Limit memory to 512MB and CPU to 0.5 cores
-docker run -d   --memory="512m"   --cpus="0.5"   --memory-swap="512m"   myapp:latest
+# Create separate networks for isolation
+docker network create frontend-net
+docker network create backend-net
 
-# Additional security hardening options
-docker run -d   --read-only \                    # Read-only filesystem
-  --no-new-privileges \            # Prevent privilege escalation
-  --cap-drop ALL \                 # Drop all Linux capabilities
-  --cap-add NET_BIND_SERVICE \     # Add only what's needed
-  myapp:latest</code></pre>
-<h4>Practice Exercise</h4>
-<p>Run a container with explicit resource limits: <code>docker run -d --memory="256m" --cpus="0.5" nginx</code>. Use <code>docker stats</code> to monitor its resource usage. Then run the container with <code>--read-only</code> flag and observe which operations fail because they need to write to the filesystem. Add <code>--tmpfs /tmp</code> to provide a writable temporary directory and verify that resolves the issue. This exercise builds practical understanding of container resource management and filesystem security.</p>
+# Web server: on frontend (accessible)
+docker run -d --network frontend-net --name web my-web-app
 
-<h4>Building Cloud Intuition Over Time</h4>
-<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
+# Database: on backend only (not accessible from outside)
+docker run -d --network backend-net --name db postgres
 
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+# App server: on both networks (bridges them)
+docker run -d --network frontend-net --name app my-api
+docker network connect backend-net app</code></pre>
+
+<h4>Resource Limits for Security and Stability</h4>
+<div class="code-title">Set resource limits to prevent abuse</div>
+<pre><code class="language-bash">docker run \
+  --memory="512m" \           # Max 512MB RAM
+  --memory-swap="512m" \      # Same as memory = no swap
+  --cpus="1.0" \              # Max 1 CPU core
+  --pids-limit=100 \          # Max 100 processes (prevents fork bombs)
+  --ulimit nofile=1024:1024 \ # Limit open file descriptors
+  my-app</code></pre>
+<p>Setting resource limits is both a security measure and a stability measure. Without limits, a buggy or compromised container can consume all host memory and crash every other container on the machine. Limits contain the blast radius of any failure to a single container.</p>
+
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">Why should I not run Docker containers as root?</h5>
+  <p>Running as root inside a container means that if an attacker exploits a vulnerability in your application, they have root access to the container. On older Docker versions or with certain misconfigurations, this could escalate to root on the host. Running as a non-root user significantly limits the damage of a container compromise.</p>
+  <h5 style="margin-bottom:8px;">How do I scan Docker images for vulnerabilities?</h5>
+  <p>Use docker scout cves image-name (built into Docker CLI) or Trivy (free, open source) with trivy image my-app:latest. These tools check your image layers against known vulnerability databases and report CVEs by severity. Integrate scanning into your CI/CD pipeline to catch vulnerabilities before images reach production.</p>
+  <h5 style="margin-bottom:8px;">How do I pass secrets to Docker containers without storing them in images or environment variables?</h5>
+  <p>Use Docker secrets (in Swarm mode) or mount a secrets file at runtime. For Kubernetes, use Kubernetes Secrets. For development, use .env files that are git-ignored. Never hardcode secrets in Dockerfiles or store them in environment variables if the container might be compromised — environment variables are visible to any process inside the container.</p>
+  <h5 style="margin-bottom:8px;">What is a read-only container filesystem?</h5>
+  <p>Running a container with --read-only prevents any process inside from writing to the container filesystem. This stops malware from modifying binaries or writing malicious files. Applications that need to write can do so only to explicitly allowed tmpfs mounts or volumes. Use --read-only --tmpfs /tmp for applications that need temp file access.</p>
+  <h5 style="margin-bottom:8px;">What is Docker Content Trust?</h5>
+  <p>Docker Content Trust (DCT) enables signing and verification of Docker images. When enabled (DOCKER_CONTENT_TRUST=1), Docker refuses to pull or run unsigned images. This prevents tampered images from running. It is particularly important in production environments where you want to guarantee that only images you signed and verified are deployed.</p>
 </div>
+<div class="series-nav"><a href="docker-tutorial-part-8.html">&larr; Part 8</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 9 of 12</strong><a href="docker-tutorial-part-10.html">Part 10 &rarr;</a></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

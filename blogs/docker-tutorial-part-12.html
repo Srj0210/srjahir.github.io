@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <title>Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech</title>
-  <meta name="description" content="Build a complete real-world Docker project from scratch. Deploy a full-stack web application with Docker Compose, Nginx, Flask, PostgreSQL, and automated CI/CD using everything learned in this series." />
-  <meta name="keywords" content="Docker real world project, Docker full stack deployment, Docker Compose production, Docker Flask PostgreSQL Nginx" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <title>Docker Tutorial Part 12 — Real-World Docker Project: Full Stack Deployment | SRJahir Tech</title>
+  <meta name="description" content="Build a complete production Docker project. Deploy a full-stack Node.js + PostgreSQL + Redis + nginx application with Docker Compose, CI/CD, and production best practices." />
+  <meta name="keywords" content="Docker full stack project, Docker production deployment, Docker Compose production, nginx Docker reverse proxy, Node.js Docker PostgreSQL" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/docker-tutorial-part-12.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2025-12-15" />
-  <meta property="article:author" content="Suraj Ahir" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech" />
-  <meta property="og:description" content="Build a complete real-world Docker project from scratch. Deploy a full-stack web application with Docker Compose, Nginx, Flask, PostgreSQL, and automated CI/CD using everything learned in this series." />
+  <meta property="og:title" content="Docker Tutorial Part 12 — Real-World Docker Project: Full Stack Deployment" />
+  <meta property="og:description" content="Build a complete production Docker project. Deploy a full-stack Node.js + PostgreSQL + Redis + nginx application with Docker Compose, CI/CD, and production best practices." />
   <meta property="og:url" content="https://srjahir.in/blogs/docker-tutorial-part-12.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Docker Tutorial Part 12 — Real-World Docker Project | SRJahir Tech", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "datePublished": "2025-12-15", "dateModified": "2026-03-29", "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/docker-tutorial-part-12.html"}, "url": "https://srjahir.in/blogs/docker-tutorial-part-12.html"}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/docker-part-12-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2025-12-15" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Docker Tutorial Part 12 — Real-World Docker Project: Full Stack Deployment","url":"https://srjahir.in/blogs/docker-tutorial-part-12.html","datePublished":"2025-12-15","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/docker-part-12-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/docker-tutorial-part-12.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does a production Docker deployment look like?","acceptedAnswer":{"@type":"Answer","text":"A production Docker deployment typically includes: a multi-stage Dockerfile for each application service, a docker-compose.yml (or Kubernetes manifests) defining all services together, nginx as a reverse proxy handling SSL termination, named volumes for all persistent data, health checks on every service, a CI/CD pipeline that builds and scans images on every commit, and a registry to store versioned images."}},{"@type":"Question","name":"Should I use Docker Compose in production?","acceptedAnswer":{"@type":"Answer","text":"For simple to medium deployments (one to a few servers), Docker Compose with docker compose up -d is perfectly valid in production. For large-scale deployments across many servers needing automatic failover, self-healing, and sophisticated scheduling, move to Kubernetes or Docker Swarm. Do not let perfect be the enemy of good — Docker Compose in production is far better than ad-hoc container management."}},{"@type":"Question","name":"How do I handle database migrations in Docker?","acceptedAnswer":{"@type":"Answer","text":"The recommended pattern is an init container or entrypoint script that runs migrations before the application starts. In Docker Compose, use command to override the default CMD with a script that runs migrations then starts the app. In Kubernetes, use an initContainer. Always ensure migrations are idempotent — safe to run multiple times."}},{"@type":"Question","name":"How do I set up nginx as a reverse proxy in Docker?","acceptedAnswer":{"@type":"Answer","text":"Run nginx as a container with a custom nginx.conf that proxy_passes to your application container by its service name (DNS resolution in Docker networks). Mount the config file as a bind mount or COPY it into a custom nginx image. For HTTPS, mount SSL certificates as volumes or use certbot in a companion container."}},{"@type":"Question","name":"How do I monitor a Docker production deployment?","acceptedAnswer":{"@type":"Answer","text":"Use Portainer for a visual dashboard of all containers and their resource usage. Use docker stats for live resource monitoring from the CLI. Set up log forwarding to a centralized system (Loki, ELK Stack). Use health checks in your Compose file so Docker restarts unhealthy containers automatically. Set memory limits to prevent any container from consuming all host memory."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -45,216 +34,153 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    
-<div class="series-nav">
-  <a href="docker-tutorial-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 12 of 12</strong>
-  <span></span>
-</div>
-<a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-<section class="content-block">
+<section class="content-block blog-article">
 <h3>Docker Full Tutorial — Part 12: Real-World Docker Project</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> December 15, 2025 <span class="meta-dot"></span> 6 min read</p>
-
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> 2025-12-15 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav"><a href="docker-tutorial-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 12 of 12</strong><span></span></div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/docker-part-12-terminal.svg" alt="Docker — Full Deployment" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Docker — Full Deployment</figcaption>
+  <img src="images/docker-part-12-terminal.svg" alt="Docker Full Tutorial — Part 12: Real-World Docker Project" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
 </figure>
+<p>This is the part where everything comes together. Over eleven parts, you have learned containers, images, Dockerfiles, volumes, networking, Compose, registries, multi-stage builds, security, CI/CD, and Swarm. Now we build a real production project that uses all of it: a Node.js API with PostgreSQL, Redis caching, nginx reverse proxy, Docker Compose configuration, and a GitHub Actions pipeline.</p>
+<p>This is the pattern I use in real projects. Not theoretical — practical. Copy what is useful, adapt what needs adapting.</p>
 
-<div class="series-nav">
-  <a href="docker-tutorial-part-11.html">← Part 11</a>
-  <strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial · Part 12 of 12</strong>
-  <span></span>
-</div>
-<p>This is the final part of the Docker tutorial series. Instead of new concepts, we are going to build a complete, production-ready application from scratch using everything we have learned across all twelve parts. This is how Docker is actually used in the real world — not isolated examples, but a complete system working together.</p>
+<h4>Project Architecture</h4>
+<p>Our stack: nginx (reverse proxy + SSL termination), Node.js API (3 replicas), PostgreSQL (persistent storage), Redis (session and cache), and a CI/CD pipeline that builds and deploys on every push to main.</p>
 
-<h4>What We Are Building</h4>
-<p>A full-stack web application with four components:</p>
-<ul>
-  <li><strong>Nginx</strong> — Reverse proxy and static file server (Port 80)</li>
-  <li><strong>Flask API</strong> — Backend REST API (internal, not exposed directly)</li>
-  <li><strong>PostgreSQL</strong> — Database with persistent storage</li>
-  <li><strong>Redis</strong> — Caching layer for performance</li>
-</ul>
-<p>All four run as Docker containers, managed by Docker Compose, with proper networking, volumes, secrets, health checks, and a GitHub Actions CI/CD pipeline.</p>
-
-<h4>Project Directory Structure</h4>
-<div class="code-title">Project Structure</div>
-<pre><code class="language-bash">my-docker-app/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml
-├── backend/
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── app.py
-├── nginx/
-│   ├── Dockerfile
-│   └── nginx.conf
-├── docker-compose.yml
-├── docker-compose.dev.yml
-├── .env.example
-└── .dockerignore</code></pre>
-
-<h4>Backend Dockerfile — Multi-Stage</h4>
-<div class="code-title">backend/Dockerfile</div>
-<pre><code class="language-bash">FROM python:3.11-slim AS base
-WORKDIR /app
-RUN groupadd -r appuser && useradd -r -g appuser appuser
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-FROM base AS production
-COPY --chown=appuser:appuser . .
-USER appuser
-EXPOSE 5000
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3   CMD curl -f http://localhost:5000/health || exit 1
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000", "--workers", "4"]</code></pre>
-
-<h4>Docker Compose — Production</h4>
-<div class="code-title">docker-compose.yml</div>
-<pre><code class="language-bash">version: '3.8'
+<h4>Production docker-compose.yml</h4>
+<div class="code-title">Complete production compose file</div>
+<pre><code class="language-yaml">version: '3.8'
 
 services:
   nginx:
-    build: ./nginx
+    image: nginx:1.25-alpine
     ports:
       - "80:80"
-    depends_on:
-      backend:
-        condition: service_healthy
-    networks: [app-net]
-    restart: unless-stopped
-
-  backend:
-    build:
-      context: ./backend
-      target: production
-    environment:
-      DATABASE_URL: postgresql://appuser:${DB_PASSWORD}@db:5432/appdb
-      REDIS_URL: redis://redis:6379/0
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    networks: [app-net]
-    restart: unless-stopped
-
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: appdb
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      - "443:443"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ssl-certs:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  app:
+    image: registry.example.com/myapp:${IMAGE_TAG:-latest}
+    deploy:
+      replicas: 3
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      REDIS_HOST: redis
+    env_file:
+      - .env.production
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      test: ["CMD", "wget", "-q", "-O-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    env_file:
+      - .env.production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks: [app-net]
     restart: unless-stopped
 
   redis:
     image: redis:7-alpine
-    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-    networks: [app-net]
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
     restart: unless-stopped
 
 volumes:
-  db-data:
+  postgres-data:
+  redis-data:
+  ssl-certs:</code></pre>
 
-networks:
-  app-net:
-    driver: bridge</code></pre>
-
-<h4>Nginx Configuration</h4>
+<h4>nginx Reverse Proxy Configuration</h4>
 <div class="code-title">nginx/nginx.conf</div>
-<pre><code class="language-bash">upstream backend {
-    server backend:5000;
+<pre><code class="language-bash">upstream app {
+    server app:3000;
 }
 
 server {
     listen 80;
-    server_name _;
+    server_name api.yourdomain.com;
+    return 301 https://$host$request_uri;
+}
 
-    location /api {
-        proxy_pass http://backend;
+server {
+    listen 443 ssl http2;
+    server_name api.yourdomain.com;
+
+    ssl_certificate /etc/nginx/ssl/cert.pem;
+    ssl_certificate_key /etc/nginx/ssl/key.pem;
+
+    location / {
+        proxy_pass http://app;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_connect_timeout 60s;
-        proxy_read_timeout 60s;
-    }
-
-    location /health {
-        proxy_pass http://backend/health;
-    }
-
-    location / {
-        root /usr/share/nginx/html;
-        try_files $uri $uri/ /index.html;
+        proxy_set_header X-Forwarded-Proto https;
     }
 }</code></pre>
 
-<h4>Deployment Commands</h4>
-<div class="code-title">Full Deployment</div>
-<pre><code class="language-bash"># Copy .env.example to .env and fill in values
-cp .env.example .env
-nano .env
+<h4>Deployment Script</h4>
+<div class="code-title">deploy.sh</div>
+<pre><code class="language-bash">#!/bin/bash
+set -e
 
-# Build all images
-docker compose build
+IMAGE_TAG=$1
+if [ -z "$IMAGE_TAG" ]; then
+    echo "Usage: ./deploy.sh IMAGE_TAG"
+    exit 1
+fi
 
-# Start everything
-docker compose up -d
+echo "Deploying image tag: $IMAGE_TAG"
 
-# Check all services are healthy
-docker compose ps
+# Pull new image
+IMAGE_TAG=$IMAGE_TAG docker compose pull app
 
-# View logs
-docker compose logs -f
+# Deploy with zero downtime
+IMAGE_TAG=$IMAGE_TAG docker compose up -d --no-deps --scale app=6 app
+sleep 15
+IMAGE_TAG=$IMAGE_TAG docker compose up -d --no-deps --scale app=3 app
 
-# Deploy new version with zero downtime
-docker compose pull
-docker compose up -d --no-deps --build backend
+echo "Deployment complete"
+docker compose ps</code></pre>
 
-# Rollback if needed
-docker compose up -d --no-deps my-app:previous-tag</code></pre>
-
-<h4>What You Have Learned in This Series</h4>
-<p>Over twelve parts, you have gone from understanding what Docker is to building a production-ready multi-container application. You understand images and containers, Dockerfiles and layers, volumes and networking, Docker Compose, registries, multi-stage builds, security, CI/CD, and Swarm orchestration. This is a complete foundation. The next step is to take a real project you are building and containerize it. That hands-on experience will solidify everything from this series into real skill.</p>
-<p>From here, the natural progression is learning Kubernetes for more advanced orchestration, and cloud-native deployment patterns on AWS, GCP, or Azure.</p>
-<h4>Production Deployment Checklist</h4>
-<p>Before deploying a Dockerized application to production, work through these essential checks. Images should use specific version tags, not <code>latest</code>. All sensitive configuration (passwords, API keys) should come from environment variables or secrets management, not baked into the image. Resource limits (memory, CPU) should be set for every container. Health checks should be defined so orchestration tools know when a container is ready and when it needs restarting. The application should run as a non-root user inside the container. Images should be scanned for vulnerabilities. Logging should be configured to send to a centralized location rather than relying on <code>docker logs</code>. Volumes should be used for any data that needs to persist across container restarts.</p>
-<h4>Observability in Docker Environments</h4>
-<p>Running applications in containers introduces new observability challenges. Container logs are accessible via <code>docker logs container_name</code> but this does not scale to many containers. In production, configure a logging driver to forward logs to a centralized system — the <code>awslogs</code> driver sends logs to AWS CloudWatch, the <code>fluentd</code> driver sends to Fluentd. For metrics, Prometheus with cAdvisor provides container-level CPU, memory, and network metrics. Grafana dashboards visualize these metrics. For distributed tracing across multiple containers, tools like Jaeger or Zipkin help trace requests as they flow through services. Investing in observability from the beginning saves enormous debugging time when issues occur in production.</p>
-<h4>Practice Exercise</h4>
-<p>Build a complete production-ready application stack: a web API with a database backend, configured using Docker Compose with proper health checks, resource limits, environment variable management via .env file, named volumes for data persistence, and a reverse proxy (nginx) in front of the API. Write a <code>README.md</code> documenting how to build, run, and deploy the stack. This final project brings together everything from the Docker tutorial series into a realistic, deployable application.</p>
-
-<h4>Building Cloud Intuition Over Time</h4>
-<p>Cloud computing is a domain where deep intuition — the ability to make good architectural decisions quickly, to diagnose problems efficiently, and to anticipate how systems will behave under load — develops through accumulated hands-on experience. Every project you build on cloud infrastructure teaches you something that cannot be learned from documentation alone. The cost surprises, the permission errors, the networking debugging sessions, the performance investigations — these are not obstacles to learning, they are the learning. The engineers who have built genuinely deep cloud intuition have usually accumulated it through many projects over several years, not from any single course or certification. Start building things, make mistakes safely in learning environments, and accumulate that experience deliberately.</p>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome or job placement.
+<p>You have now completed the full Docker series. You understand Docker from first principles through production deployment. The natural next step is the <a href="kubernetes-tutorial-part-1.html">Kubernetes series</a> — which takes everything you know about Docker containers and shows you how to orchestrate them at scale in production clusters. Every company running containers at scale uses Kubernetes, and Docker is the foundation everything builds on.</p>
+<h4>Frequently Asked Questions</h4><div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What does a production Docker deployment look like?</h5>
+  <p>A production Docker deployment typically includes: a multi-stage Dockerfile for each application service, a docker-compose.yml (or Kubernetes manifests) defining all services together, nginx as a reverse proxy handling SSL termination, named volumes for all persistent data, health checks on every service, a CI/CD pipeline that builds and scans images on every commit, and a registry to store versioned images.</p>
+  <h5 style="margin-bottom:8px;">Should I use Docker Compose in production?</h5>
+  <p>For simple to medium deployments (one to a few servers), Docker Compose with docker compose up -d is perfectly valid in production. For large-scale deployments across many servers needing automatic failover, self-healing, and sophisticated scheduling, move to Kubernetes or Docker Swarm. Do not let perfect be the enemy of good — Docker Compose in production is far better than ad-hoc container management.</p>
+  <h5 style="margin-bottom:8px;">How do I handle database migrations in Docker?</h5>
+  <p>The recommended pattern is an init container or entrypoint script that runs migrations before the application starts. In Docker Compose, use command to override the default CMD with a script that runs migrations then starts the app. In Kubernetes, use an initContainer. Always ensure migrations are idempotent — safe to run multiple times.</p>
+  <h5 style="margin-bottom:8px;">How do I set up nginx as a reverse proxy in Docker?</h5>
+  <p>Run nginx as a container with a custom nginx.conf that proxy_passes to your application container by its service name (DNS resolution in Docker networks). Mount the config file as a bind mount or COPY it into a custom nginx image. For HTTPS, mount SSL certificates as volumes or use certbot in a companion container.</p>
+  <h5 style="margin-bottom:8px;">How do I monitor a Docker production deployment?</h5>
+  <p>Use Portainer for a visual dashboard of all containers and their resource usage. Use docker stats for live resource monitoring from the CLI. Set up log forwarding to a centralized system (Loki, ELK Stack). Use health checks in your Compose file so Docker restarts unhealthy containers automatically. Set memory limits to prevent any container from consuming all host memory.</p>
 </div>
+<div class="series-nav"><a href="docker-tutorial-part-11.html">&larr; Part 11</a><strong style="color:#86868b;font-size:0.85rem;">Docker Tutorial &middot; Part 12 of 12</strong><span></span></div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.</div>
 </section>
-
-<footer>
-  <p>© 2026 SRJahir Tech — Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>
