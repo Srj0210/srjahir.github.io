@@ -1,18 +1,18 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://srjahir.in/sitemap.xml
-
-# Allow CSS and JS for proper rendering
-Allow: /assets/css/
-Allow: /assets/js/
-
-# Prevent crawling of system folders
-Disallow: /node_modules/
-Disallow: /backup/
-
+# Allow all major crawlers
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+# Sitemap location
+Sitemap: https://srjahir.in/sitemap.xml

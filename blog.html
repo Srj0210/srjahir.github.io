@@ -6,15 +6,12 @@
   <meta name="theme-color" content="#ffffff" />
 
   <title>Blog — SRJahir Tech | AI, Cloud, Programming, Markets</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Long-form practical articles on AI, Cloud, programming, global markets, careers, and long-term thinking by SRJahir Tech. No hype. Just clarity." />
-  <meta name="keywords" content="SRJahir Tech Blog, AI, Cloud, Programming, Markets, Career, India, DevOps, Docker, Python, Linux" />
+  <meta name="description" content="Long-form practical articles on AI, Cloud, DevOps, Python, Linux, AWS, Kubernetes, global markets, and tech careers by Suraj Ahir." />
+  <meta name="keywords" content="SRJahir Tech Blog, DevOps, Docker, Kubernetes, Python, Linux, AWS, AI, Cloud, Programming, Markets, Career, India" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blog.html" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:title" content="Blog — SRJahir Tech | AI, Cloud, Programming, Markets" />
@@ -22,48 +19,290 @@
   <meta property="og:url" content="https://srjahir.in/blog.html" />
   <meta property="og:image" content="https://srjahir.in/logo.png" />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Blog — SRJahir Tech" />
-  <meta name="twitter:description" content="Practical articles on AI, Cloud, DevOps, Python, Linux, markets and careers." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-
-  <!-- Security Headers -->
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-
-  <!-- Icons -->
   <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="apple-touch-icon" href="logo.png" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- Preconnect -->
   <link rel="preconnect" href="https://www.googletagmanager.com" />
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-  <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-93D0PKZM2L');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
 
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243" />
 
-  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <style>
+    /* ===== UPGRADED BLOG PAGE STYLES ===== */
+
+    /* Stats bar */
+    .blog-stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 0 32px;
+    }
+    .blog-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .blog-stat strong {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #e63946;
+    }
+    .blog-stat span {
+      font-size: 0.78rem;
+      color: #86868b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Search + filter */
+    .blog-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 320px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.4;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      border-radius: 980px;
+      font-size: 0.93rem;
+    }
+    .search-wrap input:focus { outline: none; }
+    .blog-categories { display: flex; flex-wrap: wrap; gap: 8px; }
+    .blog-categories button {
+      padding: 6px 14px;
+      border-radius: 980px;
+      border: 1px solid #d2d2d7;
+      background: rgba(255,255,255,0.8);
+      font-size: 12.5px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .blog-categories button:hover { border-color: #e63946; color: #e63946; }
+    .blog-categories button.active { background: #1d1d1f; color: #fff; border-color: #1d1d1f; }
+
+    /* AdSense banner between search and cards */
+    .adsense-banner {
+      margin: 16px 0 28px;
+      text-align: center;
+      min-height: 90px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Series sections */
+    .series-block {
+      margin-bottom: 40px;
+    }
+    .series-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .series-header:hover { border-color: #e63946; }
+    .series-header-left { display: flex; align-items: center; gap: 12px; }
+    .series-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .series-header h4 { font-size: 1rem; font-weight: 600; color: #1d1d1f; margin: 0; }
+    .series-header p { font-size: 0.8rem; color: #86868b; margin: 0; }
+    .series-count {
+      background: #f5f5f7;
+      color: #515154;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 980px;
+    }
+    .series-arrow {
+      font-size: 20px;
+      color: #86868b;
+      transition: transform 0.25s;
+    }
+    .series-block.open .series-arrow { transform: rotate(180deg); }
+
+    .series-posts {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+      padding: 4px 2px;
+    }
+    .series-block.open .series-posts { display: grid; }
+
+    /* Improved blog card */
+    .blog-card {
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s;
+    }
+    .blog-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: #e63946;
+      transform: scaleY(0);
+      transition: transform 0.2s;
+      transform-origin: bottom;
+    }
+    .blog-card:hover::before { transform: scaleY(1); }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .card-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 980px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge-ai      { background: #fff0f0; color: #e63946; }
+    .badge-cloud   { background: #f0f6ff; color: #0071e3; }
+    .badge-devops  { background: #f0fff4; color: #00875a; }
+    .badge-markets { background: #fffbf0; color: #b45309; }
+    .badge-career  { background: #f5f0ff; color: #7c3aed; }
+    .badge-india   { background: #fff5f0; color: #ea580c; }
+    .badge-tutorial{ background: #f0f0f0; color: #515154; }
+    .card-read-time {
+      font-size: 11px;
+      color: #86868b;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .blog-card h4 {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .blog-preview {
+      font-size: 0.85rem;
+      color: #86868b;
+      line-height: 1.55;
+      margin: 0;
+      flex: 1;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+    .card-date { font-size: 11px; color: #b0b0b5; }
+    .read-link {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #e63946;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s;
+    }
+    .read-link:hover { gap: 7px; }
+
+    /* Standalone posts grid */
+    .standalone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    /* Results info */
+    .results-info {
+      font-size: 0.85rem;
+      color: #86868b;
+      margin-bottom: 12px;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 40px 0 60px;
+    }
+    .pagination button {
+      background: #e63946; color: #fff;
+      border: none; font-weight: 600;
+      padding: 10px 22px; border-radius: 980px;
+      cursor: pointer; font-size: 13.5px;
+      font-family: inherit;
+      box-shadow: 0 4px 12px rgba(230,57,70,0.25);
+      transition: all 0.2s;
+    }
+    .pagination button:hover { background: #c62828; transform: translateY(-2px); }
+    .pagination button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+    .page-info { font-size: 13px; color: #86868b; padding: 0 8px; }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #86868b;
+      display: none;
+    }
+    .no-results.show { display: block; }
+
+    @media (max-width: 768px) {
+      .blog-tools { flex-direction: column; align-items: stretch; }
+      .search-wrap { max-width: 100%; }
+      .blog-stats { gap: 16px; }
+    }
+  </style>
 </head>
 
 <body>
-
 <div class="background-waves" aria-hidden="true"></div>
 <img src="logo.png" alt="SRJahir Tech Logo" class="top-logo" width="80" height="80" loading="eager" />
 
@@ -71,7 +310,7 @@
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar" aria-label="Main navigation">
     <a href="index.html">Home</a>
-    <a href="blog.html">Blog</a>
+    <a href="blog.html" aria-current="page">Blog</a>
     <a href="terms.html">Terms</a>
     <a href="privacy.html">Privacy</a>
   </nav>
@@ -80,580 +319,305 @@
 <main>
 
 <!-- INTRO -->
-<section class="content-block">
+<section class="content-block" style="padding-bottom:0;">
   <h3>SRJahir Tech Blog</h3>
-  <p>
-    Long-form, practical articles on AI, Cloud, programming,
-    global markets, careers, and long-term thinking.
-    No hype. Just clarity.
+  <p style="text-align:center;color:#515154;max-width:620px;margin:0 auto 28px;">
+    Practical long-form articles on AI, Cloud, DevOps, Python, Linux, AWS, Kubernetes, markets, and tech careers. No hype. Just clarity.
   </p>
+
+  <!-- Stats bar -->
+  <div class="blog-stats">
+    <div class="blog-stat"><strong>106</strong><span>Articles</span></div>
+    <div class="blog-stat"><strong>7</strong><span>Series</span></div>
+    <div class="blog-stat"><strong>1,47,000+</strong><span>Words</span></div>
+    <div class="blog-stat"><strong>Free</strong><span>Always</span></div>
+  </div>
 </section>
 
 <!-- SEARCH + FILTER -->
-<section class="content-block">
+<section class="content-block" style="padding-top:0;">
   <div class="blog-tools">
-    <div class="blog-search">
-      <input type="text" id="searchInput" placeholder="Search articles…" aria-label="Search articles" />
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search articles…" aria-label="Search articles" autocomplete="off" />
     </div>
     <div class="blog-categories" role="group" aria-label="Filter by category">
       <button class="active" data-filter="all">All</button>
-      <button data-filter="ai">AI</button>
-      <button data-filter="cloud">Cloud</button>
-      <button data-filter="programming">Programming</button>
-      <button data-filter="markets">Markets</button>
-      <button data-filter="career">Career</button>
-      <button data-filter="india">India</button>
-      <button data-filter="tutorial">Tutorial</button>
+      <button data-filter="ai">🤖 AI</button>
+      <button data-filter="cloud">☁️ Cloud</button>
+      <button data-filter="devops">⚙️ DevOps</button>
+      <button data-filter="programming">💻 Programming</button>
+      <button data-filter="markets">📈 Markets</button>
+      <button data-filter="career">🎯 Career</button>
+      <button data-filter="india">🇮🇳 India</button>
     </div>
   </div>
-</section>
 
-<!-- BLOG CARDS -->
-<section class="services" aria-label="Blog articles">
-  <div class="cards" id="blogCards">
-
-    <div class="card blog-card" data-category="ai" data-aos="fade-up">
-      <h4>Why AI Will Not Take Your Job</h4>
-      <p class="blog-preview">AI is not replacing humans. It is replacing outdated ways of working.</p>
-      <a href="blogs/ai-will-not-take-your-job.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="ai" data-aos="fade-up">
-      <h4>How to Use AI the Right Way</h4>
-      <p class="blog-preview">Learn how to use AI as a thinking partner, not a shortcut.</p>
-      <a href="blogs/how-to-use-ai-the-right-way.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="ai" data-aos="fade-up">
-      <h4>Why You Should Not Be Afraid of AI</h4>
-      <p class="blog-preview">Fear comes from misunderstanding. AI is a power multiplier.</p>
-      <a href="blogs/ai-fear-to-power.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="ai" data-aos="fade-up">
-      <h4>Why AI and Adobe Will Empower Creators</h4>
-      <p class="blog-preview">Creativity is not being automated — it is being amplified.</p>
-      <a href="blogs/ai-adobe-creativity.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="career" data-aos="fade-up">
-      <h4>Top Tech Skills That Will Save Your Career</h4>
-      <p class="blog-preview">Skills that matter when AI reshapes jobs and industries.</p>
-      <a href="blogs/top-tech-skills-ai-era.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>Cloud Career Roadmap</h4>
-      <p class="blog-preview">A practical guide from beginner to industry-ready cloud engineer.</p>
-      <a href="blogs/cloud-career-roadmap.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="india" data-aos="fade-up">
-      <h4>Why the Next 50 Years Are Bright for India</h4>
-      <p class="blog-preview">India's long-term strength lies in youth, technology, and adaptability.</p>
-      <a href="blogs/india-next-50-years.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="india" data-aos="fade-up">
-      <h4>India's Youth Advantage</h4>
-      <p class="blog-preview">Why this generation is fundamentally different from the past.</p>
-      <a href="blogs/india-youth-advantage.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="india" data-aos="fade-up">
-      <h4>Why Systems Matter More Than Politics</h4>
-      <p class="blog-preview">Politics changes headlines. Systems shape decades.</p>
-      <a href="blogs/why-systems-matter-more-than-politics.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>How to Use Cloud Power the Right Way</h4>
-      <p class="blog-preview">Cloud is not magic. It is responsibility, design, and thinking.</p>
-      <a href="blogs/how-to-use-cloud-power.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>Cloud Cost Mistakes Beginners Make</h4>
-      <p class="blog-preview">Cloud is not expensive by default — carelessness is.</p>
-      <a href="blogs/cloud-cost-mistakes-beginners-make.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>Why Certifications Alone Don't Make Cloud Engineers</h4>
-      <p class="blog-preview">Certifications open doors, but real skills come from building things.</p>
-      <a href="blogs/why-certifications-alone-dont-make-cloud-engineers.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>AI + Cloud = New Career Paths</h4>
-      <p class="blog-preview">AI and Cloud together are reshaping careers across tech.</p>
-      <a href="blogs/ai-plus-cloud-new-career-paths.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="cloud" data-aos="fade-up">
-      <h4>Cloud Security for Non-Security People</h4>
-      <p class="blog-preview">You don't need to be a security expert to stay safe in the cloud.</p>
-      <a href="blogs/cloud-security-for-non-security-people.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Why Global Markets Move More on Psychology Than Numbers</h4>
-      <p class="blog-preview">Fear, confidence, and narratives shape global market movements.</p>
-      <a href="blogs/why-global-markets-move-on-psychology.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Global Markets vs Indian Markets</h4>
-      <p class="blog-preview">Why treating global and Indian markets the same is a mistake.</p>
-      <a href="blogs/global-markets-vs-indian-markets.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Why Long-Term Investors Win</h4>
-      <p class="blog-preview">Compounding, patience, and discipline explain why long-term investors win.</p>
-      <a href="blogs/why-long-term-investors-win.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Market Cycles Beginners Don't Understand</h4>
-      <p class="blog-preview">Every market follows emotional cycles. Learn why beginners repeat mistakes.</p>
-      <a href="blogs/market-cycles-beginners-dont-understand.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Why News-Based Trading Fails</h4>
-      <p class="blog-preview">Markets move before headlines. Reacting to news usually leads to losses.</p>
-      <a href="blogs/why-news-based-trading-fails.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Why the American Market Moves the World</h4>
-      <p class="blog-preview">The US market drives global liquidity, confidence, and capital flows.</p>
-      <a href="blogs/why-american-market-moves-the-world.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>How Beginners Misunderstand the American Market</h4>
-      <p class="blog-preview">Common misconceptions Indian investors have about US markets.</p>
-      <a href="blogs/how-beginners-misunderstand-american-market.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="markets" data-aos="fade-up">
-      <h4>Market Education: How Global Markets Actually Work</h4>
-      <p class="blog-preview">A complete foundation guide to understanding global markets.</p>
-      <a href="blogs/market-education-how-global-markets-work.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Programming Languages That Will Matter (2026–2031)</h4>
-      <p class="blog-preview">Which languages will stay relevant and grow in the AI era.</p>
-      <a href="blogs/programming-languages-2026-2031-ai-era.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Why Syntax Matters Less Than Thinking in the AI Era</h4>
-      <p class="blog-preview">AI can write syntax. What matters now is how you think and design.</p>
-      <a href="blogs/why-syntax-matters-less-than-thinking.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>How AI Changes Software Engineering — Not Coding</h4>
-      <p class="blog-preview">AI is changing architecture and responsibility, not the existence of coding.</p>
-      <a href="blogs/how-ai-changes-software-engineering-not-coding.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Beginner vs Engineer: The Gap AI Cannot Fill</h4>
-      <p class="blog-preview">AI cannot replace experience, judgment, and responsibility.</p>
-      <a href="blogs/beginner-vs-engineer-the-gap-ai-cannot-fill.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="career" data-aos="fade-up">
-      <h4>Resume &amp; CV Master Guide for the AI Era</h4>
-      <p class="blog-preview">A complete resume guide for presenting skills and thinking correctly.</p>
-      <a href="blogs/resume-complete-guide-ai-era.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Programming Fundamentals — Master Guide</h4>
-      <p class="blog-preview">Before any language, understand how programming actually works.</p>
-      <a href="blogs/programming-fundamentals-master-guide.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Python: Beginner to Professional</h4>
-      <p class="blog-preview">Learn Python the right way — fundamentals, scripting, and real use cases.</p>
-      <a href="blogs/learn-python-beginner-to-pro.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Linux: Beginner to Professional</h4>
-      <p class="blog-preview">Complete Linux roadmap from basic commands to server administration.</p>
-      <a href="blogs/learn-linux-beginner-to-pro.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn JavaScript: Beginner to Professional</h4>
-      <p class="blog-preview">From basics to modern web development and system-level thinking.</p>
-      <a href="blogs/learn-javascript-beginner-to-pro.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn Java: Beginner to Professional</h4>
-      <p class="blog-preview">OOP thinking, backend systems, performance, and enterprise use.</p>
-      <a href="blogs/learn-java-beginner-to-pro.html" class="btn">Read Article</a>
-    </div>
-
-    <div class="card blog-card" data-category="programming" data-aos="fade-up">
-      <h4>Learn CSS: Beginner to Professional</h4>
-      <p class="blog-preview">From fundamentals to layout systems, responsiveness and design.</p>
-      <a href="blogs/learn-css-beginner-to-pro.html" class="btn">Read Article</a>
-    </div>
-
-    <!-- PYTHON TUTORIAL SERIES -->
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 1 — Introduction &amp; Setup</h4>
-      <p class="blog-preview">What Python is, where it is used, and how to set it up correctly.</p>
-      <a href="blogs/python-tutorial-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 2 — Variables &amp; Data Types</h4>
-      <p class="blog-preview">How Python stores data using variables and core data types.</p>
-      <a href="blogs/python-tutorial-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 3 — Operators &amp; Expressions</h4>
-      <p class="blog-preview">Master arithmetic, comparison, logical, and assignment operators.</p>
-      <a href="blogs/python-tutorial-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 4 — Conditional Statements</h4>
-      <p class="blog-preview">Decision-making in Python using if, elif, and else.</p>
-      <a href="blogs/python-tutorial-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 5 — Loops</h4>
-      <p class="blog-preview">Looping, iteration, and control flow using for and while loops.</p>
-      <a href="blogs/python-tutorial-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 6 — Data Structures</h4>
-      <p class="blog-preview">Lists, tuples, sets, and dictionaries in Python explained clearly.</p>
-      <a href="blogs/python-tutorial-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 7 — Functions</h4>
-      <p class="blog-preview">Write reusable, clean, and structured Python functions.</p>
-      <a href="blogs/python-tutorial-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 8 — File Handling</h4>
-      <p class="blog-preview">How Python reads, writes, and manages files in real applications.</p>
-      <a href="blogs/python-tutorial-part-8.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 9 — Error Handling</h4>
-      <p class="blog-preview">Handle errors using try, except, else, and finally properly.</p>
-      <a href="blogs/python-tutorial-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 10 — Modules &amp; Packages</h4>
-      <p class="blog-preview">Using the standard library, pip, and third-party packages.</p>
-      <a href="blogs/python-tutorial-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 11 — Object Oriented Programming</h4>
-      <p class="blog-preview">Classes, objects, inheritance, and OOP in Python explained.</p>
-      <a href="blogs/python-tutorial-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Python Tutorial Part 12 — Virtual Environments &amp; Project Setup</h4>
-      <p class="blog-preview">Dependency management, virtual environments, and real project structure.</p>
-      <a href="blogs/python-tutorial-part-12.html" class="btn">Read Article</a>
-    </div>
-
-    <!-- LINUX TUTORIAL SERIES -->
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 1 — Introduction &amp; Why Linux Matters</h4>
-      <p class="blog-preview">What Linux is, why it powers cloud and servers, and how to start.</p>
-      <a href="blogs/linux-tutorial-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 2 — File Navigation &amp; Management</h4>
-      <p class="blog-preview">Navigate the filesystem, manage files, and understand Linux structure.</p>
-      <a href="blogs/linux-tutorial-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 3 — File Permissions &amp; Ownership</h4>
-      <p class="blog-preview">chmod, chown, users, groups, and Linux security basics.</p>
-      <a href="blogs/linux-tutorial-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 4 — Text Processing Tools</h4>
-      <p class="blog-preview">grep, sed, awk, cut, sort — the essential text processing toolkit.</p>
-      <a href="blogs/linux-tutorial-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 5 — Process Management</h4>
-      <p class="blog-preview">Running processes, background jobs, signals, and system resources.</p>
-      <a href="blogs/linux-tutorial-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 6 — Networking Commands</h4>
-      <p class="blog-preview">IP, SSH, curl, ping, ss, netstat and network troubleshooting.</p>
-      <a href="blogs/linux-tutorial-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 7 — Shell Scripting</h4>
-      <p class="blog-preview">Automate tasks using bash scripts, variables, loops and functions.</p>
-      <a href="blogs/linux-tutorial-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 8 — Cron Jobs &amp; Task Scheduling</h4>
-      <p class="blog-preview">Schedule tasks with cron, systemd timers and the at command.</p>
-      <a href="blogs/linux-tutorial-part-8.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 9 — Package Management</h4>
-      <p class="blog-preview">apt, dnf, snap and managing software on Linux systems.</p>
-      <a href="blogs/linux-tutorial-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 10 — Environment Variables &amp; System Config</h4>
-      <p class="blog-preview">Environment variables, shell initialization, and system configuration.</p>
-      <a href="blogs/linux-tutorial-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 11 — Disk Management &amp; Storage</h4>
-      <p class="blog-preview">Disk partitions, LVM, filesystems and storage management.</p>
-      <a href="blogs/linux-tutorial-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Linux Tutorial Part 12 — System Hardening &amp; Security</h4>
-      <p class="blog-preview">Harden Linux servers, fail2ban, audit logs and security practices.</p>
-      <a href="blogs/linux-tutorial-part-12.html" class="btn">Read Article</a>
-    </div>
-
-    <!-- DOCKER TUTORIAL SERIES -->
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 1 — Why Docker Exists</h4>
-      <p class="blog-preview">Problems before Docker, containers vs VMs, and why Docker matters.</p>
-      <a href="blogs/docker-tutorial-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 2 — Installation &amp; First Containers</h4>
-      <p class="blog-preview">Install Docker and run your first container step by step.</p>
-      <a href="blogs/docker-tutorial-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 3 — Writing Dockerfiles</h4>
-      <p class="blog-preview">Write Dockerfiles, build images, and understand each instruction.</p>
-      <a href="blogs/docker-tutorial-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 4 — Volumes &amp; Data Persistence</h4>
-      <p class="blog-preview">Docker volumes, bind mounts, and keeping data safe outside containers.</p>
-      <a href="blogs/docker-tutorial-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 5 — Docker Networking</h4>
-      <p class="blog-preview">Container networking, ports, bridge networks and container DNS.</p>
-      <a href="blogs/docker-tutorial-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 6 — Docker Compose</h4>
-      <p class="blog-preview">Run multi-container applications using Docker Compose.</p>
-      <a href="blogs/docker-tutorial-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 7 — Registry &amp; Image Management</h4>
-      <p class="blog-preview">Tag, push, and manage Docker images with registries.</p>
-      <a href="blogs/docker-tutorial-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 8 — Multi-Stage Builds</h4>
-      <p class="blog-preview">Optimise Docker images using multi-stage builds for production.</p>
-      <a href="blogs/docker-tutorial-part-8.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 9 — Docker Security Best Practices</h4>
-      <p class="blog-preview">Container security, image scanning, permissions and hardening.</p>
-      <a href="blogs/docker-tutorial-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 10 — Docker in CI/CD Pipelines</h4>
-      <p class="blog-preview">Integrate Docker into GitHub Actions and automated deployment pipelines.</p>
-      <a href="blogs/docker-tutorial-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 11 — Docker Swarm &amp; Orchestration</h4>
-      <p class="blog-preview">Run Docker services at scale with Swarm orchestration.</p>
-      <a href="blogs/docker-tutorial-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>Docker Tutorial Part 12 — Real-World Docker Project</h4>
-      <p class="blog-preview">Build a complete production-ready Docker stack from scratch.</p>
-      <a href="blogs/docker-tutorial-part-12.html" class="btn">Read Article</a>
-    </div>
-
-    <!-- AWS + LINUX COMBO SERIES -->
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 1 — Why Learn AWS and Linux Together</h4>
-      <p class="blog-preview">Cloud basics, why Linux dominates AWS, and how both work together.</p>
-      <a href="blogs/aws-linux-combo-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 2 — Create AWS Account &amp; Launch EC2</h4>
-      <p class="blog-preview">Set up AWS, launch an EC2 instance, and connect via SSH.</p>
-      <a href="blogs/aws-linux-combo-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 3 — Connect to EC2 with SSH</h4>
-      <p class="blog-preview">SSH keys, secure connections, and managing EC2 from terminal.</p>
-      <a href="blogs/aws-linux-combo-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 4 — File Permissions &amp; Users on EC2</h4>
-      <p class="blog-preview">Linux users, permissions, sudo, and server security on AWS.</p>
-      <a href="blogs/aws-linux-combo-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 5 — Install Nginx Web Server on EC2</h4>
-      <p class="blog-preview">Deploy and configure Nginx on EC2 as a reverse proxy.</p>
-      <a href="blogs/aws-linux-combo-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 6 — AWS S3 from the Linux Command Line</h4>
-      <p class="blog-preview">Use the AWS CLI to manage S3 buckets and files from Linux.</p>
-      <a href="blogs/aws-linux-combo-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 7 — IAM Roles, Users, and Policies</h4>
-      <p class="blog-preview">Understand IAM and write precise least-privilege policies.</p>
-      <a href="blogs/aws-linux-combo-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 8 — Bash Scripting for AWS Automation</h4>
-      <p class="blog-preview">Automate AWS tasks with bash scripts and the AWS CLI.</p>
-      <a href="blogs/aws-linux-combo-part-8.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 9 — Master the AWS CLI on Linux</h4>
-      <p class="blog-preview">AWS CLI profiles, output formats, and jq for JSON processing.</p>
-      <a href="blogs/aws-linux-combo-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 10 — VPC, Networking &amp; Security Groups</h4>
-      <p class="blog-preview">VPCs, subnets, security groups, NACLs, and AWS networking.</p>
-      <a href="blogs/aws-linux-combo-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 11 — Monitoring with CloudWatch</h4>
-      <p class="blog-preview">CloudWatch metrics, alarms, logs and monitoring EC2 in production.</p>
-      <a href="blogs/aws-linux-combo-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>AWS + Linux Part 12 — Deploy a Real App End to End</h4>
-      <p class="blog-preview">Full production deployment on AWS with VPC, EC2, RDS and monitoring.</p>
-      <a href="blogs/aws-linux-combo-part-12.html" class="btn">Read Article</a>
-    </div>
-
-    <!-- DEVOPS ROADMAP SERIES -->
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 1 — What is DevOps &amp; Why It Matters</h4>
-      <p class="blog-preview">DevOps mindset, culture, real responsibilities and why companies need it.</p>
-      <a href="blogs/devops-roadmap-part-1.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 2 — Linux for DevOps</h4>
-      <p class="blog-preview">Linux commands, permissions, services and server thinking for DevOps.</p>
-      <a href="blogs/devops-roadmap-part-2.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 3 — Git &amp; Version Control</h4>
-      <p class="blog-preview">Git workflows, branching strategies, pull requests and code review.</p>
-      <a href="blogs/devops-roadmap-part-3.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 4 — Linux Networking for DevOps</h4>
-      <p class="blog-preview">IP, DNS, ports, firewalls, and how servers communicate in production.</p>
-      <a href="blogs/devops-roadmap-part-4.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 5 — Git &amp; Version Control for DevOps</h4>
-      <p class="blog-preview">Advanced Git for DevOps — pipelines, hooks and automation.</p>
-      <a href="blogs/devops-roadmap-part-5.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 6 — CI/CD Pipelines</h4>
-      <p class="blog-preview">Build automated CI/CD pipelines with GitHub Actions and best practices.</p>
-      <a href="blogs/devops-roadmap-part-6.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 7 — Terraform &amp; Infrastructure as Code</h4>
-      <p class="blog-preview">Write Terraform to provision and manage cloud infrastructure as code.</p>
-      <a href="blogs/devops-roadmap-part-7.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 8 — Ansible for Configuration Management</h4>
-      <p class="blog-preview">Automate server configuration with Ansible playbooks and inventory.</p>
-      <a href="blogs/devops-roadmap-part-8.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 9 — Monitoring &amp; Observability</h4>
-      <p class="blog-preview">Prometheus, Grafana, logs and the three pillars of observability.</p>
-      <a href="blogs/devops-roadmap-part-9.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 10 — Kubernetes Fundamentals</h4>
-      <p class="blog-preview">Pods, deployments, services and Kubernetes core concepts explained.</p>
-      <a href="blogs/devops-roadmap-part-10.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 11 — Cloud Platforms for DevOps</h4>
-      <p class="blog-preview">AWS, GCP, Azure for DevOps — choosing the right cloud platform.</p>
-      <a href="blogs/devops-roadmap-part-11.html" class="btn">Read Article</a>
-    </div>
-    <div class="card blog-card" data-category="tutorial" data-aos="fade-up">
-      <h4>DevOps Roadmap Part 12 — Complete DevOps Project</h4>
-      <p class="blog-preview">Build a complete end-to-end DevOps portfolio project.</p>
-      <a href="blogs/devops-roadmap-part-12.html" class="btn">Read Article</a>
-    </div>
-
+  <!-- AdSense horizontal banner -->
+  <div class="adsense-banner">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1041324645386243"
+         data-ad-slot="auto"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-</section>
 
-<!-- PAGINATION -->
-<div class="pagination">
-  <button id="prevBtn">&#8592; Prev</button>
-  <button id="nextBtn">Next &#8594;</button>
-</div>
+  <div class="results-info" id="resultsInfo"></div>
+  <div class="no-results" id="noResults">
+    <p style="font-size:2rem;">🔍</p>
+    <p>No articles found for "<span id="searchTerm"></span>"</p>
+    <p>Try a different keyword or clear the search.</p>
+  </div>
+
+  <!-- ====== SERIES SECTIONS ====== -->
+  <div id="seriesContainer">
+
+    <!-- KUBERNETES SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-k8s">
+      <div class="series-header" onclick="toggleSeries('series-k8s')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#f0fff4;">🚢</div>
+          <div>
+            <h4>Kubernetes Full Tutorial</h4>
+            <p>From zero to production — 12 parts</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="series-count">12 parts</span>
+          <span class="series-arrow">⌄</span>
+        </div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 1 — Why Kubernetes? The Problem It Solves</h4><p class="blog-preview">Understand why Kubernetes was created, what problems it solves over plain Docker.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 14 min</span></div><h4>Part 2 — Architecture: Nodes, Pods, Control Plane</h4><p class="blog-preview">Master Kubernetes architecture — control plane, worker nodes, and how they communicate.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 3 — Pods: The Smallest Deployable Unit</h4><p class="blog-preview">Pods, multi-container pods, pod lifecycle, resource limits, and health probes.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 4 — Deployments and Rolling Updates</h4><p class="blog-preview">Deploy apps with zero downtime using Kubernetes Deployments and rollout strategies.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Services and Networking</h4><p class="blog-preview">ClusterIP, NodePort, LoadBalancer services and how Kubernetes networking works.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — ConfigMaps and Secrets</h4><p class="blog-preview">Manage configuration and sensitive data in Kubernetes using ConfigMaps and Secrets.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — Persistent Storage and Volumes</h4><p class="blog-preview">PersistentVolumes, PVCs, StorageClasses, and stateful storage in Kubernetes.</p><div class="card-footer"><span class="card-date">Mar 2026</span><a href="blogs/kubernetes-tutorial-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — Ingress and Load Balancing</h4><p class="blog-preview">Route external HTTP/HTTPS traffic to services using Ingress controllers.</p><div class="card-footer"><span class="card-date">Apr 2026</span><a href="blogs/kubernetes-tutorial-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Autoscaling and Resource Management</h4><p class="blog-preview">HPA, VPA, Cluster Autoscaler, and resource quotas for production clusters.</p><div class="card-footer"><span class="card-date">Apr 2026</span><a href="blogs/kubernetes-tutorial-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 10 — RBAC and Security</h4><p class="blog-preview">Role-Based Access Control, ServiceAccounts, NetworkPolicies, and K8s security.</p><div class="card-footer"><span class="card-date">Apr 2026</span><a href="blogs/kubernetes-tutorial-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 11 — Monitoring with Prometheus and Grafana</h4><p class="blog-preview">Set up Prometheus and Grafana for Kubernetes cluster monitoring and alerting.</p><div class="card-footer"><span class="card-date">Apr 2026</span><a href="blogs/kubernetes-tutorial-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 14 min</span></div><h4>Part 12 — Production Kubernetes Project</h4><p class="blog-preview">Deploy a complete microservices application on Kubernetes with CI/CD and monitoring.</p><div class="card-footer"><span class="card-date">Apr 2026</span><a href="blogs/kubernetes-tutorial-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- DOCKER SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-docker">
+      <div class="series-header" onclick="toggleSeries('series-docker')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#f0f6ff;">🐳</div>
+          <div><h4>Docker Full Tutorial</h4><p>Containers from basics to production — 12 parts</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">12 parts</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 1 — Why Docker Exists</h4><p class="blog-preview">Problems before Docker, containers vs VMs, and why Docker changed everything.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 2 — Installation and First Containers</h4><p class="blog-preview">Install Docker, run your first container, and understand how images work.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 3 — Writing Dockerfiles</h4><p class="blog-preview">Write Dockerfiles, understand each instruction, and build optimised images.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 4 — Volumes and Data Persistence</h4><p class="blog-preview">Docker volumes, bind mounts, and keeping data safe across container restarts.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Docker Networking</h4><p class="blog-preview">Container networking, port mapping, bridge networks, and service discovery.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — Docker Compose</h4><p class="blog-preview">Run multi-container applications easily with Docker Compose YAML files.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — Registry and Image Management</h4><p class="blog-preview">Tag, push, and manage Docker images with Docker Hub and private registries.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — Multi-Stage Builds</h4><p class="blog-preview">Reduce Docker image sizes dramatically using multi-stage build patterns.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/docker-tutorial-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Docker Security Best Practices</h4><p class="blog-preview">Container security, image scanning, non-root users, and production hardening.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/docker-tutorial-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 10 — Docker in CI/CD Pipelines</h4><p class="blog-preview">Integrate Docker builds into GitHub Actions and automated deployment workflows.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/docker-tutorial-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 11 — Docker Swarm and Orchestration</h4><p class="blog-preview">Scale Docker services across multiple nodes with Swarm orchestration.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/docker-tutorial-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 12 — Real-World Docker Project</h4><p class="blog-preview">Build a complete production-ready Docker stack with CI/CD from scratch.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/docker-tutorial-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- DEVOPS SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-devops">
+      <div class="series-header" onclick="toggleSeries('series-devops')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#f5f0ff;">⚙️</div>
+          <div><h4>DevOps Roadmap</h4><p>Complete DevOps career path — 12 parts</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">12 parts</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 1 — What is DevOps and Why It Matters</h4><p class="blog-preview">DevOps culture, practices, CI/CD, and why every tech company needs it.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/devops-roadmap-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 2 — Linux for DevOps Engineers</h4><p class="blog-preview">Linux commands, permissions, services, and server thinking every DevOps engineer needs.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/devops-roadmap-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 3 — Git and Version Control for Teams</h4><p class="blog-preview">Git branching strategies, pull requests, hooks, and GitOps workflows.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/devops-roadmap-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 4 — Linux Networking for DevOps</h4><p class="blog-preview">IP, DNS, ports, firewalls, SSH tunnels and debugging production network issues.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/devops-roadmap-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Advanced Git for DevOps Pipelines</h4><p class="blog-preview">Trunk-based development, cherry-pick, bisect, reflog, and Git in CI/CD.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/devops-roadmap-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — CI/CD Pipelines with GitHub Actions</h4><p class="blog-preview">Build complete CI/CD pipelines, matrix builds, secrets, and production deployment.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — Terraform and Infrastructure as Code</h4><p class="blog-preview">Write Terraform HCL to provision and manage cloud infrastructure as code.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — Ansible for Configuration Management</h4><p class="blog-preview">Automate server configuration with Ansible playbooks, roles, and inventory.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Monitoring and Observability</h4><p class="blog-preview">Prometheus, Grafana, AlertManager, logs, traces — the three pillars explained.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 10 — Kubernetes Fundamentals for DevOps</h4><p class="blog-preview">Pods, Deployments, Services, RBAC, HPA — Kubernetes for production DevOps.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 11 — Cloud Platforms for DevOps Engineers</h4><p class="blog-preview">AWS core services, IAM, EC2, EKS, cost optimisation, and multi-region DR.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-devops">DevOps</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 12 — Complete DevOps Project From Scratch</h4><p class="blog-preview">Build a full CI/CD + Kubernetes + Terraform + monitoring portfolio project.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/devops-roadmap-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- PYTHON SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-python">
+      <div class="series-header" onclick="toggleSeries('series-python')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#fffbf0;">🐍</div>
+          <div><h4>Python Full Tutorial</h4><p>Python from scratch to real projects — 12 parts</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">12 parts</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 10 min</span></div><h4>Part 1 — Introduction and Setup</h4><p class="blog-preview">Install Python, use the REPL, write your first script, and set up VS Code.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 2 — Variables and Data Types</h4><p class="blog-preview">int, float, str, bool, list, tuple, dict, set — Python data types explained.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 3 — Operators and Input/Output</h4><p class="blog-preview">Arithmetic, comparison, logical operators and interactive Python programs.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 4 — If-Else and Decision Making</h4><p class="blog-preview">Conditional logic, nested conditions, ternary operator, and match/case.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Loops: for, while, and Iteration</h4><p class="blog-preview">for loops, while loops, range(), enumerate(), zip(), break, continue.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — Data Structures and Collections</h4><p class="blog-preview">Advanced lists, dict tricks, sets, itertools, and the collections module.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — Functions, Arguments, and Decorators</h4><p class="blog-preview">*args, **kwargs, lambda, closures, decorators, and functools patterns.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — File Handling, CSV, and JSON</h4><p class="blog-preview">Read/write files, CSV, JSON, Excel, ZIP, and pathlib for modern paths.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/python-tutorial-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Error Handling and Exceptions</h4><p class="blog-preview">try/except/finally, custom exceptions, context managers, pytest basics.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/python-tutorial-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 10 — Modules, Packages, and pip</h4><p class="blog-preview">Import system, packages, pip, virtual environments, pyenv, and Poetry.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/python-tutorial-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 11 — Object Oriented Programming</h4><p class="blog-preview">Classes, inheritance, polymorphism, dataclasses, and Python design patterns.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/python-tutorial-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 12 — Virtual Environments and Real Project</h4><p class="blog-preview">Build a complete server monitor: venv, pytest, logging, CI/CD, and packaging.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/python-tutorial-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- LINUX SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-linux">
+      <div class="series-header" onclick="toggleSeries('series-linux')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#f5f5f7;">🐧</div>
+          <div><h4>Linux Full Tutorial</h4><p>Linux from beginner to production — 12 parts</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">12 parts</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 1 — Introduction to Linux</h4><p class="blog-preview">What Linux is, the filesystem hierarchy, terminal basics, and why it matters.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/linux-tutorial-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 2 — File Navigation and Management</h4><p class="blog-preview">Navigate the filesystem, manage files, find commands, and symbolic links.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/linux-tutorial-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 3 — File Permissions and Ownership</h4><p class="blog-preview">chmod, chown, umask, ACLs, SUID/SGID, and Linux security model.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/linux-tutorial-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 4 — Text Processing Tools</h4><p class="blog-preview">grep, awk, sed, jq, pipes — the essential Linux text processing toolkit.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/linux-tutorial-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Process Management</h4><p class="blog-preview">ps, top, htop, kill, systemctl, journalctl, and managing Linux services.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — Networking Commands</h4><p class="blog-preview">ip, ss, curl, SSH, scp, rsync, DNS tools, and network troubleshooting.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — Shell Scripting</h4><p class="blog-preview">Bash scripts with variables, loops, functions, error handling, and automation.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — Cron Jobs and Task Scheduling</h4><p class="blog-preview">cron syntax, crontab, systemd timers, and automating Linux maintenance.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Package Management</h4><p class="blog-preview">apt, dpkg, snap, PPAs, compiling from source, and keeping servers updated.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 10 — Environment Variables</h4><p class="blog-preview">PATH, export, .bashrc, .env files, Docker/Kubernetes env vars explained.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 11 — Disk Management and Storage</h4><p class="blog-preview">lsblk, fdisk, mount, LVM, EBS volumes, and managing storage on Linux.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-tutorial">Tutorial</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 12 — System Hardening and Security</h4><p class="blog-preview">SSH hardening, fail2ban, ufw, AppArmor, AIDE, rkhunter, and server security.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/linux-tutorial-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- AWS + LINUX SERIES -->
+    <div class="series-block" data-series="tutorial" id="series-aws">
+      <div class="series-header" onclick="toggleSeries('series-aws')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#fff5f0;">☁️</div>
+          <div><h4>AWS + Linux Tutorial</h4><p>Cloud engineering on AWS with Linux — 12 parts</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">12 parts</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 1 — Why Learn AWS and Linux Together</h4><p class="blog-preview">Cloud computing basics, AWS global infrastructure, and free tier strategy.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-1.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 2 — Create AWS Account and Launch EC2</h4><p class="blog-preview">Create an AWS account, launch EC2, choose instance types, configure security groups.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-2.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 3 — Connect to EC2 with SSH</h4><p class="blog-preview">SSH keys, ~/.ssh/config, port forwarding, SCP, rsync, and EC2 Instance Connect.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-3.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 4 — Users and Permissions on EC2</h4><p class="blog-preview">Linux user management, sudo, SSH key setup, and AWS Systems Manager access.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-4.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 5 — Install Nginx on EC2</h4><p class="blog-preview">Deploy and configure Nginx, virtual hosts, HTTPS with Let's Encrypt, load balancing.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-5.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 6 — AWS S3 from the Linux CLI</h4><p class="blog-preview">S3 commands, sync, presigned URLs, event notifications, lifecycle rules.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-6.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 7 — IAM Roles, Users, and Policies</h4><p class="blog-preview">Write IAM policies, use EC2 instance roles, Secrets Manager, cross-account access.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-7.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 8 — Bash Scripting for AWS Automation</h4><p class="blog-preview">Automate EC2, S3, and deployments with bash scripts and the AWS CLI.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/aws-linux-combo-part-8.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 9 — Master the AWS CLI</h4><p class="blog-preview">Profiles, JMESPath queries, output formats, pagination, and CLI v2 features.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/aws-linux-combo-part-9.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 10 — VPC, Networking and Security Groups</h4><p class="blog-preview">VPC design, public/private subnets, security groups, Transit Gateway, Flow Logs.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/aws-linux-combo-part-10.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 11 min</span></div><h4>Part 11 — Monitoring with CloudWatch</h4><p class="blog-preview">Metrics, alarms, Container Insights, X-Ray tracing, and custom metrics.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/aws-linux-combo-part-11.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="tutorial"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>Part 12 — Deploy a Real App End to End</h4><p class="blog-preview">EC2 + RDS + Nginx + SSL + Auto Scaling — complete production deployment on AWS.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/aws-linux-combo-part-12.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+    <!-- AdSense mid-page -->
+    <div class="adsense-banner" style="margin:32px 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-1041324645386243"
+           data-ad-slot="auto"
+           data-ad-format="rectangle"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- STANDALONE POSTS -->
+    <div class="series-block" id="section-standalone">
+      <div class="series-header" onclick="toggleSeries('section-standalone')">
+        <div class="series-header-left">
+          <div class="series-icon" style="background:#fff0f0;">✍️</div>
+          <div><h4>Standalone Articles</h4><p>AI, Cloud, Markets, Career, Programming — 34 articles</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;"><span class="series-count">34 articles</span><span class="series-arrow">⌄</span></div>
+      </div>
+      <div class="series-posts">
+        <div class="card blog-card" data-category="ai"><div class="card-meta"><span class="card-badge badge-ai">AI</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why AI Will Not Take Your Job</h4><p class="blog-preview">AI automates tasks, not jobs. Understanding what actually changes and what remains human.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/ai-will-not-take-your-job.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="ai"><div class="card-meta"><span class="card-badge badge-ai">AI</span><span class="card-read-time">⏱ 12 min</span></div><h4>AI: From Fear to Power</h4><p class="blog-preview">How to stop worrying about AI and start using it as your career advantage.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/ai-fear-to-power.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="ai"><div class="card-meta"><span class="card-badge badge-ai">AI</span><span class="card-read-time">⏱ 12 min</span></div><h4>How to Use AI the Right Way</h4><p class="blog-preview">The CRAFT prompting framework, when to trust AI, and building productive AI habits.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/how-to-use-ai-the-right-way.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="ai"><div class="card-meta"><span class="card-badge badge-ai">AI</span><span class="card-read-time">⏱ 12 min</span></div><h4>How AI Changes Software Engineering</h4><p class="blog-preview">What AI actually shifts in the software engineering workflow and what becomes more valuable.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/how-ai-changes-software-engineering-not-coding.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="ai"><div class="card-meta"><span class="card-badge badge-ai">AI</span><span class="card-read-time">⏱ 12 min</span></div><h4>AI + Adobe Creativity</h4><p class="blog-preview">Practical AI workflows for creative professionals using Adobe Firefly and Photoshop.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/ai-adobe-creativity.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="cloud"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>Cloud Career Roadmap</h4><p class="blog-preview">12-month plan to become a cloud engineer — certifications, projects, and salary guide.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/cloud-career-roadmap.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="cloud"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>How to Use Cloud Power</h4><p class="blog-preview">Beyond "someone else's server" — auto-scaling, serverless, IaC, and cloud-native thinking.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/how-to-use-cloud-power.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="cloud"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>Cloud Cost Mistakes Beginners Make</h4><p class="blog-preview">The 10 most common cloud billing mistakes and how to avoid surprise AWS charges.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/cloud-cost-mistakes-beginners-make.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="cloud"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>Cloud Security for Non-Security People</h4><p class="blog-preview">IAM mistakes, S3 exposure, secrets in code — the cloud security essentials every engineer needs.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/cloud-security-for-non-security-people.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="cloud"><div class="card-meta"><span class="card-badge badge-cloud">Cloud</span><span class="card-read-time">⏱ 12 min</span></div><h4>AI + Cloud: New Career Paths</h4><p class="blog-preview">MLOps, AI Platform, LLM development — the new roles at the AI-cloud intersection.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/ai-plus-cloud-new-career-paths.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="career"><div class="card-meta"><span class="card-badge badge-career">Career</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why Certifications Alone Don't Work</h4><p class="blog-preview">What hirers actually look for, portfolio vs certification, and the combination that gets jobs.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/why-certifications-alone-dont-make-cloud-engineers.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="career"><div class="card-meta"><span class="card-badge badge-career">Career</span><span class="card-read-time">⏱ 12 min</span></div><h4>Beginner vs Engineer: The Gap AI Cannot Fill</h4><p class="blog-preview">What separates coders from engineers and how to build skills AI cannot replicate.</p><div class="card-footer"><span class="card-date">Oct 2025</span><a href="blogs/beginner-vs-engineer-the-gap-ai-cannot-fill.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="career"><div class="card-meta"><span class="card-badge badge-career">Career</span><span class="card-read-time">⏱ 12 min</span></div><h4>Resume Complete Guide for the AI Era</h4><p class="blog-preview">Write a tech resume that gets interviews — format, content, ATS, and AI tools for optimisation.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/resume-complete-guide-ai-era.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="career"><div class="card-meta"><span class="card-badge badge-career">Career</span><span class="card-read-time">⏱ 12 min</span></div><h4>Top Tech Skills for the AI Era</h4><p class="blog-preview">The skill stack with highest career ROI for 2026-2031 — Python, Kubernetes, Terraform, and more.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/top-tech-skills-ai-era.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Learn Python: Beginner to Pro</h4><p class="blog-preview">Complete Python learning path — phases, projects, DevOps vs data science differences.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/learn-python-beginner-to-pro.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Python Projects for DevOps Career</h4><p class="blog-preview">5 real Python projects that build the skills DevOps engineers actually use at work.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/python-projects-devops-career.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Learn Linux: Beginner to Pro</h4><p class="blog-preview">Linux learning hierarchy, practice environments, and the skill tiers that matter for DevOps.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/learn-linux-beginner-to-pro.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 13 min</span></div><h4>Learn JavaScript: Beginner to Pro</h4><p class="blog-preview">JavaScript learning path, frameworks, and how to go from beginner to employable.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/learn-javascript-beginner-to-pro.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 13 min</span></div><h4>Learn Java: Beginner to Pro</h4><p class="blog-preview">Java learning path, enterprise use cases, Spring Boot, and Android development.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/learn-java-beginner-to-pro.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 13 min</span></div><h4>Learn CSS: Beginner to Pro</h4><p class="blog-preview">CSS fundamentals, Flexbox, Grid, animations, and modern CSS for real projects.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/learn-css-beginner-to-pro.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Programming Fundamentals Master Guide</h4><p class="blog-preview">The mental models that transfer across every language and how to build real programming skill.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/programming-fundamentals-master-guide.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Programming Languages 2026-2031</h4><p class="blog-preview">Which languages are rising, which are declining, and the stack with highest career ROI.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/programming-languages-2026-2031-ai-era.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="programming"><div class="card-meta"><span class="card-badge badge-tutorial">Programming</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why Syntax Matters Less Than Thinking</h4><p class="blog-preview">Problem decomposition, debugging mindset, and building real programming skill beyond syntax.</p><div class="card-footer"><span class="card-date">Feb 2026</span><a href="blogs/why-syntax-matters-less-than-thinking.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why the American Market Moves the World</h4><p class="blog-preview">How US markets influence global financial systems and why every investor should watch them.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/why-american-market-moves-the-world.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Global Markets vs Indian Markets</h4><p class="blog-preview">Key structural differences between global and Indian equity markets for investors.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/global-markets-vs-indian-markets.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why Long-Term Investors Win</h4><p class="blog-preview">Compounding, patience, and the evidence for why holding beats trading over time.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/why-long-term-investors-win.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why News-Based Trading Fails</h4><p class="blog-preview">Why reacting to news loses money and what actually works for retail investors.</p><div class="card-footer"><span class="card-date">Feb 2026</span><a href="blogs/why-news-based-trading-fails.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Market Cycles Beginners Don't Understand</h4><p class="blog-preview">The four market cycle phases and how to position differently in each phase.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/market-cycles-beginners-dont-understand.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>How Beginners Misunderstand the American Market</h4><p class="blog-preview">Common myths about US markets that cost beginner investors money.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/how-beginners-misunderstand-american-market.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why Global Markets Move on Psychology</h4><p class="blog-preview">Fear, greed, narrative, and the emotional forces that drive short-term market movements.</p><div class="card-footer"><span class="card-date">Jan 2026</span><a href="blogs/why-global-markets-move-on-psychology.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>How Global Markets Work — Education Guide</h4><p class="blog-preview">Stock exchanges, indices, order types, market makers, and how prices are set.</p><div class="card-footer"><span class="card-date">Dec 2025</span><a href="blogs/market-education-how-global-markets-work.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="markets"><div class="card-meta"><span class="card-badge badge-markets">Markets</span><span class="card-read-time">⏱ 12 min</span></div><h4>Why Systems Matter More Than Politics</h4><p class="blog-preview">Why institutional structures outperform political leadership as long-term wealth drivers.</p><div class="card-footer"><span class="card-date">Feb 2026</span><a href="blogs/why-systems-matter-more-than-politics.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="india"><div class="card-meta"><span class="card-badge badge-india">India</span><span class="card-read-time">⏱ 12 min</span></div><h4>India in the Next 50 Years</h4><p class="blog-preview">Demographics, economic trajectory, and what India's growth story means for your career.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/india-next-50-years.html" class="read-link">Read →</a></div></div>
+        <div class="card blog-card" data-category="india"><div class="card-meta"><span class="card-badge badge-india">India</span><span class="card-read-time">⏱ 12 min</span></div><h4>India's Youth Advantage</h4><p class="blog-preview">Why India's demographic dividend is real, what it requires, and how youth can capitalise on it.</p><div class="card-footer"><span class="card-date">Nov 2025</span><a href="blogs/india-youth-advantage.html" class="read-link">Read →</a></div></div>
+      </div>
+    </div>
+
+  </div><!-- end seriesContainer -->
+
+  <!-- Final AdSense -->
+  <div class="adsense-banner" style="margin:40px 0 20px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1041324645386243"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+</section>
 
 <!-- WRITE WITH US -->
-<section class="content-block write-with-us" data-aos="fade-up">
-  <h3>Write &amp; Publish With SRJahir Tech</h3>
-  <p>
-    Do you have clarity, insight, or practical experience in AI, Cloud,
-    Programming, Markets, or Technology?
-    You can contribute your article to SRJahir Tech.
-  </p>
+<section class="content-block write-with-us" style="max-width:860px;margin:0 auto 40px;">
+  <h3 style="text-align:center;font-size:1.4rem;">Write &amp; Publish With SRJahir Tech</h3>
+  <p>Original content on AI, Cloud, Programming, Markets, or Technology? Contribute to SRJahir Tech.</p>
   <ul>
-    <li>Original content only</li>
-    <li>Clear explanation and structured thinking</li>
+    <li>Original content only — no AI-generated filler</li>
+    <li>Clear explanation, structured thinking, practical examples</li>
     <li>No promotional or misleading content</li>
   </ul>
-  <p>
-    Send your article to:
-    <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">
-      surajmaitra1996@gmail.com
-    </a>
-  </p>
-  <p class="small-note">All submissions go through review. We may edit or decline content to maintain quality.</p>
+  <p>Send your article: <a href="mailto:surajmaitra1996@gmail.com?subject=Article Submission for SRJahir Tech">surajmaitra1996@gmail.com</a></p>
+  <p class="small-note">All submissions reviewed. We may edit or decline content to maintain quality.</p>
 </section>
 
-<!-- DISCLAIMER -->
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> All content on SRJahir Tech is for educational and informational purposes only.
+  <strong>Disclaimer:</strong> All content on SRJahir Tech is for educational and informational purposes only. Nothing here constitutes financial, legal, or professional advice.
 </div>
 
 </main>
@@ -663,8 +627,126 @@
   <img src="sanskrit.png" alt="" class="footer-art" aria-hidden="true" loading="lazy" />
 </footer>
 
-<script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script defer src="assets/js/blog.js"></script>
+<script>
+// ===== SERIES TOGGLE =====
+function toggleSeries(id) {
+  const block = document.getElementById(id);
+  if (!block) return;
+  block.classList.toggle('open');
+}
+
+// Auto-open first series on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('series-k8s').classList.add('open');
+});
+
+// ===== SEARCH =====
+const searchInput = document.getElementById('searchInput');
+const noResults   = document.getElementById('noResults');
+const searchTerm  = document.getElementById('searchTerm');
+const resultsInfo = document.getElementById('resultsInfo');
+
+let searchTimer;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(doSearch, 200);
+});
+
+function doSearch() {
+  const q = searchInput.value.trim().toLowerCase();
+  const allCards = document.querySelectorAll('.blog-card');
+  const allBlocks = document.querySelectorAll('.series-block');
+
+  if (!q) {
+    allCards.forEach(c => c.style.display = '');
+    allBlocks.forEach(b => { b.style.display = ''; });
+    noResults.classList.remove('show');
+    resultsInfo.textContent = '';
+    return;
+  }
+
+  let found = 0;
+  allBlocks.forEach(block => {
+    const cards = block.querySelectorAll('.blog-card');
+    let blockHasMatch = false;
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      if (text.includes(q)) {
+        card.style.display = '';
+        blockHasMatch = true;
+        found++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    block.style.display = blockHasMatch ? '' : 'none';
+    if (blockHasMatch) block.classList.add('open');
+  });
+
+  noResults.classList.toggle('show', found === 0);
+  searchTerm.textContent = q;
+  resultsInfo.textContent = found > 0 ? `${found} article${found !== 1 ? 's' : ''} found` : '';
+}
+
+// ===== CATEGORY FILTER =====
+document.querySelectorAll('.blog-categories button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.blog-categories button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    searchInput.value = '';
+
+    const filter = btn.dataset.filter;
+    const allBlocks = document.querySelectorAll('.series-block');
+
+    if (filter === 'all') {
+      allBlocks.forEach(b => { b.style.display = ''; });
+      document.querySelectorAll('.blog-card').forEach(c => c.style.display = '');
+      resultsInfo.textContent = '';
+      noResults.classList.remove('show');
+      return;
+    }
+
+    // Map filter to data-category values
+    const catMap = {
+      'ai': ['ai'], 'cloud': ['cloud'], 'devops': ['devops'],
+      'programming': ['programming'], 'markets': ['markets'],
+      'career': ['career'], 'india': ['india'],
+      'tutorial': ['tutorial']
+    };
+    const validCats = catMap[filter] || [filter];
+
+    let totalFound = 0;
+    allBlocks.forEach(block => {
+      const cards = block.querySelectorAll('.blog-card');
+      let blockMatch = false;
+
+      // For tutorial filter, show all series
+      if (filter === 'tutorial' && block.dataset.series === 'tutorial') {
+        block.style.display = '';
+        cards.forEach(c => c.style.display = '');
+        blockMatch = true;
+        totalFound += cards.length;
+      } else {
+        cards.forEach(card => {
+          const cat = card.dataset.category;
+          if (validCats.includes(cat)) {
+            card.style.display = '';
+            blockMatch = true;
+            totalFound++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        block.style.display = blockMatch ? '' : 'none';
+        if (blockMatch) block.classList.add('open');
+      }
+    });
+
+    resultsInfo.textContent = `${totalFound} article${totalFound !== 1 ? 's' : ''} in this category`;
+    noResults.classList.toggle('show', totalFound === 0);
+  });
+});
+</script>
 
 </body>
 </html>
