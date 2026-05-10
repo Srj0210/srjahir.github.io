@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AWS Linux Tutorial Part 3 - Connect to EC2 with SSH and Configure Access | SRJahir Tech</title>
+<title>AWS Linux Tutorial Part 3 - Connect to EC2 with SSH | SRJahir Tech</title>
 <meta name="description" content="Learn to connect to AWS EC2 with SSH, manage key pairs, set up SSH config file for shortcuts, use SSH tunnels, and troubleshoot connection issues."/>
 <meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/>
 <link rel="canonical" href="https://srjahir.in/blogs/aws-linux-combo-part-3.html"/>
 <meta property="og:type" content="article"/>
-<meta property="og:title" content="AWS Linux Tutorial Part 3 - Connect to EC2 with SSH and Configure Access"/>
+<meta property="og:title" content="AWS Linux Tutorial Part 3 - Connect to EC2 with SSH | SRJahir Tech"/>
 <meta property="og:url" content="https://srjahir.in/blogs/aws-linux-combo-part-3.html"/>
 <meta property="og:image" content="https://srjahir.in/blogs/images/aws-part-3-terminal.svg"/>
 <meta property="og:site_name" content="SRJahir Tech"/>
@@ -20,6 +20,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is AWS free for beginners?","acceptedAnswer":{"@type":"Answer","text":"AWS offers a 12-month free tier including 750 hours/month EC2 t2.micro, 5GB S3 storage, and 750 hours RDS. Set billing alerts immediately to avoid unexpected charges beyond free tier limits."}},{"@type":"Question","name":"AWS vs GCP vs Azure — which should I learn first?","acceptedAnswer":{"@type":"Answer","text":"Learn AWS first. It has the largest market share (~32%), the most job postings, and the most learning resources. Cloud concepts transfer easily between platforms once you know AWS well."}},{"@type":"Question","name":"What AWS certification should I get first?","acceptedAnswer":{"@type":"Answer","text":"AWS Solutions Architect Associate (SAA-C03) is the most recognised and respected cloud certification globally. It validates architecture knowledge and is the standard first certification for cloud engineers."}},{"@type":"Question","name":"How much does AWS cost for learning?","acceptedAnswer":{"@type":"Answer","text":"Free tier covers most learning needs for 12 months. Stop EC2 instances when not using them. Set a Rs.500 monthly budget alert. The entire certification study can be done for under Rs.2,000 in AWS charges."}},{"@type":"Question","name":"What is the difference between EC2 and Lambda?","acceptedAnswer":{"@type":"Answer","text":"EC2 is a persistent virtual machine you manage — always running, always costing. Lambda is serverless — runs only when triggered, costs near zero at rest. Use EC2 for always-on apps, Lambda for event-driven tasks."}}]}</script>
 </head><body><div class="background-waves"></div>
 <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
 <header class="nav"><h1>SRJahir<span>Tech</span></h1>
