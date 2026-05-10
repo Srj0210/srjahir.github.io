@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 5 — ConfigMaps, Secrets, and Environment Config | SRJahir Tech</title>
-  <meta name="description" content="Manage configuration in Kubernetes using ConfigMaps and Secrets. Separate config from code." />
-  <meta name="keywords" content="Kubernetes ConfigMap, K8s Secrets, environment variables, config management" />
+  <meta name="description" content="Learn how to manage application configuration in Kubernetes using ConfigMaps and Secrets. Inject config as environment variables or files into pods securely." />
+  <meta name="keywords" content="Kubernetes ConfigMap, Kubernetes Secrets, environment variables Kubernetes, K8s config management, inject secrets Kubernetes" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-5.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 5 — ConfigMaps, Secrets, and Environment Config" />
-  <meta property="og:description" content="Manage configuration in Kubernetes using ConfigMaps and Secrets. Separate config from code." />
+  <meta property="og:description" content="Learn how to manage application configuration in Kubernetes using ConfigMaps and Secrets. Inject config as environment variables or files into pods." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-5.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-5-terminal.svg" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:locale" content="en_IN" />
   <meta property="article:published_time" content="2026-03-17" />
   <meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 5 — ConfigMaps, Secrets, and Environment Config" />
-  <meta name="twitter:description" content="Manage configuration in Kubernetes using ConfigMaps and Secrets. Separate config from code." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 5 \u2014 ConfigMaps, Secrets, and Environment Config", "description": "Manage configuration in Kubernetes using ConfigMaps and Secrets. Separate config from code.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-5.html", "datePublished": "2026-03-17", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-5.html"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 5 — ConfigMaps, Secrets, and Environment Config","description":"Learn how to manage application configuration in Kubernetes using ConfigMaps and Secrets. Inject config as environment variables or files into pods securely.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-5.html","datePublished":"2026-03-17","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-5-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-5.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between ConfigMap and Secret in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"ConfigMap stores non-sensitive configuration data as plain text — things like application settings, feature flags, or configuration files. Secret stores sensitive data like passwords, API keys, and certificates — the values are base64-encoded at rest. Use ConfigMap for general config and Secret for anything you would not want visible in plain text logs or Git."}},{"@type":"Question","name":"Should I store Kubernetes Secrets in Git?","acceptedAnswer":{"@type":"Answer","text":"Never store raw Secret YAML files in Git because the values are only base64-encoded, not encrypted — anyone with access to the repo can decode them in seconds. Instead, use tools like Sealed Secrets, HashiCorp Vault, or cloud-native solutions like AWS Secrets Manager integrated with External Secrets Operator for production environments."}},{"@type":"Question","name":"How do I update a ConfigMap without restarting pods?","acceptedAnswer":{"@type":"Answer","text":"When a ConfigMap is mounted as a file volume, Kubernetes automatically updates the file inside the pod when the ConfigMap changes — usually within 60 seconds. However, when ConfigMap values are injected as environment variables, pods must be restarted to pick up changes, because environment variables are set at container startup time."}},{"@type":"Question","name":"Can I use the same ConfigMap across multiple deployments?","acceptedAnswer":{"@type":"Answer","text":"Yes. A ConfigMap is a standalone Kubernetes object that any pod in the same namespace can reference. Multiple deployments can use the same ConfigMap, which is useful for sharing common configuration like database hostnames, log levels, or feature flags across services."}},{"@type":"Question","name":"What is the maximum size of a Kubernetes ConfigMap?","acceptedAnswer":{"@type":"Answer","text":"A ConfigMap cannot exceed 1MB in total size. This limit exists because ConfigMaps are stored in etcd, which has performance characteristics optimised for small objects. For large configuration files, consider using an init container to download config from object storage, or use a dedicated config management system."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -56,36 +56,276 @@
 
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 5: ConfigMaps, Secrets, and Environment Config</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 17, 2026 <span class="meta-dot"></span> 7 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 17, 2026 <span class="meta-dot"></span> 11 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-4.html">&larr; Part 4</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 5 of 12</strong>
   <a href="kubernetes-tutorial-part-6.html">Part 6 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-5-terminal.svg" alt="Kubernetes - ConfigMaps" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - ConfigMaps</figcaption>
+  <img src="images/k8s-part-5-terminal.svg" alt="Kubernetes ConfigMaps and Secrets" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">ConfigMaps and Secrets separate configuration from container images</figcaption>
 </figure>
-<p>Hardcoding configuration into container images is a common beginner mistake. Database hostnames, API keys, feature flags — none of this belongs in your Docker image. Kubernetes provides ConfigMaps for non-sensitive data and Secrets for sensitive data.</p>
 
-<div class="code-title">configmap.yaml</div>
+<p>Every application needs configuration. Database URLs, API keys, log levels, feature flags, timeout values — all of this needs to live somewhere. The wrong answer is to bake it into the Docker image. The moment you do that, you need a different image for development, staging, and production. You need to rebuild the image every time a config value changes. And heaven forbid someone accidentally pushes a production database password into a public Docker Hub repository. I have seen this happen.</p>
+
+<p>Kubernetes solves this cleanly with two objects: ConfigMaps and Secrets. ConfigMaps hold regular configuration data. Secrets hold sensitive data. Both can be injected into pods as environment variables or as files — without touching the container image. The image stays the same across all environments; only the configuration changes.</p>
+
+<p>This pattern — separating configuration from code — is one of the twelve-factor app principles, and Kubernetes makes it the natural default.</p>
+
+<h4>ConfigMaps — Storing Non-Sensitive Configuration</h4>
+
+<p>A ConfigMap is a key-value store for configuration data. You can put database hostnames, log levels, API endpoint URLs, configuration file contents — anything that is not a password or private key.</p>
+
+<div class="code-title">Create a ConfigMap from the command line</div>
+<pre><code class="language-bash"># Create ConfigMap with literal values
+kubectl create configmap app-config \
+  --from-literal=DATABASE_HOST=postgres-service \
+  --from-literal=LOG_LEVEL=info \
+  --from-literal=APP_ENV=production
+
+# View the ConfigMap
+kubectl get configmap app-config
+kubectl describe configmap app-config
+
+# View as YAML
+kubectl get configmap app-config -o yaml</code></pre>
+
+<div class="code-title">Create ConfigMap from a YAML file</div>
 <pre><code class="language-yaml">apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-config
 data:
+  DATABASE_HOST: "postgres-service"
+  LOG_LEVEL: "info"
+  APP_ENV: "production"
+  MAX_CONNECTIONS: "100"
+  # Multi-line config file as a ConfigMap entry
+  app.properties: |
+    server.port=8080
+    server.timeout=30s
+    cache.ttl=3600</code></pre>
+
+<h4>Injecting ConfigMap as Environment Variables</h4>
+
+<div class="code-title">deployment-with-config.yaml</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: my-app:1.0
+        # Inject specific keys as env vars
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DATABASE_HOST
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: LOG_LEVEL
+        # Or inject the entire ConfigMap at once
+        envFrom:
+        - configMapRef:
+            name: app-config</code></pre>
+
+<h4>Injecting ConfigMap as a File Volume</h4>
+
+<p>Sometimes your application needs configuration as a file, not environment variables — for example, nginx.conf, application.yml, or .env files.</p>
+
+<div class="code-title">Mount ConfigMap as a file</div>
+<pre><code class="language-yaml">spec:
+  containers:
+  - name: my-app
+    image: my-app:1.0
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: app-config</code></pre>
+
+<p>This mounts the ConfigMap as a directory at <code>/etc/config</code>. Each key in the ConfigMap becomes a file in that directory. The multi-line <code>app.properties</code> key becomes the file <code>/etc/config/app.properties</code>. When you update the ConfigMap, Kubernetes automatically updates the file inside the running pod within about 60 seconds — no restart needed.</p>
+
+<h4>Secrets — Storing Sensitive Data</h4>
+
+<p>Secrets work exactly like ConfigMaps but for sensitive data. The values are base64-encoded (not encrypted — more on this later). Kubernetes treats Secrets differently: it only sends a Secret to a node when a pod on that node needs it, stores them in memory rather than writing to disk where possible, and gives you more granular RBAC controls over who can access them.</p>
+
+<div class="code-title">Create a Secret</div>
+<pre><code class="language-bash"># Create from literals (Kubernetes will base64-encode automatically)
+kubectl create secret generic db-credentials \
+  --from-literal=DB_PASSWORD=mysecretpassword \
+  --from-literal=DB_USERNAME=admin
+
+# View the secret (values will be base64-encoded)
+kubectl get secret db-credentials -o yaml
+
+# Decode a value
+kubectl get secret db-credentials -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode</code></pre>
+
+<div class="code-title">Secret YAML (you must base64-encode values yourself)</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Secret
+metadata:
+  name: db-credentials
+type: Opaque
+data:
+  # echo -n "mysecretpassword" | base64
+  DB_PASSWORD: bXlzZWNyZXRwYXNzd29yZA==
+  DB_USERNAME: YWRtaW4=</code></pre>
+
+<h4>Using Secrets in Pods</h4>
+
+<div class="code-title">Inject Secret as environment variables</div>
+<pre><code class="language-yaml">spec:
+  containers:
+  - name: my-app
+    image: my-app:1.0
+    env:
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: db-credentials
+          key: DB_PASSWORD
+    - name: DB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: db-credentials
+          key: DB_USERNAME</code></pre>
+
+<div class="code-title">Mount Secret as a file (better for private keys and certificates)</div>
+<pre><code class="language-yaml">spec:
+  containers:
+  - name: my-app
+    image: my-app:1.0
+    volumeMounts:
+    - name: secret-volume
+      mountPath: /etc/secrets
+      readOnly: true
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: db-credentials</code></pre>
+
+<h4>The Security Reality of Kubernetes Secrets</h4>
+
+<p>I want to be honest about something that a lot of tutorials gloss over. Kubernetes Secrets are base64-encoded, not encrypted. Anyone who can run <code>kubectl get secret</code> can decode the values in seconds. The security of Secrets depends entirely on your RBAC configuration — who is allowed to read secrets in which namespaces.</p>
+
+<p>For production systems, never commit Secret YAML files to Git. Instead, use one of these approaches:</p>
+
+<ul>
+  <li><strong>Sealed Secrets</strong> — encrypt secrets locally before committing to Git, decrypt only happens inside the cluster</li>
+  <li><strong>External Secrets Operator</strong> — pull secrets from AWS Secrets Manager, HashiCorp Vault, or Azure Key Vault</li>
+  <li><strong>Vault Agent</strong> — HashiCorp Vault integration that injects secrets directly into pods at runtime</li>
+</ul>
+
+<p>For our tutorial series, using regular Secrets is fine. In the production deployment chapter (Part 12), we will discuss proper secret management.</p>
+
+<h4>Practical Example — Full App with Config and Secrets</h4>
+
+<div class="code-title">complete-app.yaml</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-config
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "info"
   DB_HOST: "postgres-service"
   DB_PORT: "5432"
-  LOG_LEVEL: "info"</code></pre>
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webapp-secrets
+type: Opaque
+data:
+  DB_PASSWORD: cGFzc3dvcmQxMjM=
+  JWT_SECRET: c2VjcmV0a2V5aGVyZQ==
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: webapp:2.0
+        envFrom:
+        - configMapRef:
+            name: webapp-config
+        - secretRef:
+            name: webapp-secrets
+        ports:
+        - containerPort: 3000</code></pre>
 
-<div class="code-title">Creating Secrets</div>
-<pre><code class="language-bash">kubectl create secret generic db-credentials \
-  --from-literal=username=admin \
-  --from-literal=password=s3cur3-pass</code></pre>
+<div class="code-title">Apply everything</div>
+<pre><code class="language-bash">kubectl apply -f complete-app.yaml
 
-<p>Never commit secrets to Git. Never log them. Never print them in error messages. The number of production breaches caused by leaked credentials is staggering.</p>
+# Verify the pod has the env vars
+kubectl exec -it deployment/webapp -- env | grep -E 'APP_ENV|LOG_LEVEL|DB_'</code></pre>
 
-<p>In Part 6, we cover persistent storage for databases and stateful applications.</p>
+<h4>Updating Configuration Without Downtime</h4>
+
+<div class="code-title">Update a ConfigMap</div>
+<pre><code class="language-bash"># Edit the ConfigMap directly
+kubectl edit configmap webapp-config
+
+# Or apply an updated YAML file
+kubectl apply -f updated-config.yaml
+
+# Trigger a rolling restart to pick up new env vars
+kubectl rollout restart deployment/webapp</code></pre>
+
+<h4>What is Next</h4>
+
+<p>Your applications now have proper configuration management. But there is still a major gap: storage. Your pods are stateless right now — if a pod restarts, all its data is lost. This is fine for stateless web servers, but not for databases, file uploads, or any data that needs to persist.</p>
+
+<p>In <a href="kubernetes-tutorial-part-6.html">Part 6</a>, we tackle persistent storage in Kubernetes — Volumes, PersistentVolumes, and PersistentVolumeClaims. This is where we start running stateful workloads like databases in Kubernetes.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between ConfigMap and Secret?</h5>
+  <p>ConfigMap stores plain-text non-sensitive config. Secret stores sensitive data encoded in base64. Both inject into pods the same way, but Secrets get tighter access controls and are handled more carefully by Kubernetes internals.</p>
+
+  <h5 style="margin-bottom:8px;">Should I store Kubernetes Secrets in Git?</h5>
+  <p>Never store raw Secret YAML in Git — base64 is not encryption, anyone can decode it. Use Sealed Secrets or External Secrets Operator to safely manage secrets in GitOps workflows.</p>
+
+  <h5 style="margin-bottom:8px;">How do I update a ConfigMap without restarting pods?</h5>
+  <p>File-mounted ConfigMaps update automatically within ~60 seconds. Environment variable ConfigMaps require a pod restart: <code>kubectl rollout restart deployment/your-app</code>.</p>
+
+  <h5 style="margin-bottom:8px;">Can multiple deployments share one ConfigMap?</h5>
+  <p>Yes. Any pod in the same namespace can reference the same ConfigMap. This is useful for shared settings like log levels, database host names, or environment flags across multiple services.</p>
+
+  <h5 style="margin-bottom:8px;">What is the maximum size of a ConfigMap?</h5>
+  <p>1MB total. This is an etcd limitation. For larger configs, download them via init containers from object storage or use a dedicated configuration management system.</p>
+</div>
 
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-4.html">&larr; Part 4</a>

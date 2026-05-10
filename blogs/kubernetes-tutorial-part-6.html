@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 6 — Persistent Storage and Volumes | SRJahir Tech</title>
-  <meta name="description" content="Understand PersistentVolumes, PersistentVolumeClaims, StorageClasses, and StatefulSets for databases." />
-  <meta name="keywords" content="Kubernetes volumes, PersistentVolume, PVC, StorageClass, stateful apps" />
+  <meta name="description" content="Learn Kubernetes Volumes, PersistentVolumes, and PersistentVolumeClaims. Run stateful workloads like databases with durable storage that survives pod restarts." />
+  <meta name="keywords" content="Kubernetes persistent volume, PVC Kubernetes, Kubernetes storage, stateful apps Kubernetes, PersistentVolumeClaim" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-6.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 6 — Persistent Storage and Volumes" />
-  <meta property="og:description" content="Understand PersistentVolumes, PersistentVolumeClaims, StorageClasses, and StatefulSets for databases." />
+  <meta property="og:description" content="Learn Kubernetes Volumes, PersistentVolumes, and PersistentVolumeClaims. Run stateful workloads with durable storage that survives pod restarts." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-6.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-6-terminal.svg" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:locale" content="en_IN" />
   <meta property="article:published_time" content="2026-03-21" />
   <meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 6 — Persistent Storage and Volumes" />
-  <meta name="twitter:description" content="Understand PersistentVolumes, PersistentVolumeClaims, StorageClasses, and StatefulSets for databases." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 6 \u2014 Persistent Storage and Volumes", "description": "Understand PersistentVolumes, PersistentVolumeClaims, StorageClasses, and StatefulSets for databases.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-6.html", "datePublished": "2026-03-21", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-6.html"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 6 — Persistent Storage and Volumes","description":"Learn Kubernetes Volumes, PersistentVolumes, and PersistentVolumeClaims. Run stateful workloads like databases with durable storage that survives pod restarts.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-6.html","datePublished":"2026-03-21","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-6-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-6.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens to data in a Kubernetes pod when it restarts?","acceptedAnswer":{"@type":"Answer","text":"By default, all data inside a pod's container filesystem is lost when the pod restarts or is rescheduled to a different node. This is why you need Volumes for any data that must persist — databases, uploaded files, logs, and anything else you cannot afford to lose."}},{"@type":"Question","name":"What is the difference between a PersistentVolume and a PersistentVolumeClaim?","acceptedAnswer":{"@type":"Answer","text":"A PersistentVolume (PV) is the actual storage resource — a physical disk, NFS share, or cloud storage — provisioned by an admin or dynamically by a StorageClass. A PersistentVolumeClaim (PVC) is a request for storage by a pod — it specifies how much storage and what access mode is needed. Kubernetes binds a matching PV to the PVC automatically."}},{"@type":"Question","name":"What is a StorageClass in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"A StorageClass defines the type and properties of storage that can be dynamically provisioned. For example, in AWS you might have a StorageClass backed by gp2 EBS volumes and another backed by io1 high-performance volumes. When a PVC references a StorageClass, Kubernetes automatically creates a PV of that type without manual admin intervention."}},{"@type":"Question","name":"Can two pods share the same PersistentVolume?","acceptedAnswer":{"@type":"Answer","text":"It depends on the access mode. ReadWriteOnce (RWO) allows only one pod to mount the volume at a time — used for databases. ReadOnlyMany (ROX) allows multiple pods to read simultaneously. ReadWriteMany (RWX) allows multiple pods to read and write — used for shared file storage like NFS or cloud file services."}},{"@type":"Question","name":"What is a StatefulSet and when should I use it instead of a Deployment?","acceptedAnswer":{"@type":"Answer","text":"A StatefulSet is for applications that need stable network identities and persistent storage per replica — like databases (PostgreSQL, MySQL, Cassandra). Unlike Deployments where pods are interchangeable, StatefulSet pods have sticky identities (pod-0, pod-1) and each gets its own dedicated PersistentVolumeClaim that is never deleted when the pod is rescheduled."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -37,9 +37,6 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -56,34 +53,244 @@
 
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 6: Persistent Storage and Volumes</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 21, 2026 <span class="meta-dot"></span> 7 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 21, 2026 <span class="meta-dot"></span> 11 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-5.html">&larr; Part 5</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 6 of 12</strong>
   <a href="kubernetes-tutorial-part-7.html">Part 7 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-6-terminal.svg" alt="Kubernetes - Persistent Storage and Volumes" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Persistent Storage and Volumes</figcaption>
+  <img src="images/k8s-part-6-terminal.svg" alt="Kubernetes Persistent Volumes and Storage" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">PersistentVolumes and PersistentVolumeClaims manage durable storage in Kubernetes</figcaption>
 </figure>
-<p>Containers are ephemeral — when a pod dies, everything inside dies too. For databases, you need persistent storage that survives pod restarts. Kubernetes provides this through PersistentVolumes and PersistentVolumeClaims.</p>
 
-<div class="code-title">pvc.yaml</div>
+<p>Pods are ephemeral by design. When a pod restarts — whether due to a crash, a node failure, or a rolling update — its container filesystem starts fresh. Every file written during the previous pod's lifetime is gone. For stateless web servers, this is perfectly fine. For databases, file uploads, or any data you need to keep, this is a disaster waiting to happen.</p>
+
+<p>I learned this the hard way. Early in my Kubernetes journey, I deployed a PostgreSQL database inside a pod as part of a learning project. It worked great for two days. Then I did a rolling update, the pod got rescheduled, and every row in the database was gone. The database was running, but it had no data. That was my introduction to why storage in Kubernetes needs special handling.</p>
+
+<p>Kubernetes has a well-designed storage system built around three objects: Volumes, PersistentVolumes, and PersistentVolumeClaims. Understanding how they relate to each other is the key to running stateful workloads reliably.</p>
+
+<h4>Volumes — Basic Pod Storage</h4>
+
+<p>The simplest type of storage in Kubernetes is a Volume. A Volume is storage that is attached to a pod and shared among the containers inside that pod. Unlike the container filesystem, a Volume survives container restarts within the same pod. But it does not survive the pod itself being deleted or rescheduled.</p>
+
+<div class="code-title">Pod with an emptyDir volume (shared between containers)</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-storage-pod
+spec:
+  containers:
+  - name: writer
+    image: busybox
+    command: ["sh", "-c", "while true; do date >> /data/log.txt; sleep 5; done"]
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  - name: reader
+    image: busybox
+    command: ["sh", "-c", "while true; do cat /data/log.txt; sleep 10; done"]
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+  volumes:
+  - name: shared-data
+    emptyDir: {}   # Created fresh when pod starts, deleted when pod ends</code></pre>
+
+<p>The <code>emptyDir</code> volume type creates an empty directory when the pod starts. Both containers in the pod can read and write to it. When the pod is deleted, the data is deleted too. This is useful for temporary sharing between containers in the same pod — like a web server and a log collector sidecar — but not for persistent storage.</p>
+
+<h4>PersistentVolumes and PersistentVolumeClaims</h4>
+
+<p>For data that must survive beyond the lifetime of a single pod, you need PersistentVolumes (PV) and PersistentVolumeClaims (PVC). These decouple the storage provisioning from the storage consumption.</p>
+
+<p>A PersistentVolume is the actual storage resource — a disk on the host, an NFS share, or a cloud disk like AWS EBS or GCP Persistent Disk. An admin provisions it, or Kubernetes provisions it dynamically.</p>
+
+<p>A PersistentVolumeClaim is a pod's request for storage. It says "I need 5GB of storage with ReadWriteOnce access." Kubernetes finds a matching PV and binds them together.</p>
+
+<div class="code-title">PersistentVolume definition</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data   # On Minikube, this is a path on the VM</code></pre>
+
+<div class="code-title">PersistentVolumeClaim definition</div>
 <pre><code class="language-yaml">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-data
+  name: my-pvc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: standard</code></pre>
+      storage: 5Gi</code></pre>
 
-<p>For databases, use StatefulSets instead of Deployments. StatefulSets give each pod a stable hostname (postgres-0, postgres-1) and persistent storage that follows the pod.</p>
+<div class="code-title">Apply and check binding status</div>
+<pre><code class="language-bash">kubectl apply -f pv.yaml
+kubectl apply -f pvc.yaml
 
-<p>In Part 7, we organize our cluster with Namespaces and resource quotas.</p>
+# Check if PVC is bound to the PV
+kubectl get pv
+kubectl get pvc
+# STATUS should show "Bound" for the PVC</code></pre>
+
+<h4>Using a PVC in a Pod</h4>
+
+<div class="code-title">Pod using a PersistentVolumeClaim</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: persistent-pod
+spec:
+  containers:
+  - name: app
+    image: nginx
+    volumeMounts:
+    - name: storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: my-pvc</code></pre>
+
+<div class="code-title">Test that data survives pod deletion</div>
+<pre><code class="language-bash">kubectl apply -f persistent-pod.yaml
+
+# Write a file inside the pod
+kubectl exec persistent-pod -- sh -c "echo 'Hello Persistent World' > /usr/share/nginx/html/index.html"
+
+# Delete the pod
+kubectl delete pod persistent-pod
+
+# Recreate the pod
+kubectl apply -f persistent-pod.yaml
+
+# Check if the file survived
+kubectl exec persistent-pod -- cat /usr/share/nginx/html/index.html
+# Should still output: Hello Persistent World</code></pre>
+
+<h4>StorageClasses — Dynamic Provisioning</h4>
+
+<p>Manually creating PersistentVolumes for every application does not scale. In real clusters, StorageClasses enable dynamic provisioning — Kubernetes automatically creates a PV whenever a PVC is submitted, based on the StorageClass configuration.</p>
+
+<div class="code-title">StorageClass example for AWS EBS</div>
+<pre><code class="language-yaml">apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp3
+  fsType: ext4
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer</code></pre>
+
+<div class="code-title">PVC using a StorageClass (auto-provisions EBS volume)</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-storage
+spec:
+  storageClassName: fast-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi</code></pre>
+
+<p>On Minikube, there is a built-in StorageClass called "standard" that you can use immediately. Run <code>kubectl get storageclass</code> to see it.</p>
+
+<h4>Running PostgreSQL with Persistent Storage</h4>
+
+<p>Let us put everything together and run a real database with persistent storage.</p>
+
+<div class="code-title">postgres-with-storage.yaml</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DB_PASSWORD
+        - name: POSTGRES_DB
+          value: myapp
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres-pvc</code></pre>
+
+<h4>Access Modes Explained</h4>
+
+<p>Storage access modes determine how many pods can mount the volume simultaneously.</p>
+
+<p><strong>ReadWriteOnce (RWO)</strong> — The volume can be mounted as read-write by a single node. Used for databases and most applications. This is the most common mode.</p>
+
+<p><strong>ReadOnlyMany (ROX)</strong> — The volume can be mounted as read-only by many nodes simultaneously. Used for shared configuration or media files that multiple pods need to read.</p>
+
+<p><strong>ReadWriteMany (RWX)</strong> — The volume can be mounted as read-write by many nodes simultaneously. Used for shared file storage — requires NFS or cloud file services like Amazon EFS or Azure Files. Not all volume types support this.</p>
+
+<h4>What is Next</h4>
+
+<p>You can now run stateful workloads in Kubernetes. In <a href="kubernetes-tutorial-part-7.html">Part 7</a>, we cover Namespaces and Resource Management — how to organise workloads by team or environment within a single cluster, and how to set CPU and memory limits to prevent any one application from consuming all cluster resources.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What happens to pod data when it restarts?</h5>
+  <p>All container filesystem data is lost when a pod restarts or reschedules. Use PersistentVolumes for any data you cannot lose — databases, uploads, or anything written to disk during runtime.</p>
+
+  <h5 style="margin-bottom:8px;">What is the difference between PV and PVC?</h5>
+  <p>A PersistentVolume is the actual storage resource (a disk). A PersistentVolumeClaim is a pod's request for storage. Kubernetes binds a matching PV to the PVC automatically. The separation lets admins manage storage independently from application developers.</p>
+
+  <h5 style="margin-bottom:8px;">What is a StorageClass?</h5>
+  <p>A StorageClass enables dynamic provisioning — Kubernetes automatically creates a PV when a PVC references it. Cloud providers offer StorageClasses for their disk types (gp3, io1, etc.), so you never need to manually create PVs in production.</p>
+
+  <h5 style="margin-bottom:8px;">Can two pods share the same PersistentVolume?</h5>
+  <p>Depends on the access mode. ReadWriteOnce allows only one node. ReadWriteMany allows multiple pods on multiple nodes simultaneously — requires NFS or cloud file storage backends that support this mode.</p>
+
+  <h5 style="margin-bottom:8px;">When should I use StatefulSet instead of Deployment?</h5>
+  <p>Use StatefulSets for databases and any application needing stable network identity and per-replica persistent storage. Each StatefulSet pod gets its own dedicated PVC that persists even when the pod is deleted and recreated.</p>
+</div>
 
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-5.html">&larr; Part 5</a>
@@ -91,9 +298,8 @@ spec:
   <a href="kubernetes-tutorial-part-7.html">Part 7 &rarr;</a>
 </div>
 <a href="../blog.html" class="btn">&larr; Back to Blog</a>
-
 <div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.
 </div>
 </section>
 <footer>

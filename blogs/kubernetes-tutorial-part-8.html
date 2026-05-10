@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS | SRJahir Tech</title>
-  <meta name="description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
-  <meta name="keywords" content="Kubernetes Ingress, nginx ingress controller, TLS, cert-manager, HTTPS" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Learn Kubernetes Ingress Controllers, path-based routing, and HTTPS with cert-manager. Route multiple services through one load balancer with SSL termination." />
+  <meta name="keywords" content="Kubernetes Ingress, Ingress Controller Kubernetes, Kubernetes HTTPS, cert-manager Kubernetes, path-based routing Kubernetes, nginx ingress" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-8.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS" />
-  <meta property="og:description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
+  <meta property="og:description" content="Learn Kubernetes Ingress Controllers, path-based routing, and HTTPS with cert-manager. Route multiple services through one load balancer." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-8.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-03-29" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS" />
-  <meta name="twitter:description" content="Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 8 \u2014 Ingress Controllers and HTTPS", "description": "Set up Ingress for HTTP routing and TLS/HTTPS with cert-manager for production endpoints.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-8.html", "datePublished": "2026-03-29", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-8.html"}}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-8-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-03-29" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 8 — Ingress Controllers and HTTPS","description":"Learn Kubernetes Ingress Controllers, path-based routing, and HTTPS with cert-manager. Route multiple services through one load balancer with SSL termination.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-8.html","datePublished":"2026-03-29","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-8-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-8.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a Kubernetes Service and an Ingress?","acceptedAnswer":{"@type":"Answer","text":"A Service exposes pods inside the cluster or via a basic NodePort or LoadBalancer. An Ingress is a higher-level routing layer that sits in front of multiple Services. It routes incoming HTTP and HTTPS traffic based on hostname and URL path rules — for example, /api goes to the backend service, while / goes to the frontend service. One Ingress can replace many LoadBalancer services, saving cost."}},{"@type":"Question","name":"What is an Ingress Controller?","acceptedAnswer":{"@type":"Answer","text":"An Ingress Controller is a pod that runs inside your cluster and implements the Ingress rules. Kubernetes does not include a built-in Ingress Controller — you install one separately. The most popular is nginx-ingress-controller, but others like Traefik, HAProxy, and cloud-specific controllers (AWS ALB, GCP GCLB) also exist."}},{"@type":"Question","name":"How do I get free HTTPS certificates in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Install cert-manager, which automates Let's Encrypt certificate issuance and renewal. Configure a ClusterIssuer for Let's Encrypt, then add an annotation to your Ingress resource. cert-manager handles the entire ACME challenge process automatically and renews certificates before they expire — completely free and fully automated."}},{"@type":"Question","name":"Can one Ingress handle multiple domains?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can configure multiple host rules in a single Ingress resource — for example, api.example.com routes to your API service, while app.example.com routes to your frontend. Each host can have independent path rules and TLS certificates. This is one of the main advantages of Ingress over individual LoadBalancer services."}},{"@type":"Question","name":"What is path-based routing in Kubernetes Ingress?","acceptedAnswer":{"@type":"Answer","text":"Path-based routing sends traffic to different services based on the URL path. For example, requests to /api are forwarded to the API service, requests to /static are served by a static file service, and everything else goes to the main application. This lets you run a microservices architecture behind a single hostname and IP address."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/code-tutorial.css">
@@ -37,9 +28,6 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -47,43 +35,108 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 8: Ingress Controllers and HTTPS</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 29, 2026 <span class="meta-dot"></span> 8 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 29, 2026 <span class="meta-dot"></span> 12 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-7.html">&larr; Part 7</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 8 of 12</strong>
   <a href="kubernetes-tutorial-part-9.html">Part 9 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-8-terminal.svg" alt="Kubernetes - Ingress Controllers and HTTPS" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Ingress Controllers and HTTPS</figcaption>
+  <img src="images/k8s-part-8-terminal.svg" alt="Kubernetes Ingress Controller and HTTPS routing" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Ingress routes external traffic to the right services based on host and path rules</figcaption>
 </figure>
-<p>Services expose your application, but Ingress lets you route traffic based on hostnames and paths — <code>api.example.com</code> goes to the API, <code>app.example.com</code> goes to the frontend.</p>
 
-<div class="code-title">Install nginx-ingress</div>
-<pre><code class="language-bash">helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm install nginx-ingress ingress-nginx/ingress-nginx</code></pre>
+<p>In <a href="kubernetes-tutorial-part-4.html">Part 4</a>, we used LoadBalancer services to expose applications. Each LoadBalancer service provisions a separate cloud load balancer — which means a separate public IP address and a separate monthly bill. If you have ten microservices, that is ten load balancers. In AWS, each ELB costs money every hour, even when no traffic is flowing.</p>
 
-<div class="code-title">ingress.yaml</div>
+<p>Ingress solves this. An Ingress is an HTTP routing layer that sits in front of all your services. It has one IP address, one load balancer, and routes traffic to different services based on the hostname and URL path in the request. Ten services can share one Ingress — one IP, one load balancer, one bill. And Ingress also handles HTTPS termination, so your services do not need to deal with TLS themselves.</p>
+
+<p>This is the production-grade way to expose web applications in Kubernetes. Let us set it up properly.</p>
+
+<h4>Understanding the Ingress Architecture</h4>
+
+<p>There are two parts to Kubernetes Ingress. First, the Ingress resource — a YAML object that defines the routing rules. Second, the Ingress Controller — an actual pod running in your cluster that reads those rules and configures a real reverse proxy (usually nginx) to implement them.</p>
+
+<p>Kubernetes does not include a built-in Ingress Controller. You must install one. The most widely used is the nginx-ingress-controller, maintained by the Kubernetes community. Other options include Traefik, Contour, and cloud-specific controllers like the AWS ALB Ingress Controller.</p>
+
+<h4>Installing nginx Ingress Controller on Minikube</h4>
+
+<div class="code-title">Enable Ingress addon in Minikube</div>
+<pre><code class="language-bash"># Enable the nginx ingress addon (installs the controller automatically)
+minikube addons enable ingress
+
+# Verify the controller is running
+kubectl get pods -n ingress-nginx
+
+# Wait until it shows Running status
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=120s</code></pre>
+
+<h4>Your First Ingress Resource</h4>
+
+<p>Let us create two deployments and route traffic to them based on URL paths.</p>
+
+<div class="code-title">Create two sample services</div>
+<pre><code class="language-bash">kubectl create deployment frontend --image=nginx
+kubectl create deployment backend --image=httpd
+kubectl expose deployment frontend --port=80
+kubectl expose deployment backend --port=80</code></pre>
+
+<div class="code-title">path-ingress.yaml — Route by URL path</div>
 <pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  name: my-ingress
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  tls:
-  - hosts:
-    - app.example.com
-    secretName: app-tls
+  ingressClassName: nginx
+  rules:
+  - host: myapp.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend
+            port:
+              number: 80</code></pre>
+
+<div class="code-title">Apply and test</div>
+<pre><code class="language-bash">kubectl apply -f path-ingress.yaml
+
+# Get the Minikube IP
+minikube ip
+# Add to /etc/hosts: 192.168.49.2 myapp.local
+
+# Test routing
+curl http://myapp.local/       # Goes to frontend (nginx)
+curl http://myapp.local/api    # Goes to backend (httpd)</code></pre>
+
+<h4>Host-Based Routing — Multiple Domains on One Ingress</h4>
+
+<div class="code-title">multi-host-ingress.yaml</div>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multi-host-ingress
+spec:
+  ingressClassName: nginx
   rules:
   - host: app.example.com
     http:
@@ -92,26 +145,134 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: web-service
+            name: frontend
+            port:
+              number: 80
+  - host: api.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend
             port:
               number: 80</code></pre>
 
-<p>With cert-manager, Kubernetes automatically provisions and renews TLS certificates. In Part 9, we add health checks to make applications genuinely self-healing.</p>
+<h4>HTTPS with cert-manager and Let's Encrypt</h4>
 
+<p>This is where Ingress really shines in production. cert-manager automatically provisions free TLS certificates from Let's Encrypt and renews them before they expire. You annotate your Ingress and cert-manager handles everything.</p>
+
+<div class="code-title">Install cert-manager</div>
+<pre><code class="language-bash">kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
+
+# Wait for cert-manager to be ready
+kubectl get pods -n cert-manager</code></pre>
+
+<div class="code-title">Create a ClusterIssuer for Let's Encrypt</div>
+<pre><code class="language-yaml">apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: your@email.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-key
+    solvers:
+    - http01:
+        ingress:
+          class: nginx</code></pre>
+
+<div class="code-title">Ingress with automatic HTTPS certificate</div>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: secure-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - app.yourdomain.com
+    secretName: app-tls-cert  # cert-manager creates this automatically
+  rules:
+  - host: app.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80</code></pre>
+
+<p>Once you apply this, cert-manager handles the Let's Encrypt ACME challenge, provisions the certificate, stores it in the specified Secret, and configures nginx to use it. Auto-renewal happens silently before expiry. No cron jobs, no manual steps — it just works.</p>
+
+<h4>Useful Ingress Annotations</h4>
+
+<p>The nginx Ingress Controller supports dozens of annotations to customise behaviour per Ingress resource.</p>
+
+<div class="code-title">Common useful annotations</div>
+<pre><code class="language-yaml">metadata:
+  annotations:
+    # Redirect HTTP to HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # Set custom timeouts for long-running requests
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    # Enable CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    # Rate limiting
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    # Increase max upload size
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    # Whitelist specific IPs
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"</code></pre>
+
+<h4>Debugging Ingress Issues</h4>
+
+<div class="code-title">Common Ingress debugging commands</div>
+<pre><code class="language-bash"># Check Ingress status
+kubectl get ingress
+
+# Describe for events and configuration
+kubectl describe ingress my-ingress
+
+# Check the nginx controller logs
+kubectl logs -n ingress-nginx deployment/ingress-nginx-controller
+
+# Check the nginx configuration that was generated
+kubectl exec -n ingress-nginx deployment/ingress-nginx-controller -- nginx -T | grep -A 20 "server_name myapp"</code></pre>
+
+<h4>What is Next</h4>
+
+<p>Traffic is now flowing into your cluster properly, with HTTPS and intelligent routing. The next challenge is reliability. What happens when a pod is still starting but Kubernetes is already routing traffic to it? What if a pod needs 30 seconds to initialise before it can handle requests? In <a href="kubernetes-tutorial-part-9.html">Part 9</a>, we cover Health Checks and Probes — the mechanism that tells Kubernetes exactly when a pod is truly ready to receive traffic and when it is unhealthy and should be restarted.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between a Service and an Ingress?</h5>
+  <p>A Service exposes pods at the TCP level. An Ingress is an HTTP routing layer sitting in front of multiple Services, routing by hostname and URL path. One Ingress replaces many LoadBalancer services, saving cost and complexity.</p>
+  <h5 style="margin-bottom:8px;">What is an Ingress Controller?</h5>
+  <p>An Ingress Controller is the actual pod that implements Ingress rules by configuring a real reverse proxy (nginx, Traefik, etc.). Kubernetes defines the Ingress API but does not include a controller — you install one separately. Minikube includes nginx as an addon.</p>
+  <h5 style="margin-bottom:8px;">How do I get free HTTPS in Kubernetes?</h5>
+  <p>Install cert-manager, create a ClusterIssuer for Let's Encrypt, and annotate your Ingress with <code>cert-manager.io/cluster-issuer</code>. cert-manager automates certificate issuance and renewal completely — free and hands-off.</p>
+  <h5 style="margin-bottom:8px;">Can one Ingress handle multiple domains?</h5>
+  <p>Yes. Define multiple host rules in one Ingress resource. Each host can have independent path routing and its own TLS certificate. This is far more cost-efficient than one LoadBalancer per service.</p>
+  <h5 style="margin-bottom:8px;">What is path-based routing?</h5>
+  <p>Routing traffic to different services based on the URL path. Example: <code>/api</code> goes to the API service, <code>/uploads</code> goes to a file service, everything else to the frontend. All under one hostname and one IP address.</p>
+</div>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-7.html">&larr; Part 7</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 8 of 12</strong>
   <a href="kubernetes-tutorial-part-9.html">Part 9 &rarr;</a>
 </div>
 <a href="../blog.html" class="btn">&larr; Back to Blog</a>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only.</div>
 </section>
-<footer>
-  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

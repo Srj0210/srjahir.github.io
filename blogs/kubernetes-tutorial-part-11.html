@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 11 — Monitoring, Logging, and Observability | SRJahir Tech</title>
-  <meta name="description" content="Set up Prometheus and Grafana for monitoring. Build dashboards for your Kubernetes cluster." />
-  <meta name="keywords" content="Kubernetes monitoring, Prometheus, Grafana, K8s logging, observability" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Set up Prometheus and Grafana monitoring in Kubernetes. Learn log aggregation with Loki, collect cluster metrics, and build dashboards to observe your applications." />
+  <meta name="keywords" content="Kubernetes monitoring Prometheus, Grafana Kubernetes, Kubernetes logging Loki, cluster observability Kubernetes, metrics server Kubernetes" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-11.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Kubernetes Tutorial Part 11 — Monitoring, Logging, and Observability" />
-  <meta property="og:description" content="Set up Prometheus and Grafana for monitoring. Build dashboards for your Kubernetes cluster." />
+  <meta property="og:type" content="article" /><meta property="og:title" content="Kubernetes Tutorial Part 11 — Monitoring, Logging, and Observability" />
+  <meta property="og:description" content="Set up Prometheus and Grafana in Kubernetes. Learn log aggregation, metrics collection, and observability for production clusters." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-11.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-04-10" />
-  <meta property="article:author" content="Suraj Ahir" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 11 — Monitoring, Logging, and Observability" />
-  <meta name="twitter:description" content="Set up Prometheus and Grafana for monitoring. Build dashboards for your Kubernetes cluster." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 11 \u2014 Monitoring, Logging, and Observability", "description": "Set up Prometheus and Grafana for monitoring. Build dashboards for your Kubernetes cluster.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-11.html", "datePublished": "2026-04-10", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-11.html"}}
-  </script>
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-11-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-04-10" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 11 — Monitoring, Logging, and Observability","description":"Set up Prometheus and Grafana monitoring in Kubernetes. Learn log aggregation with Loki, metrics collection, and building observability into production clusters.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-11.html","datePublished":"2026-04-10","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-11-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-11.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between monitoring and logging in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Monitoring collects numerical metrics over time — CPU usage, memory consumption, request rate, error rate — and alerts when values cross thresholds. Logging captures discrete events and messages from application and system processes. You need both: metrics tell you something is wrong, logs tell you why. Prometheus handles metrics; Loki or Elasticsearch handles logs."}},{"@type":"Question","name":"What is Prometheus and how does it work in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Prometheus is an open-source monitoring system that scrapes metrics from HTTP endpoints exposed by your applications and infrastructure. In Kubernetes, the kube-state-metrics and node-exporter components expose cluster-level metrics. Prometheus stores these as time-series data and provides a query language called PromQL to analyse them. Grafana then visualises the Prometheus data in dashboards."}},{"@type":"Question","name":"How do I view pod logs in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Use kubectl logs pod-name to see the current logs of a pod. Use kubectl logs pod-name -f to stream logs in real time. For pods with multiple containers, specify -c container-name. Logs from terminated pods can be retrieved with --previous flag. For production clusters, centralise logs using a stack like Loki+Promtail or Elasticsearch+Fluentd so logs survive pod deletion."}},{"@type":"Question","name":"What is the Kubernetes Metrics Server and do I need it?","acceptedAnswer":{"@type":"Answer","text":"Metrics Server is a cluster-wide resource usage data aggregator. It collects CPU and memory usage from kubelets and exposes it through the Kubernetes API. You need it to use kubectl top pods and kubectl top nodes commands, and it is required for Horizontal Pod Autoscaler (HPA) to work. Install it separately — it is not included by default in most cluster setups."}},{"@type":"Question","name":"What is the kube-prometheus-stack Helm chart?","acceptedAnswer":{"@type":"Answer","text":"The kube-prometheus-stack (formerly prometheus-operator) is a Helm chart that installs a complete monitoring solution: Prometheus, Grafana, Alertmanager, kube-state-metrics, and node-exporter in one deployment. It is pre-configured with dozens of Kubernetes dashboards and alert rules out of the box. It is the standard way to set up monitoring in production Kubernetes clusters."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
@@ -37,9 +26,6 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-1041324645386243">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 </head>
 <body>
 <div class="background-waves"></div>
@@ -47,53 +33,220 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 11: Monitoring, Logging, and Observability</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 10, 2026 <span class="meta-dot"></span> 8 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 10, 2026 <span class="meta-dot"></span> 12 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-10.html">&larr; Part 10</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 11 of 12</strong>
   <a href="kubernetes-tutorial-part-12.html">Part 12 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-11-terminal.svg" alt="Kubernetes - Monitoring" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Monitoring</figcaption>
+  <img src="images/k8s-part-11-terminal.svg" alt="Kubernetes Monitoring with Prometheus and Grafana" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Prometheus collects metrics; Grafana visualises them in real-time dashboards</figcaption>
 </figure>
-<p>Running Kubernetes without monitoring is like driving with your eyes closed. The standard stack is Prometheus for metrics and Grafana for visualization.</p>
 
-<div class="code-title">Install Monitoring Stack</div>
-<pre><code class="language-bash">helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install monitoring prometheus-community/kube-prometheus-stack \
-  --namespace monitoring --create-namespace
+<p>You can have a perfect cluster — great Deployments, proper Health Probes, Helm charts, ResourceQuotas — and still operate blind. Without monitoring and logging, when something breaks at 2am you are doing archaeology. You grep through logs manually, run kubectl describe on every pod, try to piece together what happened from incomplete information. It is stressful and slow.</p>
 
-kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
-# Login: admin / prom-operator</code></pre>
+<p>I once spent four hours debugging a production incident that would have taken five minutes with proper monitoring. The application was responding slowly. Without metrics, I had no idea whether it was CPU, memory, database connections, or network. I guessed and restarted things until it accidentally got better. That was the last time I deployed to production without observability set up first.</p>
 
-<p>The kube-prometheus-stack installs Prometheus, Grafana, Alertmanager, and pre-built dashboards. Within five minutes you have production-grade monitoring. Your applications should expose custom metrics through a <code>/metrics</code> endpoint. Configure Alertmanager to send notifications when things go wrong.</p>
+<p>Observability in Kubernetes has three pillars: metrics (numbers over time), logs (discrete events), and traces (request paths through distributed systems). In this part, we focus on metrics and logs — the two you need immediately for every cluster.</p>
 
-<p>In Part 12, we put everything together in a complete production deployment.</p>
+<h4>Viewing Logs with kubectl</h4>
 
+<p>Before setting up any tooling, kubectl gives you direct access to container logs.</p>
+
+<div class="code-title">Essential kubectl log commands</div>
+<pre><code class="language-bash"># View logs of a pod
+kubectl logs my-pod
+
+# Stream logs in real time
+kubectl logs my-pod -f
+
+# View last 100 lines
+kubectl logs my-pod --tail=100
+
+# View logs from the last 1 hour
+kubectl logs my-pod --since=1h
+
+# View logs from a specific container in a multi-container pod
+kubectl logs my-pod -c my-container
+
+# View logs from a previous container restart
+kubectl logs my-pod --previous
+
+# Stream logs from all pods with a label
+kubectl logs -l app=my-app -f --prefix=true</code></pre>
+
+<p>The <code>--prefix=true</code> flag is particularly useful when streaming from multiple pods — it shows which pod each log line came from. This is how you debug distributed issues when multiple replicas are all logging simultaneously.</p>
+
+<h4>Installing the Metrics Server</h4>
+
+<p>The Metrics Server is required for <code>kubectl top</code> commands and for Horizontal Pod Autoscaling to work. Install it first.</p>
+
+<div class="code-title">Install Metrics Server on Minikube</div>
+<pre><code class="language-bash"># Enable metrics server addon
+minikube addons enable metrics-server
+
+# Wait a minute, then check node and pod resource usage
+kubectl top nodes
+kubectl top pods
+kubectl top pods --all-namespaces</code></pre>
+
+<div class="code-title">Install Metrics Server on a regular cluster</div>
+<pre><code class="language-bash">kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# Verify it is running
+kubectl get deployment metrics-server -n kube-system</code></pre>
+
+<h4>Installing Prometheus and Grafana with Helm</h4>
+
+<p>The kube-prometheus-stack Helm chart is the industry standard for Kubernetes monitoring. It installs Prometheus, Grafana, Alertmanager, node-exporter, and kube-state-metrics in one command, pre-configured with dozens of built-in dashboards.</p>
+
+<div class="code-title">Install kube-prometheus-stack</div>
+<pre><code class="language-bash"># Add the Prometheus community Helm repo
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+# Create a monitoring namespace
+kubectl create namespace monitoring
+
+# Install the full stack
+helm install kube-prometheus prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --set grafana.adminPassword=admin123 \
+  --set prometheus.prometheusSpec.retention=7d
+
+# Check everything is running
+kubectl get pods -n monitoring</code></pre>
+
+<div class="code-title">Access Grafana dashboard</div>
+<pre><code class="language-bash"># Port-forward Grafana to your local machine
+kubectl port-forward svc/kube-prometheus-grafana 3000:80 -n monitoring
+
+# Open http://localhost:3000
+# Username: admin
+# Password: admin123 (or whatever you set)</code></pre>
+
+<p>When you open Grafana, go to Dashboards and look at the Kubernetes pre-built dashboards. "Kubernetes / Compute Resources / Cluster" gives you CPU and memory usage across the entire cluster. "Kubernetes / Compute Resources / Pod" shows per-pod resource consumption. These dashboards are fully operational immediately — no configuration needed.</p>
+
+<h4>Understanding PromQL Basics</h4>
+
+<p>Prometheus Query Language (PromQL) is how you query your metrics. You do not need to master it, but knowing a few queries helps you build custom dashboards and alerts.</p>
+
+<div class="code-title">Useful PromQL queries for Kubernetes</div>
+<pre><code class="language-bash"># CPU usage per pod (in milliCPU)
+sum(rate(container_cpu_usage_seconds_total{namespace="default"}[5m])) by (pod)
+
+# Memory usage per pod (in bytes)
+container_memory_working_set_bytes{namespace="default"}
+
+# Pods with high restart count (potential crash-looping)
+kube_pod_container_status_restarts_total > 5
+
+# Node CPU usage percentage
+1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (node)
+
+# HTTP request rate (if using nginx ingress)
+rate(nginx_ingress_controller_requests[5m])</code></pre>
+
+<h4>Setting Up Alerts</h4>
+
+<div class="code-title">Custom alert rule — high memory usage</div>
+<pre><code class="language-yaml">apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memory-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+  - name: memory.rules
+    rules:
+    - alert: PodHighMemoryUsage
+      expr: container_memory_working_set_bytes > 500 * 1024 * 1024
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Pod {{ $labels.pod }} using more than 500MB memory"
+        description: "Memory usage: {{ $value | humanize }}"</code></pre>
+
+<h4>Log Aggregation with Loki</h4>
+
+<p>kubectl logs only works for running pods. When a pod is deleted, its logs are gone. For production, you need a log aggregation system that stores logs persistently. Loki (from Grafana Labs) is the most popular lightweight option for Kubernetes.</p>
+
+<div class="code-title">Install Loki stack with Helm</div>
+<pre><code class="language-bash">helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+helm install loki grafana/loki-stack \
+  --namespace monitoring \
+  --set grafana.enabled=false \
+  --set prometheus.enabled=false</code></pre>
+
+<p>Once Loki is installed, go to Grafana → Data Sources → Add Data Source → Loki, point it to the Loki service URL, and you can now query logs from all pods through Grafana using LogQL.</p>
+
+<h4>Horizontal Pod Autoscaler</h4>
+
+<p>Once you have Metrics Server running, you can set up automatic scaling based on CPU or memory.</p>
+
+<div class="code-title">Create an HPA for automatic scaling</div>
+<pre><code class="language-yaml">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-app
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70  # Scale up when CPU exceeds 70%</code></pre>
+
+<div class="code-title">Monitor HPA status</div>
+<pre><code class="language-bash">kubectl get hpa
+kubectl describe hpa web-app-hpa
+
+# Watch scaling decisions in real time
+kubectl get hpa -w</code></pre>
+
+<h4>What is Next</h4>
+
+<p>You now have full visibility into your cluster — metrics flowing into Prometheus, dashboards in Grafana, logs in Loki, and autoscaling enabled. The final part of this series brings everything together. In <a href="kubernetes-tutorial-part-12.html">Part 12</a>, we build a complete production-grade deployment from scratch, combining every concept from the series into a real-world example: a web application with a database, persistent storage, Ingress with HTTPS, health probes, resource limits, HPA, monitoring, and a Helm chart for repeatable deployment.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between monitoring and logging?</h5>
+  <p>Monitoring tracks numerical metrics over time (CPU, memory, request rate). Logging captures discrete events and text output from processes. Metrics tell you something is wrong; logs tell you why. You need both in production.</p>
+  <h5 style="margin-bottom:8px;">What is Prometheus and how does it work?</h5>
+  <p>Prometheus scrapes metrics from HTTP endpoints exposed by your apps and infrastructure on a schedule. It stores them as time-series data and lets you query with PromQL. Grafana visualises the data in configurable dashboards.</p>
+  <h5 style="margin-bottom:8px;">How do I view pod logs in Kubernetes?</h5>
+  <p>Use <code>kubectl logs pod-name</code> for current logs, <code>-f</code> to stream, <code>--previous</code> for last container's logs after a crash, and <code>-l app=label -f --prefix=true</code> to stream from multiple pods simultaneously.</p>
+  <h5 style="margin-bottom:8px;">What is Metrics Server and do I need it?</h5>
+  <p>Metrics Server aggregates CPU and memory from all kubelets. You need it for kubectl top commands and for HPA to function. It is not installed by default — install it separately or enable it via the Minikube addon.</p>
+  <h5 style="margin-bottom:8px;">What is kube-prometheus-stack?</h5>
+  <p>A Helm chart that installs Prometheus, Grafana, Alertmanager, kube-state-metrics, and node-exporter together, pre-configured with Kubernetes dashboards. One helm install command gives you a complete production monitoring stack.</p>
+</div>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-10.html">&larr; Part 10</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 11 of 12</strong>
   <a href="kubernetes-tutorial-part-12.html">Part 12 &rarr;</a>
 </div>
 <a href="../blog.html" class="btn">&larr; Back to Blog</a>
-
-<div class="blog-disclaimer">
-  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
-</div>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only.</div>
 </section>
-<footer>
-  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
-  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
-</footer>
-</body>
-</html>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+</body></html>

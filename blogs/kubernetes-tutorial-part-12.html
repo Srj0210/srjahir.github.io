@@ -1,34 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <title>Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together | SRJahir Tech</title>
-  <meta name="description" content="Deploy a complete multi-service application with all production best practices." />
-  <meta name="keywords" content="Kubernetes production, K8s best practices, complete deployment, DevOps K8s" />
-  <meta name="author" content="Suraj Ahir" />
-  <meta name="robots" content="index, follow" />
+  <title>Kubernetes Tutorial Part 12 — Production Deployment: Putting It All Together | SRJahir Tech</title>
+  <meta name="description" content="Deploy a complete production-grade application on Kubernetes. Combine Deployments, Services, Ingress, Secrets, HPA, monitoring, and Helm into one real production setup." />
+  <meta name="keywords" content="Kubernetes production deployment, production Kubernetes setup, K8s production best practices, Kubernetes HPA, production grade Kubernetes" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-12.html" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together" />
-  <meta property="og:description" content="Deploy a complete multi-service application with all production best practices." />
+  <meta property="og:title" content="Kubernetes Tutorial Part 12 — Production Deployment: Putting It All Together" />
+  <meta property="og:description" content="Deploy a complete production-grade application on Kubernetes. Combine every concept from this series into one real production setup." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-12.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
-  <meta property="og:site_name" content="SRJahir Tech" />
-  <meta property="og:locale" content="en_IN" />
-  <meta property="article:published_time" content="2026-04-14" />
-  <meta property="article:author" content="Suraj Ahir" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-12-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-04-14" /><meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 12 — Production Deployment — Putting It All Together" />
-  <meta name="twitter:description" content="Deploy a complete multi-service application with all production best practices." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 12 \u2014 Production Deployment \u2014 Putting It All Together", "description": "Deploy a complete multi-service application with all production best practices.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-12.html", "datePublished": "2026-04-14", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-12.html"}}
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 12 — Production Deployment: Putting It All Together","description":"Deploy a complete production-grade application on Kubernetes combining Deployments, Services, Ingress, Secrets, HPA, monitoring, and Helm into one real production setup.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-12.html","datePublished":"2026-04-14","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-12-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-12.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does a production-grade Kubernetes deployment include?","acceptedAnswer":{"@type":"Answer","text":"A production-grade Kubernetes deployment includes: a Deployment with proper resource requests and limits, liveness and readiness probes, a Service for internal networking, an Ingress with HTTPS for external traffic, Secrets for sensitive config, ConfigMaps for non-sensitive config, PersistentVolumeClaims for stateful data, a HorizontalPodAutoscaler for scaling, PodDisruptionBudgets for availability, and monitoring via Prometheus and Grafana. Everything should be packaged in a Helm chart for repeatable deployments."}},{"@type":"Question","name":"What are Kubernetes production best practices for resource management?","acceptedAnswer":{"@type":"Answer","text":"Always set both requests and limits for CPU and memory on every container. Requests are used by the scheduler to place pods on nodes; limits prevent resource starvation. Use LimitRanges to enforce defaults per namespace, ResourceQuotas to cap total namespace usage, and the Vertical Pod Autoscaler to recommend right-sized values based on actual usage history."}},{"@type":"Question","name":"How do I handle zero-downtime deployments in production Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Use a RollingUpdate deployment strategy with maxUnavailable: 0 and maxSurge: 1 to ensure capacity never drops below desired during updates. Configure readiness probes so new pods only receive traffic when truly ready. Set terminationGracePeriodSeconds to give pods time to finish handling requests before termination. Use PodDisruptionBudgets to protect minimum availability during node drains."}},{"@type":"Question","name":"What is the recommended Kubernetes secret management approach for production?","acceptedAnswer":{"@type":"Answer","text":"Never store raw Kubernetes Secret YAML in Git. Use External Secrets Operator to sync secrets from AWS Secrets Manager, HashiCorp Vault, or Azure Key Vault into Kubernetes Secrets automatically. For GitOps workflows, Sealed Secrets encrypts secrets with a cluster-specific key so only your cluster can decrypt them. Regular Kubernetes Secrets are acceptable for non-production environments with strict RBAC."}},{"@type":"Question","name":"How long does it take to get a Kubernetes cluster production-ready?","acceptedAnswer":{"@type":"Answer","text":"For a simple application with proper configuration, a few days to a week of focused work. The core technical setup — Deployments, Services, Ingress, monitoring — takes a day or two. The operational maturity — fine-tuning resource limits, setting up alerting thresholds, writing runbooks, testing failure scenarios — takes weeks of running in production and learning from real incidents."}}]}</script>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link rel="stylesheet" href="../assets/css/style.css"><link rel="stylesheet" href="../assets/css/code-tutorial.css">
   <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
@@ -47,47 +38,414 @@
 <header class="nav">
   <h1>SRJahir<span>Tech</span></h1>
   <nav class="menu-bar">
-    <a href="../index.html">Home</a>
-    <a href="../blog.html">Blog</a>
-    <a href="../terms.html">Terms</a>
-    <a href="../privacy.html">Privacy</a>
+    <a href="../index.html">Home</a><a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a>
   </nav>
 </header>
-
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 12: Production Deployment — Putting It All Together</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 14, 2026 <span class="meta-dot"></span> 9 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 14, 2026 <span class="meta-dot"></span> 13 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-11.html">&larr; Part 11</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 12 of 12</strong>
   <span></span>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-12-terminal.svg" alt="Kubernetes - Production Deployment — Putting It All Together" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Production Deployment — Putting It All Together</figcaption>
+  <img src="images/k8s-part-12-terminal.svg" alt="Kubernetes Production Deployment Complete Setup" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">A complete production Kubernetes deployment combines every concept from this series</figcaption>
 </figure>
-<p>This final part brings everything together. We deploy a complete multi-service application using every concept from the series.</p>
 
-<div class="code-title">Deploy Production Stack</div>
-<pre><code class="language-bash">kubectl create namespace production
-kubectl create namespace monitoring
+<p>We have covered a lot of ground in this series. Deployments, Services, ConfigMaps, Secrets, Volumes, Namespaces, Ingress, Health Probes, Helm, and Monitoring. Each concept was isolated — you learned it, practiced it, moved on. But production does not work that way. Production is all of it, running together, needing to be reliable under real traffic with real users who notice when things break.</p>
 
-helm install postgres bitnami/postgresql -n production
-helm install redis bitnami/redis -n production
-kubectl apply -f k8s/production/ -n production
-helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
-kubectl apply -f k8s/ingress.yaml</code></pre>
+<p>This final part brings everything together. We are going to deploy a complete production-grade web application: a Node.js API backed by PostgreSQL, exposed via Ingress with HTTPS, fully observable with Prometheus metrics, automatically scaling with HPA, and packaged as a Helm chart so the entire deployment is one command. This is the pattern you will use in real jobs.</p>
+
+<p>I remember the first time I deployed something like this properly at work. Not just "running in Kubernetes" but genuinely production-grade — with probes, resource limits, monitoring, the works. The difference in reliability between a properly configured Kubernetes deployment and a casual one is enormous. Let us build the proper version.</p>
+
+<h4>The Architecture We Are Deploying</h4>
+
+<p>Our production deployment has these components. A <strong>frontend</strong> service: a Node.js API, 3 replicas, with readiness and liveness probes, resource limits, and HPA. A <strong>PostgreSQL database</strong>: single replica with persistent storage via PVC. A <strong>Redis cache</strong>: in-memory, 2 replicas. An <strong>Ingress</strong>: routing <code>/api</code> to the backend, handling HTTPS with cert-manager. A <strong>namespace</strong> with ResourceQuota. Monitoring via Prometheus. All packaged as a Helm chart.</p>
+
+<h4>Step 1 — Create the Production Namespace with Quotas</h4>
+
+<div class="code-title">production-namespace.yaml</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+  labels:
+    env: production
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: production-quota
+  namespace: production
+spec:
+  hard:
+    requests.cpu: "8"
+    requests.memory: 16Gi
+    limits.cpu: "16"
+    limits.memory: 32Gi
+    pods: "50"
+    services: "20"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: production-limits
+  namespace: production
+spec:
+  limits:
+  - type: Container
+    defaultRequest:
+      cpu: 100m
+      memory: 128Mi
+    default:
+      cpu: 500m
+      memory: 256Mi
+    max:
+      cpu: "4"
+      memory: 8Gi</code></pre>
+
+<h4>Step 2 — Secrets and ConfigMaps</h4>
+
+<div class="code-title">Create production secrets</div>
+<pre><code class="language-bash"># Create database credentials secret
+kubectl create secret generic db-credentials \
+  --from-literal=POSTGRES_PASSWORD=strongpassword123 \
+  --from-literal=POSTGRES_USER=appuser \
+  --from-literal=POSTGRES_DB=myapp \
+  -n production
+
+# Create app secrets
+kubectl create secret generic app-secrets \
+  --from-literal=JWT_SECRET=supersecretjwtkey \
+  --from-literal=SESSION_SECRET=sessionkey \
+  -n production</code></pre>
+
+<div class="code-title">app-config.yaml</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: production
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "warn"
+  DB_HOST: "postgres-service"
+  DB_PORT: "5432"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  PORT: "3000"</code></pre>
+
+<h4>Step 3 — PostgreSQL with Persistent Storage</h4>
+
+<div class="code-title">postgres.yaml</div>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: production
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        envFrom:
+        - secretRef:
+            name: db-credentials
+        ports:
+        - containerPort: 5432
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: "1"
+            memory: 1Gi
+        readinessProbe:
+          exec:
+            command: ["pg_isready", "-U", "appuser", "-d", "myapp"]
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command: ["pg_isready", "-U", "appuser"]
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: production
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432</code></pre>
+
+<h4>Step 4 — The Application Deployment with Full Production Config</h4>
+
+<div class="code-title">app-deployment.yaml — Production grade</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: production
+  annotations:
+    kubernetes.io/change-cause: "Release v2.1.0 - performance improvements"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0      # Never go below 3 pods during updates
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: "2.1.0"
+    spec:
+      terminationGracePeriodSeconds: 60    # Give pods 60s to finish requests
+      containers:
+      - name: myapp
+        image: myapp:2.1.0
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: app-secrets
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: "1"
+            memory: 512Mi
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          failureThreshold: 20
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  namespace: production
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 3000</code></pre>
+
+<h4>Step 5 — Ingress with Automatic HTTPS</h4>
+
+<div class="code-title">production-ingress.yaml</div>
+<pre><code class="language-yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: production-ingress
+  namespace: production
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.yourdomain.com
+    secretName: production-tls
+  rules:
+  - host: api.yourdomain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: myapp-service
+            port:
+              number: 80</code></pre>
+
+<h4>Step 6 — Horizontal Pod Autoscaler</h4>
+
+<div class="code-title">hpa.yaml</div>
+<pre><code class="language-yaml">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+  namespace: production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300    # Wait 5 min before scaling down
+    scaleUp:
+      stabilizationWindowSeconds: 60     # Scale up after 1 min of high load</code></pre>
+
+<h4>Step 7 — PodDisruptionBudget for High Availability</h4>
+
+<div class="code-title">pdb.yaml</div>
+<pre><code class="language-yaml">apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: myapp-pdb
+  namespace: production
+spec:
+  minAvailable: 2    # Always keep at least 2 pods running even during node drains
+  selector:
+    matchLabels:
+      app: myapp</code></pre>
+
+<h4>Step 8 — Deploy Everything</h4>
+
+<div class="code-title">Deploy the full production stack</div>
+<pre><code class="language-bash"># Apply in order
+kubectl apply -f production-namespace.yaml
+kubectl apply -f app-config.yaml
+kubectl apply -f postgres.yaml
+
+# Wait for postgres to be ready
+kubectl rollout status deployment/postgres -n production
+
+# Deploy the app
+kubectl apply -f app-deployment.yaml
+kubectl apply -f production-ingress.yaml
+kubectl apply -f hpa.yaml
+kubectl apply -f pdb.yaml
+
+# Verify everything
+kubectl get all -n production
+kubectl get ingress -n production
+kubectl get hpa -n production</code></pre>
+
+<h4>Step 9 — Verify the Production Deployment</h4>
+
+<div class="code-title">Production health checks</div>
+<pre><code class="language-bash"># Are all pods running?
+kubectl get pods -n production
+
+# Are all pods passing readiness checks?
+kubectl get pods -n production -o wide | grep -v Running
+
+# Check restart counts (should be 0 for fresh deploy)
+kubectl get pods -n production
+
+# Watch HPA — does it have metrics?
+kubectl get hpa -n production
+
+# Test your endpoint
+curl -I https://api.yourdomain.com/health
+
+# Trigger a rolling update
+kubectl set image deployment/myapp myapp=myapp:2.2.0 -n production
+kubectl rollout status deployment/myapp -n production
+
+# Emergency rollback if needed
+kubectl rollout undo deployment/myapp -n production</code></pre>
 
 <h4>Production Checklist</h4>
 
-<p>Before going live, verify: all pods passing health checks, resource limits set on every container, secrets not hardcoded, persistent storage provisioned, monitoring dashboards working, alerting rules configured, TLS certificates valid, namespaces separating environments, resource quotas preventing runaway consumption.</p>
+<p>Before you consider a Kubernetes deployment truly production-ready, verify each of these items. Every container has resource requests and limits set. Every Deployment has readiness and liveness probes. A PodDisruptionBudget protects your minimum replica count. Secrets are not stored in Git raw. Monitoring is set up and you have at least one alert configured. You have tested a rolling update and verified zero downtime. You have tested a rollback and verified it works. Logs are centralised and searchable. The deployment is in a Helm chart so it is fully repeatable.</p>
 
-<h4>What Comes Next</h4>
+<h4>What You Have Learned in This Series</h4>
 
-<p>After mastering these fundamentals, explore GitOps with ArgoCD, service meshes with Istio, custom operators, and multi-cluster management. The key to getting good at Kubernetes is using it for real work — deploy your own projects, break things, and fix them. That debugging experience is irreplaceable.</p>
+<p>Over twelve parts, you went from "what is Kubernetes" to deploying a fully production-grade application. You understand pods, deployments, services, networking, storage, configuration management, ingress with HTTPS, health probes, resource management, Helm, and monitoring. These are not beginner topics — these are the same concepts used by engineers at companies running Kubernetes at massive scale.</p>
 
-<div class="key-takeaway">
-<strong>Key Takeaway:</strong> Kubernetes is an entire platform for running applications reliably at scale. This 12-part series covered everything from your first pod to production deployment. The next step is building and deploying your own applications.
+<p>The gap between knowing Kubernetes and being confident with it closes fast once you start running real workloads. Set up your own project, deploy something you actually use, and break things on purpose. See how rolling updates behave under load. Delete a pod and watch self-healing work. Trigger an HPA scale event. Nothing teaches faster than real incidents in a cluster you own.</p>
+
+<p>From here, the natural next steps are learning RBAC and security hardening, exploring GitOps with ArgoCD or Flux, understanding cluster autoscaling for nodes (not just pods), and diving deeper into service mesh with Istio or Linkerd. Each of those could be its own 12-part series.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What does a production-grade Kubernetes deployment include?</h5>
+  <p>Resource requests and limits, liveness and readiness probes, Ingress with HTTPS, Secrets for sensitive config, PVCs for stateful data, HPA for autoscaling, PodDisruptionBudgets for availability, and monitoring via Prometheus. All packaged in a Helm chart for repeatability.</p>
+  <h5 style="margin-bottom:8px;">What are the most important resource management best practices?</h5>
+  <p>Always set requests AND limits on every container. Use LimitRanges to enforce defaults per namespace. Use ResourceQuotas to cap total namespace consumption. Set maxUnavailable: 0 in your rolling update strategy so capacity never drops during deploys.</p>
+  <h5 style="margin-bottom:8px;">How do I achieve zero-downtime deployments?</h5>
+  <p>Configure readiness probes so traffic only reaches ready pods. Set maxUnavailable: 0 and maxSurge: 1 in your Deployment strategy. Set terminationGracePeriodSeconds so pods finish in-flight requests before dying. Use PodDisruptionBudgets to protect minimum availability.</p>
+  <h5 style="margin-bottom:8px;">What is the recommended secret management approach?</h5>
+  <p>Never commit raw Secret YAML to Git. Use External Secrets Operator to pull from AWS Secrets Manager or Vault, or use Sealed Secrets for GitOps workflows. Regular Kubernetes Secrets are fine for non-production with strict RBAC.</p>
+  <h5 style="margin-bottom:8px;">How long does it take to get production-ready?</h5>
+  <p>Core setup takes 1–2 days. Operational maturity — tuned resource limits, proper alerting, runbooks, chaos testing — takes weeks of running real workloads and learning from real incidents. Start simple and iterate.</p>
 </div>
 
 <div class="series-nav">
@@ -96,7 +454,6 @@ kubectl apply -f k8s/ingress.yaml</code></pre>
   <span></span>
 </div>
 <a href="../blog.html" class="btn">&larr; Back to Blog</a>
-
 <div class="blog-disclaimer">
   <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
 </div>
@@ -105,5 +462,4 @@ kubectl apply -f k8s/ingress.yaml</code></pre>
   <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
   <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
 </footer>
-</body>
-</html>
+</body></html>

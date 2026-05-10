@@ -5,26 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 2 — Setting Up Your Local Environment | SRJahir Tech</title>
-  <meta name="description" content="Install Minikube, kubectl, and your local Kubernetes cluster. Run your first pod and verify everything works." />
-  <meta name="keywords" content="Minikube setup, kubectl install, local Kubernetes, K8s environment" />
+  <meta name="description" content="Install Minikube and kubectl step by step. Set up a local Kubernetes cluster on Ubuntu, macOS, or Windows and run your first pod in under 15 minutes." />
+  <meta name="keywords" content="Minikube setup, kubectl install, local Kubernetes cluster, K8s environment setup, Kubernetes beginners" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-2.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 2 — Setting Up Your Local Environment" />
-  <meta property="og:description" content="Install Minikube, kubectl, and your local Kubernetes cluster. Run your first pod and verify everything works." />
+  <meta property="og:description" content="Install Minikube and kubectl step by step. Set up a local Kubernetes cluster on Ubuntu, macOS, or Windows and run your first pod in under 15 minutes." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-2.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-2-terminal.svg" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:locale" content="en_IN" />
   <meta property="article:published_time" content="2026-03-05" />
   <meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kubernetes Tutorial Part 2 — Setting Up Your Local Environment" />
-  <meta name="twitter:description" content="Install Minikube, kubectl, and your local Kubernetes cluster. Run your first pod and verify everything works." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:description" content="Install Minikube and kubectl step by step. Set up a local Kubernetes cluster on Ubuntu, macOS, or Windows and run your first pod in under 15 minutes." />
+  <meta name="twitter:image" content="https://srjahir.in/blogs/images/k8s-part-2-terminal.svg" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 2 \u2014 Setting Up Your Local Environment", "description": "Install Minikube, kubectl, and your local Kubernetes cluster. Run your first pod and verify everything works.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-2.html", "datePublished": "2026-03-05", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-2.html"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 2 — Setting Up Your Local Environment","description":"Install Minikube and kubectl step by step. Set up a local Kubernetes cluster on Ubuntu, macOS, or Windows and run your first pod in under 15 minutes.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-2.html","datePublished":"2026-03-05","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-2-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-2.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Minikube and why do I need it?","acceptedAnswer":{"@type":"Answer","text":"Minikube is a tool that runs a single-node Kubernetes cluster on your local machine inside a virtual machine or container. You need it because setting up a full multi-node cluster just to learn Kubernetes is expensive and complex. Minikube gives you a real Kubernetes environment on your laptop where you can practice without paying for cloud resources."}},{"@type":"Question","name":"What is the difference between kubectl and Minikube?","acceptedAnswer":{"@type":"Answer","text":"Minikube creates and manages the local Kubernetes cluster itself — it is the engine. kubectl is the command-line tool you use to communicate with any Kubernetes cluster, including the one Minikube creates. Think of Minikube as the cluster and kubectl as the control panel."}},{"@type":"Question","name":"Can I run Minikube on Windows?","acceptedAnswer":{"@type":"Answer","text":"Yes. Minikube runs on Windows, macOS, and Linux. On Windows, you need a hypervisor like Hyper-V or VirtualBox, or you can use Docker Desktop as the driver. The commands are the same across all platforms once Minikube is installed."}},{"@type":"Question","name":"How much RAM does Minikube need?","acceptedAnswer":{"@type":"Answer","text":"Minikube requires at least 2GB of RAM allocated to it, but 4GB is recommended for comfortable use. By default Minikube allocates 2GB. You can change this with the --memory flag when starting: minikube start --memory=4096."}},{"@type":"Question","name":"How do I stop and restart Minikube?","acceptedAnswer":{"@type":"Answer","text":"Use minikube stop to pause the cluster without deleting it. Your pods and configurations are saved. Use minikube start to restart it. If you want to completely wipe everything and start fresh, use minikube delete followed by minikube start."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -56,41 +59,241 @@
 
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 2: Setting Up Your Local Environment</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 05, 2026 <span class="meta-dot"></span> 8 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 05, 2026 <span class="meta-dot"></span> 10 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-1.html">&larr; Part 1</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 2 of 12</strong>
   <a href="kubernetes-tutorial-part-3.html">Part 3 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-2-terminal.svg" alt="Kubernetes - Setting Up Your Local Environment" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Setting Up Your Local Environment</figcaption>
+  <img src="images/k8s-part-2-terminal.svg" alt="Kubernetes Local Environment Setup with Minikube" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Setting up Kubernetes locally with Minikube and kubectl</figcaption>
 </figure>
-<p>Before you can learn Kubernetes properly, you need a local environment where you can break things without consequences. Minikube gives you a single-node Kubernetes cluster on your laptop. It is perfect for learning because it behaves like a real cluster.</p>
 
-<h4>Installing the Tools</h4>
+<p>The first time I tried to learn Kubernetes, I made a mistake that probably every beginner makes — I tried to use a cloud cluster. I spun up a managed Kubernetes cluster on AWS EKS, spent three hours figuring out IAM roles, got confused by the networking, and closed the laptop feeling completely defeated. I had not even written a single line of YAML yet.</p>
 
-<div class="code-title">Install kubectl and Minikube</div>
-<pre><code class="language-bash">curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+<p>The right way to start is locally. Minikube gives you a real, fully functional Kubernetes cluster on your own machine. No cloud bills. No complex IAM. No waiting for nodes to spin up. Just you and Kubernetes, one terminal, one command at a time. This is how I actually learned it properly, and this is how we are going to do it in this series.</p>
 
+<p>In this part, we will install kubectl and Minikube, start our first cluster, run our first pod, and understand what is actually happening when we do all of this. By the end of this post, you will have a working local Kubernetes environment and a mental model of how the pieces fit together.</p>
+
+<h4>What You Need Before Starting</h4>
+
+<p>Before installing anything, make sure your machine meets the minimum requirements. Minikube needs at least 2GB of RAM dedicated to it, 2 CPU cores, and 20GB of free disk space. In practice, I recommend 4GB of RAM for a comfortable experience — with only 2GB, the cluster feels sluggish when you are running multiple pods.</p>
+
+<p>You also need a hypervisor or container runtime. On Linux, Docker is the easiest option. On macOS, you can use Docker Desktop or HyperKit. On Windows, Hyper-V or Docker Desktop works well. This tutorial focuses on Linux (Ubuntu 22.04), but the Minikube commands are identical across all platforms — only the installation steps differ.</p>
+
+<h4>Installing kubectl — The Kubernetes Command Line Tool</h4>
+
+<p>kubectl is how you talk to any Kubernetes cluster. Think of it as the terminal interface for everything Kubernetes. You will use it to create pods, inspect what is running, view logs, debug issues, apply configurations, and a hundred other things. Install it first.</p>
+
+<div class="code-title">Install kubectl on Linux</div>
+<pre><code class="language-bash"># Download the latest stable release
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+# Make it executable
+chmod +x kubectl
+
+# Move it to your PATH
+sudo mv kubectl /usr/local/bin/
+
+# Verify installation
+kubectl version --client</code></pre>
+
+<p>You should see output showing the kubectl version. The "client" version is your local kubectl — the "server" version will appear once you have a cluster running. If you get a "command not found" error, make sure <code>/usr/local/bin</code> is in your PATH variable.</p>
+
+<div class="code-title">Install kubectl on macOS (using Homebrew)</div>
+<pre><code class="language-bash">brew install kubectl
+kubectl version --client</code></pre>
+
+<div class="code-title">Install kubectl on Windows (using Chocolatey)</div>
+<pre><code class="language-bash">choco install kubernetes-cli
+kubectl version --client</code></pre>
+
+<h4>Installing Minikube</h4>
+
+<p>Minikube is not just a simulator — it runs a real Kubernetes cluster inside a virtual machine or Docker container on your local machine. When you interact with it using kubectl, you are talking to a genuine Kubernetes API server. Everything you learn here translates directly to production clusters.</p>
+
+<div class="code-title">Install Minikube on Linux</div>
+<pre><code class="language-bash"># Download Minikube binary
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-chmod +x minikube-linux-amd64 && sudo mv minikube-linux-amd64 /usr/local/bin/minikube
 
-minikube start</code></pre>
+# Install it
+chmod +x minikube-linux-amd64
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+
+# Verify
+minikube version</code></pre>
+
+<div class="code-title">Install Minikube on macOS</div>
+<pre><code class="language-bash">brew install minikube</code></pre>
+
+<div class="code-title">Install Minikube on Windows (PowerShell as Admin)</div>
+<pre><code class="language-bash">winget install Kubernetes.minikube</code></pre>
+
+<h4>Starting Your First Kubernetes Cluster</h4>
+
+<p>This is the moment everything becomes real. One command starts a complete Kubernetes cluster on your machine. Minikube will download the necessary images, configure networking, and start the control plane components. The first time takes 3–5 minutes depending on your internet speed. After that, subsequent starts are much faster.</p>
+
+<div class="code-title">Start Minikube</div>
+<pre><code class="language-bash"># Start with Docker driver (recommended)
+minikube start --driver=docker
+
+# Or with more memory for better performance
+minikube start --driver=docker --memory=4096 --cpus=2</code></pre>
+
+<p>Watch the output carefully. You will see Minikube downloading the node image, setting up networking, and waiting for the Kubernetes API server to become ready. When you see "Done! kubectl is now configured to use minikube cluster", your cluster is running.</p>
+
+<div class="code-title">Verify the cluster is running</div>
+<pre><code class="language-bash"># Check cluster info
+kubectl cluster-info
+
+# See the nodes in your cluster
+kubectl get nodes
+
+# Check all system pods are running
+kubectl get pods -n kube-system</code></pre>
+
+<p>The output of <code>kubectl get nodes</code> should show one node named "minikube" with status "Ready". The <code>kubectl get pods -n kube-system</code> command shows you the internal Kubernetes components running — things like CoreDNS, the API server, and the scheduler. You do not need to touch these, but it is good to know they exist.</p>
+
+<h4>Understanding What Just Happened</h4>
+
+<p>When you ran <code>minikube start</code>, here is what actually happened behind the scenes. Minikube created a virtual machine (or Docker container), installed a minimal Linux distribution inside it, and then started the Kubernetes control plane — which includes the API server, the scheduler, the controller manager, and etcd (the key-value database Kubernetes uses to store all cluster state).</p>
+
+<p>It also configured your local kubectl to point to this cluster by updating the kubeconfig file at <code>~/.kube/config</code>. This file is how kubectl knows which cluster to talk to and how to authenticate. You can have multiple clusters in this file and switch between them — which is incredibly useful when you eventually work with staging and production clusters.</p>
+
+<div class="code-title">Explore your kubeconfig</div>
+<pre><code class="language-bash"># See your current context (which cluster kubectl is pointing to)
+kubectl config current-context
+
+# List all available contexts
+kubectl config get-contexts
+
+# View the full kubeconfig file
+kubectl config view</code></pre>
 
 <h4>Running Your First Pod</h4>
 
-<div class="code-title">Create and Inspect a Pod</div>
-<pre><code class="language-bash">kubectl run my-nginx --image=nginx --port=80
+<p>A pod is the smallest deployable unit in Kubernetes. It contains one or more containers that run together on the same node. Let us run a simple nginx web server as our first pod.</p>
+
+<div class="code-title">Run your first pod</div>
+<pre><code class="language-bash"># Create a pod running nginx
+kubectl run my-nginx --image=nginx --port=80
+
+# Check its status
 kubectl get pods
+
+# Get detailed information about the pod
 kubectl describe pod my-nginx
-kubectl logs my-nginx
+
+# View the logs
+kubectl logs my-nginx</code></pre>
+
+<p>The <code>kubectl get pods</code> command will initially show the pod status as "ContainerCreating" while Kubernetes pulls the nginx Docker image. After 30–60 seconds it should show "Running". The <code>kubectl describe pod</code> command gives you a deep look at the pod — which node it is running on, what events happened, what containers are inside, and what resources it is using.</p>
+
+<h4>Accessing Your Running Pod</h4>
+
+<p>The pod is running inside the Kubernetes cluster, which is inside Minikube, which means it is not directly accessible from your browser yet. There are several ways to access it. The simplest for development is port forwarding.</p>
+
+<div class="code-title">Access the nginx pod from your browser</div>
+<pre><code class="language-bash"># Forward local port 8080 to port 80 inside the pod
 kubectl port-forward pod/my-nginx 8080:80</code></pre>
 
-<p>Open <code>http://localhost:8080</code> in your browser. You should see the nginx welcome page. That is your first application running on Kubernetes. Clean up with <code>kubectl delete pod my-nginx</code>.</p>
+<p>Now open <code>http://localhost:8080</code> in your browser. You should see the nginx welcome page — "Welcome to nginx!" This is your first application running on Kubernetes. It feels simple, but the mechanism behind it is the same one used in massive production clusters running thousands of pods.</p>
 
-<p>In Part 3, we will learn about Deployments — the proper way to run applications with automatic scaling and self-healing.</p>
+<p>Press <code>Ctrl+C</code> to stop port forwarding when you are done.</p>
+
+<h4>Useful Minikube Commands for Daily Use</h4>
+
+<p>Over time you will use these Minikube commands constantly. Let me save you some searching.</p>
+
+<div class="code-title">Essential Minikube commands</div>
+<pre><code class="language-bash"># Check Minikube status
+minikube status
+
+# Open the Kubernetes Dashboard in your browser
+minikube dashboard
+
+# Get the IP address of your Minikube cluster
+minikube ip
+
+# SSH into the Minikube virtual machine
+minikube ssh
+
+# Stop the cluster (keeps data)
+minikube stop
+
+# Restart the cluster
+minikube start
+
+# Completely delete the cluster (fresh start)
+minikube delete
+
+# View Minikube logs for debugging
+minikube logs</code></pre>
+
+<p>The Minikube Dashboard is particularly useful when you are starting out. It gives you a visual overview of everything running in your cluster — pods, deployments, services, and more. Run <code>minikube dashboard</code> and a browser window will open automatically. I spent a lot of time in this dashboard when I was learning, just exploring and understanding what each resource looked like.</p>
+
+<h4>Cleaning Up</h4>
+
+<p>Good practice in Kubernetes is to clean up resources you no longer need. Delete the pod we created:</p>
+
+<div class="code-title">Delete the pod</div>
+<pre><code class="language-bash">kubectl delete pod my-nginx
+
+# Verify it's gone
+kubectl get pods</code></pre>
+
+<p>Notice that when you delete a pod created with <code>kubectl run</code>, it is gone permanently. In <a href="kubernetes-tutorial-part-3.html">Part 3</a>, we will learn about Deployments — which automatically recreate pods when they are deleted. This is the self-healing behavior that makes Kubernetes so powerful in production.</p>
+
+<h4>Namespaces — Organizing Your Cluster</h4>
+
+<p>Before we finish Part 2, there is one concept worth introducing: namespaces. Kubernetes uses namespaces to isolate groups of resources within a single cluster. Think of them as folders for your Kubernetes objects.</p>
+
+<div class="code-title">Working with namespaces</div>
+<pre><code class="language-bash"># List all namespaces
+kubectl get namespaces
+
+# List pods in all namespaces
+kubectl get pods --all-namespaces
+
+# List pods in a specific namespace
+kubectl get pods -n kube-system
+
+# Create your own namespace
+kubectl create namespace my-app
+
+# Run a pod in your namespace
+kubectl run test-pod --image=nginx -n my-app
+
+# Delete the namespace (deletes everything inside it)
+kubectl delete namespace my-app</code></pre>
+
+<p>By default, when you run kubectl commands without specifying a namespace, they operate on the "default" namespace. That is where our nginx pod ran. The "kube-system" namespace is where Kubernetes keeps its own internal components. You should never need to touch that namespace as a beginner.</p>
+
+<h4>What is Next</h4>
+
+<p>You now have a working local Kubernetes environment. You installed kubectl, started a Minikube cluster, ran your first pod, accessed it via port forwarding, and learned how to manage the cluster lifecycle. This foundation is everything you need for the rest of the series.</p>
+
+<p>In <a href="kubernetes-tutorial-part-3.html">Part 3</a>, we move from pods to Deployments — the proper, production-grade way to run applications in Kubernetes. You will see how Kubernetes automatically restarts crashed containers, maintains the exact number of replicas you specify, and handles rolling updates without downtime. That is where Kubernetes starts feeling like actual magic.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is Minikube and why do I need it?</h5>
+  <p>Minikube runs a single-node Kubernetes cluster on your local machine. You need it because setting up a full cloud cluster just to learn costs money and time. Minikube gives you a real Kubernetes environment on your laptop — free, fast, and safe to experiment with.</p>
+
+  <h5 style="margin-bottom:8px;">What is the difference between kubectl and Minikube?</h5>
+  <p>Minikube creates and manages the local cluster itself. kubectl is the command-line tool you use to talk to any Kubernetes cluster — including the one Minikube runs. Minikube is the cluster; kubectl is your control panel.</p>
+
+  <h5 style="margin-bottom:8px;">Can I run Minikube on Windows?</h5>
+  <p>Yes. Minikube works on Windows, macOS, and Linux. On Windows, use Docker Desktop as the driver. The Minikube and kubectl commands are identical once installed — only the initial setup steps differ by OS.</p>
+
+  <h5 style="margin-bottom:8px;">How much RAM does Minikube need?</h5>
+  <p>Minimum 2GB, but 4GB is recommended. You can set this when starting: <code>minikube start --memory=4096</code>. With only 2GB, pods may take longer to start and the cluster may feel sluggish under load.</p>
+
+  <h5 style="margin-bottom:8px;">How do I stop and restart Minikube without losing my work?</h5>
+  <p>Use <code>minikube stop</code> to pause the cluster — your pods and configurations are preserved. Run <code>minikube start</code> to bring it back exactly as you left it. Only <code>minikube delete</code> wipes everything completely.</p>
+</div>
 
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-1.html">&larr; Part 1</a>

@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 3 — Deployments, ReplicaSets, and Self-Healing | SRJahir Tech</title>
-  <meta name="description" content="Learn Kubernetes Deployments, ReplicaSets, rolling updates, scaling, and self-healing capabilities." />
-  <meta name="keywords" content="Kubernetes deployment, ReplicaSet, rolling update, K8s self-healing" />
+  <meta name="description" content="Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates." />
+  <meta name="keywords" content="Kubernetes Deployment, ReplicaSet Kubernetes, Kubernetes self-healing, rolling update Kubernetes, scale pods Kubernetes" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-3.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 3 — Deployments, ReplicaSets, and Self-Healing" />
-  <meta property="og:description" content="Learn Kubernetes Deployments, ReplicaSets, rolling updates, scaling, and self-healing capabilities." />
+  <meta property="og:description" content="Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-3.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-3-terminal.svg" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:locale" content="en_IN" />
   <meta property="article:published_time" content="2026-03-09" />
   <meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 3 — Deployments, ReplicaSets, and Self-Healing" />
-  <meta name="twitter:description" content="Learn Kubernetes Deployments, ReplicaSets, rolling updates, scaling, and self-healing capabilities." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 3 \u2014 Deployments, ReplicaSets, and Self-Healing", "description": "Learn Kubernetes Deployments, ReplicaSets, rolling updates, scaling, and self-healing capabilities.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-3.html", "datePublished": "2026-03-09", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-3.html"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 3 — Deployments, ReplicaSets, and Self-Healing","description":"Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-3.html","datePublished":"2026-03-09","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-3-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-3.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a Pod and a Deployment in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"A Pod is a single running instance of your application — if it crashes, it stays dead. A Deployment is a higher-level object that manages Pods. It tells Kubernetes how many copies of a Pod to run and ensures that number is always maintained. If a Pod dies, the Deployment automatically creates a replacement."}},{"@type":"Question","name":"What is a ReplicaSet in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"A ReplicaSet is the object that maintains a stable number of replica Pods running at any given time. You rarely create ReplicaSets directly — Deployments create and manage them for you. The Deployment defines the desired state, and the ReplicaSet does the actual work of ensuring that many pods exist."}},{"@type":"Question","name":"How does Kubernetes self-healing work?","acceptedAnswer":{"@type":"Answer","text":"Kubernetes constantly compares the current state of the cluster with your desired state. If a pod crashes or a node goes down, the controller manager detects the discrepancy and instructs the scheduler to create new pods to restore the desired state. This happens automatically within seconds, without human intervention."}},{"@type":"Question","name":"How do I do a zero-downtime update in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Use a rolling update strategy in your Deployment. Kubernetes will gradually replace old pods with new ones — it creates new pods with the updated image, waits for them to become ready, then terminates the old pods. At no point is your service fully down. This is the default update strategy for Deployments."}},{"@type":"Question","name":"How do I roll back a bad Kubernetes deployment?","acceptedAnswer":{"@type":"Answer","text":"Use kubectl rollout undo deployment/your-deployment-name. Kubernetes keeps a history of previous ReplicaSets, so it can instantly switch back to the last working version. You can also roll back to a specific revision using --to-revision=2 flag."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -56,62 +56,210 @@
 
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 3: Deployments, ReplicaSets, and Self-Healing</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 09, 2026 <span class="meta-dot"></span> 8 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 09, 2026 <span class="meta-dot"></span> 11 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-2.html">&larr; Part 2</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 3 of 12</strong>
   <a href="kubernetes-tutorial-part-4.html">Part 4 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-3-terminal.svg" alt="Kubernetes - Deployments" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Deployments</figcaption>
+  <img src="images/k8s-part-3-terminal.svg" alt="Kubernetes Deployments and ReplicaSets" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes Deployments manage ReplicaSets which manage Pods</figcaption>
 </figure>
-<p>Running a single pod directly is fine for testing, but in production you never do that. If a pod crashes, it stays dead. Deployments solve this by maintaining the desired number of running pods automatically.</p>
 
-<h4>Creating a Deployment</h4>
+<p>In <a href="kubernetes-tutorial-part-2.html">Part 2</a>, we ran a pod directly using <code>kubectl run</code>. That works fine for experimenting, but it is not how real applications are deployed. The problem is simple: if that pod crashes, it is gone. Kubernetes does not restart it. You would have to manually run the command again. In production, this is completely unacceptable.</p>
 
-<div class="code-title">deployment.yaml</div>
+<p>This is where Deployments come in. A Deployment is the proper, production-grade way to run applications in Kubernetes. It tells Kubernetes exactly how many copies of your application you want running, and Kubernetes continuously ensures that number is maintained — automatically, without you doing anything. A pod crashes at 3am? Kubernetes spins up a replacement before you even wake up. This is what people mean when they say Kubernetes is "self-healing."</p>
+
+<p>Understanding Deployments is probably the most important step in learning Kubernetes. Everything else builds on this concept. So let us go deep.</p>
+
+<h4>The Hierarchy: Deployment → ReplicaSet → Pod</h4>
+
+<p>Kubernetes has a three-layer hierarchy for running applications. At the bottom are Pods — the actual running containers. Above that are ReplicaSets — objects that ensure a specified number of pod replicas are always running. At the top are Deployments — which manage ReplicaSets and add the ability to do updates and rollbacks.</p>
+
+<p>When you create a Deployment, Kubernetes automatically creates a ReplicaSet, and the ReplicaSet creates the Pods. You mostly interact with Deployments directly and let Kubernetes manage the layers below. But understanding this hierarchy helps you debug problems when they occur.</p>
+
+<h4>Your First Deployment</h4>
+
+<p>There are two ways to create Kubernetes objects: imperatively (using CLI flags) and declaratively (using YAML files). For learning, the imperative style is faster. For production, always use YAML files because they can be versioned in Git. We will do both.</p>
+
+<div class="code-title">Create a Deployment imperatively</div>
+<pre><code class="language-bash"># Create a deployment with 3 replicas
+kubectl create deployment my-app --image=nginx --replicas=3
+
+# Check the deployment
+kubectl get deployments
+
+# Check the pods it created
+kubectl get pods
+
+# See the ReplicaSet it created
+kubectl get replicasets</code></pre>
+
+<p>Run <code>kubectl get pods</code> and you should see three pods running, all with names starting with "my-app-". Now do something destructive: manually delete one of those pods.</p>
+
+<div class="code-title">Test self-healing</div>
+<pre><code class="language-bash"># Get pod names
+kubectl get pods
+
+# Delete one pod (replace with your actual pod name)
+kubectl delete pod my-app-6d9b8c7f5-xk2mn
+
+# Immediately watch what happens
+kubectl get pods -w</code></pre>
+
+<p>Watch the output. Within seconds, Kubernetes detects that there are now only 2 pods running instead of the 3 you specified. The ReplicaSet controller creates a new pod immediately. The <code>-w</code> flag means "watch" — it streams updates in real time. You can see the new pod go from "Pending" to "ContainerCreating" to "Running" right in front of you. This is self-healing in action.</p>
+
+<h4>Deployments Using YAML Files</h4>
+
+<p>YAML files are how you define everything in Kubernetes declaratively. They are readable, versionable, and repeatable. In real teams, nobody types <code>kubectl create</code> commands manually — they write YAML files, commit them to Git, and apply them to the cluster.</p>
+
+<div class="code-title">nginx-deployment.yaml</div>
 <pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web
+      app: nginx
   template:
     metadata:
       labels:
-        app: web
+        app: nginx
     spec:
       containers:
-      - name: web
+      - name: nginx
         image: nginx:1.25
         ports:
         - containerPort: 80
         resources:
           requests:
-            cpu: 100m
-            memory: 128Mi</code></pre>
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"</code></pre>
 
-<div class="code-title">Apply and Scale</div>
-<pre><code class="language-bash">kubectl apply -f deployment.yaml
+<p>Let me explain the key fields. <code>replicas: 3</code> means you always want 3 pods running. The <code>selector.matchLabels</code> tells the Deployment which pods it is responsible for — it manages any pod with the label <code>app: nginx</code>. The <code>template</code> section defines what each pod should look like. The <code>resources</code> section sets CPU and memory limits — this is important for production because without limits, a single pod can consume all resources on a node and starve other pods.</p>
+
+<div class="code-title">Apply the YAML file</div>
+<pre><code class="language-bash"># Apply the deployment
+kubectl apply -f nginx-deployment.yaml
+
+# Check it
 kubectl get deployments
-kubectl scale deployment web-app --replicas=5
+kubectl get pods
 
-# Watch self-healing
-kubectl delete pod web-app-xyz  # Replacement appears automatically
+# Describe for full details
+kubectl describe deployment nginx-deployment</code></pre>
+
+<h4>Scaling a Deployment</h4>
+
+<p>One of the biggest advantages of Kubernetes is how easy it is to scale. Traffic spiking? Scale up. Traffic slow? Scale down to save resources. You can do this in seconds.</p>
+
+<div class="code-title">Scale the deployment</div>
+<pre><code class="language-bash"># Scale up to 5 replicas
+kubectl scale deployment nginx-deployment --replicas=5
+
+# Watch the new pods appear
+kubectl get pods -w
+
+# Scale back down to 2
+kubectl scale deployment nginx-deployment --replicas=2
+
+# Watch pods terminate
 kubectl get pods -w</code></pre>
 
-<h4>Rolling Updates</h4>
+<p>When you scale down, Kubernetes does not randomly kill pods. It terminates pods gracefully — sending them a SIGTERM signal, giving them time to finish handling current requests, then forcefully terminating them after the grace period. This prevents dropped requests during scale-down operations.</p>
 
-<div class="code-title">Update and Rollback</div>
-<pre><code class="language-bash">kubectl set image deployment/web-app web=nginx:1.26
-kubectl rollout status deployment/web-app
-kubectl rollout undo deployment/web-app  # If something goes wrong</code></pre>
+<h4>Performing a Rolling Update</h4>
 
-<p>In Part 4, we will learn about Services — how to expose your Deployments so they can receive traffic.</p>
+<p>This is the part that used to require complex scripts and maintenance windows before Kubernetes. Updating your application with zero downtime is built in by default.</p>
+
+<p>Let us update the nginx version from 1.25 to 1.27 and watch how Kubernetes handles it.</p>
+
+<div class="code-title">Trigger a rolling update</div>
+<pre><code class="language-bash"># Update the container image
+kubectl set image deployment/nginx-deployment nginx=nginx:1.27
+
+# Watch the rollout in real time
+kubectl rollout status deployment/nginx-deployment
+
+# See the history of rollouts
+kubectl rollout history deployment/nginx-deployment</code></pre>
+
+<p>During a rolling update, Kubernetes creates new pods with the updated image one at a time, waits for each new pod to become ready, then terminates one old pod. At no point does your deployment go to zero replicas. Your users experience zero downtime.</p>
+
+<h4>Rolling Back a Bad Deployment</h4>
+
+<p>What if the new version has a bug? Kubernetes makes rollback instant.</p>
+
+<div class="code-title">Rollback the deployment</div>
+<pre><code class="language-bash"># Roll back to previous version
+kubectl rollout undo deployment/nginx-deployment
+
+# Roll back to a specific revision
+kubectl rollout undo deployment/nginx-deployment --to-revision=1
+
+# Check current status after rollback
+kubectl rollout status deployment/nginx-deployment</code></pre>
+
+<p>I have used rollback in real production scenarios multiple times. The fact that you can go from a broken deployment back to the last working state in a single command, with automatic zero-downtime switching, is genuinely one of the best features in Kubernetes.</p>
+
+<h4>Understanding Update Strategies</h4>
+
+<p>Kubernetes supports two deployment update strategies. The default is RollingUpdate, which we just used — it replaces pods gradually. The other is Recreate — which terminates all old pods first, then creates new ones. Recreate causes downtime but is useful when your application cannot run two different versions simultaneously (for example, when a database schema change requires all old instances to stop first).</p>
+
+<div class="code-title">Configure update strategy in YAML</div>
+<pre><code class="language-yaml">spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allow 1 extra pod during update
+      maxUnavailable: 0  # Never go below desired replica count</code></pre>
+
+<p>With <code>maxUnavailable: 0</code> and <code>maxSurge: 1</code>, Kubernetes always maintains the full replica count during updates, briefly running one extra pod. This is the safest configuration for production applications where you cannot afford any drop in capacity.</p>
+
+<h4>Cleaning Up</h4>
+
+<div class="code-title">Delete the deployment</div>
+<pre><code class="language-bash"># Delete deployment (also deletes its ReplicaSets and Pods)
+kubectl delete deployment nginx-deployment
+
+# Verify everything is gone
+kubectl get pods
+kubectl get replicasets</code></pre>
+
+<p>When you delete a Deployment, Kubernetes automatically cleans up the ReplicaSets and Pods it manages. This cascading deletion is another reason to always use Deployments instead of creating Pods directly.</p>
+
+<h4>What is Next</h4>
+
+<p>You now understand the most important concept in Kubernetes: Deployments. You know how to create them, scale them, update them, and roll them back. You have seen self-healing work in real time.</p>
+
+<p>But there is a problem with what we have so far. The pods in our deployment have IP addresses that change every time a pod is recreated. If you have a frontend pod that needs to talk to a backend pod, how does it know where to send requests? That is exactly what <a href="kubernetes-tutorial-part-4.html">Part 4 on Services and Networking</a> covers. Services give your pods a stable address that never changes, even as the pods behind it are replaced. That is the next piece of the puzzle.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between a Pod and a Deployment?</h5>
+  <p>A Pod is a single running instance — if it crashes, it stays dead. A Deployment manages pods and ensures your desired number always runs. If a pod dies, the Deployment recreates it automatically. Always use Deployments in production, never bare pods.</p>
+
+  <h5 style="margin-bottom:8px;">What is a ReplicaSet?</h5>
+  <p>A ReplicaSet maintains a stable number of pod replicas running at any time. Deployments automatically create and manage ReplicaSets — you rarely interact with them directly. They are the engine that powers the self-healing behavior.</p>
+
+  <h5 style="margin-bottom:8px;">How does Kubernetes self-healing actually work?</h5>
+  <p>Kubernetes continuously compares the current state of the cluster with your desired state. If a pod crashes, the controller manager detects the mismatch and schedules a new pod. This happens automatically within seconds, no human involvement needed.</p>
+
+  <h5 style="margin-bottom:8px;">How do I do a zero-downtime update?</h5>
+  <p>The default RollingUpdate strategy handles this automatically. Update the container image with <code>kubectl set image</code> and Kubernetes gradually replaces old pods with new ones while maintaining availability throughout.</p>
+
+  <h5 style="margin-bottom:8px;">How do I roll back a bad deployment?</h5>
+  <p>Run <code>kubectl rollout undo deployment/your-deployment-name</code>. Kubernetes instantly switches back to the previous ReplicaSet. The entire rollback takes seconds and causes zero downtime.</p>
+</div>
 
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-2.html">&larr; Part 2</a>

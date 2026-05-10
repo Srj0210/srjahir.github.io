@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <title>Kubernetes Tutorial Part 4 — Services, Networking, and Load Balancing | SRJahir Tech</title>
-  <meta name="description" content="Learn Kubernetes Services — ClusterIP, NodePort, LoadBalancer. Understand pod networking and traffic routing." />
-  <meta name="keywords" content="Kubernetes services, ClusterIP, NodePort, LoadBalancer, K8s networking" />
+  <meta name="description" content="Master Kubernetes Services: ClusterIP, NodePort, and LoadBalancer. Learn how pod networking works, how services provide stable endpoints, and how traffic reaches your apps." />
+  <meta name="keywords" content="Kubernetes Service, ClusterIP NodePort LoadBalancer, Kubernetes networking, pod communication Kubernetes, Kubernetes load balancing" />
   <meta name="author" content="Suraj Ahir" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-4.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Kubernetes Tutorial Part 4 — Services, Networking, and Load Balancing" />
-  <meta property="og:description" content="Learn Kubernetes Services — ClusterIP, NodePort, LoadBalancer. Understand pod networking and traffic routing." />
+  <meta property="og:description" content="Master Kubernetes Services: ClusterIP, NodePort, and LoadBalancer. Learn how pod networking works and how traffic reaches your apps." />
   <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-4.html" />
-  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-4-terminal.svg" />
   <meta property="og:site_name" content="SRJahir Tech" />
   <meta property="og:locale" content="en_IN" />
   <meta property="article:published_time" content="2026-03-13" />
   <meta property="article:author" content="Suraj Ahir" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kubernetes Tutorial Part 4 — Services, Networking, and Load Balancing" />
-  <meta name="twitter:description" content="Learn Kubernetes Services — ClusterIP, NodePort, LoadBalancer. Understand pod networking and traffic routing." />
-  <meta name="twitter:image" content="https://srjahir.in/logo.png" />
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Article", "headline": "Kubernetes Tutorial Part 4 \u2014 Services, Networking, and Load Balancing", "description": "Learn Kubernetes Services \u2014 ClusterIP, NodePort, LoadBalancer. Understand pod networking and traffic routing.", "url": "https://srjahir.in/blogs/kubernetes-tutorial-part-4.html", "datePublished": "2026-03-13", "dateModified": "2026-04-01", "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"}, "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in", "logo": {"@type": "ImageObject", "url": "https://srjahir.in/logo.png"}}, "image": "https://srjahir.in/logo.png", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-4.html"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 4 — Services, Networking, and Load Balancing","description":"Master Kubernetes Services: ClusterIP, NodePort, and LoadBalancer types. Learn how pod networking works and how traffic reaches your applications.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-4.html","datePublished":"2026-03-13","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-4-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-4.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why do Kubernetes pods need Services?","acceptedAnswer":{"@type":"Answer","text":"Pods in Kubernetes are ephemeral — they get new IP addresses every time they restart. If your frontend pod has the backend pod's IP hardcoded, it breaks every time the backend pod restarts. A Service provides a stable virtual IP and DNS name that never changes, regardless of how many times the pods behind it are replaced."}},{"@type":"Question","name":"What is the difference between ClusterIP, NodePort, and LoadBalancer?","acceptedAnswer":{"@type":"Answer","text":"ClusterIP creates a virtual IP accessible only within the cluster — used for internal pod-to-pod communication. NodePort opens a port on every node in the cluster, making the service accessible from outside using the node's IP. LoadBalancer provisions a cloud load balancer with a public IP — used for production external traffic. For local development, NodePort is easiest. For production in the cloud, use LoadBalancer or Ingress."}},{"@type":"Question","name":"How does Kubernetes load balance traffic between pods?","acceptedAnswer":{"@type":"Answer","text":"Kubernetes uses kube-proxy on each node to implement Services. When a request arrives at the Service IP, kube-proxy routes it to one of the healthy pods behind the Service using round-robin load balancing by default. If a pod becomes unhealthy, it is automatically removed from the rotation."}},{"@type":"Question","name":"What is DNS in Kubernetes and how does it work?","acceptedAnswer":{"@type":"Answer","text":"Kubernetes includes a built-in DNS server (CoreDNS) that automatically creates DNS records for every Service. You can reach a service named 'my-service' in the 'default' namespace at my-service.default.svc.cluster.local — or just my-service from pods in the same namespace. This DNS-based discovery is how microservices find each other in Kubernetes."}},{"@type":"Question","name":"How do I expose my application to the internet in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"You have three options. NodePort exposes the app on a port of each cluster node — simple but limited. LoadBalancer works in cloud environments to provision a cloud load balancer with a public IP. Ingress (covered in Part 8) is the recommended production approach — it routes multiple services through a single load balancer based on hostname and URL path."}}]}
   </script>
   <link rel="icon" type="image/png" href="../logo.png">
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -56,38 +56,206 @@
 
 <section class="content-block blog-article">
 <h3>Kubernetes Tutorial — Part 4: Services, Networking, and Load Balancing</h3>
-<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 13, 2026 <span class="meta-dot"></span> 7 min read</p>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 13, 2026 <span class="meta-dot"></span> 11 min read</p>
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-3.html">&larr; Part 3</a>
   <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 4 of 12</strong>
   <a href="kubernetes-tutorial-part-5.html">Part 5 &rarr;</a>
 </div>
 <figure style="margin:28px 0;text-align:center;">
-  <img src="images/k8s-part-4-terminal.svg" alt="Kubernetes - Services" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
-  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes - Services</figcaption>
+  <img src="images/k8s-part-4-terminal.svg" alt="Kubernetes Services and Networking" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes Services route traffic to the right pods automatically</figcaption>
 </figure>
-<p>Pods get IP addresses, but those addresses change every time a pod restarts. Services provide a stable address that routes traffic to healthy pods.</p>
 
-<h4>Service Types</h4>
+<p>Here is a problem with everything we built in <a href="kubernetes-tutorial-part-3.html">Part 3</a>. Yes, our Deployment keeps three nginx pods running and self-heals when they crash. But every time a pod is recreated, it gets a brand new IP address. If you have a frontend application trying to send requests to the backend, the IP it knew about is now stale. The pod is gone, replaced by a new one with a different address.</p>
 
-<p><strong>ClusterIP</strong> gives an internal IP only reachable within the cluster. <strong>NodePort</strong> opens a port on every node. <strong>LoadBalancer</strong> provisions a cloud load balancer for external traffic.</p>
+<p>This is not a theoretical problem. It is the fundamental networking challenge of containerised environments. Before Kubernetes, people solved this by registering services in external tools like Consul or Zookeeper. Kubernetes solves it natively through Services.</p>
 
-<div class="code-title">service.yaml</div>
+<p>A Kubernetes Service is a stable virtual IP and DNS name that sits in front of a set of pods. It never changes, even as pods come and go. All traffic going to the Service gets automatically load-balanced across the healthy pods behind it. This is how every part of your application finds and talks to every other part.</p>
+
+<h4>How Pod Networking Actually Works</h4>
+
+<p>Every pod in Kubernetes gets its own IP address. Pods on the same node can communicate directly. Pods on different nodes use an overlay network — Kubernetes automatically handles routing between nodes. From a pod's perspective, every other pod in the cluster is reachable by IP, no matter which node it is on.</p>
+
+<p>But pod IPs are not stable — they are assigned from a pool and change when pods restart. Services solve this by providing a stable virtual IP (called a ClusterIP) that stays constant, with Kubernetes automatically updating the routing behind the scenes whenever the pods change.</p>
+
+<h4>The Three Types of Kubernetes Services</h4>
+
+<p>Kubernetes has three main Service types, each suited to different use cases. Understanding which to use is essential for designing production applications.</p>
+
+<p><strong>ClusterIP</strong> — The default type. Creates a virtual IP that is only accessible from within the cluster. Used for internal communication between services — for example, your frontend pods talking to your backend pods, or your backend talking to Redis. External users cannot reach a ClusterIP Service directly.</p>
+
+<p><strong>NodePort</strong> — Opens a specific port on every node in the cluster and routes traffic from that port to the Service. This makes your application accessible from outside the cluster using any node's IP and the assigned port. Ports are in the range 30000–32767. NodePort is good for development and testing but not ideal for production because it exposes ports directly on your nodes.</p>
+
+<p><strong>LoadBalancer</strong> — When running in a cloud environment (AWS, GCP, Azure), this type automatically provisions a cloud load balancer with a public IP and routes traffic to your pods. This is the standard way to expose production applications in the cloud. On Minikube, you need to run <code>minikube tunnel</code> for LoadBalancer to work.</p>
+
+<h4>Creating a ClusterIP Service</h4>
+
+<p>Let us create a Deployment with a ClusterIP Service to understand internal pod communication.</p>
+
+<div class="code-title">backend-deployment.yaml</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 80</code></pre>
+
+<div class="code-title">Apply and inspect the Service</div>
+<pre><code class="language-bash">kubectl apply -f backend-deployment.yaml
+
+kubectl get services
+kubectl describe service backend-service
+
+# Get the ClusterIP assigned
+kubectl get service backend-service -o jsonpath='{.spec.clusterIP}'</code></pre>
+
+<p>The <code>selector: app: backend</code> in the Service definition is critical. This is how the Service knows which pods to route traffic to — it looks for pods with the matching label. When you add or remove pods from the Deployment, the Service automatically includes or excludes them based on this label selector.</p>
+
+<h4>Creating a NodePort Service</h4>
+
+<p>NodePort lets you access your application from outside the cluster. This is what we use during local development with Minikube.</p>
+
+<div class="code-title">frontend-service.yaml</div>
 <pre><code class="language-yaml">apiVersion: v1
 kind: Service
 metadata:
-  name: web-service
+  name: frontend-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
-    app: web
+    app: frontend
   ports:
   - port: 80
-    targetPort: 8080</code></pre>
+    targetPort: 80
+    nodePort: 30080  # Optional: specify the port, or let Kubernetes assign one</code></pre>
 
-<p>The <code>selector</code> matches pods with the label <code>app: web</code>. Add more pods — the service includes them automatically. Kubernetes also runs internal DNS, so any pod can reach this service at <code>web-service.default.svc.cluster.local</code>.</p>
+<div class="code-title">Access NodePort service via Minikube</div>
+<pre><code class="language-bash">kubectl apply -f frontend-service.yaml
 
-<p>In Part 5, we cover ConfigMaps and Secrets for managing application configuration.</p>
+# Get the URL to access the service in Minikube
+minikube service frontend-service --url
+
+# Or open it directly in browser
+minikube service frontend-service</code></pre>
+
+<h4>Service Discovery with DNS</h4>
+
+<p>This is one of my favourite features in Kubernetes. When you create a Service, Kubernetes automatically registers it in the cluster DNS. Any pod in the cluster can reach that service by its name — no IP addresses needed, no configuration files, nothing.</p>
+
+<p>If you have a service named <code>backend-service</code> in the <code>default</code> namespace, any pod in the same namespace can reach it at simply <code>backend-service</code>. The full DNS name is <code>backend-service.default.svc.cluster.local</code>, but within the same namespace you can just use the short name.</p>
+
+<div class="code-title">Test DNS-based service discovery</div>
+<pre><code class="language-bash"># Run a temporary pod to test connectivity
+kubectl run test-dns --image=busybox --rm -it -- /bin/sh
+
+# Inside the pod, try to reach the backend service by name
+wget -qO- http://backend-service
+
+# Try the full DNS name
+wget -qO- http://backend-service.default.svc.cluster.local
+
+# Exit the pod (it deletes itself because of --rm)
+exit</code></pre>
+
+<p>The fact that services find each other by name rather than IP is what makes microservices architecture in Kubernetes so clean. Your frontend code just calls <code>http://backend-service/api</code> and Kubernetes handles all the routing. This is the same in development and production — no environment variables needed for internal service URLs.</p>
+
+<h4>Endpoints — What Powers Services Under the Hood</h4>
+
+<p>When a Service routes traffic to pods, it uses an Endpoints object. Kubernetes automatically creates and maintains an Endpoints object for each Service, listing the IP addresses and ports of all healthy pods that match the Service's selector.</p>
+
+<div class="code-title">Inspect service endpoints</div>
+<pre><code class="language-bash"># See the endpoints (pod IPs) behind a service
+kubectl get endpoints backend-service
+
+# Watch endpoints change as pods come and go
+kubectl get endpoints backend-service -w</code></pre>
+
+<p>Run this and then delete one of your backend pods in another terminal. You will see the endpoint list update immediately, removing the deleted pod's IP. This is how the Service always routes to healthy pods only.</p>
+
+<h4>LoadBalancer Type with Minikube Tunnel</h4>
+
+<div class="code-title">Create a LoadBalancer service and test it</div>
+<pre><code class="language-bash"># Create LoadBalancer service
+kubectl expose deployment backend --type=LoadBalancer --port=80
+
+# In Minikube, run tunnel to assign an external IP (run in separate terminal)
+minikube tunnel
+
+# Check the external IP assignment
+kubectl get service backend
+# EXTERNAL-IP should now show an IP instead of <pending></code></pre>
+
+<h4>Useful Service Commands</h4>
+
+<div class="code-title">Common Service operations</div>
+<pre><code class="language-bash"># List all services
+kubectl get services
+
+# Describe a service in detail
+kubectl describe service backend-service
+
+# Delete a service
+kubectl delete service backend-service
+
+# Expose an existing deployment as a service (shortcut)
+kubectl expose deployment my-app --type=NodePort --port=80
+
+# Edit a service in place
+kubectl edit service backend-service
+
+# Get service as YAML
+kubectl get service backend-service -o yaml</code></pre>
+
+<h4>What is Next</h4>
+
+<p>You now understand the networking layer of Kubernetes. You know how pods communicate internally using ClusterIP Services and DNS, how to expose applications externally with NodePort and LoadBalancer, and how Kubernetes keeps service endpoints up to date as pods change.</p>
+
+<p>But there is still something missing. Your pods are currently getting their configuration — database URLs, API keys, feature flags — baked into the container image or hardcoded. That is terrible practice. In <a href="kubernetes-tutorial-part-5.html">Part 5</a>, we cover ConfigMaps and Secrets — the proper way to manage application configuration and sensitive data in Kubernetes.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">Why do Kubernetes pods need Services?</h5>
+  <p>Pod IP addresses change every time a pod restarts. Services provide a stable virtual IP and DNS name that never changes, giving other pods a reliable address to communicate with regardless of how often the underlying pods are replaced.</p>
+
+  <h5 style="margin-bottom:8px;">What is the difference between ClusterIP, NodePort, and LoadBalancer?</h5>
+  <p>ClusterIP is internal-only (pod-to-pod). NodePort opens a port on every cluster node for external access. LoadBalancer provisions a cloud load balancer with a public IP — the standard for production external traffic in cloud environments.</p>
+
+  <h5 style="margin-bottom:8px;">How does Kubernetes load balance traffic between pods?</h5>
+  <p>kube-proxy on each node uses iptables or IPVS rules to route Service traffic to pods using round-robin by default. Unhealthy pods are automatically removed from rotation, so only working pods receive traffic.</p>
+
+  <h5 style="margin-bottom:8px;">How does DNS work in Kubernetes?</h5>
+  <p>CoreDNS automatically creates a DNS record for every Service. Pods in the same namespace can reach a service by its short name. Cross-namespace requires the full name: service-name.namespace.svc.cluster.local. No manual configuration needed.</p>
+
+  <h5 style="margin-bottom:8px;">How do I expose my application to the internet?</h5>
+  <p>Use NodePort for simple external access (good for dev), LoadBalancer in cloud environments for production, or Ingress (covered in Part 8) which is the recommended production approach for routing multiple services through one load balancer.</p>
+</div>
 
 <div class="series-nav">
   <a href="kubernetes-tutorial-part-3.html">&larr; Part 3</a>
