@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 261" width="680" height="261">
+  <defs>
+    <linearGradient id="tb_k8s-part-9-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="261" rx="10" fill="url(#tb_k8s-part-9-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Kubernetes - Health Checks</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#98989d" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">$ kubectl describe pod web-app-xyz | grep -A3 Liveness</text>
+    <text x="20" y="77" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Liveness:   http-get :8080/health delay=15s period=10s</text>
+    <text x="20" y="99" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Readiness:  http-get :8080/ready  delay=5s  period=5s</text>
+    <text x="20" y="121" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="143" fill="#98989d" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">$ kubectl get pods</text>
+    <text x="20" y="165" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">web-app-x2k1p  1/1  Running   0  2d</text>
+    <text x="20" y="187" fill="#febc2e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">web-app-m3n4q  1/1  Running   1  2d</text>
+    <text x="20" y="209" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">web-app-a1b2c  0/1  CrashLoop 3  5m</text>
+</svg>

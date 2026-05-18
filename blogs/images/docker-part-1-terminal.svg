@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 305" width="680" height="305">
+  <defs>
+    <linearGradient id="tb_docker-part-1-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="305" rx="10" fill="url(#tb_docker-part-1-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">Docker — Docker Setup</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#98989d" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">$ docker --version</text>
+    <text x="20" y="77" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Docker version 24.0.7, build afdd53b</text>
+    <text x="20" y="99" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="121" fill="#98989d" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">$ docker run hello-world</text>
+    <text x="20" y="143" fill="#febc2e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Unable to find image &apos;hello-world:latest&apos; locally</text>
+    <text x="20" y="165" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">latest: Pulling from library/hello-world</text>
+    <text x="20" y="187" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Status: Downloaded newer image</text>
+    <text x="20" y="209" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="231" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">Hello from Docker!</text>
+    <text x="20" y="253" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">This message shows Docker is installed correctly.</text>
+</svg>

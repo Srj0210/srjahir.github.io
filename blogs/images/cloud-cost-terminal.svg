@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 371" width="680" height="371">
+  <defs>
+    <linearGradient id="tb_cloud-cost-terminal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="100%" stop-color="#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="371" rx="10" fill="url(#tb_cloud-cost-terminal)"/>
+  <circle cx="18" cy="16" r="6" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="6" fill="#febc2e"/>
+  <circle cx="58" cy="16" r="6" fill="#28c840"/>
+  <text x="340" y="18" fill="#98989d" font-family="sans-serif" font-size="12" text-anchor="middle">AWS Cost Alert — Common Mistakes</text>
+  <line x1="0" y1="32" x2="680" y2="32" stroke="#48484a" stroke-width="0.5"/>
+    <text x="20" y="55" fill="#98989d" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">$ aws ce get-cost-and-usage --time-period Start=2025-10-01,End=2025-10-31</text>
+    <text x="20" y="77" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="99" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Service              Cost       Status</text>
+    <text x="20" y="121" fill="#48484a" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  ─────────────────────────────────────────</text>
+    <text x="20" y="143" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  EC2 Instances        $142.50    ⚠ Running 24/7 (forgot to stop)</text>
+    <text x="20" y="165" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  RDS Database         $89.00     ⚠ Multi-AZ on dev environment</text>
+    <text x="20" y="187" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  S3 Storage           $2.30      ✓ Normal usage</text>
+    <text x="20" y="209" fill="#28c840" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Lambda               $0.45      ✓ Free tier</text>
+    <text x="20" y="231" fill="#febc2e" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  NAT Gateway          $67.00     ⚠ Unexpected data transfer</text>
+    <text x="20" y="253" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="275" fill="#ff5f57" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Total: $301.25  (Budget: $50.00)  ⚠ 502% over budget</text>
+    <text x="20" y="297" fill="#fff" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13"></text>
+    <text x="20" y="319" fill="#86868b" font-family="SF Mono, Fira Code, Consolas, monospace" font-size="13">  Tip: Set billing alerts at $25, $50, $100</text>
+</svg>
