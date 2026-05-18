@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 248" width="680" height="248">
+  <rect width="680" height="248" rx="12" fill="#f8f8fa"/>
+  <text x="340" y="35" fill="#1d1d1f" font-family="sans-serif" font-size="18" font-weight="600" text-anchor="middle">US Market: Myths vs Reality</text>
+  <rect x="20" y="50" width="310" height="28" rx="6" fill="#e63946" opacity="0.15"/>
+  <text x="175" y="69" fill="#e63946" font-family="sans-serif" font-size="13" font-weight="600" text-anchor="middle">Common Myths</text>
+  <rect x="350" y="50" width="310" height="28" rx="6" fill="#28a745" opacity="0.15"/>
+  <text x="505" y="69" fill="#28a745" font-family="sans-serif" font-size="13" font-weight="600" text-anchor="middle">Reality</text>
+  <line x1="340" y1="50" x2="340" y2="228" stroke="#d1d1d6" stroke-width="1"/>
+  <text x="36" y="98" fill="#515154" font-family="sans-serif" font-size="12">• Always goes up</text>
+  <text x="36" y="130" fill="#515154" font-family="sans-serif" font-size="12">• Just buy tech stocks</text>
+  <text x="36" y="162" fill="#515154" font-family="sans-serif" font-size="12">• Easy money for everyone</text>
+  <text x="36" y="194" fill="#515154" font-family="sans-serif" font-size="12">• No risk in index funds</text>
+  <text x="366" y="98" fill="#515154" font-family="sans-serif" font-size="12">• Has major corrections</text>
+  <text x="366" y="130" fill="#515154" font-family="sans-serif" font-size="12">• Diversification matters</text>
+  <text x="366" y="162" fill="#515154" font-family="sans-serif" font-size="12">• Requires patience &amp; discipline</text>
+  <text x="366" y="194" fill="#515154" font-family="sans-serif" font-size="12">• Volatility is real, even long-term</text>
+</svg>
