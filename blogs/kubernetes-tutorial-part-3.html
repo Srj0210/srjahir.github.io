@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kubernetes Tutorial Part 3 — Deployments, | SRJahir Tech</title>
+  <meta name="description" content="Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates." />
+  <meta name="keywords" content="Kubernetes Deployment, ReplicaSet Kubernetes, Kubernetes self-healing, rolling update Kubernetes, scale pods Kubernetes" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-3.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Kubernetes Tutorial Part 3 — Deployments, | SRJahir Tech" />
+  <meta property="og:description" content="Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates." />
+  <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-3.html" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-3-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-03-09" />
+  <meta property="article:author" content="Suraj Ahir" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 3 — Deployments, ReplicaSets, and Self-Healing","description":"Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-3.html","datePublished":"2026-03-09","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-3-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-3.html"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between a Pod and a Deployment in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"A Pod is a single running instance of your application — if it crashes, it stays dead. A Deployment is a higher-level object that manages Pods. It tells Kubernetes how many copies of a Pod to run and ensures that number is always maintained. If a Pod dies, the Deployment automatically creates a replacement."}},{"@type":"Question","name":"What is a ReplicaSet in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"A ReplicaSet is the object that maintains a stable number of replica Pods running at any given time. You rarely create ReplicaSets directly — Deployments create and manage them for you. The Deployment defines the desired state, and the ReplicaSet does the actual work of ensuring that many pods exist."}},{"@type":"Question","name":"How does Kubernetes self-healing work?","acceptedAnswer":{"@type":"Answer","text":"Kubernetes constantly compares the current state of the cluster with your desired state. If a pod crashes or a node goes down, the controller manager detects the discrepancy and instructs the scheduler to create new pods to restore the desired state. This happens automatically within seconds, without human intervention."}},{"@type":"Question","name":"How do I do a zero-downtime update in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Use a rolling update strategy in your Deployment. Kubernetes will gradually replace old pods with new ones — it creates new pods with the updated image, waits for them to become ready, then terminates the old pods. At no point is your service fully down. This is the default update strategy for Deployments."}},{"@type":"Question","name":"How do I roll back a bad Kubernetes deployment?","acceptedAnswer":{"@type":"Answer","text":"Use kubectl rollout undo deployment/your-deployment-name. Kubernetes keeps a history of previous ReplicaSets, so it can instantly switch back to the last working version. You can also roll back to a specific revision using --to-revision=2 flag."}}]}
+  </script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/learning-ui.css" />
+  <link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Kubernetes Tutorial Part 3 \u2014 Deployments,",
+  "description": "Learn Kubernetes Deployments and ReplicaSets. Understand how self-healing works, how to scale pods, and how to do zero-downtime rolling updates.",
+  "image": [
+    "https://srjahir.in/logo.png"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Suraj Ahir",
+    "alternateName": "Suraj Maitra",
+    "url": "https://srjahir.in/about.html",
+    "image": "https://srjahir.in/assets/images/suraj-avatar-400.jpg",
+    "jobTitle": "Cloud & DevOps Engineer",
+    "sameAs": [
+      "https://github.com/Srj0210",
+      "https://linkedin.com/in/suraj-maitra-066934161"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SRJahir Tech",
+    "url": "https://srjahir.in",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://srjahir.in/logo.png"
+    }
+  },
+  "datePublished": "2026-03-09",
+  "dateModified": "2026-05-17",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-3.html"
+  },
+  "inLanguage": "en-IN"
+}
+</script>
+</head>
+<body>
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="readingProgressBar"></div></div>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a><a href="../start-here.html">Start Here</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../terms.html">Terms</a>
+    <a href="../privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<section class="content-block blog-article">
+<h3>Kubernetes Tutorial — Part 3: Deployments, ReplicaSets, and Self-Healing</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> March 09, 2026 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-2.html">&larr; Part 2</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 3 of 12</strong>
+  <a href="kubernetes-tutorial-part-4.html">Part 4 &rarr;</a>
+</div>
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/k8s-part-3-terminal.svg" alt="Kubernetes Deployments and ReplicaSets" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes Deployments manage ReplicaSets which manage Pods</figcaption>
+</figure>
+
+<p>In <a href="kubernetes-tutorial-part-2.html">Part 2</a>, we ran a pod directly using <code>kubectl run</code>. That works fine for experimenting, but it is not how real applications are deployed. The problem is simple: if that pod crashes, it is gone. Kubernetes does not restart it. You would have to manually run the command again. In production, this is completely unacceptable.</p>
+
+<p>This is where Deployments come in. A Deployment is the proper, production-grade way to run applications in Kubernetes. It tells Kubernetes exactly how many copies of your application you want running, and Kubernetes continuously ensures that number is maintained — automatically, without you doing anything. A pod crashes at 3am? Kubernetes spins up a replacement before you even wake up. This is what people mean when they say Kubernetes is "self-healing."</p>
+
+<p>Understanding Deployments is probably the most important step in learning Kubernetes. Everything else builds on this concept. So let us go deep.</p>
+
+<h4>The Hierarchy: Deployment → ReplicaSet → Pod</h4>
+
+<p>Kubernetes has a three-layer hierarchy for running applications. At the bottom are Pods — the actual running containers. Above that are ReplicaSets — objects that ensure a specified number of pod replicas are always running. At the top are Deployments — which manage ReplicaSets and add the ability to do updates and rollbacks.</p>
+
+<p>When you create a Deployment, Kubernetes automatically creates a ReplicaSet, and the ReplicaSet creates the Pods. You mostly interact with Deployments directly and let Kubernetes manage the layers below. But understanding this hierarchy helps you debug problems when they occur.</p>
+
+<h4>Your First Deployment</h4>
+
+<p>There are two ways to create Kubernetes objects: imperatively (using CLI flags) and declaratively (using YAML files). For learning, the imperative style is faster. For production, always use YAML files because they can be versioned in Git. We will do both.</p>
+
+<div class="code-title">Create a Deployment imperatively</div>
+<pre><code class="language-bash"># Create a deployment with 3 replicas
+kubectl create deployment my-app --image=nginx --replicas=3
+
+# Check the deployment
+kubectl get deployments
+
+# Check the pods it created
+kubectl get pods
+
+# See the ReplicaSet it created
+kubectl get replicasets</code></pre>
+
+<p>Run <code>kubectl get pods</code> and you should see three pods running, all with names starting with "my-app-". Now do something destructive: manually delete one of those pods.</p>
+
+<div class="code-title">Test self-healing</div>
+<pre><code class="language-bash"># Get pod names
+kubectl get pods
+
+# Delete one pod (replace with your actual pod name)
+kubectl delete pod my-app-6d9b8c7f5-xk2mn
+
+# Immediately watch what happens
+kubectl get pods -w</code></pre>
+
+<p>Watch the output. Within seconds, Kubernetes detects that there are now only 2 pods running instead of the 3 you specified. The ReplicaSet controller creates a new pod immediately. The <code>-w</code> flag means "watch" — it streams updates in real time. You can see the new pod go from "Pending" to "ContainerCreating" to "Running" right in front of you. This is self-healing in action.</p>
+
+<h4>Deployments Using YAML Files</h4>
+
+<p>YAML files are how you define everything in Kubernetes declaratively. They are readable, versionable, and repeatable. In real teams, nobody types <code>kubectl create</code> commands manually — they write YAML files, commit them to Git, and apply them to the cluster.</p>
+
+<div class="code-title">nginx-deployment.yaml</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"</code></pre>
+
+<p>Let me explain the key fields. <code>replicas: 3</code> means you always want 3 pods running. The <code>selector.matchLabels</code> tells the Deployment which pods it is responsible for — it manages any pod with the label <code>app: nginx</code>. The <code>template</code> section defines what each pod should look like. The <code>resources</code> section sets CPU and memory limits — this is important for production because without limits, a single pod can consume all resources on a node and starve other pods.</p>
+
+<div class="code-title">Apply the YAML file</div>
+<pre><code class="language-bash"># Apply the deployment
+kubectl apply -f nginx-deployment.yaml
+
+# Check it
+kubectl get deployments
+kubectl get pods
+
+# Describe for full details
+kubectl describe deployment nginx-deployment</code></pre>
+
+<h4>Scaling a Deployment</h4>
+
+<p>One of the biggest advantages of Kubernetes is how easy it is to scale. Traffic spiking? Scale up. Traffic slow? Scale down to save resources. You can do this in seconds.</p>
+
+<div class="code-title">Scale the deployment</div>
+<pre><code class="language-bash"># Scale up to 5 replicas
+kubectl scale deployment nginx-deployment --replicas=5
+
+# Watch the new pods appear
+kubectl get pods -w
+
+# Scale back down to 2
+kubectl scale deployment nginx-deployment --replicas=2
+
+# Watch pods terminate
+kubectl get pods -w</code></pre>
+
+<p>When you scale down, Kubernetes does not randomly kill pods. It terminates pods gracefully — sending them a SIGTERM signal, giving them time to finish handling current requests, then forcefully terminating them after the grace period. This prevents dropped requests during scale-down operations.</p>
+
+<h4>Performing a Rolling Update</h4>
+
+<p>This is the part that used to require complex scripts and maintenance windows before Kubernetes. Updating your application with zero downtime is built in by default.</p>
+
+<p>Let us update the nginx version from 1.25 to 1.27 and watch how Kubernetes handles it.</p>
+
+<div class="code-title">Trigger a rolling update</div>
+<pre><code class="language-bash"># Update the container image
+kubectl set image deployment/nginx-deployment nginx=nginx:1.27
+
+# Watch the rollout in real time
+kubectl rollout status deployment/nginx-deployment
+
+# See the history of rollouts
+kubectl rollout history deployment/nginx-deployment</code></pre>
+
+<p>During a rolling update, Kubernetes creates new pods with the updated image one at a time, waits for each new pod to become ready, then terminates one old pod. At no point does your deployment go to zero replicas. Your users experience zero downtime.</p>
+
+<h4>Rolling Back a Bad Deployment</h4>
+
+<p>What if the new version has a bug? Kubernetes makes rollback instant.</p>
+
+<div class="code-title">Rollback the deployment</div>
+<pre><code class="language-bash"># Roll back to previous version
+kubectl rollout undo deployment/nginx-deployment
+
+# Roll back to a specific revision
+kubectl rollout undo deployment/nginx-deployment --to-revision=1
+
+# Check current status after rollback
+kubectl rollout status deployment/nginx-deployment</code></pre>
+
+<p>I have used rollback in real production scenarios multiple times. The fact that you can go from a broken deployment back to the last working state in a single command, with automatic zero-downtime switching, is genuinely one of the best features in Kubernetes.</p>
+
+<h4>Understanding Update Strategies</h4>
+
+<p>Kubernetes supports two deployment update strategies. The default is RollingUpdate, which we just used — it replaces pods gradually. The other is Recreate — which terminates all old pods first, then creates new ones. Recreate causes downtime but is useful when your application cannot run two different versions simultaneously (for example, when a database schema change requires all old instances to stop first).</p>
+
+<div class="code-title">Configure update strategy in YAML</div>
+<pre><code class="language-yaml">spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allow 1 extra pod during update
+      maxUnavailable: 0  # Never go below desired replica count</code></pre>
+
+<p>With <code>maxUnavailable: 0</code> and <code>maxSurge: 1</code>, Kubernetes always maintains the full replica count during updates, briefly running one extra pod. This is the safest configuration for production applications where you cannot afford any drop in capacity.</p>
+
+<h4>Cleaning Up</h4>
+
+<div class="code-title">Delete the deployment</div>
+<pre><code class="language-bash"># Delete deployment (also deletes its ReplicaSets and Pods)
+kubectl delete deployment nginx-deployment
+
+# Verify everything is gone
+kubectl get pods
+kubectl get replicasets</code></pre>
+
+<p>When you delete a Deployment, Kubernetes automatically cleans up the ReplicaSets and Pods it manages. This cascading deletion is another reason to always use Deployments instead of creating Pods directly.</p>
+
+<h4>What is Next</h4>
+
+<p>You now understand the most important concept in Kubernetes: Deployments. You know how to create them, scale them, update them, and roll them back. You have seen self-healing work in real time.</p>
+
+<p>But there is a problem with what we have so far. The pods in our deployment have IP addresses that change every time a pod is recreated. If you have a frontend pod that needs to talk to a backend pod, how does it know where to send requests? That is exactly what <a href="kubernetes-tutorial-part-4.html">Part 4 on Services and Networking</a> covers. Services give your pods a stable address that never changes, even as the pods behind it are replaced. That is the next piece of the puzzle.</p>
+
+<h4>Frequently Asked Questions</h4>
+
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between a Pod and a Deployment?</h5>
+  <p>A Pod is a single running instance — if it crashes, it stays dead. A Deployment manages pods and ensures your desired number always runs. If a pod dies, the Deployment recreates it automatically. Always use Deployments in production, never bare pods.</p>
+
+  <h5 style="margin-bottom:8px;">What is a ReplicaSet?</h5>
+  <p>A ReplicaSet maintains a stable number of pod replicas running at any time. Deployments automatically create and manage ReplicaSets — you rarely interact with them directly. They are the engine that powers the self-healing behavior.</p>
+
+  <h5 style="margin-bottom:8px;">How does Kubernetes self-healing actually work?</h5>
+  <p>Kubernetes continuously compares the current state of the cluster with your desired state. If a pod crashes, the controller manager detects the mismatch and schedules a new pod. This happens automatically within seconds, no human involvement needed.</p>
+
+  <h5 style="margin-bottom:8px;">How do I do a zero-downtime update?</h5>
+  <p>The default RollingUpdate strategy handles this automatically. Update the container image with <code>kubectl set image</code> and Kubernetes gradually replaces old pods with new ones while maintaining availability throughout.</p>
+
+  <h5 style="margin-bottom:8px;">How do I roll back a bad deployment?</h5>
+  <p>Run <code>kubectl rollout undo deployment/your-deployment-name</code>. Kubernetes instantly switches back to the previous ReplicaSet. The entire rollback takes seconds and causes zero downtime.</p>
+</div>
+
+
+<div class="takeaways" role="region" aria-label="Key takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>A pod is one or more containers that share networking and storage. Most pods are one container — multi-container pods are for sidecars and helpers.</li>
+    <li>Pods are mortal. They get killed, recreated, rescheduled. Never assume a pod's IP or name is stable.</li>
+    <li>If you find yourself running raw pods in production, you're doing it wrong. Use Deployments or StatefulSets instead — they manage pods for you.</li>
+    <li>Labels are the glue of K8s. Pods get labels, selectors use labels, everything else (services, deployments) finds pods through labels.</li>
+  </ul>
+</div>
+
+<a href="kubernetes-tutorial-part-4.html" class="next-up" aria-label="Next: Part 4 — Deployments">
+  <div class="next-up-content">
+    <div class="next-up-label">Continue reading</div>
+    <div class="next-up-title">Part 4 — Deployments</div>
+    <div class="next-up-subtitle">How to actually ship code.</div>
+  </div>
+  <div class="next-up-arrow">&rarr;</div>
+</a>
+
+
+<div class="author-bio">
+  <img src="../assets/images/suraj-avatar-96.jpg"
+       srcset="../assets/images/suraj-avatar-96.jpg 1x, ../assets/images/suraj-avatar-200.jpg 2x"
+       alt="Suraj Ahir — author of SRJahir Tech"
+       class="author-bio-avatar"
+       width="84" height="84" loading="lazy" />
+  <div class="author-bio-body">
+    <p class="author-bio-label">Written by</p>
+    <h4 class="author-bio-name"><a href="../about.html">Suraj Ahir</a></h4>
+    <p class="author-bio-tag">Cloud &amp; DevOps engineer running four live production services on my own AWS infrastructure. I write everything on this site myself — no ghostwriters, no AI filler.</p>
+    <div class="author-bio-links">
+      <a href="../about.html">More about me &rarr;</a>
+      <a href="https://github.com/Srj0210" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/suraj-maitra-066934161" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="share-bar" role="region" aria-label="Share this article">
+  <div class="share-bar-text">
+    <p class="share-bar-head">Found this useful?</p>
+    <p class="share-bar-title">Share it with someone who'd benefit — that's literally how this site grows.</p>
+  </div>
+  <div class="share-bar-buttons">
+    <a href="#" class="share-btn whatsapp" data-share="whatsapp" aria-label="Share on WhatsApp" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+    </a>
+    <a href="#" class="share-btn twitter" data-share="twitter" aria-label="Share on X" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="#" class="share-btn linkedin" data-share="linkedin" aria-label="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+    </a>
+    <a href="#" class="share-btn facebook" data-share="facebook" aria-label="Share on Facebook" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="#" class="share-btn telegram" data-share="telegram" aria-label="Share on Telegram" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635"/></svg>
+    </a>
+    <button type="button" class="share-btn copy" data-share="copy" aria-label="Copy link to clipboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>
+    <button type="button" class="share-btn native" data-share="native" aria-label="Open share menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <span class="share-feedback" role="status" aria-live="polite">Link copied!</span>
+  </div>
+</div>
+<section class="related-articles" aria-label="Related articles">
+  <p class="related-articles-head">Keep reading</p>
+  <h2 class="related-articles-title">More from SRJahir Tech</h2>
+  <div class="related-grid">
+    <a class="related-card" href="kubernetes-tutorial-part-2.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 2</h3>
+    </a>
+    <a class="related-card" href="kubernetes-tutorial-part-4.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 4</h3>
+    </a>
+    <a class="related-card" href="kubernetes-tutorial-part-12.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 12</h3>
+    </a>
+  </div>
+</section>
+
+
+
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-2.html">&larr; Part 2</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 3 of 12</strong>
+  <a href="kubernetes-tutorial-part-4.html">Part 4 &rarr;</a>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+
+<div class="blog-disclaimer">
+  <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result. Learning requires consistent effort and practical application.
+</div>
+</section>
+<footer>
+  <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+  <img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy">
+</footer>
+
+<script>
+(function() {
+  var url = window.location.href.split('#')[0];
+  var rawTitle = (document.title || '').split('|')[0].trim();
+  if (!rawTitle) rawTitle = document.querySelector('h1, h2, h3') ? (document.querySelector('h1, h2, h3').textContent || '').trim() : '';
+  var encUrl = encodeURIComponent(url);
+  var encTitle = encodeURIComponent(rawTitle);
+  var combined = encodeURIComponent(rawTitle + ' — ' + url);
+
+  var endpoints = {
+    whatsapp: 'https://wa.me/?text=' + combined,
+    twitter:  'https://twitter.com/intent/tweet?text=' + encTitle + '&url=' + encUrl,
+    linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+    telegram: 'https://t.me/share/url?url=' + encUrl + '&text=' + encTitle
+  };
+
+  document.querySelectorAll('.share-btn').forEach(function(btn) {
+    var type = btn.getAttribute('data-share');
+    if (endpoints[type]) {
+      btn.setAttribute('href', endpoints[type]);
+    }
+    if (type === 'copy') {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var doneFeedback = function() {
+          var fb = btn.closest('.share-bar-buttons').querySelector('.share-feedback');
+          if (fb) {
+            fb.classList.add('show');
+            setTimeout(function() { fb.classList.remove('show'); }, 2200);
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(doneFeedback, function() {
+            window.prompt('Copy this link:', url);
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); doneFeedback(); } catch (e) { window.prompt('Copy this link:', url); }
+          document.body.removeChild(ta);
+        }
+      });
+    }
+    if (type === 'native') {
+      if (navigator.share) {
+        btn.style.display = 'inline-flex';
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.share({ title: rawTitle, url: url }).catch(function() {});
+        });
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  var bar = document.getElementById('readingProgressBar');
+  if (!bar) return;
+  function update() {
+    var docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docH <= 0) { bar.style.width = '0%'; return; }
+    var pct = (window.scrollY / docH) * 100;
+    if (pct > 100) pct = 100;
+    if (pct < 0) pct = 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+</body>
+</html>

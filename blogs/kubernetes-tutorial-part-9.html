@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Kubernetes Tutorial Part 9 — Health Checks, Probes, | SRJahir Tech</title>
+  <meta name="description" content="Master Kubernetes liveness, readiness, and startup probes. Ensure pods only receive traffic when ready and automatically restart unhealthy containers..." />
+  <meta name="keywords" content="Kubernetes liveness probe, readiness probe Kubernetes, startup probe Kubernetes, Kubernetes health check, pod reliability" />
+  <meta name="author" content="Suraj Ahir" /><meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/blogs/kubernetes-tutorial-part-9.html" />
+  <meta property="og:type" content="article" /><meta property="og:title" content="Kubernetes Tutorial Part 9 — Health Checks, Probes, | SRJahir Tech" />
+  <meta property="og:description" content="Master Kubernetes liveness, readiness, and startup probes. Ensure pods only receive traffic when truly ready." />
+  <meta property="og:url" content="https://srjahir.in/blogs/kubernetes-tutorial-part-9.html" />
+  <meta property="og:image" content="https://srjahir.in/blogs/images/k8s-part-9-terminal.svg" />
+  <meta property="og:site_name" content="SRJahir Tech" /><meta property="og:locale" content="en_IN" />
+  <meta property="article:published_time" content="2026-04-02" /><meta property="article:author" content="Suraj Ahir" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Kubernetes Tutorial Part 9 — Health Checks, Probes, and Reliability","description":"Master Kubernetes liveness, readiness, and startup probes. Ensure pods only receive traffic when ready and automatically restart unhealthy containers.","url":"https://srjahir.in/blogs/kubernetes-tutorial-part-9.html","datePublished":"2026-04-02","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in","logo":{"@type":"ImageObject","url":"https://srjahir.in/logo.png"}},"image":"https://srjahir.in/blogs/images/k8s-part-9-terminal.svg","mainEntityOfPage":{"@type":"WebPage","@id":"https://srjahir.in/blogs/kubernetes-tutorial-part-9.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between liveness and readiness probes?","acceptedAnswer":{"@type":"Answer","text":"A liveness probe checks if a container is alive and running correctly — if it fails, Kubernetes restarts the container. A readiness probe checks if a container is ready to receive traffic — if it fails, Kubernetes removes the pod from the Service's endpoints so no traffic reaches it, but does not restart it. Use liveness for crash detection and readiness for startup and temporary unavailability."}},{"@type":"Question","name":"What is a startup probe used for?","acceptedAnswer":{"@type":"Answer","text":"A startup probe is used for slow-starting applications that take a long time to initialise — like legacy Java apps or applications running database migrations at startup. It disables liveness and readiness probes until the startup probe succeeds, preventing Kubernetes from killing a legitimately slow-starting container."}},{"@type":"Question","name":"What happens when a liveness probe fails?","acceptedAnswer":{"@type":"Answer","text":"When a liveness probe fails consecutively beyond the failureThreshold count, Kubernetes kills and restarts the container. The pod stays scheduled on the same node — it is just the container that restarts. The restart count increments, which you can see with kubectl describe pod."}},{"@type":"Question","name":"What are the three types of probe mechanisms?","acceptedAnswer":{"@type":"Answer","text":"HTTP GET probes send an HTTP request and consider the container healthy if the response code is 200-399. TCP Socket probes check if a TCP connection can be established on a specified port. Exec probes run a command inside the container and consider it healthy if the exit code is 0. Choose based on what your application supports."}},{"@type":"Question","name":"How do I configure probe timing in Kubernetes?","acceptedAnswer":{"@type":"Answer","text":"Four timing parameters control probe behaviour. initialDelaySeconds is how long to wait before starting probes after container creation. periodSeconds is how often to run the probe. timeoutSeconds is how long to wait for a probe response. failureThreshold is how many consecutive failures before taking action. successThreshold is how many successes needed after failure to consider the probe passing."}}]}</script>
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/learning-ui.css" /><link rel="stylesheet" href="../assets/css/code-tutorial.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-93D0PKZM2L');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1041324645386243">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Kubernetes Tutorial Part 9 \u2014 Health Checks, Probes,",
+  "description": "Master Kubernetes liveness, readiness, and startup probes. Ensure pods only receive traffic when ready and automatically restart unhealthy containers...",
+  "image": [
+    "https://srjahir.in/logo.png"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Suraj Ahir",
+    "alternateName": "Suraj Maitra",
+    "url": "https://srjahir.in/about.html",
+    "image": "https://srjahir.in/assets/images/suraj-avatar-400.jpg",
+    "jobTitle": "Cloud & DevOps Engineer",
+    "sameAs": [
+      "https://github.com/Srj0210",
+      "https://linkedin.com/in/suraj-maitra-066934161"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SRJahir Tech",
+    "url": "https://srjahir.in",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://srjahir.in/logo.png"
+    }
+  },
+  "datePublished": "2026-04-02",
+  "dateModified": "2026-05-17",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://srjahir.in/blogs/kubernetes-tutorial-part-9.html"
+  },
+  "inLanguage": "en-IN"
+}
+</script>
+</head>
+<body>
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="readingProgressBar"></div></div>
+<div class="background-waves"></div>
+<img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo">
+<header class="nav">
+  <h1>SRJahir<span>Tech</span></h1>
+  <nav class="menu-bar">
+    <a href="../index.html">Home</a>
+    <a href="../start-here.html">Start Here</a>
+    <a href="../blog.html">Blog</a>
+    <a href="../about.html">About</a>
+  </nav>
+</header>
+<section class="content-block blog-article">
+<h3>Kubernetes Tutorial — Part 9: Health Checks, Probes, and Reliability</h3>
+<p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> April 02, 2026 <span class="meta-dot"></span> 11 min read</p>
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-8.html">&larr; Part 8</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 9 of 12</strong>
+  <a href="kubernetes-tutorial-part-10.html">Part 10 &rarr;</a>
+</div>
+<figure style="margin:28px 0;text-align:center;">
+  <img src="images/k8s-part-9-terminal.svg" alt="Kubernetes Health Probes and Reliability" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680" />
+  <figcaption style="color:#86868b;font-size:0.82rem;margin-top:8px;">Kubernetes probes ensure only healthy and ready pods receive traffic</figcaption>
+</figure>
+
+<p>There is a subtle but critical problem with Kubernetes that beginners often discover the hard way in production. When you do a rolling update, Kubernetes starts a new pod and, after a few seconds, considers it "running" and starts sending it traffic. But "running" just means the container process started — it does not mean the application inside is actually ready to handle requests. If your Node.js app takes 15 seconds to warm up, those first 15 seconds of traffic will get 502 errors.</p>
+
+<p>I encountered this exact problem at a company I worked with. Their deployment pipeline would mark a release as successful, but for the first 20 seconds after every deploy, users were seeing errors. Nobody could figure out why for weeks. The answer was simple: no readiness probes. Kubernetes was routing traffic to pods that were still starting up.</p>
+
+<p>Kubernetes has three types of probes that solve this completely: liveness, readiness, and startup. Together they give you fine-grained control over when pods receive traffic and when they get restarted.</p>
+
+<h4>The Three Probe Types</h4>
+
+<p>A <strong>liveness probe</strong> answers the question: "Is this container alive and running correctly?" If it fails, Kubernetes restarts the container. Use it to detect deadlocks or corrupted state that requires a restart to fix.</p>
+
+<p>A <strong>readiness probe</strong> answers: "Is this container ready to receive traffic?" If it fails, Kubernetes removes the pod from the Service endpoints — traffic stops going to it, but the container is not restarted. Use it during startup and for temporary unavailability (like when a background job is consuming all resources).</p>
+
+<p>A <strong>startup probe</strong> answers: "Has this container finished its initial startup?" While the startup probe is running, liveness and readiness probes are disabled. This prevents premature killing of slow-starting legacy applications.</p>
+
+<h4>Three Probe Mechanisms</h4>
+
+<p>Each probe type can use one of three checking mechanisms.</p>
+
+<p><strong>HTTP GET</strong> — Kubernetes sends an HTTP GET request to the specified path and port. If the response code is 200–399, the probe passes. This is the most common mechanism for web applications.</p>
+
+<p><strong>TCP Socket</strong> — Kubernetes tries to open a TCP connection to the specified port. If the connection succeeds, the probe passes. Good for databases or services that do not have HTTP endpoints.</p>
+
+<p><strong>Exec</strong> — Kubernetes runs a command inside the container. If the exit code is 0, the probe passes. Most flexible but most resource-intensive.</p>
+
+<h4>Configuring a Readiness Probe (HTTP)</h4>
+
+<div class="code-title">deployment-with-readiness.yaml</div>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: web-app:2.0
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          initialDelaySeconds: 10   # Wait 10s before first probe
+          periodSeconds: 5          # Check every 5 seconds
+          timeoutSeconds: 3         # Fail if no response in 3s
+          failureThreshold: 3       # Fail 3 times before marking not ready
+          successThreshold: 1       # 1 success needed to mark ready again</code></pre>
+
+<div class="code-title">Test readiness probe behaviour</div>
+<pre><code class="language-bash">kubectl apply -f deployment-with-readiness.yaml
+
+# Watch pods — they will show 0/1 READY until the probe passes
+kubectl get pods -w
+
+# See probe events in pod description
+kubectl describe pod web-app-xxxxx | grep -A 20 "Conditions\|Events"</code></pre>
+
+<h4>Adding a Liveness Probe</h4>
+
+<div class="code-title">Liveness probe detects stuck processes</div>
+<pre><code class="language-yaml">        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8080
+          initialDelaySeconds: 30    # Give app 30s to fully start
+          periodSeconds: 10          # Check every 10 seconds
+          timeoutSeconds: 5
+          failureThreshold: 3        # Restart after 3 consecutive failures</code></pre>
+
+<p>The key thing about liveness probes is setting <code>initialDelaySeconds</code> correctly. If your app takes 20 seconds to start and you set <code>initialDelaySeconds: 5</code>, the liveness probe will fire while the app is still starting, fail, and cause an infinite restart loop. This is the most common liveness probe mistake. When in doubt, set a higher initial delay.</p>
+
+<h4>Startup Probe for Slow Applications</h4>
+
+<div class="code-title">Startup probe for slow-starting legacy apps</div>
+<pre><code class="language-yaml">        startupProbe:
+          httpGet:
+            path: /health/live
+            port: 8080
+          failureThreshold: 30      # Give up to 30 * 10s = 5 minutes to start
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8080
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          periodSeconds: 5
+          failureThreshold: 3</code></pre>
+
+<p>With this configuration, Kubernetes gives the app up to 5 minutes (30 attempts × 10 seconds) to start up. Once the startup probe succeeds once, it disables itself and hands over to the liveness and readiness probes for ongoing monitoring.</p>
+
+<h4>TCP and Exec Probe Examples</h4>
+
+<div class="code-title">TCP probe for a database port</div>
+<pre><code class="language-yaml">        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 15
+          periodSeconds: 10</code></pre>
+
+<div class="code-title">Exec probe using a custom command</div>
+<pre><code class="language-yaml">        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "redis-cli ping | grep -q PONG"
+          initialDelaySeconds: 30
+          periodSeconds: 10</code></pre>
+
+<h4>Pod Disruption Budgets — Protecting Availability During Updates</h4>
+
+<p>Even with perfect probes, rolling updates can temporarily reduce availability. A PodDisruptionBudget (PDB) tells Kubernetes the minimum number of pods that must always be available, even during voluntary disruptions like rolling updates or node drains.</p>
+
+<div class="code-title">pod-disruption-budget.yaml</div>
+<pre><code class="language-yaml">apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: web-app-pdb
+spec:
+  minAvailable: 2    # Always keep at least 2 pods running
+  selector:
+    matchLabels:
+      app: web-app</code></pre>
+
+<div class="code-title">Monitor probe status</div>
+<pre><code class="language-bash"># Check pod readiness status
+kubectl get pods
+
+# See probe failure events
+kubectl describe pod POD_NAME | grep -i probe
+
+# Watch restart counts (high restarts = liveness probe issues)
+kubectl get pods -o wide
+
+# Check events across the namespace
+kubectl get events --sort-by=.lastTimestamp</code></pre>
+
+<h4>What is Next</h4>
+
+<p>Your pods are now reliable — they only receive traffic when ready, and they self-heal when they become unhealthy. In <a href="kubernetes-tutorial-part-10.html">Part 10</a>, we tackle Helm — the package manager for Kubernetes. Instead of managing dozens of YAML files manually, Helm lets you deploy entire applications from versioned, configurable charts. It also enables repeatable deployments across multiple environments with simple configuration overrides.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5 style="margin-bottom:8px;">What is the difference between liveness and readiness probes?</h5>
+  <p>Liveness: is the container alive? Failure restarts it. Readiness: is the container ready for traffic? Failure removes it from the Service load balancer but does not restart it. Use both — liveness for crash detection, readiness for startup and temporary unavailability.</p>
+  <h5 style="margin-bottom:8px;">What is a startup probe?</h5>
+  <p>A startup probe gives slow-starting applications time to initialise. While it runs, liveness and readiness probes are disabled, preventing premature restarts of legitimately slow-starting containers like legacy Java apps.</p>
+  <h5 style="margin-bottom:8px;">What happens when a liveness probe fails?</h5>
+  <p>After consecutive failures exceeding failureThreshold, Kubernetes kills and restarts the container. The pod stays on the same node; only the container restarts. The restart count increases, visible via kubectl describe pod.</p>
+  <h5 style="margin-bottom:8px;">What are the three probe mechanisms?</h5>
+  <p>HTTP GET (checks HTTP response code), TCP Socket (checks if port is open), and Exec (runs a command, checks exit code 0). HTTP GET is most common for web apps. TCP Socket works for databases. Exec is most flexible.</p>
+  <h5 style="margin-bottom:8px;">How do I configure probe timing?</h5>
+  <p>Set initialDelaySeconds (wait before first probe), periodSeconds (probe frequency), timeoutSeconds (response deadline), failureThreshold (failures before action), and successThreshold (successes needed to pass). Always set initialDelaySeconds generously to avoid restart loops during startup.</p>
+</div>
+
+<div class="takeaways" role="region" aria-label="Key takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>Always set resource `requests` and `limits` on every container. Without requests, the scheduler can't make good decisions. Without limits, one bad pod takes down the node.</li>
+    <li>HPA (Horizontal Pod Autoscaler) scales pod count based on CPU/memory/custom metrics. VPA changes resource requests for you (use carefully).</li>
+    <li>Cluster Autoscaler scales the underlying nodes. HPA + Cluster Autoscaler together = the elasticity people expect from "cloud-native".</li>
+    <li>Don't autoscale on CPU alone for I/O-bound apps. Use custom metrics (queue depth, request rate) — that's where Keda shines.</li>
+  </ul>
+</div>
+
+<a href="kubernetes-tutorial-part-10.html" class="next-up" aria-label="Next: Part 10 — RBAC and Security">
+  <div class="next-up-content">
+    <div class="next-up-label">Continue reading</div>
+    <div class="next-up-title">Part 10 — RBAC and Security</div>
+    <div class="next-up-subtitle">Don't give everyone cluster-admin.</div>
+  </div>
+  <div class="next-up-arrow">&rarr;</div>
+</a>
+
+
+<div class="author-bio">
+  <img src="../assets/images/suraj-avatar-96.jpg"
+       srcset="../assets/images/suraj-avatar-96.jpg 1x, ../assets/images/suraj-avatar-200.jpg 2x"
+       alt="Suraj Ahir — author of SRJahir Tech"
+       class="author-bio-avatar"
+       width="84" height="84" loading="lazy" />
+  <div class="author-bio-body">
+    <p class="author-bio-label">Written by</p>
+    <h4 class="author-bio-name"><a href="../about.html">Suraj Ahir</a></h4>
+    <p class="author-bio-tag">Cloud &amp; DevOps engineer running four live production services on my own AWS infrastructure. I write everything on this site myself — no ghostwriters, no AI filler.</p>
+    <div class="author-bio-links">
+      <a href="../about.html">More about me &rarr;</a>
+      <a href="https://github.com/Srj0210" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/suraj-maitra-066934161" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="share-bar" role="region" aria-label="Share this article">
+  <div class="share-bar-text">
+    <p class="share-bar-head">Found this useful?</p>
+    <p class="share-bar-title">Share it with someone who'd benefit — that's literally how this site grows.</p>
+  </div>
+  <div class="share-bar-buttons">
+    <a href="#" class="share-btn whatsapp" data-share="whatsapp" aria-label="Share on WhatsApp" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+    </a>
+    <a href="#" class="share-btn twitter" data-share="twitter" aria-label="Share on X" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="#" class="share-btn linkedin" data-share="linkedin" aria-label="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+    </a>
+    <a href="#" class="share-btn facebook" data-share="facebook" aria-label="Share on Facebook" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="#" class="share-btn telegram" data-share="telegram" aria-label="Share on Telegram" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635"/></svg>
+    </a>
+    <button type="button" class="share-btn copy" data-share="copy" aria-label="Copy link to clipboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>
+    <button type="button" class="share-btn native" data-share="native" aria-label="Open share menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <span class="share-feedback" role="status" aria-live="polite">Link copied!</span>
+  </div>
+</div>
+<section class="related-articles" aria-label="Related articles">
+  <p class="related-articles-head">Keep reading</p>
+  <h2 class="related-articles-title">More from SRJahir Tech</h2>
+  <div class="related-grid">
+    <a class="related-card" href="kubernetes-tutorial-part-8.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 8</h3>
+    </a>
+    <a class="related-card" href="kubernetes-tutorial-part-10.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 10</h3>
+    </a>
+    <a class="related-card" href="kubernetes-tutorial-part-12.html">
+      <div class="related-card-tag">Kubernetes series</div>
+      <h3 class="related-card-title">Kubernetes Tutorial Part 12</h3>
+    </a>
+  </div>
+</section>
+
+
+
+<div class="series-nav">
+  <a href="kubernetes-tutorial-part-8.html">&larr; Part 8</a>
+  <strong style="color:#86868b;font-size:0.85rem;">Kubernetes Tutorial &middot; Part 9 of 12</strong>
+  <a href="kubernetes-tutorial-part-10.html">Part 10 &rarr;</a>
+</div>
+<a href="../blog.html" class="btn">&larr; Back to Blog</a>
+<div class="blog-disclaimer"><strong>Disclaimer:</strong> This content is for educational purposes only.</div>
+</section>
+<footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+
+<script>
+(function() {
+  var url = window.location.href.split('#')[0];
+  var rawTitle = (document.title || '').split('|')[0].trim();
+  if (!rawTitle) rawTitle = document.querySelector('h1, h2, h3') ? (document.querySelector('h1, h2, h3').textContent || '').trim() : '';
+  var encUrl = encodeURIComponent(url);
+  var encTitle = encodeURIComponent(rawTitle);
+  var combined = encodeURIComponent(rawTitle + ' — ' + url);
+
+  var endpoints = {
+    whatsapp: 'https://wa.me/?text=' + combined,
+    twitter:  'https://twitter.com/intent/tweet?text=' + encTitle + '&url=' + encUrl,
+    linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+    telegram: 'https://t.me/share/url?url=' + encUrl + '&text=' + encTitle
+  };
+
+  document.querySelectorAll('.share-btn').forEach(function(btn) {
+    var type = btn.getAttribute('data-share');
+    if (endpoints[type]) {
+      btn.setAttribute('href', endpoints[type]);
+    }
+    if (type === 'copy') {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var doneFeedback = function() {
+          var fb = btn.closest('.share-bar-buttons').querySelector('.share-feedback');
+          if (fb) {
+            fb.classList.add('show');
+            setTimeout(function() { fb.classList.remove('show'); }, 2200);
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(doneFeedback, function() {
+            window.prompt('Copy this link:', url);
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); doneFeedback(); } catch (e) { window.prompt('Copy this link:', url); }
+          document.body.removeChild(ta);
+        }
+      });
+    }
+    if (type === 'native') {
+      if (navigator.share) {
+        btn.style.display = 'inline-flex';
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.share({ title: rawTitle, url: url }).catch(function() {});
+        });
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  var bar = document.getElementById('readingProgressBar');
+  if (!bar) return;
+  function update() {
+    var docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docH <= 0) { bar.style.width = '0%'; return; }
+    var pct = (window.scrollY / docH) * 100;
+    if (pct > 100) pct = 100;
+    if (pct < 0) pct = 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learn what DevOps really means beyond the buzzword. | SRJahir Tech</title><meta name="description" content="12"/><meta name="author" content="Suraj Ahir"/><meta name="robots" content="index,follow"/><link rel="canonical" href="https://srjahir.in/blogs/devops-roadmap-part-1.html"/><meta property="og:type" content="article"/><meta property="og:title" content="Learn what DevOps really means beyond the buzzword. | SRJahir Tech"/><meta property="og:url" content="https://srjahir.in/blogs/devops-roadmap-part-1.html"/><meta property="og:image" content="https://srjahir.in/blogs/images/DevOps Roadmap -- Part 1: What Is DevOps &amp; Why It Matters.svg"/><meta property="og:site_name" content="SRJahir Tech"/><meta property="article:published_time" content="DevOps Roadmap Part 1 - What is DevOps and Why It Matters"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Learn what DevOps really means beyond the buzzword. Understand DevOps culture, practices, tools, CI/CD pipelines, and how DevOps engineers drive modern software delivery.","url":"https://srjahir.in/blogs/devops-roadmap-part-1.html","datePublished":"DevOps Roadmap Part 1 - What is DevOps and Why It Matters","dateModified":"2026-05-08","author":{"@type":"Person","name":"Suraj Ahir","url":"https://srjahir.in/about.html"},"publisher":{"@type":"Organization","name":"SRJahir Tech","url":"https://srjahir.in"}}</script><link rel="icon" type="image/png" href="../logo.png"><link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/learning-ui.css" /><link rel="stylesheet" href="../assets/css/code-tutorial.css"><link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script><script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-93D0PKZM2L"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-93D0PKZM2L");</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1041324645386243" crossorigin="anonymous"></script><meta name="google-adsense-account" content="ca-pub-1041324645386243"><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is DevOps and why is it important?","acceptedAnswer":{"@type":"Answer","text":"DevOps combines development and operations to automate software delivery. It reduces deployment time, increases reliability, and enables teams to ship features faster with fewer failures."}},{"@type":"Question","name":"What salary does a DevOps engineer earn in India?","acceptedAnswer":{"@type":"Answer","text":"Entry-level DevOps engineers in India earn Rs.5-10 LPA. Mid-level with 2-4 years experience earns Rs.12-25 LPA. Senior DevOps engineers with Kubernetes and Terraform expertise earn Rs.25-50 LPA."}},{"@type":"Question","name":"Which tools should a DevOps engineer learn first?","acceptedAnswer":{"@type":"Answer","text":"Start with Linux, then Git, Docker, GitHub Actions for CI/CD, then Kubernetes and Terraform. This sequence builds logically where each tool prepares you for the next."}},{"@type":"Question","name":"How long does it take to become a DevOps engineer?","acceptedAnswer":{"@type":"Answer","text":"With dedicated daily practice: 6-9 months full-time or 12-18 months part-time. The key milestone is completing the AWS Solutions Architect certification and building one complete portfolio project."}},{"@type":"Question","name":"Is DevOps a good career in 2026?","acceptedAnswer":{"@type":"Answer","text":"Yes. DevOps and cloud engineering are among the fastest-growing tech roles globally. The combination of development and operations skills is rare and commands premium salaries across all major tech markets."}}]}</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Learn what DevOps really means beyond the buzzword.",
+  "description": "12",
+  "image": [
+    "https://srjahir.in/logo.png"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Suraj Ahir",
+    "alternateName": "Suraj Maitra",
+    "url": "https://srjahir.in/about.html",
+    "image": "https://srjahir.in/assets/images/suraj-avatar-400.jpg",
+    "jobTitle": "Cloud & DevOps Engineer",
+    "sameAs": [
+      "https://github.com/Srj0210",
+      "https://linkedin.com/in/suraj-maitra-066934161"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SRJahir Tech",
+    "url": "https://srjahir.in",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://srjahir.in/logo.png"
+    }
+  },
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-17",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://srjahir.in/blogs/devops-roadmap-part-1.html"
+  },
+  "inLanguage": "en-IN"
+}
+</script>
+</head><body>
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="readingProgressBar"></div></div><div class="background-waves"></div><img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo"><header class="nav"><h1>SRJahir<span>Tech</span></h1><nav class="menu-bar"><a href="../index.html">Home</a><a href="../start-here.html">Start Here</a><a href="../blog.html">Blog</a><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header><section class="content-block blog-article"><h3><p>I used to think DevOps was just another buzzword invented by consultants to charge more money. A fancy name for what used to be called sysadmin or operations work. I was wrong. When I joined a team that had genuinely adopted DevOps practices -- where developers and operations worked together, where deployments were automated, where the same team that wrote code was responsible for running it -- the difference was striking. We shipped features in hours that used to take weeks. When something broke, we fixed it in minutes rather than days. That transformation is what DevOps actually is.</p>
+
+<p>DevOps is not a job title, not a tool, and not a checklist. It is a set of cultural practices, technical patterns, and organisational changes that break down the wall between software development and operations. The core insight is simple: when the people who build software are also responsible for running it, they build it differently -- more reliably, more operationally aware, with better feedback loops.</p>
+
+<h4>The Problem DevOps Solves</h4>
+<p>Before DevOps, software development and operations worked in silos. Developers wrote code and threw it over the wall to operations. Operations ran the code and blamed developers when it broke. Deployments were infrequent, painful events -- often happening on Friday nights with everyone on standby hoping nothing would go wrong.</p>
+<p>The result: slow delivery, frequent failures, long recovery times, and deeply unhappy teams on both sides. Developers could not understand why operations was so conservative. Operations could not understand why developers shipped so many breaking changes. The handoff was the problem, and DevOps eliminates the handoff.</p>
+
+<h4>Core DevOps Practices</h4>
+<div class="code-title">The DevOps lifecycle</div>
+<pre><code class="language-bash"># The DevOps lifecycle has 8 stages:
+# 1. Plan    -- feature planning, requirements, sprint planning
+# 2. Code    -- writing and reviewing code (Git, GitHub/GitLab)
+# 3. Build   -- compiling, building artifacts (Maven, npm, pip)
+# 4. Test    -- automated unit, integration, security tests
+# 5. Release -- versioning, changelog, release notes
+# 6. Deploy  -- getting code to production (CI/CD pipelines)
+# 7. Operate -- running, monitoring, alerting
+# 8. Monitor -- metrics, logs, traces, feedback to planning</code></pre>
+
+<h4>CI/CD -- The Technical Heart of DevOps</h4>
+<p>Continuous Integration (CI) means every code change is automatically built and tested. Continuous Delivery (CD) means every passing build can be automatically deployed to production. Together they create a pipeline from code commit to running software that happens in minutes, not weeks.</p>
+<div class="code-title">Simple CI/CD pipeline concept</div>
+<pre><code class="language-bash">Developer pushes code to GitHub
+         |
+         v
+GitHub Actions triggers automatically
+         |
+         v
+Build: docker build -t myapp:latest .
+         |
+         v
+Test:  pytest tests/ (must pass 100%)
+         |
+         v
+Security: trivy image scan
+         |
+         v
+Deploy: docker push to registry
+         |
+         v
+Update: kubectl rollout restart deployment/myapp
+         |
+         v
+Monitor: Grafana + Prometheus alerts watch production</code></pre>
+
+<h4>Key DevOps Tools by Category</h4>
+<p><strong>Version Control:</strong> Git, GitHub, GitLab, Bitbucket. Every change tracked, every decision documented, every rollback possible.</p>
+<p><strong>CI/CD:</strong> GitHub Actions, Jenkins, GitLab CI, CircleCI, ArgoCD. Automate the path from commit to production.</p>
+<p><strong>Containerisation:</strong> Docker, Podman. Package applications with their dependencies for consistent environments.</p>
+<p><strong>Orchestration:</strong> Kubernetes, Docker Swarm. Run and scale containerised applications in production.</p>
+<p><strong>Infrastructure as Code:</strong> Terraform, Pulumi. Define cloud infrastructure in code, version it, review it, automate it.</p>
+<p><strong>Configuration Management:</strong> Ansible, Chef, Puppet. Automate server configuration across fleets of machines.</p>
+<p><strong>Monitoring:</strong> Prometheus, Grafana, Datadog, ELK Stack. Observe what your systems are doing in real time.</p>
+<p><strong>Cloud Platforms:</strong> AWS, GCP, Azure. The infrastructure layer where modern applications run.</p>
+
+<h4>What DevOps Engineers Actually Do</h4>
+<p>A DevOps engineer's day might include: reviewing a pull request that changes a Kubernetes deployment manifest, debugging a failing CI pipeline by reading GitHub Actions logs, writing a Terraform module to provision a new RDS database, setting up a Grafana dashboard to track a new application metric, updating an Ansible playbook to configure a new server, and helping a developer understand why their application is slower in production than on their laptop.</p>
+<p>The common thread is automation and visibility. Every manual process is a target for automation. Every part of the system should be observable -- you should know what it is doing without having to log in and look.</p>
+
+<h4>The DevOps Mindset</h4>
+<p>Three principles define DevOps thinking. <strong>Collaboration:</strong> developers and operations share responsibility for the entire lifecycle. <strong>Automation:</strong> if you do it more than twice, automate it. Manual work does not scale and is a source of inconsistency. <strong>Feedback:</strong> fast, continuous feedback at every stage -- from automated tests during development to production metrics after deployment.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between DevOps and SRE?</h5>
+  <p>DevOps is a culture and set of practices. SRE (Site Reliability Engineering) is Google's specific implementation of DevOps principles using software engineering to solve operations problems. SREs write code to automate operations, set error budgets, and run postmortems. The concepts overlap significantly -- learning either prepares you for the other.</p>
+  <h5>Do DevOps engineers need to know how to code?</h5>
+  <p>Yes. Modern DevOps is software engineering applied to infrastructure and operations. You will write Python for automation, YAML for Kubernetes manifests, HCL for Terraform, Bash for scripting, and Go for tooling. You do not need to be a full application developer, but you must be comfortable reading and writing code.</p>
+  <h5>What is Infrastructure as Code?</h5>
+  <p>IaC means defining your infrastructure (servers, networks, databases, load balancers) in code files that can be version controlled, reviewed, and automatically applied. Terraform is the most popular IaC tool. Instead of clicking in the AWS console, you write HCL that describes the desired state and Terraform creates it.</p>
+  <h5>How do I start learning DevOps?</h5>
+  <p>Start with Linux fundamentals, then Git, then Docker, then Kubernetes, then CI/CD with GitHub Actions, then Terraform for cloud infrastructure. Build real projects at each step. This series follows exactly that progression -- each part builds on the previous.</p>
+  <h5>What salaries do DevOps engineers earn?</h5>
+  <p>DevOps engineering is one of the highest-paying technical roles. In India, experienced DevOps engineers earn Rs.15-40 LPA. In the US, senior DevOps/SRE roles pay $130,000-200,000+. The combination of development and operations skills is rare and in high demand.</p>
+</div>
+<p>In <a href="devops-roadmap-part-2.html">Part 2</a>, we cover Linux for DevOps -- the foundational operating system knowledge every DevOps engineer needs.</p></h3><p class="blog-meta">By Suraj Ahir <span class="meta-dot"></span> DevOps Roadmap Part 1 - What is DevOps and Why It Matters <span class="meta-dot"></span> 11 min read</p><div class="series-nav"><a href="2025-10-15">&larr; Part 0</a><strong style="color:#86868b;font-size:0.85rem;">devops-roadmap-part-2.html &middot; Part 1 of None</strong><a href="devops-part-1-terminal">Part 2 &rarr;</a></div><figure style="margin:28px 0;text-align:center;"><img src="images/DevOps Roadmap -- Part 1: What Is DevOps &amp; Why It Matters.svg" alt="<p>I used to think DevOps was just another buzzword invented by consultants to charge more money. A fancy name for what used to be called sysadmin or operations work. I was wrong. When I joined a team that had genuinely adopted DevOps practices -- where developers and operations worked together, where deployments were automated, where the same team that wrote code was responsible for running it -- the difference was striking. We shipped features in hours that used to take weeks. When something broke, we fixed it in minutes rather than days. That transformation is what DevOps actually is.</p>
+
+<p>DevOps is not a job title, not a tool, and not a checklist. It is a set of cultural practices, technical patterns, and organisational changes that break down the wall between software development and operations. The core insight is simple: when the people who build software are also responsible for running it, they build it differently -- more reliably, more operationally aware, with better feedback loops.</p>
+
+<h4>The Problem DevOps Solves</h4>
+<p>Before DevOps, software development and operations worked in silos. Developers wrote code and threw it over the wall to operations. Operations ran the code and blamed developers when it broke. Deployments were infrequent, painful events -- often happening on Friday nights with everyone on standby hoping nothing would go wrong.</p>
+<p>The result: slow delivery, frequent failures, long recovery times, and deeply unhappy teams on both sides. Developers could not understand why operations was so conservative. Operations could not understand why developers shipped so many breaking changes. The handoff was the problem, and DevOps eliminates the handoff.</p>
+
+<h4>Core DevOps Practices</h4>
+<div class="code-title">The DevOps lifecycle</div>
+<pre><code class="language-bash"># The DevOps lifecycle has 8 stages:
+# 1. Plan    -- feature planning, requirements, sprint planning
+# 2. Code    -- writing and reviewing code (Git, GitHub/GitLab)
+# 3. Build   -- compiling, building artifacts (Maven, npm, pip)
+# 4. Test    -- automated unit, integration, security tests
+# 5. Release -- versioning, changelog, release notes
+# 6. Deploy  -- getting code to production (CI/CD pipelines)
+# 7. Operate -- running, monitoring, alerting
+# 8. Monitor -- metrics, logs, traces, feedback to planning</code></pre>
+
+<h4>CI/CD -- The Technical Heart of DevOps</h4>
+<p>Continuous Integration (CI) means every code change is automatically built and tested. Continuous Delivery (CD) means every passing build can be automatically deployed to production. Together they create a pipeline from code commit to running software that happens in minutes, not weeks.</p>
+<div class="code-title">Simple CI/CD pipeline concept</div>
+<pre><code class="language-bash">Developer pushes code to GitHub
+         |
+         v
+GitHub Actions triggers automatically
+         |
+         v
+Build: docker build -t myapp:latest .
+         |
+         v
+Test:  pytest tests/ (must pass 100%)
+         |
+         v
+Security: trivy image scan
+         |
+         v
+Deploy: docker push to registry
+         |
+         v
+Update: kubectl rollout restart deployment/myapp
+         |
+         v
+Monitor: Grafana + Prometheus alerts watch production</code></pre>
+
+<h4>Key DevOps Tools by Category</h4>
+<p><strong>Version Control:</strong> Git, GitHub, GitLab, Bitbucket. Every change tracked, every decision documented, every rollback possible.</p>
+<p><strong>CI/CD:</strong> GitHub Actions, Jenkins, GitLab CI, CircleCI, ArgoCD. Automate the path from commit to production.</p>
+<p><strong>Containerisation:</strong> Docker, Podman. Package applications with their dependencies for consistent environments.</p>
+<p><strong>Orchestration:</strong> Kubernetes, Docker Swarm. Run and scale containerised applications in production.</p>
+<p><strong>Infrastructure as Code:</strong> Terraform, Pulumi. Define cloud infrastructure in code, version it, review it, automate it.</p>
+<p><strong>Configuration Management:</strong> Ansible, Chef, Puppet. Automate server configuration across fleets of machines.</p>
+<p><strong>Monitoring:</strong> Prometheus, Grafana, Datadog, ELK Stack. Observe what your systems are doing in real time.</p>
+<p><strong>Cloud Platforms:</strong> AWS, GCP, Azure. The infrastructure layer where modern applications run.</p>
+
+<h4>What DevOps Engineers Actually Do</h4>
+<p>A DevOps engineer's day might include: reviewing a pull request that changes a Kubernetes deployment manifest, debugging a failing CI pipeline by reading GitHub Actions logs, writing a Terraform module to provision a new RDS database, setting up a Grafana dashboard to track a new application metric, updating an Ansible playbook to configure a new server, and helping a developer understand why their application is slower in production than on their laptop.</p>
+<p>The common thread is automation and visibility. Every manual process is a target for automation. Every part of the system should be observable -- you should know what it is doing without having to log in and look.</p>
+
+<h4>The DevOps Mindset</h4>
+<p>Three principles define DevOps thinking. <strong>Collaboration:</strong> developers and operations share responsibility for the entire lifecycle. <strong>Automation:</strong> if you do it more than twice, automate it. Manual work does not scale and is a source of inconsistency. <strong>Feedback:</strong> fast, continuous feedback at every stage -- from automated tests during development to production metrics after deployment.</p>
+
+<h4>Frequently Asked Questions</h4>
+<div style="margin-top:24px;">
+  <h5>What is the difference between DevOps and SRE?</h5>
+  <p>DevOps is a culture and set of practices. SRE (Site Reliability Engineering) is Google's specific implementation of DevOps principles using software engineering to solve operations problems. SREs write code to automate operations, set error budgets, and run postmortems. The concepts overlap significantly -- learning either prepares you for the other.</p>
+  <h5>Do DevOps engineers need to know how to code?</h5>
+  <p>Yes. Modern DevOps is software engineering applied to infrastructure and operations. You will write Python for automation, YAML for Kubernetes manifests, HCL for Terraform, Bash for scripting, and Go for tooling. You do not need to be a full application developer, but you must be comfortable reading and writing code.</p>
+  <h5>What is Infrastructure as Code?</h5>
+  <p>IaC means defining your infrastructure (servers, networks, databases, load balancers) in code files that can be version controlled, reviewed, and automatically applied. Terraform is the most popular IaC tool. Instead of clicking in the AWS console, you write HCL that describes the desired state and Terraform creates it.</p>
+  <h5>How do I start learning DevOps?</h5>
+  <p>Start with Linux fundamentals, then Git, then Docker, then Kubernetes, then CI/CD with GitHub Actions, then Terraform for cloud infrastructure. Build real projects at each step. This series follows exactly that progression -- each part builds on the previous.</p>
+  <h5>What salaries do DevOps engineers earn?</h5>
+  <p>DevOps engineering is one of the highest-paying technical roles. In India, experienced DevOps engineers earn Rs.15-40 LPA. In the US, senior DevOps/SRE roles pay $130,000-200,000+. The combination of development and operations skills is rare and in high demand.</p>
+</div>
+<p>In <a href="devops-roadmap-part-2.html">Part 2</a>, we cover Linux for DevOps -- the foundational operating system knowledge every DevOps engineer needs.</p>" style="max-width:100%;height:auto;border-radius:12px;" loading="lazy" width="680"/></figure>DevOps Roadmap
+<div class="takeaways" role="region" aria-label="Key takeaways">
+  <h4>Key takeaways</h4>
+  <ul>
+    <li>DevOps is not a job title; it's a culture and a set of practices. The companies that get this win; the ones that hire "a DevOps guy" usually don't.</li>
+    <li>The goal is shortening the feedback loop between writing code and seeing it run in production. Every other DevOps practice is in service of that.</li>
+    <li>Tools are downstream of culture. Jenkins doesn't make you DevOps. Collaboration, automation, measurement, and shared ownership do.</li>
+    <li>If you're starting out, focus on understanding the why before the tools. Tools change every two years; the why doesn't.</li>
+  </ul>
+</div>
+
+<a href="devops-roadmap-part-2.html" class="next-up" aria-label="Next: Part 2 — Version Control: Git">
+  <div class="next-up-content">
+    <div class="next-up-label">Continue reading</div>
+    <div class="next-up-title">Part 2 — Version Control: Git</div>
+    <div class="next-up-subtitle">The foundation of every modern dev workflow.</div>
+  </div>
+  <div class="next-up-arrow">&rarr;</div>
+</a>
+
+
+<div class="author-bio">
+  <img src="../assets/images/suraj-avatar-96.jpg"
+       srcset="../assets/images/suraj-avatar-96.jpg 1x, ../assets/images/suraj-avatar-200.jpg 2x"
+       alt="Suraj Ahir — author of SRJahir Tech"
+       class="author-bio-avatar"
+       width="84" height="84" loading="lazy" />
+  <div class="author-bio-body">
+    <p class="author-bio-label">Written by</p>
+    <h4 class="author-bio-name"><a href="../about.html">Suraj Ahir</a></h4>
+    <p class="author-bio-tag">Cloud &amp; DevOps engineer running four live production services on my own AWS infrastructure. I write everything on this site myself — no ghostwriters, no AI filler.</p>
+    <div class="author-bio-links">
+      <a href="../about.html">More about me &rarr;</a>
+      <a href="https://github.com/Srj0210" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/suraj-maitra-066934161" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="share-bar" role="region" aria-label="Share this article">
+  <div class="share-bar-text">
+    <p class="share-bar-head">Found this useful?</p>
+    <p class="share-bar-title">Share it with someone who'd benefit — that's literally how this site grows.</p>
+  </div>
+  <div class="share-bar-buttons">
+    <a href="#" class="share-btn whatsapp" data-share="whatsapp" aria-label="Share on WhatsApp" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+    </a>
+    <a href="#" class="share-btn twitter" data-share="twitter" aria-label="Share on X" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="#" class="share-btn linkedin" data-share="linkedin" aria-label="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+    </a>
+    <a href="#" class="share-btn facebook" data-share="facebook" aria-label="Share on Facebook" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="#" class="share-btn telegram" data-share="telegram" aria-label="Share on Telegram" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635"/></svg>
+    </a>
+    <button type="button" class="share-btn copy" data-share="copy" aria-label="Copy link to clipboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>
+    <button type="button" class="share-btn native" data-share="native" aria-label="Open share menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <span class="share-feedback" role="status" aria-live="polite">Link copied!</span>
+  </div>
+</div>
+<section class="related-articles" aria-label="Related articles">
+  <p class="related-articles-head">Keep reading</p>
+  <h2 class="related-articles-title">More from SRJahir Tech</h2>
+  <div class="related-grid">
+    <a class="related-card" href="devops-roadmap-part-2.html">
+      <div class="related-card-tag">DevOps roadmap</div>
+      <h3 class="related-card-title">Master Linux for DevOps: file system, permissions,</h3>
+    </a>
+    <a class="related-card" href="devops-roadmap-part-12.html">
+      <div class="related-card-tag">DevOps roadmap</div>
+      <h3 class="related-card-title">DevOps Roadmap Part 12 - Complete DevOps Project From</h3>
+    </a>
+    <a class="related-card" href="devops-roadmap-part-3.html">
+      <div class="related-card-tag">DevOps roadmap</div>
+      <h3 class="related-card-title">DevOps Roadmap Part 3 - Git and Version Control for Teams</h3>
+    </a>
+  </div>
+</section>
+
+
+
+<div class="series-nav"><a href="2025-10-15">&larr; Part 0</a><strong style="color:#86868b;font-size:0.85rem;">devops-roadmap-part-2.html &middot; Part 1 of None</strong><a href="devops-part-1-terminal">Part 2 &rarr;</a></div><a href="../blog.html" class="btn">&larr; Back to Blog</a><div class="blog-disclaimer"><strong>Disclaimer:</strong> Educational content only. No guarantees.</div></section><footer><p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p><img src="../sanskrit.png" alt="Sanskrit" class="footer-art" loading="lazy"></footer>
+<script>
+(function() {
+  var url = window.location.href.split('#')[0];
+  var rawTitle = (document.title || '').split('|')[0].trim();
+  if (!rawTitle) rawTitle = document.querySelector('h1, h2, h3') ? (document.querySelector('h1, h2, h3').textContent || '').trim() : '';
+  var encUrl = encodeURIComponent(url);
+  var encTitle = encodeURIComponent(rawTitle);
+  var combined = encodeURIComponent(rawTitle + ' — ' + url);
+
+  var endpoints = {
+    whatsapp: 'https://wa.me/?text=' + combined,
+    twitter:  'https://twitter.com/intent/tweet?text=' + encTitle + '&url=' + encUrl,
+    linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encUrl,
+    telegram: 'https://t.me/share/url?url=' + encUrl + '&text=' + encTitle
+  };
+
+  document.querySelectorAll('.share-btn').forEach(function(btn) {
+    var type = btn.getAttribute('data-share');
+    if (endpoints[type]) {
+      btn.setAttribute('href', endpoints[type]);
+    }
+    if (type === 'copy') {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var doneFeedback = function() {
+          var fb = btn.closest('.share-bar-buttons').querySelector('.share-feedback');
+          if (fb) {
+            fb.classList.add('show');
+            setTimeout(function() { fb.classList.remove('show'); }, 2200);
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(doneFeedback, function() {
+            window.prompt('Copy this link:', url);
+          });
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); doneFeedback(); } catch (e) { window.prompt('Copy this link:', url); }
+          document.body.removeChild(ta);
+        }
+      });
+    }
+    if (type === 'native') {
+      if (navigator.share) {
+        btn.style.display = 'inline-flex';
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          navigator.share({ title: rawTitle, url: url }).catch(function() {});
+        });
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  var bar = document.getElementById('readingProgressBar');
+  if (!bar) return;
+  function update() {
+    var docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docH <= 0) { bar.style.width = '0%'; return; }
+    var pct = (window.scrollY / docH) * 100;
+    if (pct > 100) pct = 100;
+    if (pct < 0) pct = 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+
+</body></html>
