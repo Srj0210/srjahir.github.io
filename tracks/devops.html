@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevOps Engineer Track — Free 60-Part Learning Path | SRJahir Tech</title>
+  <meta name="description" content="Free DevOps learning track: Linux, Docker, Kubernetes, CI/CD and AWS in 60 structured parts. Written from real production experience, no fluff." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/tracks/devops.html" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DevOps Engineer Track — Free 60-Part Learning Path | SRJahir Tech" />
+  <meta property="og:description" content="Free DevOps learning track: Linux, Docker, Kubernetes, CI/CD and AWS in 60 structured parts. Written from real production experience, no fluff." />
+  <meta property="og:url" content="https://srjahir.in/tracks/devops.html" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="../logo.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/learning-ui.css?v=20260612" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://srjahir.in/"},
+          {"@type": "ListItem", "position": 2, "name": "Start Here", "item": "https://srjahir.in/start-here.html"},
+          {"@type": "ListItem", "position": 3, "name": "DevOps Engineer Track", "item": "https://srjahir.in/tracks/devops.html"}
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "DevOps Engineer Track — Free 60-Part Learning Path",
+        "description": "Free DevOps learning track: Linux, Docker, Kubernetes, CI/CD and AWS in 60 structured parts. Written from real production experience, no fluff.",
+        "url": "https://srjahir.in/tracks/devops.html",
+        "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"},
+        "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in"}
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": "Do I need a degree to become a DevOps engineer?", "acceptedAnswer": {"@type": "Answer", "text": "No. I transitioned into cloud engineering from running a business. What matters is demonstrable skill \u2014 systems you can show, problems you can debug, and fundamentals you actually understand."}},{"@type": "Question", "name": "How long does this track take?", "acceptedAnswer": {"@type": "Answer", "text": "Roughly 40 hours of focused reading, but real learning happens when you build alongside it. Budget 2\u20133 months if you practice each module on a real machine."}},{"@type": "Question", "name": "Should I learn Docker before Kubernetes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, always. Kubernetes orchestrates containers \u2014 if you don't understand what a container is, K8s concepts won't stick. That's why Docker is module 2 and Kubernetes is module 3 here."}}]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .track-hero { max-width: 780px; margin: 2.5rem auto 0.5rem; padding: 0 1.5rem; text-align: left; }
+    .track-hero .eyebrow { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; color: #e63946; font-weight: 700; }
+    .track-hero h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.6px; color: #1d1d1f; margin: 10px 0 8px; }
+    .track-hero .tagline { color: #86868b; font-size: 0.95rem; font-weight: 500; }
+    .track-body { max-width: 780px; margin: 0 auto 3rem; padding: 0 1.5rem; text-align: left; }
+    .track-body > p { color: #515154; font-size: 1.02rem; line-height: 1.8; margin: 1.1rem 0; }
+    .module { margin: 2.2rem 0; padding: 22px 24px; background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; }
+    .module h3 { font-size: 1.2rem; font-weight: 700; color: #1d1d1f; text-align: left; margin: 0 0 6px; letter-spacing: -0.2px; }
+    .module .module-desc { color: #515154; font-size: 0.93rem; line-height: 1.6; margin: 0 0 14px; }
+    .part-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 18px; }
+    @media (max-width: 600px) { .part-list { grid-template-columns: 1fr; } }
+    .part-list a { display: block; padding: 7px 10px; border-radius: 8px; color: #1d1d1f; text-decoration: none; font-size: 0.92rem; transition: background 0.2s, color 0.2s, transform 0.2s; }
+    .part-list a:hover { background: rgba(230,57,70,0.07); color: #e63946; transform: translateX(3px); }
+    .faq { margin: 2.4rem 0 1rem; }
+    .faq h3 { text-align: left; font-size: 1.35rem; margin-bottom: 1rem; }
+    .faq details { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+    .faq summary { font-weight: 600; color: #1d1d1f; cursor: pointer; font-size: 0.98rem; }
+    .faq details p { color: #515154; font-size: 0.94rem; line-height: 1.7; margin: 10px 0 4px; }
+    .track-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 1.6rem; }
+    @media (prefers-reduced-motion: reduce) { .part-list a { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="background-waves" aria-hidden="true"></div>
+  <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo" width="80" height="80" loading="eager" />
+  <header class="nav">
+    <h1>SRJahir<span>Tech</span></h1>
+    <nav class="menu-bar" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="../start-here.html">Start Here</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <nav aria-label="Breadcrumb" style="max-width:780px;margin:18px auto 0;padding:0 1.5rem;font-size:0.82rem;color:#86868b;text-align:left;">
+      <a href="/" style="color:#86868b;text-decoration:none;">Home</a>
+      <span style="margin:0 8px;">›</span>
+      <a href="../start-here.html" style="color:#86868b;text-decoration:none;">Start Here</a>
+      <span style="margin:0 8px;">›</span>
+      <span style="color:#1d1d1f;font-weight:500;">DevOps Engineer Track</span>
+    </nav>
+    <section class="track-hero">
+      <span class="eyebrow">Learning track</span>
+      <h2>DevOps Engineer Track</h2>
+      <p class="tagline">5 series · 60 parts · ~40 hours</p>
+    </section>
+    <section class="track-body">
+      <p>This is the DevOps path I wish someone had handed me when I started. No certification upsell, no skipped fundamentals — just the sequence that actually works: Linux first, then containers, then orchestration, then the roadmap that ties it together, and finally AWS where it all runs in production.</p>
+      <p>Every part below is written from systems I personally run. When a tutorial says "this breaks at 2 AM," it's because it broke for me at 2 AM. Work through the modules in order — each one assumes the previous.</p>
+      <div class="module">
+        <h3>Linux Fundamentals</h3>
+        <p class="module-desc">Everything starts here. Permissions, processes, networking, shell — the layer every other tool sits on.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/linux-tutorial-part-1.html">Linux Tutorial Part 1</a></li>
+          <li><a href="../blogs/linux-tutorial-part-2.html">Linux Tutorial Part 2</a></li>
+          <li><a href="../blogs/linux-tutorial-part-3.html">Linux Tutorial Part 3</a></li>
+          <li><a href="../blogs/linux-tutorial-part-4.html">Linux Tutorial Part 4</a></li>
+          <li><a href="../blogs/linux-tutorial-part-5.html">Linux Tutorial Part 5</a></li>
+          <li><a href="../blogs/linux-tutorial-part-6.html">Linux Tutorial Part 6</a></li>
+          <li><a href="../blogs/linux-tutorial-part-7.html">Linux Tutorial Part 7</a></li>
+          <li><a href="../blogs/linux-tutorial-part-8.html">Linux Tutorial Part 8</a></li>
+          <li><a href="../blogs/linux-tutorial-part-9.html">Linux Tutorial Part 9</a></li>
+          <li><a href="../blogs/linux-tutorial-part-10.html">Linux Tutorial Part 10</a></li>
+          <li><a href="../blogs/linux-tutorial-part-11.html">Linux Tutorial Part 11</a></li>
+          <li><a href="../blogs/linux-tutorial-part-12.html">Linux Tutorial Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>Docker Containers</h3>
+        <p class="module-desc">Package once, run anywhere. Images, volumes, networking, compose — from first container to production patterns.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/docker-tutorial-part-1.html">Docker Tutorial Part 1</a></li>
+          <li><a href="../blogs/docker-tutorial-part-2.html">Docker Tutorial Part 2</a></li>
+          <li><a href="../blogs/docker-tutorial-part-3.html">Docker Tutorial Part 3</a></li>
+          <li><a href="../blogs/docker-tutorial-part-4.html">Docker Tutorial Part 4</a></li>
+          <li><a href="../blogs/docker-tutorial-part-5.html">Docker Tutorial Part 5</a></li>
+          <li><a href="../blogs/docker-tutorial-part-6.html">Docker Tutorial Part 6</a></li>
+          <li><a href="../blogs/docker-tutorial-part-7.html">Docker Tutorial Part 7</a></li>
+          <li><a href="../blogs/docker-tutorial-part-8.html">Docker Tutorial Part 8</a></li>
+          <li><a href="../blogs/docker-tutorial-part-9.html">Docker Tutorial Part 9</a></li>
+          <li><a href="../blogs/docker-tutorial-part-10.html">Docker Tutorial Part 10</a></li>
+          <li><a href="../blogs/docker-tutorial-part-11.html">Docker Tutorial Part 11</a></li>
+          <li><a href="../blogs/docker-tutorial-part-12.html">Docker Tutorial Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>Kubernetes</h3>
+        <p class="module-desc">Container orchestration from zero: pods, deployments, services, scaling, self-healing — explained without jargon.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/kubernetes-tutorial-part-1.html">Kubernetes Tutorial Part 1</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-2.html">Kubernetes Tutorial Part 2</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-3.html">Kubernetes Tutorial Part 3</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-4.html">Kubernetes Tutorial Part 4</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-5.html">Kubernetes Tutorial Part 5</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-6.html">Kubernetes Tutorial Part 6</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-7.html">Kubernetes Tutorial Part 7</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-8.html">Kubernetes Tutorial Part 8</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-9.html">Kubernetes Tutorial Part 9</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-10.html">Kubernetes Tutorial Part 10</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-11.html">Kubernetes Tutorial Part 11</a></li>
+          <li><a href="../blogs/kubernetes-tutorial-part-12.html">Kubernetes Tutorial Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>DevOps Roadmap</h3>
+        <p class="module-desc">The big picture: CI/CD, IaC, monitoring, culture. How all the tools connect into a career.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/devops-roadmap-part-1.html">DevOps Roadmap Part 1</a></li>
+          <li><a href="../blogs/devops-roadmap-part-2.html">DevOps Roadmap Part 2</a></li>
+          <li><a href="../blogs/devops-roadmap-part-3.html">DevOps Roadmap Part 3</a></li>
+          <li><a href="../blogs/devops-roadmap-part-4.html">DevOps Roadmap Part 4</a></li>
+          <li><a href="../blogs/devops-roadmap-part-5.html">DevOps Roadmap Part 5</a></li>
+          <li><a href="../blogs/devops-roadmap-part-6.html">DevOps Roadmap Part 6</a></li>
+          <li><a href="../blogs/devops-roadmap-part-7.html">DevOps Roadmap Part 7</a></li>
+          <li><a href="../blogs/devops-roadmap-part-8.html">DevOps Roadmap Part 8</a></li>
+          <li><a href="../blogs/devops-roadmap-part-9.html">DevOps Roadmap Part 9</a></li>
+          <li><a href="../blogs/devops-roadmap-part-10.html">DevOps Roadmap Part 10</a></li>
+          <li><a href="../blogs/devops-roadmap-part-11.html">DevOps Roadmap Part 11</a></li>
+          <li><a href="../blogs/devops-roadmap-part-12.html">DevOps Roadmap Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>AWS + Linux Combo</h3>
+        <p class="module-desc">Where it runs for real. EC2, networking, storage and Linux administration on actual cloud infrastructure.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/aws-linux-combo-part-1.html">AWS + Linux Combo Part 1</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-2.html">AWS + Linux Combo Part 2</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-3.html">AWS + Linux Combo Part 3</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-4.html">AWS + Linux Combo Part 4</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-5.html">AWS + Linux Combo Part 5</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-6.html">AWS + Linux Combo Part 6</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-7.html">AWS + Linux Combo Part 7</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-8.html">AWS + Linux Combo Part 8</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-9.html">AWS + Linux Combo Part 9</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-10.html">AWS + Linux Combo Part 10</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-11.html">AWS + Linux Combo Part 11</a></li>
+          <li><a href="../blogs/aws-linux-combo-part-12.html">AWS + Linux Combo Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>Essays & guides in this track</h3>
+        <ul class="part-list">
+          <li><a href="../blogs/python-projects-devops-career.html">5 Python Projects That Boost Your DevOps Career</a></li>
+        </ul>
+      </div>
+      <div class="faq" id="faq">
+        <h3>Frequently asked questions</h3>
+        <details>
+          <summary>Do I need a degree to become a DevOps engineer?</summary>
+          <p>No. I transitioned into cloud engineering from running a business. What matters is demonstrable skill — systems you can show, problems you can debug, and fundamentals you actually understand.</p>
+        </details>
+        <details>
+          <summary>How long does this track take?</summary>
+          <p>Roughly 40 hours of focused reading, but real learning happens when you build alongside it. Budget 2–3 months if you practice each module on a real machine.</p>
+        </details>
+        <details>
+          <summary>Should I learn Docker before Kubernetes?</summary>
+          <p>Yes, always. Kubernetes orchestrates containers — if you don't understand what a container is, K8s concepts won't stick. That's why Docker is module 2 and Kubernetes is module 3 here.</p>
+        </details>
+      </div>
+      <div class="track-cta-row">
+        <a href="../start-here.html" class="btn">← All learning tracks</a>
+        <a href="../blog.html" class="btn">Browse all articles</a>
+      </div>
+      <div class="blog-disclaimer" style="margin-top:2rem;">
+        <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+    <img src="../sanskrit.png" alt="" class="footer-art" aria-hidden="true" loading="lazy" />
+  </footer>
+  <script src="../assets/js/animation.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programming Foundations Track — Free Beginner Path | SRJahir Tech</title>
+  <meta name="description" content="Free programming track: fundamentals master guide, 12-part Python tutorial, plus JavaScript, Java and CSS beginner-to-pro guides in one path." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://srjahir.in/tracks/programming.html" />
+  <meta name="author" content="Suraj Ahir" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Programming Foundations Track — Free Beginner Path | SRJahir Tech" />
+  <meta property="og:description" content="Free programming track: fundamentals master guide, 12-part Python tutorial, plus JavaScript, Java and CSS beginner-to-pro guides in one path." />
+  <meta property="og:url" content="https://srjahir.in/tracks/programming.html" />
+  <meta property="og:site_name" content="SRJahir Tech" />
+  <meta property="og:image" content="https://srjahir.in/logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="../logo.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/learning-ui.css?v=20260612" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://srjahir.in/"},
+          {"@type": "ListItem", "position": 2, "name": "Start Here", "item": "https://srjahir.in/start-here.html"},
+          {"@type": "ListItem", "position": 3, "name": "Programming Foundations", "item": "https://srjahir.in/tracks/programming.html"}
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "Programming Foundations Track — Free Beginner Path",
+        "description": "Free programming track: fundamentals master guide, 12-part Python tutorial, plus JavaScript, Java and CSS beginner-to-pro guides in one path.",
+        "url": "https://srjahir.in/tracks/programming.html",
+        "author": {"@type": "Person", "name": "Suraj Ahir", "url": "https://srjahir.in/about.html"},
+        "publisher": {"@type": "Organization", "name": "SRJahir Tech", "url": "https://srjahir.in"}
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": "Which language should a complete beginner start with?", "acceptedAnswer": {"@type": "Answer", "text": "Python. Its syntax stays out of your way so you can learn concepts \u2014 loops, functions, data structures \u2014 that transfer to every other language. Start with the fundamentals guide, then the 12-part Python series."}},{"@type": "Question", "name": "Will AI make learning to code pointless?", "acceptedAnswer": {"@type": "Answer", "text": "No \u2014 it changes what's valuable. AI writes syntax; engineers still design systems, debug failures and make judgment calls. The 'syntax matters less than thinking' essay covers exactly this."}},{"@type": "Question", "name": "How much math do I need?", "acceptedAnswer": {"@type": "Answer", "text": "For web development, automation and DevOps scripting: basic logic and arithmetic. You don't need calculus to write useful programs."}}]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .track-hero { max-width: 780px; margin: 2.5rem auto 0.5rem; padding: 0 1.5rem; text-align: left; }
+    .track-hero .eyebrow { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; color: #e63946; font-weight: 700; }
+    .track-hero h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.6px; color: #1d1d1f; margin: 10px 0 8px; }
+    .track-hero .tagline { color: #86868b; font-size: 0.95rem; font-weight: 500; }
+    .track-body { max-width: 780px; margin: 0 auto 3rem; padding: 0 1.5rem; text-align: left; }
+    .track-body > p { color: #515154; font-size: 1.02rem; line-height: 1.8; margin: 1.1rem 0; }
+    .module { margin: 2.2rem 0; padding: 22px 24px; background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 14px; }
+    .module h3 { font-size: 1.2rem; font-weight: 700; color: #1d1d1f; text-align: left; margin: 0 0 6px; letter-spacing: -0.2px; }
+    .module .module-desc { color: #515154; font-size: 0.93rem; line-height: 1.6; margin: 0 0 14px; }
+    .part-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 18px; }
+    @media (max-width: 600px) { .part-list { grid-template-columns: 1fr; } }
+    .part-list a { display: block; padding: 7px 10px; border-radius: 8px; color: #1d1d1f; text-decoration: none; font-size: 0.92rem; transition: background 0.2s, color 0.2s, transform 0.2s; }
+    .part-list a:hover { background: rgba(230,57,70,0.07); color: #e63946; transform: translateX(3px); }
+    .faq { margin: 2.4rem 0 1rem; }
+    .faq h3 { text-align: left; font-size: 1.35rem; margin-bottom: 1rem; }
+    .faq details { background: #fff; border: 1px solid rgba(0,0,0,0.07); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+    .faq summary { font-weight: 600; color: #1d1d1f; cursor: pointer; font-size: 0.98rem; }
+    .faq details p { color: #515154; font-size: 0.94rem; line-height: 1.7; margin: 10px 0 4px; }
+    .track-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 1.6rem; }
+    @media (prefers-reduced-motion: reduce) { .part-list a { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="background-waves" aria-hidden="true"></div>
+  <img src="../logo.png" alt="SRJahir Tech Logo" class="top-logo" width="80" height="80" loading="eager" />
+  <header class="nav">
+    <h1>SRJahir<span>Tech</span></h1>
+    <nav class="menu-bar" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="../start-here.html">Start Here</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <nav aria-label="Breadcrumb" style="max-width:780px;margin:18px auto 0;padding:0 1.5rem;font-size:0.82rem;color:#86868b;text-align:left;">
+      <a href="/" style="color:#86868b;text-decoration:none;">Home</a>
+      <span style="margin:0 8px;">›</span>
+      <a href="../start-here.html" style="color:#86868b;text-decoration:none;">Start Here</a>
+      <span style="margin:0 8px;">›</span>
+      <span style="color:#1d1d1f;font-weight:500;">Programming Foundations</span>
+    </nav>
+    <section class="track-hero">
+      <span class="eyebrow">Learning track</span>
+      <h2>Programming Foundations</h2>
+      <p class="tagline">5 series & guides · ~35 hours</p>
+    </section>
+    <section class="track-body">
+      <p>Syntax is cheap — thinking is the skill. This track starts with how programming actually works (decomposition, data, algorithms), then goes deep with Python, then rounds out with JavaScript, Java and CSS so you can read and build across the stack.</p>
+      <p>Python gets the 12-part treatment because it's the language I use daily for automation and infrastructure. The other guides are complete single-page paths from zero to working competence.</p>
+      <div class="module">
+        <h3>Python Tutorial</h3>
+        <p class="module-desc">From variables to real scripts in 12 parts. The language of automation, data and DevOps.</p>
+        <ul class="part-list">
+          <li><a href="../blogs/python-tutorial-part-1.html">Python Tutorial Part 1</a></li>
+          <li><a href="../blogs/python-tutorial-part-2.html">Python Tutorial Part 2</a></li>
+          <li><a href="../blogs/python-tutorial-part-3.html">Python Tutorial Part 3</a></li>
+          <li><a href="../blogs/python-tutorial-part-4.html">Python Tutorial Part 4</a></li>
+          <li><a href="../blogs/python-tutorial-part-5.html">Python Tutorial Part 5</a></li>
+          <li><a href="../blogs/python-tutorial-part-6.html">Python Tutorial Part 6</a></li>
+          <li><a href="../blogs/python-tutorial-part-7.html">Python Tutorial Part 7</a></li>
+          <li><a href="../blogs/python-tutorial-part-8.html">Python Tutorial Part 8</a></li>
+          <li><a href="../blogs/python-tutorial-part-9.html">Python Tutorial Part 9</a></li>
+          <li><a href="../blogs/python-tutorial-part-10.html">Python Tutorial Part 10</a></li>
+          <li><a href="../blogs/python-tutorial-part-11.html">Python Tutorial Part 11</a></li>
+          <li><a href="../blogs/python-tutorial-part-12.html">Python Tutorial Part 12</a></li>
+        </ul>
+      </div>
+      <div class="module">
+        <h3>Essays & guides in this track</h3>
+        <ul class="part-list">
+          <li><a href="../blogs/programming-fundamentals-master-guide.html">Programming Fundamentals Master Guide</a></li>
+          <li><a href="../blogs/learn-javascript-beginner-to-pro.html">JavaScript: Beginner to Pro</a></li>
+          <li><a href="../blogs/learn-java-beginner-to-pro.html">Java: Beginner to Pro</a></li>
+          <li><a href="../blogs/learn-css-beginner-to-pro.html">CSS: Beginner to Pro</a></li>
+          <li><a href="../blogs/learn-python-beginner-to-pro.html">Python: Beginner to Pro (single-page guide)</a></li>
+          <li><a href="../blogs/why-syntax-matters-less-than-thinking.html">Why Syntax Matters Less Than Thinking</a></li>
+          <li><a href="../blogs/programming-languages-2026-2031-ai-era.html">Programming Languages That Matter: 2026–2031</a></li>
+        </ul>
+      </div>
+      <div class="faq" id="faq">
+        <h3>Frequently asked questions</h3>
+        <details>
+          <summary>Which language should a complete beginner start with?</summary>
+          <p>Python. Its syntax stays out of your way so you can learn concepts — loops, functions, data structures — that transfer to every other language. Start with the fundamentals guide, then the 12-part Python series.</p>
+        </details>
+        <details>
+          <summary>Will AI make learning to code pointless?</summary>
+          <p>No — it changes what's valuable. AI writes syntax; engineers still design systems, debug failures and make judgment calls. The 'syntax matters less than thinking' essay covers exactly this.</p>
+        </details>
+        <details>
+          <summary>How much math do I need?</summary>
+          <p>For web development, automation and DevOps scripting: basic logic and arithmetic. You don't need calculus to write useful programs.</p>
+        </details>
+      </div>
+      <div class="track-cta-row">
+        <a href="../start-here.html" class="btn">← All learning tracks</a>
+        <a href="../blog.html" class="btn">Browse all articles</a>
+      </div>
+      <div class="blog-disclaimer" style="margin-top:2rem;">
+        <strong>Disclaimer:</strong> This content is for educational purposes only. SRJahir Tech does not guarantee any specific outcome, job placement, or exam result.
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 SRJahir Tech &mdash; Ideas, Clarity, Simplicity</p>
+    <img src="../sanskrit.png" alt="" class="footer-art" aria-hidden="true" loading="lazy" />
+  </footer>
+  <script src="../assets/js/animation.js" defer></script>
+</body>
+</html>
