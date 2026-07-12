@@ -11,14 +11,14 @@ if (nav) {
     onUpdate: (self) => {
       if (self.scroll() > 80) {
         nav.style.background = "rgba(255,255,255,0.82)";
-        nav.style.backdropFilter = "blur(18px)";
-        nav.style.webkitBackdropFilter = "blur(18px)";
-        nav.style.boxShadow = "0 1px 0 rgba(0,0,0,0.08)";
+        nav.style.backdropFilter = "saturate(180%) blur(18px)";
+        nav.style.webkitBackdropFilter = "saturate(180%) blur(18px)";
+        nav.style.boxShadow = "0 10px 30px rgba(16,18,27,0.06)";
       } else {
-        nav.style.background = "#fff";
-        nav.style.backdropFilter = "none";
-        nav.style.webkitBackdropFilter = "none";
-        nav.style.boxShadow = "0 2px 8px rgba(0,0,0,0.05)";
+        nav.style.background = "rgba(255,255,255,0.78)";
+        nav.style.backdropFilter = "saturate(180%) blur(18px)";
+        nav.style.webkitBackdropFilter = "saturate(180%) blur(18px)";
+        nav.style.boxShadow = "none";
       }
     }
   });
